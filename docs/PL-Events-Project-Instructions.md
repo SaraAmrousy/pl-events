@@ -151,7 +151,7 @@ The checklist, thread plan and current position live in **`claude/Roadmap-Checkl
 - **Reveal point:** make a clean reveal copy of the prototype (no Prototype controls), regenerate the owner pack, show the prototype to PL's owners and send the pack.
 
 ### Phase 4 — Build (in Claude Code)
-**4.0 Setup.** Claude Code (Sara: one cPanel API token + approvals). Plan: `docs/Step-4.0-Setup-Plan.md` (S1–S8). Claude Code on the web + custom environment; sandbox test WordPress; cPanel set up through the API (subdomain, SSL, PHP, database, Directory Privacy, cron); WordPress + free plugins (Elementor, SCF, UAE Header Footer Builder, Forminator, Rank Math) on staging; HTTPS deploy; staging noindex + password. **DoD:** one command deploys and activates a test plugin on staging.
+**4.0 Setup.** Claude Code (Sara: one cPanel API token + approvals). Plan: `docs/Step-4.0-Setup-Plan.md` (S1–S8). Claude Code on the web + custom environment; sandbox test WordPress; cPanel set up through the API (database, Directory Privacy, cron); WordPress + free plugins (Elementor, SCF, UAE Header Footer Builder, Forminator, Rank Math) in the existing folder `saraamrousy.net/pl` (no subdomain; never touch the root site); HTTPS deploy; staging noindex + password. **DoD:** one command deploys and activates a test plugin on staging.
 
 **4.1 `pl-events-core` plugin.** Skill: `pl-events-data-wp`.
 - Build the content types, taxonomies, SCF fields (registered in PHP), status logic (country-local time), country/city datasets, phones, opening hours, the data layer, all shortcodes (server-rendered, with JS as an enhancement), an "Import from JSON" tool seeded with `claude/pl-data.json`, following the "built to grow" structure.
