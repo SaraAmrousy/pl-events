@@ -20,7 +20,7 @@ if ( $e['website'] ) {
 }
 if ( 'past' !== $e['status'] ) {
 	$actions['calendar'] = '<a href="' . esc_url( $e['ics_url'] ) . '" class="btn bso pl-cal">Add to calendar</a>';
-	$actions['gcal']     = '<a href="' . esc_url( $e['gcal_url'] ) . '" target="_blank" rel="noopener" class="btn bso pl-cal">Google Calendar</a>';
+	$actions['gcal']     = '<a href="' . esc_url( $e['gcal_url'] ) . '" target="_blank" rel="noopener" class="btn bso pl-cal">Add to Google Calendar</a>';
 }
 $actions['whatsapp'] = '<a href="' . esc_url( $e['wa_url'] ) . '" target="_blank" rel="noopener" class="btn bso">Share on WhatsApp</a>';
 $actions = apply_filters( 'pl_event_actions', $actions, $e, 'page' );
@@ -35,7 +35,7 @@ $origin  = PL_Data::origin();
 		<dl class="dl" style="font-size:17px">
 			<dt>When</dt><dd><?php echo esc_html( $e['range'] . ( 'live' === $e['status'] ? ' · ' . $e['live_day'] : '' ) ); ?></dd>
 			<dt>Where</dt><dd style="display:flex;gap:8px;align-items:center;flex-wrap:wrap"><?php echo PL_Template::flag( $e['country'] ); // phpcs:ignore WordPress.Security.EscapeOutput ?><?php echo esc_html( trim( ( $e['venue'] ? $e['venue'] . ', ' : '' ) . $e['place'] ) ); ?></dd>
-			<?php if ( $e['edition'] ) : ?><dt>Edition</dt><dd><?php echo esc_html( $e['edition'] ); ?></dd><?php endif; ?>
+			<?php if ( $e['edition_text'] ) : ?><dt>Edition</dt><dd><?php echo esc_html( $e['edition_text'] ); ?></dd><?php endif; ?>
 			<?php if ( $e['delegates'] ) : ?><dt>Delegates</dt><dd><?php echo esc_html( number_format_i18n( $e['delegates'] ) ); ?></dd><?php endif; ?>
 		</dl>
 		<?php if ( $e['description'] ) : ?><p class="lead" style="color:var(--oim)"><?php echo esc_html( $e['description'] ); ?></p><?php endif; ?>
@@ -50,7 +50,7 @@ $origin  = PL_Data::origin();
 	<div style="grid-column:span 5;display:flex;flex-direction:column;gap:16px" class="evh-r">
 		<div class="<?php echo 'past' === $e['status'] ? 'poster past' : 'poster'; ?> grain" style="border-radius:10px;aspect-ratio:16/10" aria-hidden="true">
 			<?php if ( $e['poster'] ) : ?><img class="pimg" src="<?php echo esc_url( $e['poster'] ); ?>" alt="" decoding="async"><?php endif; ?>
-			<span class="pw" style="font-size:52px;top:28px"><?php echo esc_html( $e['poster_word'] ); ?></span><span class="pe"><?php echo esc_html( $e['edition'] ); ?><br><?php echo esc_html( $e['city'] ); ?></span><span class="date"><b><?php echo esc_html( $e['tile'][0] ); ?></b><span><?php echo esc_html( $e['tile'][1] ); ?></span></span>
+			<span class="pw" style="font-size:52px;top:28px"><?php echo esc_html( $e['poster_word'] ); ?></span><span class="pe"><?php echo esc_html( $e['edition_text'] ); ?><br><?php echo esc_html( $e['city'] ); ?></span><span class="date"><b><?php echo esc_html( $e['tile'][0] ); ?></b><span><?php echo esc_html( $e['tile'][1] ); ?></span></span>
 		</div>
 		<?php
 		if ( $e['lonlat'] ) :

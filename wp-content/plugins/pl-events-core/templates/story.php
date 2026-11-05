@@ -65,7 +65,7 @@ $country = isset( $stats['country_list'] ) && in_array( $country, $stats['countr
 							<?php endforeach; ?>
 						</ul>
 						<div style="border-top:1.5px solid #2A3149;padding-top:14px;display:flex;gap:22px;flex-wrap:wrap">
-							<?php foreach ( array( array( $su['congresses'], 'congresses' ), array( $su['cities'], 'cities' ), array( $su['countries'], 'countries' ) ) as $t ) : ?>
+							<?php foreach ( array( array( $su['congresses'], 1 === $su['congresses'] ? 'congress' : 'congresses' ), array( $su['cities'], 1 === $su['cities'] ? 'city' : 'cities' ), array( $su['countries'], 1 === $su['countries'] ? 'country' : 'countries' ) ) as $t ) : ?>
 							<span style="display:flex;flex-direction:column;gap:2px"><span class="num" style="font-size:36px"><?php echo (int) $t[0]; ?></span><span class="mut" style="font-size:13px;font-weight:600"><?php echo esc_html( $t[1] ); ?></span></span>
 							<?php endforeach; ?>
 						</div>
@@ -113,7 +113,7 @@ $country = isset( $stats['country_list'] ) && in_array( $country, $stats['countr
 								<dt>Specialties</dt><dd><?php echo esc_html( implode( ', ', $specs ) ); ?></dd>
 								<dt><?php echo $next ? 'Next' : 'Latest'; ?></dt><dd><?php if ( $next ) : ?><a href="<?php echo esc_url( $next['url'] ); ?>"><?php echo esc_html( $next['name'] ); ?></a>, <?php echo esc_html( $next['month_short'] ); ?><?php elseif ( $last ) : ?><?php echo esc_html( $last['name'] . ', ' . $last['month_short'] ); ?><?php else : ?>—<?php endif; ?></dd>
 							</dl>
-							<div class="row" style="margin-top:6px"><a href="<?php echo esc_url( PL_Template::events_url( $cc ? array( 'country' => $cc ) : array() ) ); ?>" class="btn bw">See events in <?php echo esc_html( $name ); ?></a><a href="<?php echo esc_url( PL_Template::contact_url( 'proposal', $off ? $off['id'] : '' ) ); ?>" class="btn bso">Plan yours here</a></div>
+							<div class="row" style="margin-top:6px"><a href="<?php echo esc_url( PL_Template::events_url( $cc ? array( 'country' => $cc ) : array() ) ); ?>" class="btn bw"><?php echo esc_html( $cc ? 'See events in ' . $name : 'See all events' ); ?></a><a href="<?php echo esc_url( PL_Template::contact_url( 'proposal', $off ? $off['id'] : '' ) ); ?>" class="btn bso">Plan yours here</a></div>
 						</div>
 						<?php endforeach; ?>
 					</div>

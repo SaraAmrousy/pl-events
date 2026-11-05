@@ -95,7 +95,7 @@ class PL_Shortcodes {
 	/** [pl_calendar default="all" search="1" filters="specialty,country,year,type" views="grid,list"] — Events page. */
 	public static function calendar( $atts, $req ) {
 		$a = shortcode_atts(
-			array( 'default' => 'all', 'search' => '1', 'filters' => 'specialty,country,year,type', 'views' => 'grid,list', 'view' => 'grid', 'type' => '', 'specialty' => '', 'country' => '', 'year' => '', 'heading' => 'Events', 'intro' => 'Every PL Events congress, symposium, course and webinar — live, upcoming and past, with dates, cities and registration.' ),
+			array( 'default' => 'all', 'search' => '1', 'filters' => 'specialty,country,year,type', 'views' => 'grid,list', 'view' => 'grid', 'type' => '', 'specialty' => '', 'country' => '', 'year' => '', 'heading' => 'Events', 'intro' => 'PL Events congresses, symposia and meetings since {since} — live, upcoming and past, with dates, cities and registration.' ),
 			$atts,
 			'pl_calendar'
 		);

@@ -96,6 +96,7 @@ class PL_Data {
 			'live_day'       => 'live' === $st ? 'day ' . ( PL_Dates::days_between( $e['start'], $today ) + 1 ) . ' of ' . ( PL_Dates::days_between( $e['start'], $e['end'] ) + 1 ) : '',
 			'days_to_start'  => PL_Dates::days_between( $today, $e['start'] ),
 			'poster_word'    => $word,
+			'edition_text'   => ( (string) $p['y'] === trim( (string) $e['edition'] ) ) ? '' : $e['edition'], // display only: "2025" for a 2025 event is not an edition
 			'ics_url'        => trailingslashit( $e['url'] ) . 'ics/',
 			'gcal_url'       => self::gcal_url( $e ),
 			'wa_url'         => 'https://wa.me/?text=' . rawurlencode( $e['name'] . ' · ' . PL_Dates::range( $e['start'], $e['end'] ) . ' · ' . $place . ' — ' . $e['url'] ),

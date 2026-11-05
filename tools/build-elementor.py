@@ -57,7 +57,7 @@ PAGES = {
  'about': {"title": "About", "sections": [
   f'''[pl_section class="" style="padding:88px 0 72px" wrap_style="{COL}gap:36px"]
 <span class="lab mut">About PL Events</span><h1 class="h1 h1xl focus-set">From <span class="hl-city">Alexandria</span> to [pl_stats layout="number" field="countries"] countries.</h1>
-<div style="display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:32px" class="ab-int"><p class="lead" style="grid-column:span 6">PL Events plans and runs medical congresses for scientific societies, from a head office in Alexandria and a regional office in Dubai. Most of our work is ophthalmology; vascular, lymphology and nephrology are growing.</p><p class="mut" style="grid-column:8 / span 5;font-size:17px">One team handles the science, the sponsors, the stage and the travel — and every congress we run is on this site, with its date, city and registration.</p></div>
+<div style="display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:32px" class="ab-int"><p class="lead" style="grid-column:span 6">PL Events plans and runs medical congresses for scientific societies, from a head office in Alexandria and a regional office in Dubai. Most of our work is ophthalmology; vascular, lymphology and nephrology are growing.</p><p class="mut" style="grid-column:8 / span 5;font-size:17px">One team handles the science, the sponsors, the stage and the travel — and every congress since [pl_stats field="since_long"] is on this site, with its date, city and registration.</p></div>
 <figure style="margin:0">[pl_media src="assets/hall-wide.jpg" alt="Delegates seated in a congress hall set up by PL Events" class="photo rack" style="height:420px;border-radius:10px;width:100%;object-fit:cover"]<figcaption class="lab mut" style="margin-top:10px">From PL’s portfolio</figcaption></figure>
 [/pl_section]''',
   '[pl_story layout="sticky explore" aspect="1.3"]',
@@ -102,7 +102,7 @@ PAGES = {
  ]},
  'privacy': {"title": "Privacy", "privacy": True, "sections": [
   f'''[pl_section class="" style="padding:72px 0 96px" wrap_style="max-width:860px;{COL}gap:18px"]
-<span class="lab mut">Privacy</span><h1 class="h1" style="font-size:64px">Privacy policy</h1><p class="lead">The full text comes from PL Events (reveal-day request). It will cover the contact and careers forms, CV retention and cookies.</p>[pl_sample label="Text TBC"]<p class="mut" style="font-size:14px">[pl_credits]</p>
+<span class="lab mut">Privacy</span><h1 class="h1" style="font-size:64px">Privacy policy</h1><p class="lead">Our full privacy policy is being prepared. It will cover the contact and careers forms, how long we keep CVs, and cookies.</p>[pl_sample label="Text TBC"]<p class="mut" style="font-size:14px">[pl_credits]</p>
 [/pl_section]''',
  ]},
 }

@@ -91,7 +91,7 @@ $filter_fields = static function ( $suffix ) use ( $fdefs, $F ) {
 ?>
 <div class="pl-calendar" data-pl="calendar" data-default="<?php echo esc_attr( $a['default'] ); ?>">
 <?php if ( $a['heading'] ) : ?>
-<section style="padding:72px 0 36px" class="pg-head"><div class="wrap sh" style="gap:32px"><div style="display:flex;flex-direction:column;gap:14px"><span class="lab mut"><?php echo esc_html( 'Calendar · ' . $stats['events'] . ' events since ' . $stats['since'] ); ?></span><h1 class="h1"><?php echo esc_html( $a['heading'] ); ?></h1></div><?php if ( $a['intro'] ) : ?><p class="mut lead" style="max-width:520px;font-size:18px"><?php echo esc_html( $a['intro'] ); ?></p><?php endif; ?></div></section>
+<section style="padding:72px 0 36px" class="pg-head"><div class="wrap sh" style="gap:32px"><div style="display:flex;flex-direction:column;gap:14px"><span class="lab mut"><?php echo esc_html( 'Calendar · ' . $stats['events'] . ' events since ' . $stats['since'] ); ?></span><h1 class="h1"><?php echo esc_html( $a['heading'] ); ?></h1></div><?php if ( $a['intro'] ) : ?><p class="mut lead" style="max-width:520px;font-size:18px"><?php echo esc_html( str_replace( '{since}', $stats['since_long'], $a['intro'] ) ); ?></p><?php endif; ?></div></section>
 <?php endif; ?>
 <form class="ebar" id="ebar" method="get" action="<?php echo esc_url( $self ); ?>" role="search" aria-label="Filter events">
 	<div class="wrap in">

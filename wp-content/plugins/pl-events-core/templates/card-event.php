@@ -25,7 +25,7 @@ $actions = apply_filters( 'pl_event_actions', $actions, $e, 'card' );
 	<div class="<?php echo 'past' === $e['status'] ? 'poster past' : 'poster'; ?>" aria-hidden="true">
 		<?php if ( $e['poster'] ) : ?><img class="pimg" src="<?php echo esc_url( $e['poster'] ); ?>" alt="" loading="lazy" decoding="async"><?php endif; ?>
 		<span class="pw<?php echo strlen( $e['poster_word'] ) > 9 ? ' long' : ''; ?>"><?php echo esc_html( $e['poster_word'] ); ?></span>
-		<span class="pe"><?php echo esc_html( $e['edition'] ); ?><br><?php echo esc_html( $e['city'] ); ?></span>
+		<span class="pe"><?php echo esc_html( $e['edition_text'] ); ?><br><?php echo esc_html( $e['city'] ); ?></span>
 		<span class="date"><b><?php echo esc_html( $e['tile'][0] ); ?></b><span><?php echo esc_html( $e['tile'][1] ); ?></span></span>
 	</div>
 	<span class="badge <?php echo esc_attr( $e['badge'][1] ); ?>"><?php echo 'live' === $e['status'] ? '<span class="ldot" style="background:#fff" aria-hidden="true"></span>' : '<i aria-hidden="true"></i>'; ?><span class="bt"><?php echo esc_html( $e['badge'][0] ); ?></span></span>

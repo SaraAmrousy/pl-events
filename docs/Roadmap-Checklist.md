@@ -4,7 +4,7 @@
 > **Threads:** one thread per group below (not per step). Open a new thread early if the current one gets long; the Step Summaries in the Project carry the context.
 > Last updated: 5 Nov 2026 (Thread 6)
 
-**Now:** Thread 8 (6 Nov 2026) — ✅ 4.5 Forms closed (SMTP) · ⏳ 4.4 waiting only for Sara's phone check · → Step 5.1 Final copy in progress.
+**Now:** Thread 8 (6 Nov 2026) — ✅ 4.5 Forms (SMTP) · ✅ 5.1 Final copy · ⏳ 4.4 waiting only for Sara's phone-check result → **Next: Step 5.3 — SEO** (5.2 data entry is PL's, after the reveal).
 
 ---
 
@@ -66,7 +66,7 @@ Thread 8 — Phase 5 Content & SEO (5.1–5.3) — Claude Code.
 - [x] **4.5 Forms** (الفورمز) — ✅ 6 Nov 2026 · authenticated SMTP (WP Mail SMTP + mailbox pl-staging@), both forms delivered to Sara's inbox, CV attached; CV direct URLs blocked · Summary: `docs/Step-4.5-Forms.md` · Summary: `docs/Step-4.5-Forms.md` (Forminator Contact + Careers/CV, topic+office pre-fill confirmed in Free, routing by office, staging mail → Sara only with a hard safety net) · `pl-events-data-wp` · Confirm Forminator Free URL pre-fill for topic/office (2.1 P4)
 
 ## Phase 5 — Content & SEO (المحتوى والـ SEO)
-- [ ] **5.1 Final Copy** (الكتابة النهائية) — `pl-content-qa`
+- [x] **5.1 Final Copy** (الكتابة النهائية) — ✅ 6 Nov 2026 · 22 URLs read; 3 misleading/internal sentences + 4 minor copy fixes live; remaining TBC/Sample listed for PL · Summary: `docs/Step-5.1-Final-Copy.md` · `pl-content-qa`
 - [ ] **5.2 Event Data Entry** (إدخال الداتا) — PL editor, Claude supports
 - [ ] **5.3 SEO Setup** (الـ SEO) — `pl-content-qa` · Use the 301 map list in the Step 1.1 summary + old → new URLs in the 2.1 summary
 

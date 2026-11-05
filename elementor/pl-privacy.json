@@ -46,7 +46,7 @@
      "widgetType": "shortcode",
      "isInner": false,
      "settings": {
-      "shortcode": "[pl_section class=\"\" style=\"padding:72px 0 96px\" wrap_style=\"max-width:860px;display:flex;flex-direction:column;gap:18px\"]\n<span class=\"lab mut\">Privacy</span><h1 class=\"h1\" style=\"font-size:64px\">Privacy policy</h1><p class=\"lead\">The full text comes from PL Events (reveal-day request). It will cover the contact and careers forms, CV retention and cookies.</p>[pl_sample label=\"Text TBC\"]<p class=\"mut\" style=\"font-size:14px\">[pl_credits]</p>\n[/pl_section]"
+      "shortcode": "[pl_section class=\"\" style=\"padding:72px 0 96px\" wrap_style=\"max-width:860px;display:flex;flex-direction:column;gap:18px\"]\n<span class=\"lab mut\">Privacy</span><h1 class=\"h1\" style=\"font-size:64px\">Privacy policy</h1><p class=\"lead\">Our full privacy policy is being prepared. It will cover the contact and careers forms, how long we keep CVs, and cookies.</p>[pl_sample label=\"Text TBC\"]<p class=\"mut\" style=\"font-size:14px\">[pl_credits]</p>\n[/pl_section]"
      },
      "elements": []
     }
