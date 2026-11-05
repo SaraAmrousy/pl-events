@@ -19,13 +19,27 @@ case "$kind" in
     zip="$SCRATCH/$slug.zip"; zip_dir "$(cd "$src" && pwd)" "$zip"
     say "upload $slug ($(du -h "$zip" | cut -f1)) → $dest"
     cp_upload "$zip" "$dest"
-    cp_delete "$dest/$slug" || true          # replace code only; data lives in the DB
-    cp_extract "$dest/$slug.zip" "$dest"
+    # Swap safely: keep the old folder until the new one is verified (an extract once failed
+    # silently and left the site without the plugin for minutes).
+    old="$slug.old-$(date +%s)"
+    cp_rename "$dest/$slug" "$old" || true
+    ok=""
+    for try in 1 2 3; do
+      cp_extract "$dest/$slug.zip" "$dest" || true
+      if cp_ls "$dest/$slug" 2>/dev/null | grep -qx "$(basename "$(ls "$src"/*.php | head -1)")"; then ok=1; break; fi
+      say "extract not visible yet (try $try) — retrying"; sleep $((try * 3))
+    done
+    if [ -z "$ok" ]; then
+      cp_delete "$dest/$slug" || true
+      cp_rename "$dest/$old" "$slug" || true
+      die "extract failed — old $slug restored, zip left in $dest for a look"
+    fi
+    cp_delete "$dest/$old" || true          # replace code only; data lives in the DB
     cp_delete "$dest/$slug.zip"
     if [ "$kind" = plugin ]; then
       main=$(grep -l "Plugin Name:" "$src"/*.php | head -1); main=$(basename "$main" .php)
       say "activate $slug/$main"
-      run_php "\$r = activate_plugin( '$slug/$main.php' ); echo is_wp_error( \$r ) ? 'ERROR ' . \$r->get_error_message() : 'active: $slug ' . ( get_plugin_data( WP_PLUGIN_DIR . '/$slug/$main.php' )['Version'] ?? '' ), PHP_EOL;"
+      run_php "\$r = activate_plugin( '$slug/$main.php' ); echo is_wp_error( \$r ) ? 'ERROR ' . \$r->get_error_message() : 'active: $slug ' . ( get_plugin_data( WP_PLUGIN_DIR . '/$slug/$main.php' )['Version'] ?? '' ), PHP_EOL; if ( class_exists( 'PL_Cache' ) ) { PL_Cache::bump(); echo 'PL cache cleared', PHP_EOL; }"
     else
       say "activate theme $slug"
       run_php "switch_theme( '$slug' ); echo get_stylesheet();"

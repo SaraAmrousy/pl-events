@@ -1,12 +1,33 @@
-old_path,new_path,status,source
-# Old plevents.org paths → new paths. Fill the "old_path" column from the Step 1.1 audit (301 list) and the Step 2.1 old → new table.
-# Rows marked TBC are not applied. Paths are relative to the domain root; the new site lives at the root of plevents.org.
-/wp-content/uploads/2026/05/PL-Portfolio.pdf,/wp-content/uploads/2026/05/PL-Portfolio.pdf,keep,data/pl-data.json (portfolio link: same path — re-upload the file to the same year/month folder or keep this row as a 301 to the new upload)
-TBC,/,301,Step 1.1 — old home variants (e.g. /home/, /index.php)
-TBC,/about/,301,Step 1.1 / 2.1 — old About URL
-TBC,/events/,301,Step 1.1 / 2.1 — old events / conferences list
-TBC,/events/{event-slug}/,301,Step 1.1 — old single-event pages (one row per event; new slugs below)
-TBC,/services/,301,Step 1.1 / 2.1 — old services page(s) — all merge into one page
-TBC,/careers/,301,Step 1.1 / 2.1 — old careers / jobs
-TBC,/contact/,301,Step 1.1 / 2.1 — old contact page
-TBC,/privacy/,301,Step 1.1 — old privacy page
+old_path,match,new_path,code,source
+# Launch redirect map: old plevents.org path → new path. Source: docs/301-Sources-Step-1.1-2.1.md (Steps 1.1 + 2.1).
+# match: exact | start (Rank Math Free "Starts with"; keep the trailing slash so /event/ never catches /events/).
+# code: 301 | 410 (gone — Rank Math Free supports it) | keep (same path on the new site; must answer 200).
+# Order matters: exact rows before start rows. Rows with old_path TBC are skipped until the slug is known
+# (read plevents.org/wp-sitemap.xml at launch, read only).
+/about-us/,exact,/about/,301,2.1
+/our-events/,exact,/events/,301,2.1
+/career/,exact,/careers/,301,2.1
+/our-services/,exact,/services/,301,2.1 (1.1 M9: empty duplicate)
+/contact/,exact,/contact/,keep,2.1 (stays)
+/registration/,exact,/events/?tab=upcoming,301,1.1 (every old "Register Now"; registration links now live on each event)
+/event/deoss-congress-2027/,exact,/events/deoss-atmo-2027/,301,1.1 m3 (The Events Calendar) — event is in the data
+/event/,start,/events/?tab=past,301,1.1 /event/* — any other old Events Calendar URL
+/el-safwa/,exact,/events/el-safwa-2026/,301,1.1 M3 orphan — event is in the data (PL to confirm the old page is the 2026 edition)
+TBC,exact,/events/egyptlymphedema-2025/,301,1.1 M3 orphan Egyptian Lymphedema Conference — old slug TBC; event is in the data
+/pan-alex-2027/,exact,/events/,301,1.1 M3 + B3 — not in the data; a 2027 event so not "past"; → /events/{slug}/ when PL adds it (5.2)
+/delta-meeting/,exact,/events/?tab=past,301,1.1 M3 + B3 — not in the data; update when PL adds it (5.2)
+/conference-of-ophthalmology-departments/,exact,/events/?tab=past,301,1.1 M3 + B3 (4th Annual Conference of Ophthalmology Departments) — not in the data
+TBC,exact,/events/?tab=past,301,1.1 M3 8th Repro International Congress 2025 — old slug TBC; not in the data
+TBC,exact,/events/?tab=past,301,1.1 M3 Alex Eye Hospital — old slug TBC; not in the data
+/author/,start,,410,1.1 B2 — author archives exposed a staff Gmail; never shipped
+/wp-sitemap-users-1.xml,exact,,410,1.1 B2 — the same Gmail was listed here
+/wp-sitemap.xml,exact,/sitemap_index.xml,301,old WordPress sitemap → Rank Math sitemap
+/upload/,exact,,410,1.1 B3 — asked for an identity document
+/login/,exact,,410,1.1 M9
+/register/,exact,,410,1.1 M9
+/account/,exact,,410,1.1 M9
+/password-reset/,exact,,410,1.1 M9
+/reset-password/,exact,,410,1.1 M9
+/test/,exact,,410,1.1 M9
+/oral-presentation/,exact,,410,1.1 M9
+/wp-content/uploads/2026/05/PL-Portfolio.pdf,exact,/wp-content/uploads/2026/05/PL-Portfolio.pdf,keep,1.1 B5 + data/pl-data.json — copy the file to the same path at launch (or a 301 to its new upload); 34.9 MB: compress first

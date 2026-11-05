@@ -524,3 +524,55 @@ html.pl-iris #iris { transform: scale(.25); }
 .pl .hero .media, .pl .hero .media > .iris:not([style]), .pl .hero .iris > .iris-in:not([style]) { position: absolute; inset: 0; }
 .pl .hero .iris-in .still, .pl .hero .iris-in .reel { position: absolute; inset: 0; width: 100%; height: 100%; max-width: none; max-height: none; object-fit: cover; }
 .pl .elementor .poster .pimg { height: 100%; max-width: none; }
+
+/* ===== Image fit (Thread 8): every image sits in a fixed frame, whatever its size.
+   Specificity is (0,2,1)+ so it always beats Elementor's ".elementor img { height:auto; max-width:100% }"
+   (the cause of the hero bug). Photos: cover from the centre. Logos: contain, never cropped. */
+.pl .pl-frame { position: relative; display: block; overflow: hidden; background: var(--sand, #EFECE5); }
+.pl .pl-frame > img, .pl .pl-frame > a > img, .pl .poster > img.pimg {
+  position: absolute; inset: 0; width: 100%; height: 100%; max-width: none; max-height: none;
+  object-fit: cover; object-position: center; border-radius: 0; }
+.pl .pl-frame > img.pl-contain, .pl .pl-frame > a > img.pl-contain { object-fit: contain; padding: 6%; }
+.pl .poster > img.pimg.pl-contain { object-fit: contain; padding: 10% 18%; }
+/* A transparent logo used as the poster is the poster: the typographic word steps aside. */
+.pl .poster:has(> img.pimg.pl-contain) .pw { display: none; }
+.pl .pl-ar-wide { aspect-ratio: 21 / 9; }
+.pl .pl-ar-photo { aspect-ratio: 4 / 3; }
+.pl .pl-ar-poster { aspect-ratio: 16 / 9; }
+@media (max-width: 767px) { .pl .pl-ar-wide { aspect-ratio: 4 / 3; } }
+
+/* Logo tiles (societies, sponsors, memberships, event logos): the logo is shown whole inside the
+   tile's padding; a tall, wide, tiny or transparent file never overflows or gets cut. */
+.pl .tile > img, .pl .tile > a > img, .pl .plogo > img {
+  display: block; width: 100%; height: 52px; max-width: 100%; max-height: none; object-fit: contain; object-position: center; }
+.pl .pl-logos-sponsor .tile > img { height: 36px; }
+.pl .tile:has(> img) { padding: 10px 14px; background: #fff; }
+.pl .ink .tile:has(> img) { background: #fff; }
+.pl .pl-evlogo { min-height: 96px; }
+.pl .pl-evlogo > img { height: 72px; }
+/* Event logo on a card: a small white chip, bottom right of the poster (the date is bottom left).    The edition/city line (same corner) steps aside; the city is in the card text below. */
+.pl .poster:has(.plogo) .pe { display: none; }
+.pl .poster .plogo { position: absolute; right: 12px; bottom: 12px; z-index: 2; width: 84px; height: 52px; padding: 6px 8px; border-radius: 6px; background: #fff; box-shadow: 0 1px 4px rgba(10,13,24,.18); }
+.pl .poster .plogo > img { height: 100%; }
+
+/* Event photos (past events): equal 4:3 frames in a grid. */
+.pl .pl-gallery { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; }
+.pl .pl-gallery .pl-frame { aspect-ratio: 4 / 3; border-radius: 8px; }
+.pl .pl-gallery .pl-frame:focus-visible { outline: 3px solid var(--boi); outline-offset: 2px; }
+@media (max-width: 1023px) { .pl .pl-gallery { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+@media (max-width: 767px) { .pl .pl-gallery { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; } }
+
+/* Elementor Image widget (an editor adds a photo to a page): a 3:2 frame by default.
+   Add the CSS class "pl-natural" to the widget to keep the image's own shape, or "pl-logo" for a logo.
+   SVG files are treated as logos automatically. */
+/* width:100% on the widget: inside an Elementor flex column the widget was sized from the image's own
+   width (a 205px portrait gave a 137px-tall box) and the framed image spilled onto the next widget. */
+.pl .elementor-widget-image { width: 100%; }
+.pl .elementor-widget-image img { display: block; width: 100%; height: auto; max-width: 100%; aspect-ratio: 3 / 2; object-fit: cover; object-position: center; }
+.pl .elementor-widget-image.pl-natural img { aspect-ratio: auto; }
+.pl .elementor-widget-image.pl-logo img, .pl .elementor-widget-image img[src$=".svg"], .pl .elementor-widget-image img.pl-alpha { aspect-ratio: 3 / 1; object-fit: contain; height: auto; max-height: 120px; }
+
+/* Event page "editions with PL" rows: date | name | badge; on phones the date gets its own line
+   (it was a fixed 200px column and pushed the badge 43px off a 375px screen). */
+.pl .erow.erow-ed { grid-template-columns: 200px minmax(0, 1fr) auto; }
+@media (max-width: 767px) { .pl .erow.erow-ed { grid-template-columns: minmax(0, 1fr) auto; row-gap: 4px; } .pl .erow.erow-ed > :first-child { grid-column: 1 / -1; } }

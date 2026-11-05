@@ -44,10 +44,17 @@ add_shortcode( 'pl_form', static function ( $atts ) {
 
 /* Seed photos (from PL's portfolio) live in the Media Library; pages refer to them by source name. */
 add_shortcode( 'pl_media', static function ( $atts ) {
-	$a  = shortcode_atts( array( 'src' => '', 'alt' => '', 'class' => '', 'style' => '', 'size' => 'large', 'loading' => 'lazy' ), $atts, 'pl_media' );
+	$a  = shortcode_atts( array( 'src' => '', 'alt' => '', 'class' => '', 'style' => '', 'size' => 'large', 'loading' => 'lazy', 'frame' => '', 'sizes' => '100vw', 'frame_style' => '' ), $atts, 'pl_media' );
+	if ( '' === trim( $a['src'] ) ) {
+		return ''; // an empty src would otherwise match any attachment
+	}
 	$id = get_posts( array( 'post_type' => 'attachment', 'post_status' => 'inherit', 'numberposts' => 1, 'meta_key' => '_pl_source', 'meta_value' => $a['src'], 'fields' => 'ids' ) ); // phpcs:ignore WordPress.DB.SlowDBQuery
 	if ( ! $id ) {
 		return '';
+	}
+	if ( $a['frame'] && class_exists( 'PL_Images' ) ) { // fixed frame: server crop + cover (Image fit, Thread 8)
+		$img = PL_Images::img( $id[0], $a['frame'], array( 'alt' => $a['alt'], 'class' => $a['class'], 'sizes' => $a['sizes'], 'eager' => 'eager' === $a['loading'] ) );
+		return '<div class="pl-frame pl-ar-' . esc_attr( $a['frame'] ) . '" style="' . esc_attr( $a['frame_style'] ) . '">' . $img . '</div>';
 	}
 	return wp_get_attachment_image( $id[0], $a['size'], false, array( 'class' => $a['class'], 'style' => $a['style'], 'alt' => $a['alt'], 'loading' => $a['loading'], 'decoding' => 'async' ) );
 } );

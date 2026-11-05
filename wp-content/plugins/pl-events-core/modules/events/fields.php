@@ -46,7 +46,7 @@ return array(
 	array( 'name' => 'email', 'label' => 'Email', 'type' => 'email', 'width' => 50, 'help' => 'Event contact, if different from the office.' ),
 	array( 'name' => 'delegates', 'label' => 'Delegates', 'type' => 'number', 'width' => 50, 'help' => 'Only a real number; empty = nothing shown.' ),
 	array( 'name' => 'description', 'label' => 'Short description', 'type' => 'textarea', 'soft_max' => 300, 'help' => 'One or two sentences.' ),
-	array( 'name' => 'logo', 'label' => 'Logo', 'type' => 'image', 'width' => 50, 'help' => 'Transparent PNG or SVG.' ),
-	array( 'name' => 'poster', 'label' => 'Poster / photo', 'type' => 'image', 'width' => 50, 'help' => 'Used on the event page and when the link is shared.' ),
-	array( 'name' => 'photos', 'label' => 'Photos', 'type' => 'gallery', 'help' => 'Optional, for past events.' ),
+	array( 'name' => 'logo', 'label' => 'Logo', 'type' => 'image', 'width' => 50, 'frame' => 'logo', 'help' => 'Transparent PNG or SVG.' ),
+	array( 'name' => 'poster', 'label' => 'Poster / photo', 'type' => 'image', 'width' => 50, 'frame' => 'poster', 'help' => 'Used on the event page and when the link is shared.' ),
+	array( 'name' => 'photos', 'label' => 'Photos', 'type' => 'gallery', 'frame' => 'photo', 'help' => 'Optional, for past events.' ),
 );

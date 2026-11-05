@@ -45,6 +45,9 @@ cp_upload()  { # local_file remote_dir
 cp_extract() { # remote_zip remote_dest
   api2 Fileman fileop op=extract "sourcefiles=$1" "destfiles=$2" doubledecode=0 >/dev/null
 }
+cp_rename()  { # remote_path new_name (same folder)
+  api2 Fileman fileop op=rename "sourcefiles=$1" "destfiles=$2" doubledecode=0 >/dev/null
+}
 cp_delete()  { # remote_path (file or dir) → moved out for good (no trash)
   api2 Fileman fileop op=unlink "sourcefiles=$1" doubledecode=0 >/dev/null
 }

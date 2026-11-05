@@ -49,9 +49,10 @@ $origin  = PL_Data::origin();
 	</div>
 	<div style="grid-column:span 5;display:flex;flex-direction:column;gap:16px" class="evh-r">
 		<div class="<?php echo 'past' === $e['status'] ? 'poster past' : 'poster'; ?> grain" style="border-radius:10px;aspect-ratio:16/10" aria-hidden="true">
-			<?php if ( $e['poster'] ) : ?><img class="pimg" src="<?php echo esc_url( $e['poster'] ); ?>" alt="" decoding="async"><?php endif; ?>
+			<?php echo $e['poster'] ? PL_Images::img( $e['poster'], 'poster10', array( 'class' => 'pimg', 'sizes' => '(max-width: 1023px) 100vw, 480px', 'eager' => true ) ) : ''; // phpcs:ignore WordPress.Security.EscapeOutput -- escaped inside. ?>
 			<span class="pw" style="font-size:52px;top:28px"><?php echo esc_html( $e['poster_word'] ); ?></span><span class="pe"><?php echo esc_html( $e['edition_text'] ); ?><br><?php echo esc_html( $e['city'] ); ?></span><span class="date"><b><?php echo esc_html( $e['tile'][0] ); ?></b><span><?php echo esc_html( $e['tile'][1] ); ?></span></span>
 		</div>
+		<?php if ( $e['logo'] ) : ?><div class="tile pl-evlogo"><?php echo PL_Images::img( $e['logo'], 'logo', array( 'alt' => $e['name'] . ' logo', 'sizes' => '240px' ) ); // phpcs:ignore WordPress.Security.EscapeOutput ?></div><?php endif; ?>
 		<?php
 		if ( $e['lonlat'] ) :
 			$near = hypot( ...array_map( fn( $a, $b ) => $a - $b, PL_Map::proj( $e['lonlat'] ), PL_Map::proj( $origin['lonlat'] ) ) ) < 18;
@@ -73,10 +74,19 @@ $origin  = PL_Data::origin();
 		<?php endif; ?>
 	</div>
 </div></section>
+<?php if ( $e['photos'] ) : ?>
+<section class="sec pl-gallery-sec"><div class="wrap" style="display:flex;flex-direction:column;gap:18px"><h2 class="h3" style="font-size:32px">Photos</h2>
+	<ul class="pl-gallery">
+		<?php foreach ( $e['photos'] as $ph ) : ?>
+		<li><a class="pl-frame" href="<?php echo esc_url( $ph ); ?>" target="_blank" rel="noopener"><?php echo PL_Images::img( $ph, 'photo', array( 'alt' => PL_Images::alt( $ph ) ? PL_Images::alt( $ph ) : 'Photo from ' . $e['name'], 'sizes' => '(max-width: 767px) 50vw, 25vw' ) ); // phpcs:ignore WordPress.Security.EscapeOutput ?></a></li>
+		<?php endforeach; ?>
+	</ul>
+</div></section>
+<?php endif; ?>
 <?php if ( count( $eds ) > 1 ) : ?>
 <section class="sec"><div class="wrap" style="display:flex;flex-direction:column;gap:18px"><h2 class="h3" style="font-size:32px"><?php echo esc_html( $e['series'] ); ?> editions with PL</h2><div>
 	<?php foreach ( $eds as $x ) : ?>
-	<div class="erow" style="grid-template-columns:200px minmax(0,1fr) auto"><span style="font-weight:800"><?php echo esc_html( $x['range'] ); ?></span><a href="<?php echo esc_url( $x['url'] ); ?>" style="font-weight:700;text-decoration:none"<?php echo $x['id'] === $e['id'] ? ' aria-current="page"' : ''; ?>><?php echo esc_html( $x['name'] . ( $x['id'] === $e['id'] ? ' (this page)' : '' ) ); ?></a><span class="badge <?php echo esc_attr( $x['badge'][1] ); ?>"><i aria-hidden="true"></i><?php echo esc_html( $x['badge'][0] ); ?></span></div>
+	<div class="erow erow-ed"><span style="font-weight:800"><?php echo esc_html( $x['range'] ); ?></span><a href="<?php echo esc_url( $x['url'] ); ?>" style="font-weight:700;text-decoration:none"<?php echo $x['id'] === $e['id'] ? ' aria-current="page"' : ''; ?>><?php echo esc_html( $x['name'] . ( $x['id'] === $e['id'] ? ' (this page)' : '' ) ); ?></a><span class="badge <?php echo esc_attr( $x['badge'][1] ); ?>"><i aria-hidden="true"></i><?php echo esc_html( $x['badge'][0] ); ?></span></div>
 	<?php endforeach; ?>
 </div></div></section>
 <?php endif; ?>

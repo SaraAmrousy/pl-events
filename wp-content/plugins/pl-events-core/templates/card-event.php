@@ -23,7 +23,8 @@ $actions = apply_filters( 'pl_event_actions', $actions, $e, 'card' );
 ?>
 <article class="card pl-card"<?php echo PL_Template::status_attrs( $e ) . PL_Template::filter_attrs( $e ); // phpcs:ignore WordPress.Security.EscapeOutput -- escaped inside. ?><?php echo $hidden ? ' hidden' : ''; ?>>
 	<div class="<?php echo 'past' === $e['status'] ? 'poster past' : 'poster'; ?>" aria-hidden="true">
-		<?php if ( $e['poster'] ) : ?><img class="pimg" src="<?php echo esc_url( $e['poster'] ); ?>" alt="" loading="lazy" decoding="async"><?php endif; ?>
+		<?php echo $e['poster'] ? PL_Images::img( $e['poster'], 'poster', array( 'class' => 'pimg', 'sizes' => '(max-width: 767px) 100vw, (max-width: 1023px) 50vw, 400px' ) ) : ''; // phpcs:ignore WordPress.Security.EscapeOutput -- escaped inside. ?>
+		<?php if ( $e['logo'] ) : ?><span class="plogo"><?php echo PL_Images::img( $e['logo'], 'logo', array( 'sizes' => '96px' ) ); // phpcs:ignore WordPress.Security.EscapeOutput ?></span><?php endif; ?>
 		<span class="pw<?php echo strlen( $e['poster_word'] ) > 9 ? ' long' : ''; ?>"><?php echo esc_html( $e['poster_word'] ); ?></span>
 		<span class="pe"><?php echo esc_html( $e['edition_text'] ); ?><br><?php echo esc_html( $e['city'] ); ?></span>
 		<span class="date"><b><?php echo esc_html( $e['tile'][0] ); ?></b><span><?php echo esc_html( $e['tile'][1] ); ?></span></span>

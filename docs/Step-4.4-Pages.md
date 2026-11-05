@@ -62,4 +62,5 @@ Open `https://saraamrousy.net/pl/` on **iPhone (Safari)** and an **Android phone
 
 ## Still open
 - **Hero fix (6 Nov, Thread 8)** — the photo stopped at the buttons and grey showed below. Cause: Elementor's `.elementor img{height:auto}` beat `.still{height:100%}`. Now the media is `inset:0` + `object-fit:cover` + `height:100%`. The iris shape is measured from the hero's live `getBoundingClientRect()` (on resize + ResizeObserver) and goes back to full-bleed when it opens. The header turns solid before the viewfinder brackets reach the logo. Tested at 1190×575, 1280×600, 1440×700, 1920×1080, 375×667, 768×1024 × Full / Light / Reduced, plus resizing the window, also mid-opening. LCP image unchanged. Before/after screenshots sent to Sara.
+- **Image fit (6 Nov, Thread 8)** — every image now sits in a fixed frame (photos cover, logos contain), with server crops + srcset, a soft size note in wp-admin and safe SVG. Details + screenshots: `docs/Step-4.4-Image-Fit.md`.
 - **Sara's phone check (iPhone Safari + Android Chrome)** — result not received yet ("[هكتبها هنا]" left empty in the Thread 8 message). 4.4 closes when it arrives.

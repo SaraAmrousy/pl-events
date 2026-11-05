@@ -1,6 +1,6 @@
 # Step 5.3 — SEO: Step Summary (Thread 8, 6 Nov 2026)
 
-**Status: ⏳ set up and live on staging. One item is open: the old URLs for the 301 map.** Those URLs are in the Step 1.1 and 2.1 summaries in the claude.ai Project, and those files are not in the repo. Everything else is done and checked on `saraamrousy.net/pl` (22 URLs). Skill: `pl-content-qa`.
+**Status: ✅ DONE (closed 6 Nov 2026).** Live on staging and checked on `saraamrousy.net/pl` (22 URLs). The 301 map is filled in from `docs/301-Sources-Step-1.1-2.1.md`, ready for launch, and **not applied on staging**. Skill: `pl-content-qa`.
 
 ## What is live on staging
 | Item | How | Check |
@@ -28,11 +28,19 @@
 | 5.3-3 | Schema comes from `PL_Data` (the same data the page shows), not from Rank Math's Schema builder | It can never disagree with the page. Rank Math Free's Event builder needs manual fields per post |
 | 5.3-4 | `eventStatus` is always `EventScheduled` | Past events happened as scheduled. Status (past/live/upcoming) is shown by dates, which Google reads |
 
-## 301 map (for launch — **not applied on staging**)
-- File: `deploy/launch/redirects.csv` (old_path, new_path, status, source). The new paths are filled in. Old paths are **TBC**: the Step 1.1 "301 list" and the Step 2.1 "old → new" table live in the claude.ai Project (`claude/Step-1.1-Current-Site-Audit.md`, `claude/Step-2.1-Sitemap-User-Flows.md`), not in the repo. plevents.org was not crawled (rule: never touch PL's live server).
-- Known so far: the portfolio PDF `/wp-content/uploads/2026/05/PL-Portfolio.pdf` is linked from the site. At launch it must keep the same path, or get a 301.
-- Test (read-only, DoD "no broken old URLs remain"): `python3 deploy/launch/check-redirects.py https://plevents.org`. It checks each old URL → one 301 hop → new URL → 200. Tried against staging: the script works (TBC rows skipped).
-- How to apply at launch (6.3): Rank Math › Redirections (Free, CSV import), or `.htaccess` `Redirect 301` lines generated from the CSV. Decide in 6.3.
+## 301 map (for launch — **not applied on staging**, plevents.org not touched)
+- Source: `docs/301-Sources-Step-1.1-2.1.md` (Steps 1.1 + 2.1). File: `deploy/launch/redirects.csv` → **27 rows**: 15 × 301 (3 of them waiting for an old slug), 10 × **410 gone**, 2 × keep (same path).
+  - 2.1 renames: `/about-us/` → `/about/` · `/our-events/` → `/events/` · `/career/` → `/careers/` · `/our-services/` → `/services/` · `/contact/` stays.
+  - `/registration/` (every old "Register Now") → `/events/?tab=upcoming`.
+  - Old Events Calendar: `/event/deoss-congress-2027/` → `/events/deoss-atmo-2027/`; any other `/event/…` (Starts with) → `/events/?tab=past`.
+  - Orphan event pages: `/el-safwa/` → `/events/el-safwa-2026/` (PL to confirm the old page is the 2026 edition). `/delta-meeting/` and `/conference-of-ophthalmology-departments/` → `/events/?tab=past` until PL adds them (5.2). **`/pan-alex-2027/` → `/events/`, not `?tab=past`**: a 2027 event isn't past, so I departed from the rule here on purpose.
+  - **410:** `/author/…` (B2, the staff Gmail) + `/wp-sitemap-users-1.xml` (same Gmail), `/upload/` (B3), `/login/`, `/register/`, `/account/`, `/password-reset/`, `/reset-password/`, `/test/`, `/oral-presentation/`. `/wp-sitemap.xml` → `/sitemap_index.xml`.
+  - **Rank Math Free supports this** (checked in the plugin code on staging, read only): 410 and 451, and "Starts with" / regex matches. It can also export the list as `.htaccess`.
+  - Portfolio PDF (B5): same path, kept (34.9 MB — compress before launch).
+- **3 rows still TBC** (old slugs for Egyptian Lymphedema, 8th Repro 2025, Alex Eye Hospital). The source says these come from the live `plevents.org/wp-sitemap.xml`, read only, **at launch (6.3)**. Their targets are already set.
+- Every target was checked on staging: all 200 except the PDF (not on staging; it moves at launch).
+- Checker `deploy/launch/check-redirects.py` (read only): 301 = exactly one hop to the target, which answers 200; 410; keep = 200; "start" rows tested with a sample path. Proven against a local mock server that applies the CSV: **24/24 OK, 3 skipped (TBC)**. Against staging it fails, as it should, because nothing is applied there.
+- At launch (6.3): read the live sitemap → fill the 3 TBC slugs → add any URL the lists missed → import into Rank Math › Redirections → `check-redirects.py https://plevents.org` must report 0 failed (DoD "no broken old URLs remain").
 
 New URLs: `/` · `/events/` · `/events/{slug}/` (15: esoirs-2024, asaic-2024, deoss-2025, egyptlymphedema-2025, asaic-2025, meom-2025, srs-2026, el-safwa-2026, phleboegypt-2026, bridge-retina-2026, esoirs-2026, asaic-2026, meom-2026, deoss-atmo-2027, mocat-6-2027) · `/about/` · `/services/` (+ `#sponsorship`) · `/careers/` · `/contact/` (+ `?topic=` / `?office=`) · `/privacy/` · `/sitemap_index.xml`.
 
@@ -43,11 +51,11 @@ New URLs: `/` · `/events/` · `/events/{slug}/` (15: esoirs-2024, asaic-2024, d
 - `deploy/mu/pl-staging.php` (Rank Math noindex + search-engine request block)
 - `deploy/launch/redirects.csv`, `deploy/launch/check-redirects.py`
 
-## Open
-1. **Old URLs for the 301 map.** Sara: add `Step-1.1-Current-Site-Audit.md` and `Step-2.1-Sitemap-User-Flows.md` to the repo `docs/` (or paste their 301 tables). Claude then fills `redirects.csv`. This closes 5.3.
-2. Canonical tags: Rank Math leaves them out while a page is noindex. Check that they appear after noindex is removed at launch (6.3).
-3. Event posters are typographic (no image), so Event schema has no `image`. Google may flag "missing image" (it's a warning, not an error). Real posters from PL (5.2) fix this automatically.
-4. At launch: blog_public 1, remove the mu-plugin, submit `sitemap_index.xml` in Search Console (6.3). Not before.
+## Open (for 6.3 launch — not blockers for 5.3)
+1. The 3 TBC old slugs + a full read of the live `wp-sitemap.xml` (read only).
+2. Canonical tags: Rank Math leaves them out while a page is noindex. Check that they appear after noindex is removed.
+3. Event posters are typographic (no image), so Event schema has no `image`. Google may warn about it (a warning, not an error). Real posters from PL (5.2) fix this automatically.
+4. At launch: blog_public 1, remove the staging mu-plugin, submit `sitemap_index.xml` in Search Console. Not before.
 
 ## Critique
 1. The three 70-character event titles are long because the names are long. If PL gives short names (the Series "Short name"), the title could use them. That is PL's choice in 5.2.

@@ -103,7 +103,14 @@ class PL_Fields {
 			'required'     => ! empty( $f['required'] ) ? 1 : 0,
 			'wrapper'      => array( 'width' => $f['width'] ?? '' ),
 			'pl_admin_only' => ! empty( $f['admin_only'] ),
+			'pl_frame'     => $f['frame'] ?? '',
 		);
+		if ( ! empty( $f['frame'] ) && isset( PL_Images::FRAMES[ $f['frame'] ] ) ) {
+			$fr = PL_Images::FRAMES[ $f['frame'] ];
+			$out['instructions'] .= ( $out['instructions'] ? ' ' : '' ) . ( 'contain' === $fr['fit']
+				? sprintf( 'Shown whole inside a tile (never cropped). Best: SVG, or PNG at least %d × %d px.', $fr['min'][0], $fr['min'][1] )
+				: sprintf( 'Cropped from the centre to fit the %s. Best: at least %d × %d px.', $fr['label'], $fr['min'][0], $fr['min'][1] ) );
+		}
 		if ( isset( $f['default'] ) ) {
 			$out['default_value'] = $f['default'];
 		}

@@ -12,7 +12,7 @@ $cols = (int) $a['columns'] ? (int) $a['columns'] : ( 'sponsor' === $a['type'] ?
 <div class="pl-tiles pl-logos-<?php echo esc_attr( $a['type'] ); ?>" style="display:grid;grid-template-columns:repeat(<?php echo (int) $cols; ?>,minmax(0,1fr));gap:<?php echo 'sponsor' === $a['type'] ? 10 : 12; ?>px">
 	<?php
 	foreach ( $items as $i ) :
-		$inner = $i['logo'] ? '<img src="' . esc_url( $i['logo'] ) . '" alt="' . esc_attr( $i['name'] ) . '" loading="lazy" decoding="async">' : esc_html( $i['name'] );
+		$inner = $i['logo'] ? PL_Images::img( $i['logo'], 'logo', array( 'alt' => $i['name'], 'sizes' => '240px' ) ) : esc_html( $i['name'] );
 		$link  = '';
 		if ( 'award' === $a['type'] || 'membership' === $a['type'] ) {
 			$link = $i['proof_url'] ?? '';

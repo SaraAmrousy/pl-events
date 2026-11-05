@@ -16,8 +16,8 @@ return array(
 	array( 'name' => 'portfolio_file', 'label' => 'Portfolio PDF', 'type' => 'file', 'mime' => 'pdf', 'width' => 50, 'json' => false, 'help' => 'Upload the PDF. The size is shown next to the link; keep it under 5 MB.' ),
 	array( 'name' => 'portfolio_link', 'label' => 'Portfolio link (if not uploaded)', 'type' => 'url', 'width' => 50, 'json' => false ),
 	array( 'name' => 'showreel_video', 'label' => 'Hero showreel (MP4)', 'type' => 'file', 'mime' => 'mp4', 'width' => 33, 'json' => false, 'help' => 'Muted, ≤ 2.5 MB, desktop only.' ),
-	array( 'name' => 'showreel_poster', 'label' => 'Showreel poster', 'type' => 'image', 'width' => 33, 'json' => false, 'help' => 'Shown first and on mobile.' ),
-	array( 'name' => 'showreel_stills', 'label' => 'Showreel stills', 'type' => 'gallery', 'width' => 33, 'json' => false, 'help' => 'Used until there is a video.' ),
+	array( 'name' => 'showreel_poster', 'label' => 'Showreel poster', 'type' => 'image', 'width' => 33, 'frame' => 'hero', 'json' => false, 'help' => 'Shown first and on mobile.' ),
+	array( 'name' => 'showreel_stills', 'label' => 'Showreel stills', 'type' => 'gallery', 'width' => 33, 'frame' => 'hero', 'json' => false, 'help' => 'Used until there is a video.' ),
 	array( 'name' => 'showreel_sample', 'label' => 'Showreel is Sample', 'type' => 'switch', 'default' => 1, 'admin_only' => true, 'json' => false ),
 	array(
 		'name' => 'social', 'label' => 'Social links', 'type' => 'repeater', 'button' => 'Add a link',

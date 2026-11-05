@@ -4,7 +4,7 @@
 > **Threads:** one thread per group below (not per step). Open a new thread early if the current one gets long; the Step Summaries in the Project carry the context.
 > Last updated: 6 Nov 2026 (Thread 8)
 
-**Now:** end of Thread 8 (6 Nov 2026). ✅ 4.5 Forms (SMTP) · ✅ 5.1 Final copy · ✅ hero fix · ⏳ 4.4: only Sara's phone-check result is missing · ⏳ 5.3 SEO: live; only the old URLs for the 301 map are missing (in the 1.1/2.1 summaries) · open decision: "Counts as a congress" for symposium + forum (A/B) → **Next: Thread 9 — Step 6.1 Independent QA** (5.2 data entry is PL's, after the reveal).
+**Now:** end of Thread 8 (6 Nov 2026). ✅ 4.5 Forms · ✅ 5.1 Final copy · ✅ 5.3 SEO (301 map ready for launch) · ✅ hero fix + image fit (every image fits its frame) · ⏳ 4.4: only Sara's phone-check result is missing · open decision: "Counts as a congress" for symposium + forum (A/B) → **Next: Thread 9 — Step 6.1 Independent QA** (5.2 data entry is PL's, after the reveal).
 
 ---
 
@@ -25,14 +25,13 @@
 Open **claude.ai/code** → repo `SaraAmrousy/pl-events` (branch `main`) → environment `pl-events`.
 ```
 Thread 9 — Phase 6 QA & launch (6.1–6.3) — Claude Code.
-اقرا CLAUDE.md وبعدين docs/PL-Events-Project-Instructions.md و docs/Roadmap-Checklist.md و docs/Step-4.4-Pages.md و docs/Step-5.1-Final-Copy.md و docs/Step-5.3-SEO.md.
+اقرا CLAUDE.md وبعدين docs/PL-Events-Project-Instructions.md و docs/Roadmap-Checklist.md و docs/Step-4.4-Pages.md و docs/Step-4.4-Image-Fit.md و docs/Step-5.1-Final-Copy.md و docs/Step-5.3-SEO.md.
 الأول قفّل اللي فاضل:
 1. 4.4 — نتيجة فحص الموبايل: [اكتبي النتيجة هنا].
 2. قرار "Counts as a congress" للـ symposium والـ forum: [A يتقفل / B يفضل].
-3. 5.3 — الـ 301: ضفت docs/Step-1.1-Current-Site-Audit.md و docs/Step-2.1-Sitemap-User-Flows.md؛ املا deploy/launch/redirects.csv منهم (متطبقهاش على الـ staging).
-بعدها 6.1 — Independent QA (skill pl-content-qa): a11y + performance (375 / 768 / 1280، Full / Light / Reduced) + editor test على saraamrousy.net/pl.
-ثم 6.2 — Editor handover (دليل للموظف بالإنجليزي، خطوة بخطوة من wp-admin).
-6.3 — Launch checklist: اكتبه بس، ومتلمسش plevents.org قبل ما أوافق على كل خطوة.
+بعدها 6.1 — Independent QA (skill pl-content-qa): a11y + performance (375 / 768 / 1280، Full / Light / Reduced) + editor test على saraamrousy.net/pl (منها: رفع صورة صغيرة → الملاحظة الصفرا، وSVG).
+ثم 6.2 — Editor handover (دليل للموظف بالإنجليزي، خطوة بخطوة من wp-admin، فيه مقاسات الصور).
+6.3 — Launch checklist: اكتبه بس (فيه deploy/launch/redirects.csv + check-redirects.py، والـ 3 slugs الـ TBC من wp-sitemap.xml وقت الإطلاق)، ومتلمسش plevents.org قبل ما أوافق على كل خطوة.
 الـ staging يفضل noindex، والإيميلات كلها بتروحلي أنا. متكتبش أي باسورد في الشات.
 ```
 
@@ -66,18 +65,18 @@ Thread 9 — Phase 6 QA & launch (6.1–6.3) — Claude Code.
 - [x] **4.1 pl-events-core Plugin** (البلجن) — ✅ 5 Nov 2026 · on staging + seeded (15 / 7 / 5 checked live); editor test passed in the sandbox · Summary: `docs/Step-4.1-Plugin.md` · `pl-events-data-wp` · SCF; follow "Built to grow" (2.2 §8); test page + CPT sharing the `events` slug; new pieces from 3.1/3.4a/3.4b (`[pl_live_ribbon]`, `[pl_next_event layout="strip"]`, `[pl_company field=…]`, `[pl_stats layout="line|sponsor_line"]`, calendar search/Type/Grid–List, tabs All · Live now · Upcoming · Past with `default` attribute, `[pl_story layout="sticky explore"]`, `[pl_services layout="zigzag"]`, event-page mini map). Seed from `claude/pl-data.json`. **No `[pl_help]` (3.4b P1), no saved-list module (3.4a H4).**
 - [x] **4.2 Child Theme & Global Styles** (الثيم والستايل العام) — ✅ 5 Nov 2026 · Summary: `docs/Step-4.2-Child-Theme.md` (prototype CSS built into the theme, self-hosted Montserrat, 5 motion modules, Elementor Globals, `[pl_hero]`) · `pl-events-data-wp` · Tokens + classes from the 3.2 Design System (+ 3.4a H7 button fix) + motion modules from 3.4b §5 (no ScrollTrigger pin; Lenis Home only; `@view-transition`); confirm Elementor Free custom Global Colors
 - [x] **4.3 Header & Footer** (الهيدر والفوتر) — ✅ 5 Nov 2026 · Summary: `docs/Step-4.3-Header-Footer.md` (UAE HFB templates with `[pl_site_header]` / `[pl_site_footer]`; sticky; keyboard-tested) · `pl-events-data-wp` · Header: Home · Events · Services · About · Careers · Contact + Request a proposal + Portfolio (3.4a H5–H6)
-- [ ] **4.4 Pages in Elementor** (بناء الصفحات) — ⏳ built + live; LiteSpeed Cache on (purge from pl-events-core, tested); hero fix ✅ 6 Nov (media fills the hero at every size, tested at 6 sizes × 3 motion contexts) · **open: Sara's iPhone/Android check result** · Summary: `docs/Step-4.4-Pages.md` · `pl-events-data-wp` · Pages exported as Elementor template JSON by Claude Code and imported (Elementor Free Templates › Import — confirm the JSON format on the installed version); tested locally, then on the staging folder (noindex); confirm Elementor Free background video (self-hosted MP4 + poster)
+- [ ] **4.4 Pages in Elementor** (بناء الصفحات) — ⏳ built + live; LiteSpeed Cache on (purge from pl-events-core, tested); hero fix ✅ 6 Nov (media fills the hero at every size, tested at 6 sizes × 3 motion contexts) · image fit ✅ 6 Nov (every image in a fixed frame: photos cover, logos contain, crops + srcset, soft size note in wp-admin, safe SVG — `docs/Step-4.4-Image-Fit.md`) · **open: Sara's iPhone/Android check result** · Summary: `docs/Step-4.4-Pages.md` · `pl-events-data-wp` · Pages exported as Elementor template JSON by Claude Code and imported (Elementor Free Templates › Import — confirm the JSON format on the installed version); tested locally, then on the staging folder (noindex); confirm Elementor Free background video (self-hosted MP4 + poster)
 - [x] **4.5 Forms** (الفورمز) — ✅ 6 Nov 2026 · authenticated SMTP (WP Mail SMTP + mailbox pl-staging@), both forms delivered to Sara's inbox, CV attached; CV direct URLs blocked · Summary: `docs/Step-4.5-Forms.md` · Summary: `docs/Step-4.5-Forms.md` (Forminator Contact + Careers/CV, topic+office pre-fill confirmed in Free, routing by office, staging mail → Sara only with a hard safety net) · `pl-events-data-wp` · Confirm Forminator Free URL pre-fill for topic/office (2.1 P4)
 
 ## Phase 5 — Content & SEO (المحتوى والـ SEO)
 - [x] **5.1 Final Copy** (الكتابة النهائية) — ✅ 6 Nov 2026 · 22 URLs read; 3 misleading/internal sentences + 4 minor copy fixes live; remaining TBC/Sample listed for PL · Summary: `docs/Step-5.1-Final-Copy.md` · `pl-content-qa`
 - [ ] **5.2 Event Data Entry** (إدخال الداتا) — PL editor, Claude supports
-- [ ] **5.3 SEO Setup** (الـ SEO) — ⏳ 6 Nov 2026 · live on staging: 7 page + 15 event titles/descriptions (unique, ≤ 155), Organization (2 offices) + Event schema, site name "PL Events", sitemap ready (not submitted, IndexNow off + blocked), noindex kept · **open: old URLs for the 301 map** (`deploy/launch/redirects.csv`, applied only at launch) · Summary: `docs/Step-5.3-SEO.md` · `pl-content-qa` · Use the 301 map list in the Step 1.1 summary + old → new URLs in the 2.1 summary
+- [x] **5.3 SEO Setup** (الـ SEO) — ✅ 6 Nov 2026 · live on staging: 7 page + 15 event titles/descriptions (unique, ≤ 155), Organization (2 offices) + Event schema, site name "PL Events", sitemap ready (not submitted, IndexNow off + blocked), noindex kept · 301 map `deploy/launch/redirects.csv` (27 rows: 15 × 301, 10 × 410, 2 keep; 3 old slugs from the live sitemap at launch) + checker, **applied only at launch** · Summary: `docs/Step-5.3-SEO.md` · `pl-content-qa`
 
 ## Phase 6 — QA & Launch (المراجعة والإطلاق)
 - [ ] **6.1 Independent QA** (المراجعة المستقلة) — `pl-content-qa`
 - [ ] **6.2 Editor Handover** (تسليم الموظف) — `pl-content-qa`
-- [ ] **6.3 Launch Checklist** (الإطلاق) — `pl-events-data-wp` · Must include: move from the staging folder to plevents.org, **remove noindex** ("Discourage search engines" off), apply the 301 map, real server cron for WP-Cron + check the hourly status check + cache purge runs (2.2 D9)
+- [ ] **6.3 Launch Checklist** (الإطلاق) — `pl-events-data-wp` · Must include: move from the staging folder to plevents.org, **remove noindex** ("Discourage search engines" off), apply the 301 map, real server cron for WP-Cron + check the hourly status check + cache purge runs (2.2 D9) · 301: import `deploy/launch/redirects.csv` into Rank Math › Redirections, fill the 3 TBC slugs from the live `wp-sitemap.xml` (read only), then `python3 deploy/launch/check-redirects.py https://plevents.org` = 0 failed
 
 ## Phase 7 — After Launch (بعد الإطلاق, optional)
 - [ ] **7.1 Monthly Content Check** (مراجعة شهرية) · Also review the home meta description's region wording yearly
