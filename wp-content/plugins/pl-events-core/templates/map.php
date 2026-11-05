@@ -27,7 +27,7 @@ foreach ( $offices as $o ) {
 }
 $cities = array_column( $pts, 'city' );
 ?>
-<div class="map grain <?php echo esc_attr( $cls ?? '' ); ?>"><svg viewBox="<?php echo esc_attr( $vb ); ?>" data-full="<?php echo esc_attr( $vb ); ?>" data-aspect="<?php echo esc_attr( (string) $aspect ); ?>" role="img" aria-label="<?php echo esc_attr( 'Map of PL Events congresses: ' . implode( ', ', $cities ) ); ?>">
+<div class="map grain <?php echo esc_attr( $cls ?? '' ); ?>"><svg viewBox="<?php echo esc_attr( $vb ); ?>" data-full="<?php echo esc_attr( $vb ); ?>" data-aspect="<?php echo esc_attr( (string) $aspect ); ?>" data-origin="<?php echo esc_attr( $origin['city'] ); ?>" role="img" aria-label="<?php echo esc_attr( 'Map of PL Events congresses: ' . implode( ', ', $cities ) ); ?>">
 	<image href="<?php echo esc_url( PL_Map::dots_url() ); ?>" x="0" y="0" width="<?php echo esc_attr( (string) PL_Map::W ); ?>" height="<?php echo esc_attr( (string) PL_Map::H ); ?>"/>
 	<?php
 	foreach ( $pts as $p ) {

@@ -14,7 +14,7 @@ defined( 'ABSPATH' ) || exit;
 
 class PL_Shortcodes {
 
-	const TAGS = array( 'pl_upcoming', 'pl_calendar', 'pl_story', 'pl_stats', 'pl_company', 'pl_company_figures', 'pl_next_event', 'pl_logos', 'pl_services', 'pl_offices', 'pl_careers', 'pl_live_ribbon' );
+	const TAGS = array( 'pl_hero', 'pl_upcoming', 'pl_calendar', 'pl_story', 'pl_stats', 'pl_company', 'pl_company_figures', 'pl_next_event', 'pl_logos', 'pl_services', 'pl_offices', 'pl_careers', 'pl_live_ribbon' );
 
 	/** Query args the calendar reads (no WP reserved names such as "year"). */
 	const CAL_ARGS = array( 'tab', 'q', 'specialty', 'country', 'yr', 'type', 'view' );
@@ -74,6 +74,12 @@ class PL_Shortcodes {
 	}
 
 	/* ---------------------------------------------------------------- events */
+
+	/** [pl_hero eyebrow="" intro="" browse="congresses"] — Home hero with the iris (4.2). */
+	public static function hero( $atts ) {
+		$a = shortcode_atts( array( 'eyebrow' => '', 'intro' => '', 'browse' => 'congresses' ), $atts, 'pl_hero' );
+		return PL_Template::render( 'hero', array( 'a' => $a, 'company' => PL_Data::company(), 'stats' => PL_Data::stats(), 'next' => PL_Data::hero_event() ) );
+	}
 
 	/** [pl_upcoming layout="grid" tabs="all,live,upcoming,past" default="all" limit="6"] — Home "Our congresses." */
 	public static function upcoming( $atts, $req ) {

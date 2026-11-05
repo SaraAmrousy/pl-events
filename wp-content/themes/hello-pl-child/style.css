@@ -1,0 +1,10 @@
+/*
+Theme Name:   Hello PL Child
+Theme URI:    https://plevents.org
+Description:  PL Events look and motion on Hello Elementor (Step 4.2). All logic and data live in the pl-events-core plugin; this theme only styles, animates and lays out. Styles: assets/css/pl.css (built by tools/build-theme-css.py).
+Author:       Sara Amrousy
+Template:     hello-elementor
+Version:      0.1.0
+Requires PHP: 8.0
+Text Domain:  hello-pl-child
+*/

@@ -60,7 +60,7 @@
         var mn = more.querySelector('.pl-more-n'); if (mn) mn.textContent = n;
         var u = new URL(more.href); if (tab === 'all') u.searchParams.delete('tab'); else u.searchParams.set('tab', tab); more.href = u.toString();
       }
-      root.dispatchEvent(new CustomEvent('pl:swap', { bubbles: true, detail: { tab: tab } }));
+      root.dispatchEvent(new CustomEvent('pl:swap', { bubbles: true, detail: { tab: tab, el: root.querySelector('#homeGrid') } }));
     }
     $$('[data-ht]', root).forEach(function (t) {
       t.addEventListener('click', function (ev) { ev.preventDefault(); show(t.getAttribute('data-ht')); setParam({ ht: t.getAttribute('data-ht') === 'all' ? '' : t.getAttribute('data-ht') }); });
@@ -110,7 +110,7 @@
       var et = root.querySelector('.pl-empty-tab'); et.hidden = !(n === 0 && !any);
       var tt = et.querySelector('.pl-empty-title'); if (tt) tt.textContent = st.tab === 'upcoming' ? 'No upcoming congresses announced yet.' : 'Nothing here yet.';
       setParam({ tab: st.tab === def ? '' : st.tab, view: st.view === 'grid' ? '' : st.view, q: st.q.trim(), specialty: st.f.specialty, country: st.f.country, yr: st.f.yr, type: st.f.type });
-      root.dispatchEvent(new CustomEvent('pl:swap', { bubbles: true, detail: st }));
+      root.dispatchEvent(new CustomEvent('pl:swap', { bubbles: true, detail: { state: st, el: root.querySelector('#results') } }));
     }
     function chip(k, text) {
       var b = document.createElement('button'); b.type = 'button'; b.className = 'chip'; b.setAttribute('data-unchip', k);
@@ -138,13 +138,13 @@
     function openSheet(btn) {
       opener = btn; var box = sheet.querySelector('.pl-sheet-fields');
       moved = $$('label.fld', frow); moved.forEach(function (l) { box.appendChild(l); });
-      sheet.hidden = false; document.documentElement.classList.add('pl-sheet-open');
+      sheet.hidden = false; requestAnimationFrame(function () { sheet.classList.add('sheet-open'); }); document.documentElement.classList.add('pl-sheet-open');
       var first = sheet.querySelector('select, button'); if (first) first.focus();
       document.addEventListener('keydown', esc);
     }
     function closeSheet() {
       var anchor = frow.querySelector('.pl-nojs'); moved.forEach(function (l) { frow.insertBefore(l, anchor); }); moved = [];
-      sheet.hidden = true; document.documentElement.classList.remove('pl-sheet-open');
+      sheet.classList.remove('sheet-open'); sheet.hidden = true; document.documentElement.classList.remove('pl-sheet-open');
       document.removeEventListener('keydown', esc); if (opener) opener.focus();
     }
     function esc(ev) { if (ev.key === 'Escape') closeSheet(); }
@@ -152,38 +152,62 @@
     render();
   }
 
-  /* 4 — About explorer + chapters ------------------------------------------------ */
+  /* 4 — About story + explorer ------------------------------------------------------
+     Each change fires a cancelable `pl:story` event { mode, index, cities, fresh, cc, viewBox }.
+     The theme's story.js cancels it and animates (camera, arcs, ripples); otherwise the map
+     simply jumps to the new framing here. */
   function story(root) {
     var svg = root.querySelector('.map svg'); if (!svg) return;
-    function frame(vb) { if (vb) svg.setAttribute('viewBox', vb); root.dispatchEvent(new CustomEvent('pl:frame', { bubbles: true, detail: { viewBox: vb } })); }
-    function mark(cc, cities) {
+    var origin = svg.getAttribute('data-origin') || '';
+    var chs = $$('.step[data-ch]', root);
+    function state(d) {
+      var ev = new CustomEvent('pl:story', { bubbles: true, cancelable: true, detail: d });
+      if (!root.dispatchEvent(ev)) return;
+      if (d.viewBox) svg.setAttribute('viewBox', d.viewBox);
       $$('.pin, .arc', svg).forEach(function (p) {
-        var on = cities ? cities.indexOf(p.getAttribute('data-city')) >= 0 : (!cc || p.getAttribute('data-cc') === cc);
-        p.classList.toggle('dim', !on);
+        var c = p.getAttribute('data-city'), on = d.cities ? d.cities.indexOf(c) >= 0 : true;
+        var dim = d.mode === 'explore' && d.cc && p.getAttribute('data-cc') !== d.cc && c !== origin;
+        p.style.opacity = !on ? 0 : dim ? 0.3 : '';
       });
+    }
+    function chapter(i) {
+      var cities = [origin], fresh = [];
+      chs.forEach(function (s, j) {
+        if (j > i) return;
+        s.getAttribute('data-cities').split('|').forEach(function (c) {
+          if (!c) return;
+          if (cities.indexOf(c) < 0) { cities.push(c); if (j === i) fresh.push(c); }
+        });
+      });
+      state({ mode: 'chapter', index: i, cities: cities, fresh: fresh, cc: '', viewBox: chs[i].getAttribute('data-vb') });
+    }
+    function explore() {
+      var p = root.querySelector('.pl-explore:not([hidden])'), cc = p ? p.getAttribute('data-cc') : '';
+      state({ mode: 'explore', index: -1, cities: null, fresh: [], cc: cc, viewBox: cc ? p.getAttribute('data-vb') : svg.getAttribute('data-full') });
     }
     $$('#cchips [data-cc]', root).forEach(function (chip) {
       chip.addEventListener('click', function (ev) {
         ev.preventDefault();
         var cc = chip.getAttribute('data-cc');
         $$('#cchips [data-cc]', root).forEach(function (c) { var on = c === chip; c.classList.toggle('on', on); c.setAttribute('aria-pressed', on ? 'true' : 'false'); });
-        var panel = null;
-        $$('.pl-explore', root).forEach(function (p) { var on = p.getAttribute('data-cc') === cc; p.hidden = !on; if (on) panel = p; });
-        frame(panel && (cc ? panel.getAttribute('data-vb') : svg.getAttribute('data-full'))); mark(cc);
+        $$('.pl-explore', root).forEach(function (p) { p.hidden = p.getAttribute('data-cc') !== cc; });
+        root.dispatchEvent(new CustomEvent('pl:swap', { bubbles: true, detail: { el: root.querySelector('#side') } }));
+        explore();
         setParam({ country: cc });
       });
     });
-    if (!('IntersectionObserver' in window)) return;
+    var steps = $$('.step', root).filter(function (s) { return s.offsetParent !== null; });
+    if (!chs.length || chs[0].offsetParent === null || !('IntersectionObserver' in window)) { explore(); return; }
+    chapter(0);
     var io = new IntersectionObserver(function (entries) {
       entries.forEach(function (en) {
         if (!en.isIntersecting) return;
         var s = en.target;
-        $$('.step', root).forEach(function (x) { x.classList.toggle('on', x === s); });
-        if (s.hasAttribute('data-ch')) { frame(s.getAttribute('data-vb')); mark('', s.getAttribute('data-cities').split('|')); }
-        else { var p = root.querySelector('.pl-explore:not([hidden])'); frame(p && p.getAttribute('data-cc') ? p.getAttribute('data-vb') : svg.getAttribute('data-full')); mark(p ? p.getAttribute('data-cc') : ''); }
+        steps.forEach(function (x) { x.classList.toggle('on', x === s); });
+        if (s.hasAttribute('data-ch')) chapter(+s.getAttribute('data-ch')); else explore();
       });
     }, { rootMargin: '-45% 0px -45% 0px' });
-    $$('.step', root).forEach(function (s) { io.observe(s); });
+    steps.forEach(function (s) { io.observe(s); });
   }
 
   function boot() {

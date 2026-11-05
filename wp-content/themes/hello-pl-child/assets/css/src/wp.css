@@ -1,0 +1,58 @@
+/* ===== hello-pl-child — WordPress layer on top of the prototype CSS (Step 4.2) =====
+   Everything above this file is reference/prototype/src/base.css + proto.css, unchanged
+   except: Prototype-controls rules removed. Class names = prototype = plugin templates. */
+
+/* The prototype ran inside a frame and hid overflow on .pl; on a real page that would
+   stop the page scrolling and break position:sticky. html already clips x (proto.css). */
+body.pl { overflow: visible; min-height: 100vh; }
+:where(.pl) img { max-width: 100%; height: auto; } /* zero specificity: never beats a component rule */
+
+/* Fix found in 4.1: explorer chips must not widen the column on mobile. */
+.story2 .steps, .story2 .mapcol { min-width: 0; }
+/* The viewfinder brackets round the map sit 10px outside it; keep that from widening the page (768–1023). clip, not hidden: sticky still works. */
+.pl-story > .wrap { overflow-x: clip; }
+
+/* Sheet: the plugin toggles [hidden] + .sheet-open on #sheet. */
+@media (max-width: 1023px) { #sheet:not([hidden]) { display: block; } }
+
+/* Flags are <img> in the build (flag-icons SVG), spans in the prototype. */
+.pl img.flag { display: inline-block; width: 20px; height: 15px; border-radius: 2px; box-shadow: 0 0 0 1px rgba(10,13,24,.12); flex: none; object-fit: cover; }
+.pl img.flag[width="30"] { width: 30px; height: 21px; }
+
+/* Event posters: a real poster/photo sits under the typographic layer. */
+.poster .pimg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.poster .pimg + .pw, .poster .pimg ~ .pe { text-shadow: 0 1px 12px rgba(10,13,24,.6); }
+
+/* Tabs/chips rendered as links or submit buttons by the server (no-JS). */
+.pl a.tab, .pl a.chip, .pl a.choice { text-decoration: none; }
+
+/* Elementor Free: sections built with containers carry our classes; neutralise its spacing. */
+.pl .e-con.pl-raw, .pl .e-con.pl-raw > .e-con-inner { padding: 0; gap: 0; max-width: none; }
+.pl .elementor-widget-shortcode, .pl .elementor-shortcode { width: 100%; }
+.pl .elementor-widget:not(:last-child) { margin-block-end: 0; }
+.pl .elementor-widget-container > .wrap { width: 100%; }
+.pl .site-main, .pl .page-content { max-width: none; margin: 0; padding: 0; }
+
+/* WordPress basics */
+.screen-reader-text { position: absolute !important; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.pl :focus-visible { outline: 3px solid var(--blue); outline-offset: 3px; }
+.pl .ink :focus-visible, .pl .hdr.over :focus-visible { outline-color: var(--boi); }
+.admin-bar .topbar { top: var(--wp-admin--admin-bar--height, 32px); }
+
+/* Motion: no flash before the first frame. html.pl-mp is set in <head> only when motion
+   will run (Full/Light); core.js removes it once start states are set (fallback 2.5 s). */
+html.pl-mp .h1:not(#heroH1) { opacity: 0; }
+/* Iris (first Home visit of the session, Full only): start closed, header hidden. */
+html.pl-iris #hdr, html.pl-iris .hfade, html.pl-iris #shade, html.pl-iris #heroH1 .w, html.pl-iris #heroFrame .brk { opacity: 0; }
+html.pl-iris #iris { transform: scale(.25); }
+
+/* Without JS the showreel is a plain full-bleed picture; iris.js turns it into the aperture. */
+.iris { inset: 0; border-radius: 0; }
+.iris-in { inset: 0; }
+.hero .reel { opacity: 0; }
+.hero .reel.on { opacity: 1; }
+.hero.paused .still { transition: none; }
+
+/* Page transitions (3.4b P8): progressive-enhancement crossfade. */
+@view-transition { navigation: auto; }
+@media (prefers-reduced-motion: reduce) { @view-transition { navigation: none; } }
