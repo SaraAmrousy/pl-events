@@ -558,6 +558,7 @@
    ]
   }
  ],
+ "series": [{"name": "Bridge Retina", "short": "BRC", "_note": "Short name on buttons (prototype regLabel, Step 3.4b)."}],
  "societies": [
   {
    "name": "ESOIRS",

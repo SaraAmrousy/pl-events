@@ -1,0 +1,8 @@
+/* pl-events-core — functional rules only (the look lives in the child theme, Step 4.2).
+   The `hidden` attribute must win over any display rule, because the server and the JS
+   filter cards, panels and empty states by toggling it. */
+.pl-card[hidden], .pl-empty[hidden], .pl-explore[hidden], .pl-more[hidden], .nextc[hidden], .ribbon[hidden],
+[data-pl] [hidden], #sheet[hidden], .pl-view-grid[hidden], .pl-view-list[hidden] { display: none !important; }
+.pl-calendar .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+html.pl-sheet-open { overflow: hidden; }
+.map svg .dim { opacity: .35; }
