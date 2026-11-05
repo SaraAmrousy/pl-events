@@ -13,7 +13,7 @@ if [ ! -f "$WPD/site/wp-load.php" ]; then
 fi
 P="$WPD/site/wp-content/plugins"
 get() { [ -d "$P/$1" ] || { curl -sSL -o "$WPD/$1.zip" "https://downloads.wordpress.org/plugin/$1.latest-stable.zip"; unzip -q -o "$WPD/$1.zip" -d "$P"; rm "$WPD/$1.zip"; }; }
-get sqlite-database-integration; get secure-custom-fields
+get sqlite-database-integration; get secure-custom-fields; get elementor; get header-footer-elementor; get forminator
 cp "$P/sqlite-database-integration/db.copy" "$WPD/site/wp-content/db.php"
 sed -i "s#{SQLITE_IMPLEMENTATION_FOLDER_PATH}#$P/sqlite-database-integration#; s#{SQLITE_PLUGIN}#sqlite-database-integration/load.php#" "$WPD/site/wp-content/db.php"
 T="$WPD/site/wp-content/themes"
@@ -32,6 +32,6 @@ PHP
   WP option update timezone_string Africa/Cairo --quiet
   WP rewrite structure '/%postname%/' --quiet
 fi
-WP plugin activate secure-custom-fields --quiet
+WP plugin activate secure-custom-fields elementor header-footer-elementor forminator --quiet
 WP theme activate hello-elementor --quiet
 echo "sandbox ready: $WPD/site  (wp: php $BIN/wp --allow-root --path=$WPD/site)"

@@ -1,0 +1,137 @@
+<?php
+/**
+ * Provisioning (idempotent): the UAE HFB header/footer templates (4.3), the menus, and —
+ * from 4.4 — the pages from the Elementor template JSON in /elementor. Run by the deploy
+ * scripts (`plt_provision()`), never on a normal page load. Existing items are left alone
+ * unless $force, so edits made in wp-admin are never overwritten.
+ *
+ * @package hello-pl-child
+ */
+
+defined( 'ABSPATH' ) || exit;
+
+/* ---------------------------------------------------- Elementor data helpers */
+
+function plt_el_id() {
+	return substr( md5( wp_generate_uuid4() ), 0, 7 );
+}
+
+/** Full-width container with no padding/gap, our CSS classes on it. */
+function plt_el_container( array $children, $classes = 'pl-raw', array $extra = array() ) {
+	$zero = array( 'unit' => 'px', 'top' => '0', 'right' => '0', 'bottom' => '0', 'left' => '0', 'isLinked' => true );
+	return array(
+		'id'       => plt_el_id(),
+		'elType'   => 'container',
+		'isInner'  => false,
+		'settings' => array_merge(
+			array(
+				'content_width' => 'full',
+				'padding'       => $zero,
+				'margin'        => $zero,
+				'flex_gap'      => array( 'unit' => 'px', 'size' => 0, 'column' => '0', 'row' => '0', 'isLinked' => true ),
+				'css_classes'   => $classes,
+			),
+			$extra
+		),
+		'elements' => $children,
+	);
+}
+
+function plt_el_shortcode( $code ) {
+	return array( 'id' => plt_el_id(), 'elType' => 'widget', 'widgetType' => 'shortcode', 'isInner' => false, 'settings' => array( 'shortcode' => $code ), 'elements' => array() );
+}
+
+function plt_el_html( $html ) {
+	return array( 'id' => plt_el_id(), 'elType' => 'widget', 'widgetType' => 'html', 'isInner' => false, 'settings' => array( 'html' => $html ), 'elements' => array() );
+}
+
+/** Save Elementor data on a post (the same meta Elementor writes). */
+function plt_el_save( $post_id, array $elements, $template = 'elementor_header_footer' ) {
+	update_post_meta( $post_id, '_elementor_edit_mode', 'builder' );
+	update_post_meta( $post_id, '_elementor_template_type', 'page' === get_post_type( $post_id ) ? 'wp-page' : 'wp-post' );
+	update_post_meta( $post_id, '_elementor_version', defined( 'ELEMENTOR_VERSION' ) ? ELEMENTOR_VERSION : '4.0.0' );
+	update_post_meta( $post_id, '_elementor_data', wp_slash( wp_json_encode( $elements ) ) );
+	if ( $template && 'page' === get_post_type( $post_id ) ) {
+		update_post_meta( $post_id, '_wp_page_template', $template );
+	}
+	delete_post_meta( $post_id, '_elementor_css' );
+}
+
+/* ----------------------------------------------------------- 4.3 HFB + menus */
+
+/**
+ * @return array log lines
+ */
+function plt_provision_chrome( $force = false ) {
+	$log = array();
+	if ( ! post_type_exists( 'elementor-hf' ) ) {
+		return array( 'UAE Header Footer Builder is not active — header/footer skipped.' );
+	}
+	foreach ( array( 'type_header' => array( 'PL header', '[pl_site_header]' ), 'type_footer' => array( 'PL footer', '[pl_site_footer]' ) ) as $type => $t ) {
+		$found = get_posts( array( 'post_type' => 'elementor-hf', 'post_status' => 'any', 'numberposts' => 1, 'meta_key' => '_plt_key', 'meta_value' => $type, 'fields' => 'ids' ) ); // phpcs:ignore WordPress.DB.SlowDBQuery
+		if ( $found && ! $force ) {
+			$log[] = "$t[0]: exists (#$found[0]) — left as is";
+			continue;
+		}
+		$id = $found ? $found[0] : wp_insert_post( array( 'post_type' => 'elementor-hf', 'post_status' => 'publish', 'post_title' => $t[0] ) );
+		update_post_meta( $id, '_plt_key', $type );
+		update_post_meta( $id, 'ehf_template_type', $type );
+		update_post_meta( $id, 'ehf_target_include_locations', array( 'rule' => array( 'basic-global' ), 'specific' => array() ) );
+		update_post_meta( $id, 'ehf_target_exclude_locations', array() );
+		update_post_meta( $id, 'ehf_target_user_roles', array( 'all' ) );
+		update_post_meta( $id, 'display-on-canvas-template', '1' );
+		plt_el_save( $id, array( plt_el_container( array( plt_el_shortcode( $t[1] ) ) ) ), '' );
+		$log[] = "$t[0]: " . ( $found ? 'updated' : 'created' ) . " (#$id), whole site";
+	}
+	$log = array_merge( $log, plt_provision_menus( $force ) );
+	return $log;
+}
+
+/** Main + footer menus from the pages that exist (Step 3.4a H5–H6). */
+function plt_provision_menus( $force = false ) {
+	$log  = array();
+	$want = array(
+		'pl-main'   => array( 'Main menu', array( 'home', 'events', 'services', 'about', 'careers', 'contact' ) ),
+		'pl-footer' => array( 'Footer menu', array( 'events', 'services', 'about', 'careers', 'contact' ) ),
+	);
+	$locs = get_nav_menu_locations();
+	foreach ( $want as $loc => $m ) {
+		if ( ! empty( $locs[ $loc ] ) && ! $force ) {
+			$log[] = "$m[0]: assigned already — left as is";
+			continue;
+		}
+		$menu = wp_get_nav_menu_object( $m[0] );
+		$id   = $menu ? $menu->term_id : wp_create_nav_menu( $m[0] );
+		foreach ( (array) wp_get_nav_menu_items( $id ) as $item ) {
+			wp_delete_post( $item->ID, true );
+		}
+		$n = 0;
+		foreach ( $m[1] as $i => $slug ) {
+			if ( 'home' === $slug ) {
+				wp_update_nav_menu_item( $id, 0, array( 'menu-item-title' => 'Home', 'menu-item-url' => home_url( '/' ), 'menu-item-type' => 'custom', 'menu-item-status' => 'publish', 'menu-item-position' => $i + 1 ) );
+				++$n;
+				continue;
+			}
+			$p = get_page_by_path( $slug );
+			if ( ! $p ) {
+				continue;
+			}
+			wp_update_nav_menu_item( $id, 0, array( 'menu-item-title' => get_the_title( $p ), 'menu-item-object' => 'page', 'menu-item-object-id' => $p->ID, 'menu-item-type' => 'post_type', 'menu-item-status' => 'publish', 'menu-item-position' => $i + 1 ) );
+			++$n;
+		}
+		$locs[ $loc ] = $id;
+		$log[]        = "$m[0]: $n links → $loc";
+	}
+	set_theme_mod( 'nav_menu_locations', $locs );
+	return $log;
+}
+
+/** Everything (4.3 now; 4.4 adds pages). */
+function plt_provision( $force = false ) {
+	$log = function_exists( 'plt_provision_pages' ) ? plt_provision_pages( $force ) : array();
+	$log = array_merge( $log, plt_provision_chrome( $force ) ); // header, footer, then menus (pages exist by now).
+	if ( class_exists( '\Elementor\Plugin' ) ) {
+		\Elementor\Plugin::$instance->files_manager->clear_cache();
+	}
+	return $log;
+}

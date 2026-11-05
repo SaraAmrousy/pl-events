@@ -56,3 +56,16 @@ html.pl-iris #iris { transform: scale(.25); }
 /* Page transitions (3.4b P8): progressive-enhancement crossfade. */
 @view-transition { navigation: auto; }
 @media (prefers-reduced-motion: reduce) { @view-transition { navigation: none; } }
+
+/* ===== 4.3 Header / footer inside UAE Header Footer Builder =====
+   HFB prints <header id="masthead"> straight in <body>, with Elementor wrappers inside, so the
+   prototype's sticky .topbar would have nothing to stick in: the masthead itself sticks. */
+.pl #masthead, .ehf-header #masthead { position: sticky; top: 0; z-index: 40; } /* beats HFB's .ehf-header #masthead { position: relative } */
+.admin-bar #masthead { top: var(--wp-admin--admin-bar--height, 32px); }
+#masthead .topbar { position: static; }
+#masthead .topbar.fx { position: fixed; left: 0; right: 0; top: 0; }
+.admin-bar #masthead .topbar.fx { top: var(--wp-admin--admin-bar--height, 32px); }
+#masthead .bhf-hidden { display: none; }
+#colophon { display: block; }
+.pl .ftc .pl-offices-compact { gap: 28px; }
+@media (max-width: 767px) { .pl #ft > .ftc { grid-column: 1 / -1 !important; } .pl .pl-offices-compact { grid-template-columns: minmax(0, 1fr) !important; } }
