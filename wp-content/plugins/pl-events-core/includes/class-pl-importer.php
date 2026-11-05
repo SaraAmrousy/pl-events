@@ -163,9 +163,7 @@ class PL_Importer {
 			'post_status' => 'publish',
 			'menu_order'  => (int) ( $item['order'] ?? $index ),
 		);
-		if ( 'event' === $type ) {
-			$post['post_name'] = $key;
-		}
+		$post['post_name'] = $key; // stable slug for every type (events: the URL).
 		if ( $existing ) {
 			$post['ID'] = $existing[0];
 			$id         = wp_update_post( $post, true );

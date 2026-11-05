@@ -108,12 +108,25 @@ abstract class PL_Module {
 	public function to_data( WP_Post $p ) {
 		return array_merge(
 			array(
-				'id'    => $p->post_name,
+				'id'    => self::stable_id( $p ),
 				'name'  => $p->post_title, // raw: templates escape on output.
 				'order' => (int) $p->menu_order,
 			),
 			PL_Fields::export( $p->ID, $this->type )
 		);
+	}
+
+	/**
+	 * Stable key used in the data (pl-data.json "id", contact links ?office=…): the slug when it is
+	 * a real word, else the importer's key, else the title. WordPress gives non-public types a
+	 * numeric slug, which must never leak into links.
+	 */
+	public static function stable_id( WP_Post $p ) {
+		if ( $p->post_name && ! ctype_digit( $p->post_name ) ) {
+			return $p->post_name;
+		}
+		$key = (string) get_post_meta( $p->ID, '_pl_key', true );
+		return '' !== $key ? $key : sanitize_title( $p->post_title );
 	}
 
 	/** Importer: one pl-data.json item → field values ( name => value ). */

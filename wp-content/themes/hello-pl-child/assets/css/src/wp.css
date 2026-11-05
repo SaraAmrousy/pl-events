@@ -79,3 +79,49 @@ html.pl-iris #iris { transform: scale(.25); }
 
 /* Event page hero is ink without the .ink class (prototype): muted text needs the on-ink colour (contrast ≥ 4.5). */
 .pl .ev-hero .dl dt, .pl .ev-hero .mut { color: var(--oim); }
+
+/* Elementor's frontend.css removes underlines from every link inside .elementor; the prototype
+   underlines plain text links (office cards, explorer facts, notes). Restore those only. */
+.pl .elementor :is(.pl-office, .dl, .mut, .pl-more-links, .lead, .pl-empty) a:not(.btn) { text-decoration: underline; text-underline-offset: 3px; }
+.pl .elementor .foot :is(.pl-office, .dl, .mut) a { text-decoration: none; }
+.pl .elementor .foot :is(.pl-office, .dl, .mut) a:hover { text-decoration: underline; }
+
+/* ===== 4.5 Forminator → the prototype form (.form / .fld / .fl / .inp / .sel / .btn.bp) =====
+   Forms use Forminator's "None" design, so only these rules style them. */
+.pl .forminator-ui.forminator-custom-form { display: block !important; } /* Forminator hides the form until its JS runs: no-JS must still see it */
+.pl .forminator-custom-form .forminator-row { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; margin: 0 0 16px; }
+.pl .forminator-custom-form .forminator-col { min-width: 0; }
+.pl .forminator-custom-form .forminator-col-12 { grid-column: 1 / -1; }
+@media (max-width: 767px) { .pl .forminator-custom-form .forminator-row { grid-template-columns: minmax(0, 1fr); } .pl .forminator-custom-form .forminator-col { grid-column: 1 / -1; } }
+.pl .forminator-custom-form .forminator-field { display: flex; flex-direction: column; gap: 6px; }
+.pl .forminator-custom-form .forminator-label { font-size: 13px; font-weight: 700; line-height: 1.4; }
+.pl .forminator-custom-form .forminator-required { color: var(--mut); font-weight: 600; margin-left: 2px; }
+.pl .forminator-custom-form :is(.forminator-input, .forminator-textarea, select) { font: inherit; font-size: 16px; font-weight: 500; min-height: 48px; padding: 0 14px; border-radius: 10px; border: 1.5px solid var(--cb); background: var(--surface); color: var(--ink); width: 100%; box-sizing: border-box; }
+.pl .forminator-custom-form .forminator-textarea { min-height: 140px; padding: 12px 14px; resize: vertical; line-height: 1.5; }
+.pl .forminator-custom-form select { appearance: auto; padding-right: 10px; }
+.pl .forminator-custom-form :is(.forminator-input, .forminator-textarea, select):focus { outline: 3px solid var(--blue); outline-offset: 1px; border-color: var(--blue); }
+.pl .forminator-custom-form .forminator-description { font-size: 13px; color: var(--mut); line-height: 1.45; margin: 0; }
+.pl .forminator-custom-form .forminator-error-message { color: var(--live); font-size: 13px; font-weight: 600; margin: 2px 0 0; }
+.pl .forminator-custom-form .forminator-has_error :is(.forminator-input, .forminator-textarea, select) { border-color: var(--live); }
+.pl .forminator-custom-form .forminator-response-message { border-radius: 10px; padding: 14px 16px; margin: 0 0 16px; font-weight: 600; }
+.pl .forminator-custom-form .forminator-response-message:empty, .pl .forminator-custom-form .forminator-response-message[aria-hidden="true"] { display: none; }
+.pl .forminator-custom-form .forminator-response-message.forminator-success { background: #E7F4EC; color: var(--open); border: 1.5px solid var(--open); }
+.pl .forminator-custom-form .forminator-response-message.forminator-error { background: #FBEAEA; color: var(--live); border: 1.5px solid var(--live); }
+.pl .forminator-custom-form .forminator-response-message p { margin: 0; }
+.pl .forminator-custom-form .forminator-button-submit { font: inherit; font-size: 15px; font-weight: 700; min-height: 48px; padding: 0 24px; border-radius: 999px; border: 0; background: var(--blue); color: #fff; cursor: pointer; }
+.pl .forminator-custom-form .forminator-button-submit:hover { background: var(--blueh); }
+.pl .forminator-custom-form .forminator-button-submit:focus-visible { outline: 3px solid var(--blue); outline-offset: 3px; }
+.pl .forminator-custom-form .forminator-file-upload { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+.pl .forminator-custom-form input[type="file"] { font: inherit; font-size: 15px; color: var(--mut); max-width: 100%; }
+.pl .forminator-custom-form input[type="file"]::file-selector-button { font: inherit; font-size: 14px; font-weight: 700; min-height: 44px; padding: 0 18px; margin-right: 12px; border-radius: 999px; border: 1.5px solid var(--ink); background: transparent; color: var(--ink); cursor: pointer; }
+.pl .forminator-custom-form input[type="file"]:focus-visible { outline: 3px solid var(--blue); outline-offset: 3px; border-radius: 999px; }
+.pl .forminator-custom-form .forminator-file-upload .forminator-button-upload { font: inherit; font-size: 14px; font-weight: 700; min-height: 44px; padding: 0 18px; border-radius: 999px; border: 1.5px solid var(--ink); background: transparent; color: var(--ink); cursor: pointer; }
+.pl .forminator-custom-form .forminator-file-upload .forminator-button-delete { border: 0; background: transparent; color: var(--mut); cursor: pointer; font: inherit; }
+.pl .forminator-custom-form :is(.forminator-hidden, .forminator-honeypot), .pl .forminator-custom-form [class*="forminator-hidden"] input[type="text"][name^="input_"] { display: none; }
+.pl .forminator-custom-form .forminator-button-spinner, .pl .forminator-custom-form .forminator-icon-loader { width: 18px; height: 18px; }
+.pl .sand .forminator-custom-form :is(.forminator-input, .forminator-textarea, select) { background: var(--surface); }
+.pl .forminator-custom-form #select-2 { grid-column: span 1; } /* Office: half width, like the prototype */
+.pl .forminator-custom-form .forminator-row-last, .pl .forminator-custom-form .forminator-row:has(.forminator-button-submit) { display: flex; }
+.pl .forminator-custom-form .forminator-button-submit { width: auto; align-self: flex-start; }
+.pl .forminator-custom-form .forminator-row-last .forminator-col, .pl .forminator-custom-form .forminator-row-last .forminator-field { display: flex; flex-direction: column; align-items: flex-start; }
+.pl .forminator-custom-form .forminator-upload--remove { border: 0; background: transparent; color: var(--mut); text-decoration: underline; cursor: pointer; font: inherit; font-size: 14px; }

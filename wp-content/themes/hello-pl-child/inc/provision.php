@@ -190,6 +190,9 @@ function plt_provision_pages( $force = false ) {
 function plt_provision( $force = false ) {
 	$log = function_exists( 'plt_provision_pages' ) ? plt_provision_pages( $force ) : array();
 	$log = array_merge( $log, plt_provision_chrome( $force ) ); // header, footer, then menus (pages exist by now).
+	if ( function_exists( 'plt_provision_forms' ) ) {
+		$log = array_merge( $log, plt_provision_forms( $force ) );
+	}
 	if ( class_exists( '\Elementor\Plugin' ) ) {
 		\Elementor\Plugin::$instance->files_manager->clear_cache();
 	}
