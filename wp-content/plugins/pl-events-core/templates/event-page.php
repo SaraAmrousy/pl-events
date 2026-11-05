@@ -50,7 +50,7 @@ $origin  = PL_Data::origin();
 	<div style="grid-column:span 5;display:flex;flex-direction:column;gap:16px" class="evh-r">
 		<div class="<?php echo 'past' === $e['status'] ? 'poster past' : 'poster'; ?> grain" style="border-radius:10px;aspect-ratio:16/10" aria-hidden="true">
 			<?php echo $e['poster'] ? PL_Images::img( $e['poster'], 'poster10', array( 'class' => 'pimg', 'sizes' => '(max-width: 1023px) 100vw, 480px', 'eager' => true ) ) : ''; // phpcs:ignore WordPress.Security.EscapeOutput -- escaped inside. ?>
-			<span class="pw" style="font-size:52px;top:28px"><?php echo esc_html( $e['poster_word'] ); ?></span><span class="pe"><?php echo esc_html( $e['edition_text'] ); ?><br><?php echo esc_html( $e['city'] ); ?></span><span class="date"><b><?php echo esc_html( $e['tile'][0] ); ?></b><span><?php echo esc_html( $e['tile'][1] ); ?></span></span>
+			<?php if ( ! $e['poster'] ) : ?><span class="pw" style="font-size:52px;top:28px"><?php echo esc_html( $e['poster_word'] ); ?></span><span class="pe"><?php echo esc_html( $e['edition_text'] ); ?><br><?php echo esc_html( $e['city'] ); ?></span><?php endif; ?><?php echo PL_Template::date_box( $e ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
 		</div>
 		<?php if ( $e['logo'] ) : ?><div class="tile pl-evlogo"><?php echo PL_Images::img( $e['logo'], 'logo', array( 'alt' => $e['name'] . ' logo', 'sizes' => '240px' ) ); // phpcs:ignore WordPress.Security.EscapeOutput ?></div><?php endif; ?>
 		<?php
@@ -86,7 +86,7 @@ $origin  = PL_Data::origin();
 <?php if ( count( $eds ) > 1 ) : ?>
 <section class="sec"><div class="wrap" style="display:flex;flex-direction:column;gap:18px"><h2 class="h3" style="font-size:32px"><?php echo esc_html( $e['series'] ); ?> editions with PL</h2><div>
 	<?php foreach ( $eds as $x ) : ?>
-	<div class="erow erow-ed"><span style="font-weight:800"><?php echo esc_html( $x['range'] ); ?></span><a href="<?php echo esc_url( $x['url'] ); ?>" style="font-weight:700;text-decoration:none"<?php echo $x['id'] === $e['id'] ? ' aria-current="page"' : ''; ?>><?php echo esc_html( $x['name'] . ( $x['id'] === $e['id'] ? ' (this page)' : '' ) ); ?></a><span class="badge <?php echo esc_attr( $x['badge'][1] ); ?>"><i aria-hidden="true"></i><?php echo esc_html( $x['badge'][0] ); ?></span></div>
+	<div class="erow erow-ed"><?php echo PL_Template::thumb( $x ); // phpcs:ignore WordPress.Security.EscapeOutput ?><span class="r-dt" style="font-weight:800"><?php echo esc_html( $x['range'] ); ?></span><a href="<?php echo esc_url( $x['url'] ); ?>" style="font-weight:700;text-decoration:none"<?php echo $x['id'] === $e['id'] ? ' aria-current="page"' : ''; ?>><?php echo esc_html( $x['name'] . ( $x['id'] === $e['id'] ? ' (this page)' : '' ) ); ?></a><span class="badge <?php echo esc_attr( $x['badge'][1] ); ?>"><i aria-hidden="true"></i><?php echo esc_html( $x['badge'][0] ); ?></span></div>
 	<?php endforeach; ?>
 </div></div></section>
 <?php endif; ?>

@@ -25,9 +25,11 @@ $actions = apply_filters( 'pl_event_actions', $actions, $e, 'card' );
 	<div class="<?php echo 'past' === $e['status'] ? 'poster past' : 'poster'; ?>" aria-hidden="true">
 		<?php echo $e['poster'] ? PL_Images::img( $e['poster'], 'poster', array( 'class' => 'pimg', 'sizes' => '(max-width: 767px) 100vw, (max-width: 1023px) 50vw, 400px' ) ) : ''; // phpcs:ignore WordPress.Security.EscapeOutput -- escaped inside. ?>
 		<?php if ( $e['logo'] ) : ?><span class="plogo"><?php echo PL_Images::img( $e['logo'], 'logo', array( 'sizes' => '96px' ) ); // phpcs:ignore WordPress.Security.EscapeOutput ?></span><?php endif; ?>
+		<?php if ( ! $e['poster'] ) : // typographic poster only when there is no real one (Thread 8) ?>
 		<span class="pw<?php echo strlen( $e['poster_word'] ) > 9 ? ' long' : ''; ?>"><?php echo esc_html( $e['poster_word'] ); ?></span>
 		<span class="pe"><?php echo esc_html( $e['edition_text'] ); ?><br><?php echo esc_html( $e['city'] ); ?></span>
-		<span class="date"><b><?php echo esc_html( $e['tile'][0] ); ?></b><span><?php echo esc_html( $e['tile'][1] ); ?></span></span>
+		<?php endif; ?>
+		<?php echo PL_Template::date_box( $e ); // phpcs:ignore WordPress.Security.EscapeOutput -- escaped inside. ?>
 	</div>
 	<span class="badge <?php echo esc_attr( $e['badge'][1] ); ?>"><?php echo 'live' === $e['status'] ? '<span class="ldot" style="background:#fff" aria-hidden="true"></span>' : '<i aria-hidden="true"></i>'; ?><span class="bt"><?php echo esc_html( $e['badge'][0] ); ?></span></span>
 	<div class="cb">

@@ -5,7 +5,7 @@
  *   core.js        contexts (Full / Light / Reduced), header state, Lenis, module runner
  *   patterns.js    focus pull, cards/panels, focus sets, rack focus, outline, swaps, arcs
  *   iris.js        Home: iris hero, stills / showreel, Ken Burns, word focus pull, Pause
- *   viewfinder.js  Events: brackets glide to the card in focus
+ *   viewfinder.js  Events + Home row: brackets glide to the card in focus
  *   story.js       About: camera per chapter, arcs draw, new cities ripple
  * All self-hosted, deferred, in the footer: no motion JS on the critical path.
  *
@@ -36,6 +36,9 @@ add_filter( 'pl_shortcode_html', static function ( $html, $tag ) {
 	$map = array( 'pl_hero' => 'plm-iris', 'pl_calendar' => 'plm-viewfinder', 'pl_story' => 'plm-story' );
 	if ( isset( $map[ $tag ] ) && '' !== $html ) {
 		wp_enqueue_script( $map[ $tag ] );
+	}
+	if ( 'pl_upcoming' === $tag && false !== strpos( $html, 'pl-rail' ) ) {
+		wp_enqueue_script( 'plm-viewfinder' ); // Home row: brackets on the centre card (Full only)
 	}
 	return $html;
 }, 10, 2 );

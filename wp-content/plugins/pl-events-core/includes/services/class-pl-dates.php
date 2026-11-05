@@ -66,13 +66,23 @@ class PL_Dates {
 	}
 
 	/** Date tile on the poster: [big, small]. */
+	/**
+	 * Date box: [ days + month(s), year ] — "29–30 Jan" / "2027", "30 Oct – 1 Nov" / "2026",
+	 * "30 Dec – 2 Jan" / "2026–27". Both lines are shown in the same size and case (Thread 8).
+	 */
 	public static function tile( $s, $e ) {
 		$a = self::parts( $s );
 		$b = self::parts( $e );
 		$m = self::M3;
-		$big   = $s === $e ? (string) $a['d'] : ( $a['m'] === $b['m'] ? $a['d'] . '–' . $b['d'] : $a['d'] . ' ' . $m[ $a['m'] ] );
-		$small = ( $a['m'] === $b['m'] || $s === $e ) ? $m[ $a['m'] ] . ' ' . $a['y'] : '– ' . $b['d'] . ' ' . $m[ $b['m'] ] . ' ' . $b['y'];
-		return array( $big, $small );
+		if ( $s === $e ) {
+			$days = $a['d'] . ' ' . $m[ $a['m'] ];
+		} elseif ( $a['m'] === $b['m'] && $a['y'] === $b['y'] ) {
+			$days = $a['d'] . '–' . $b['d'] . ' ' . $m[ $a['m'] ];
+		} else {
+			$days = $a['d'] . ' ' . $m[ $a['m'] ] . ' – ' . $b['d'] . ' ' . $m[ $b['m'] ];
+		}
+		$year = $a['y'] === $b['y'] ? (string) $a['y'] : $a['y'] . '–' . substr( (string) $b['y'], -2 );
+		return array( $days, $year );
 	}
 
 	public static function month_short( $iso ) {

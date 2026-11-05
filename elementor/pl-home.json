@@ -82,7 +82,7 @@
      "isLinked": true
     },
     "css_classes": "pl-raw",
-    "_title": "pl_upcoming layout=\"grid\" tabs=\"all,live"
+    "_title": "pl_upcoming layout=\"row\" tabs=\"all,live,"
    },
    "elements": [
     {
@@ -91,7 +91,7 @@
      "widgetType": "shortcode",
      "isInner": false,
      "settings": {
-      "shortcode": "[pl_upcoming layout=\"grid\" tabs=\"all,live,upcoming,past\" default=\"all\" limit=\"6\"]"
+      "shortcode": "[pl_upcoming layout=\"row\" tabs=\"all,live,upcoming,past\" default=\"all\" limit=\"0\"]"
      },
      "elements": []
     }

@@ -33,7 +33,7 @@ COL = 'display:flex;flex-direction:column;'
 PAGES = {
  'home': {"title": "Home", "front": True, "sections": [
   '[pl_hero]',
-  '[pl_upcoming layout="grid" tabs="all,live,upcoming,past" default="all" limit="6"]',
+  '[pl_upcoming layout="row" tabs="all,live,upcoming,past" default="all" limit="0"]',
   f'''[pl_section class="sec" style="border-top:1.5px solid var(--line);overflow:hidden;position:relative" wrap_style="display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:32px;align-items:center"]
 <div class="d-only" style="grid-column:span 5;margin-left:-120px" aria-hidden="true"><svg viewBox="0 0 520 330" width="520" height="330" style="overflow:visible"><text id="plOutline" x="0" y="320" fill="#FAFAF7" stroke="#0A0D18" stroke-width="4" style="font:800 420px Montserrat,sans-serif;letter-spacing:-.02em;paint-order:stroke fill">PL</text></svg></div>
 <div style="grid-column:span 7;{COL}gap:20px" class="nm">[pl_stats layout="line"][pl_logos type="society"]<a href="[pl_url to="about" anchor="story"]" class="btn bg" style="align-self:flex-start">Explore the record on the map →</a></div>

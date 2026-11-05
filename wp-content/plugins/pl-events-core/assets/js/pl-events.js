@@ -2,7 +2,7 @@
  * pl-events-core front-end — progressive enhancement only. Every shortcode is a finished,
  * server-rendered section without this file. This adds:
  *  1. status re-check in each event country's local time (cached pages stay honest, D9)
- *  2. Home tabs without reload ([pl_upcoming])
+ *  2. Home tabs without reload ([pl_upcoming]) + the manual row (← →, never autoplays)
  *  3. Events calendar: live filtering, chips, counts, Grid/List, URL state, mobile bottom sheet
  *  4. About explorer: country chips swap the side panel and frame the map
  * Motion lives in the child theme (Step 4.2); this file never animates.
@@ -60,7 +60,35 @@
         var mn = more.querySelector('.pl-more-n'); if (mn) mn.textContent = n;
         var u = new URL(more.href); if (tab === 'all') u.searchParams.delete('tab'); else u.searchParams.set('tab', tab); more.href = u.toString();
       }
+      if (rail) { rail.scrollTo({ left: 0, behavior: 'instant' }); railState(); } // a new tab starts at the first card, no glide
       root.dispatchEvent(new CustomEvent('pl:swap', { bubbles: true, detail: { tab: tab, el: root.querySelector('#homeGrid') } }));
+    }
+    /* manual row: buttons scroll by one card; disabled at either end; no autoplay, ever */
+    var rail = root.querySelector('.rail'), prev = root.querySelector('[data-rail="prev"]'), next = root.querySelector('[data-rail="next"]');
+    function reduced() { return document.documentElement.getAttribute('data-motion') === 'reduced' || (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches); }
+    function railState() {
+      if (!rail || !prev) return;
+      var max = rail.scrollWidth - rail.clientWidth;
+      prev.disabled = rail.scrollLeft <= 2;
+      next.disabled = rail.scrollLeft >= max - 2;
+    }
+    function step() {
+      var c = rail.querySelector('.card:not([hidden])'); if (!c) return rail.clientWidth;
+      return c.getBoundingClientRect().width + (parseFloat(getComputedStyle(rail).columnGap) || 0);
+    }
+    if (rail && prev) {
+      var go = function (dir) { rail.scrollBy({ left: dir * step(), behavior: reduced() ? 'auto' : 'smooth' }); };
+      prev.addEventListener('click', function () { go(-1); });
+      next.addEventListener('click', function () { go(1); });
+      var raf = 0;
+      rail.addEventListener('scroll', function () { if (!raf) raf = requestAnimationFrame(function () { raf = 0; railState(); }); }, { passive: true });
+      window.addEventListener('resize', railState, { passive: true });
+      rail.addEventListener('focusin', function (ev) { // Tab through the cards: the row follows
+        var c = ev.target.closest('.card'); if (!c) return;
+        var r = c.getBoundingClientRect(), b = rail.getBoundingClientRect();
+        if (r.left < b.left || r.right > b.right) rail.scrollBy({ left: r.left < b.left ? r.left - b.left : r.right - b.right, behavior: reduced() ? 'auto' : 'smooth' });
+      });
+      railState();
     }
     $$('[data-ht]', root).forEach(function (t) {
       t.addEventListener('click', function (ev) { ev.preventDefault(); show(t.getAttribute('data-ht')); setParam({ ht: t.getAttribute('data-ht') === 'all' ? '' : t.getAttribute('data-ht') }); });

@@ -48,6 +48,23 @@ class PL_Template {
 		return PL_Images::img( $url, $frame, array( 'alt' => $alt, 'class' => $class, 'style' => $style, 'sizes' => $sizes, 'eager' => $eager ) );
 	}
 
+	/** Date box: "30 Oct – 1 Nov" over "2026", one size, one case (Thread 8). */
+	public static function date_box( array $e ) {
+		return '<span class="date"><span class="dd">' . esc_html( $e['tile'][0] ) . '</span><span class="dy">' . esc_html( $e['tile'][1] ) . '</span></span>';
+	}
+
+	/**
+	 * Small 16:9 poster for list rows: the real poster (same crops/srcset as the cards), else the
+	 * series' typographic poster in miniature. Decorative (the row's link carries the name).
+	 */
+	public static function thumb( array $e ) {
+		$cls = 'poster mini' . ( 'past' === $e['status'] ? ' past' : '' );
+		if ( $e['poster'] ) {
+			return '<span class="' . $cls . ' r-th" aria-hidden="true">' . PL_Images::img( $e['poster'], 'poster', array( 'class' => 'pimg', 'sizes' => '(max-width: 767px) 72px, 120px' ) ) . '</span>';
+		}
+		return '<span class="' . $cls . ' r-th" aria-hidden="true"><span class="pw' . ( strlen( $e['poster_word'] ) > 9 ? ' long' : '' ) . '">' . esc_html( $e['poster_word'] ) . '</span></span>';
+	}
+
 	public static function icon( $name ) {
 		$i = array(
 			'cal'    => '<svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>',

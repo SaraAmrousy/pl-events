@@ -79,7 +79,7 @@ class PL_Taxonomies {
 				'title'    => 'Event type settings',
 				'fields'   => array(
 					array( 'key' => 'field_pl_type_online', 'name' => 'pl_online', 'label' => 'Online (not on the map)', 'type' => 'true_false', 'ui' => 1, 'instructions' => 'Events of this type never get a map pin and need no country or city.' ),
-					array( 'key' => 'field_pl_type_congress', 'name' => 'pl_congress', 'label' => 'Counts as a congress', 'type' => 'true_false', 'ui' => 1, 'default_value' => 1, 'instructions' => 'Counted in "{n} congresses" on the site.' ),
+					array( 'key' => 'field_pl_type_congress', 'name' => 'pl_congress', 'label' => 'Counts as a congress', 'type' => 'true_false', 'ui' => 1, 'default_value' => 0, 'instructions' => 'Counted in "{n} congresses" on the site. Only for congresses and conferences (decision 6 Nov 2026: symposia, forums, courses, wetlabs, workshops and webinars are not counted).' ),
 				),
 				'location' => array( array( array( 'param' => 'taxonomy', 'operator' => '==', 'value' => self::EVENT_TYPE ) ) ),
 			)
@@ -104,7 +104,7 @@ class PL_Taxonomies {
 		$congress = get_term_meta( $t->term_id, 'pl_congress', true );
 		return array(
 			'online'   => (bool) get_term_meta( $t->term_id, 'pl_online', true ),
-			'congress' => '' === $congress ? true : (bool) $congress,
+			'congress' => (bool) $congress, // unset = not counted (decision 6 Nov 2026)
 		);
 	}
 
@@ -151,7 +151,7 @@ class PL_Taxonomies {
 
 	/** Default admin lists on first install (data, editable in wp-admin). */
 	public static function seed_defaults() {
-		$types = array( 'Congress' => array( 0, 1 ), 'Conference' => array( 0, 1 ), 'Symposium' => array( 0, 1 ), 'Forum' => array( 0, 1 ), 'Course' => array( 0, 0 ), 'Wetlab' => array( 0, 0 ), 'Workshop' => array( 0, 0 ), 'Webinar' => array( 1, 0 ) );
+		$types = array( 'Congress' => array( 0, 1 ), 'Conference' => array( 0, 1 ), 'Symposium' => array( 0, 0 ), 'Forum' => array( 0, 0 ), 'Course' => array( 0, 0 ), 'Wetlab' => array( 0, 0 ), 'Workshop' => array( 0, 0 ), 'Webinar' => array( 1, 0 ) );
 		foreach ( $types as $name => $flags ) {
 			if ( ! term_exists( $name, self::EVENT_TYPE ) ) {
 				$r = wp_insert_term( $name, self::EVENT_TYPE );

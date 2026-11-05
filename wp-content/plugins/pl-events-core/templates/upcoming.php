@@ -3,6 +3,9 @@
  * [pl_upcoming] — Home "Our congresses." with tabs (3.4a H3). All cards are rendered;
  * the ones outside the current tab / limit carry `hidden`, so no-JS is a finished section
  * (tabs are links ?ht=…) and the JS switches tabs without a reload.
+ * layout="row" (Home, Thread 8 — replaces the 3.4a H3 grid): one horizontal row, manual only
+ * (never autoplays): ← → buttons, scroll-snap, swipe/trackpad, keyboard focus scrolls the row.
+ * Without JS it is a plain horizontally scrollable row; the buttons' space is reserved (no CLS).
  *
  * @var array  $a      shortcode attributes
  * @var array  $events computed events, natural order (Live → Upcoming → Past)
@@ -19,7 +22,8 @@ $pools = array(
 $want  = array_map( 'trim', explode( ',', $a['tabs'] ) );
 $tabs  = array_filter( array( 'all' => 'All', 'live' => 'Live now', 'upcoming' => 'Upcoming', 'past' => 'Past' ), fn( $k ) => in_array( $k, $want, true ) && ( 'live' !== $k || $pools['live'] ), ARRAY_FILTER_USE_KEY );
 $tab   = isset( $tabs[ $tab ] ) && $pools[ $tab ] ? $tab : ( isset( $tabs[ $a['default'] ] ) && $pools[ $a['default'] ] ? $a['default'] : 'all' );
-$limit = max( 1, (int) $a['limit'] );
+$row   = 'row' === $a['layout'];
+$limit = $row && ! (int) $a['limit'] ? 999 : max( 1, (int) $a['limit'] );
 $shown = array_slice( array_column( $pools[ $tab ], 'id' ), 0, $limit );
 $more  = count( $pools[ $tab ] ) - count( $shown );
 $cur   = $stats['upcoming'] + $stats['live'];
@@ -33,6 +37,9 @@ $cur   = $stats['upcoming'] + $stats['live'];
 			</div>
 			<a href="<?php echo esc_url( PL_Template::events_url() ); ?>" class="btn bs">See all events</a>
 		</div>
+		<?php if ( count( $tabs ) > 1 || $row ) : ?>
+		<div class="pl-tabrow">
+		<?php endif; ?>
 		<?php if ( count( $tabs ) > 1 ) : ?>
 		<div role="tablist" aria-label="Show" class="tabs" style="align-self:flex-start">
 			<?php foreach ( $tabs as $k => $label ) : ?>
@@ -40,7 +47,17 @@ $cur   = $stats['upcoming'] + $stats['live'];
 			<?php endforeach; ?>
 		</div>
 		<?php endif; ?>
-		<div class="grid3 swap" id="homeGrid">
+		<?php if ( $row ) : ?>
+		<div class="rail-nav" role="group" aria-label="Scroll the congresses">
+			<button type="button" class="ic-btn rail-btn" data-rail="prev" aria-label="Previous" aria-controls="homeGrid" disabled><svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"/></svg></button>
+			<button type="button" class="ic-btn rail-btn" data-rail="next" aria-label="Next" aria-controls="homeGrid"><svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></button>
+		</div>
+		<?php endif; ?>
+		<?php if ( count( $tabs ) > 1 || $row ) : ?>
+		</div>
+		<?php endif; ?>
+		<?php if ( $row ) : ?><div class="pl-rail"><?php endif; ?>
+		<div class="<?php echo $row ? 'rail' : 'grid3'; ?> swap" id="homeGrid"<?php echo $row ? ' role="region" aria-label="Congresses" tabindex="-1"' : ''; ?>>
 			<?php
 			if ( ! $events ) {
 				echo '<div class="pl-empty"><strong>No events published yet.</strong></div>';
@@ -50,6 +67,7 @@ $cur   = $stats['upcoming'] + $stats['live'];
 			}
 			?>
 		</div>
+		<?php if ( $row ) : ?></div><?php endif; ?>
 		<a href="<?php echo esc_url( PL_Template::events_url( 'all' !== $tab ? array( 'tab' => $tab ) : array() ) ); ?>" class="btn bg pl-more" style="align-self:flex-start"<?php echo $more > 0 ? '' : ' hidden'; ?>>See <span class="pl-more-n"><?php echo (int) max( 0, $more ); ?></span> more in Events →</a>
 	</div>
 </section>

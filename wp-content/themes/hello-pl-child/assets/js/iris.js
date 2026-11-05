@@ -36,12 +36,11 @@
       Object.assign(iris.style, { inset: 'auto', left: px - R + 'px', top: py - R + 'px', width: 2 * R + 'px', height: 2 * R + 'px', borderRadius: '50%' });
       Object.assign(inn.style, { inset: 'auto', left: -(px - R) + 'px', top: -(py - R) + 'px', width: W + 'px', height: H + 'px', transformOrigin: px + 'px ' + py + 'px' });
     }
-    function fullBleed() {
-      opening = false;
-      iris.removeAttribute('style');
-      inn.removeAttribute('style');
-    }
-    function relayout() { if (opening) { layout(); if (window.__plIrisSet) window.__plIrisSet(); } }
+    /* After the opening the circle keeps the size that covers the whole hero (and is re-measured on
+       every resize). Removing the inline geometry instead made the box jump = a 0.5 layout shift (CLS). */
+    var laid = false;
+    function opened() { opening = false; }
+    function relayout() { if (!laid) return; layout(); if (opening && window.__plIrisSet) window.__plIrisSet(); }
     window.addEventListener('resize', relayout, { passive: true });
     if ('ResizeObserver' in window) new ResizeObserver(relayout).observe(hero);
 
@@ -99,7 +98,7 @@
       return;
     }
     try { sessionStorage.setItem('plIris', '1'); } catch (e) {}
-    opening = true;
+    opening = true; laid = true;
     layout();
     var p = { s: 250 / R }, s0 = p.s;
     /* the scale is relative to the radius, so a resize mid-opening keeps the same aperture size */
@@ -120,11 +119,11 @@
       .to('.hfade', { opacity: 1, duration: 0.3 }, 2.0)
       .set('#heroH1 .w, #hdr, #shade, .hfade', { clearProps: 'filter,opacity' })
       .set(iris, { clearProps: 'transform' }).set(inn, { clearProps: 'transform' })
-      .call(fullBleed);
+      .call(opened);
     var evs = ['wheel', 'keydown', 'pointerdown', 'touchstart'];
     var off = function () { evs.forEach(function (e) { window.removeEventListener(e, skip, true); }); };
     var skip = function () { tl.progress(1); off(); };
     evs.forEach(function (e) { window.addEventListener(e, skip, { capture: true, passive: true, once: true }); });
-    tl.eventCallback('onComplete', function () { off(); fullBleed(); window.__plIrisSet = null; });
+    tl.eventCallback('onComplete', function () { off(); opened(); window.__plIrisSet = null; });
   });
 })();

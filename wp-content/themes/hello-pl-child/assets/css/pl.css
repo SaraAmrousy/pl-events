@@ -488,9 +488,8 @@ html.pl-iris #iris { transform: scale(.25); }
 .pl .forminator-custom-form .forminator-field { display: flex; flex-direction: column; gap: 6px; }
 .pl .forminator-custom-form .forminator-label { font-size: 13px; font-weight: 700; line-height: 1.4; }
 .pl .forminator-custom-form .forminator-required { color: var(--mut); font-weight: 600; margin-left: 2px; }
-.pl .forminator-custom-form :is(.forminator-input, .forminator-textarea, select) { font: inherit; font-size: 16px; font-weight: 500; min-height: 48px; padding: 0 14px; border-radius: 10px; border: 1.5px solid var(--cb); background: var(--surface); color: var(--ink); width: 100%; box-sizing: border-box; }
+.pl .forminator-custom-form :is(.forminator-input, .forminator-textarea, select) { font: inherit; font-size: 16px; font-weight: 500; min-height: 48px; padding: 0 14px; border-radius: 10px; border: 1.5px solid var(--cb); background-color: var(--surface); color: var(--ink); width: 100%; box-sizing: border-box; }
 .pl .forminator-custom-form .forminator-textarea { min-height: 140px; padding: 12px 14px; resize: vertical; line-height: 1.5; }
-.pl .forminator-custom-form select { appearance: auto; padding-right: 10px; }
 .pl .forminator-custom-form :is(.forminator-input, .forminator-textarea, select):focus { outline: 3px solid var(--blue); outline-offset: 1px; border-color: var(--blue); }
 .pl .forminator-custom-form .forminator-description { font-size: 13px; color: var(--mut); line-height: 1.45; margin: 0; }
 .pl .forminator-custom-form .forminator-error-message { color: var(--live); font-size: 13px; font-weight: 600; margin: 2px 0 0; }
@@ -511,7 +510,7 @@ html.pl-iris #iris { transform: scale(.25); }
 .pl .forminator-custom-form .forminator-file-upload .forminator-button-delete { border: 0; background: transparent; color: var(--mut); cursor: pointer; font: inherit; }
 .pl .forminator-custom-form :is(.forminator-hidden, .forminator-honeypot), .pl .forminator-custom-form [class*="forminator-hidden"] input[type="text"][name^="input_"] { display: none; }
 .pl .forminator-custom-form .forminator-button-spinner, .pl .forminator-custom-form .forminator-icon-loader { width: 18px; height: 18px; }
-.pl .sand .forminator-custom-form :is(.forminator-input, .forminator-textarea, select) { background: var(--surface); }
+.pl .sand .forminator-custom-form :is(.forminator-input, .forminator-textarea, select) { background-color: var(--surface); }
 .pl .forminator-custom-form #select-2 { grid-column: span 1; } /* Office: half width, like the prototype */
 .pl .forminator-custom-form .forminator-row-last, .pl .forminator-custom-form .forminator-row:has(.forminator-button-submit) { display: flex; }
 .pl .forminator-custom-form .forminator-button-submit { width: auto; align-self: flex-start; }
@@ -572,7 +571,71 @@ html.pl-iris #iris { transform: scale(.25); }
 .pl .elementor-widget-image.pl-natural img { aspect-ratio: auto; }
 .pl .elementor-widget-image.pl-logo img, .pl .elementor-widget-image img[src$=".svg"], .pl .elementor-widget-image img.pl-alpha { aspect-ratio: 3 / 1; object-fit: contain; height: auto; max-height: 120px; }
 
-/* Event page "editions with PL" rows: date | name | badge; on phones the date gets its own line
-   (it was a fixed 200px column and pushed the badge 43px off a 375px screen). */
-.pl .erow.erow-ed { grid-template-columns: 200px minmax(0, 1fr) auto; }
-@media (max-width: 767px) { .pl .erow.erow-ed { grid-template-columns: minmax(0, 1fr) auto; row-gap: 4px; } .pl .erow.erow-ed > :first-child { grid-column: 1 / -1; } }
+
+/* ===== Thread 8 polish ===================================================================== */
+
+/* 1. Every select (Events filters, About, forms): our own chevron — same colour and 1.5px stroke as
+   the field border, 14px from the edge, blue on focus. Native arrows looked broken and stuck to the edge. */
+.pl select, .pl select.sel, .pl .forminator-custom-form select:not([multiple]) { /* :not() lifts it over Forminator's :is(.forminator-input, …) rule */
+  -webkit-appearance: none; -moz-appearance: none; appearance: none;
+  padding-right: 44px; text-overflow: ellipsis;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M3.5 6l4.5 4.5L12.5 6' fill='none' stroke='%230A0D18' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat; background-position: right 14px center; background-size: 16px 16px; }
+.pl select:focus, .pl select.sel:focus, .pl .forminator-custom-form select:not([multiple]):focus { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M3.5 6l4.5 4.5L12.5 6' fill='none' stroke='%232C4894' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E"); }
+.pl .ink select.sel { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M3.5 6l4.5 4.5L12.5 6' fill='none' stroke='%23B9BDC9' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E"); }
+.pl .ink select.sel:focus { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M3.5 6l4.5 4.5L12.5 6' fill='none' stroke='%239DB2F2' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E"); }
+.pl select[multiple], .pl select[size]:not([size="1"]) { background-image: none; padding-right: 14px; }
+.pl select::-ms-expand { display: none; }
+
+/* 3. Tabs (Home + Events + Grid/List): one component, text centred vertically — <a> tabs sat high
+   because they were inline boxes; Elementor's line-height/margins can't reach them. */
+.pl .tabs { display: inline-flex; align-items: center; }
+.pl .tabs .tab, .pl .tab { display: inline-flex; align-items: center; justify-content: center; gap: 4px; box-sizing: border-box;
+  height: 40px; min-height: 40px; padding: 0 16px; margin: 0; line-height: 1; vertical-align: middle; }
+.pl .tab .n { line-height: 1; }
+
+/* 4. Date box: "30 Oct – 1 Nov" over "2026" — one size, one case. */
+.pl .date { min-width: 0; padding: 8px 10px; gap: 3px; line-height: 1.1; }
+.pl .date .dd, .pl .date .dy { font-size: 13px; font-weight: 800; letter-spacing: .04em; text-transform: uppercase; white-space: nowrap; font-variant-numeric: tabular-nums; }
+
+/* 2. List rows + event editions: a 16:9 poster thumbnail beside the date (real poster or the
+   series' typographic poster in miniature). On phones: thumb | date over name | badge/actions
+   (also fixes the editions rows that pushed the badge 43px off a 375px screen). */
+.pl .poster.mini { display: block; width: 120px; aspect-ratio: 16 / 9; border-radius: 6px; flex: none; }
+.pl .poster.mini .pw { left: 8px; right: 8px; top: auto; bottom: 7px; font-size: 15px; line-height: 1; letter-spacing: -.02em; }
+.pl .poster.mini .pw.long { font-size: 11px; }
+.pl .poster.mini::after { display: none; }
+.pl .erow.r-ev { grid-template-columns: 120px 200px minmax(0, 1fr) 180px 150px auto; }
+.pl .erow.erow-ed { grid-template-columns: 120px 200px minmax(0, 1fr) auto; }
+@media (max-width: 1023px) and (min-width: 768px) { .pl .erow.r-ev { grid-template-columns: 120px 150px minmax(0, 1fr) auto; } .pl .erow.r-ev .r-pl, .pl .erow.r-ev .r-bd { display: none !important; } }
+@media (max-width: 767px) {
+  .pl .poster.mini { width: 72px; border-radius: 4px; }
+  .pl .poster.mini .pw { font-size: 10px; left: 5px; right: 5px; bottom: 5px; }
+  .pl .poster.mini .pw.long { font-size: 8px; }
+  .pl .erow.r-ev, .pl .erow.erow-ed { grid-template-columns: 72px minmax(0, 1fr) auto; column-gap: 12px; row-gap: 2px; }
+  .pl .erow.r-ev .r-th, .pl .erow.erow-ed .r-th { grid-row: span 2; align-self: start; }
+  .pl .erow.r-ev .r-dt, .pl .erow.erow-ed .r-dt { grid-column: 2; font-size: 14px !important; }
+  .pl .erow.r-ev .r-nm { grid-column: 2; }
+  .pl .erow.r-ev .r-ac { grid-column: 3; grid-row: 1 / span 2; }
+  .pl .erow.erow-ed > a { grid-column: 2; }
+  .pl .erow.erow-ed > .badge { grid-column: 3; grid-row: 1 / span 2; }
+}
+
+/* 5. Home "Our congresses.": one manual row (never autoplays). 3 cards + a peek on desktop,
+   1 + a peek on phones. scroll-snap; swipe/trackpad/keyboard; ← → buttons (reserved space = no CLS). */
+.pl .pl-tabrow { display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+.pl .rail-nav { display: flex; gap: 8px; margin-left: auto; visibility: hidden; }
+html[data-motion] .pl .rail-nav { visibility: visible; } /* JS present */
+.pl .rail-btn { width: 44px; height: 44px; border-radius: 999px; border: 1.5px solid var(--ink); background: var(--surface); color: var(--ink); display: inline-flex; align-items: center; justify-content: center; cursor: pointer; padding: 0; }
+.pl .rail-btn:hover:not(:disabled) { background: var(--ink); color: var(--oi); }
+.pl .rail-btn:disabled { opacity: .35; cursor: default; border-color: var(--cb); }
+.pl .pl-rail { position: relative; margin: -14px -14px 0; } /* room for the viewfinder brackets */
+.pl .rail { display: grid; grid-auto-flow: column; grid-auto-columns: calc((100% - 28px - 3 * 24px) / 3.25); gap: 24px;
+  overflow-x: auto; overflow-y: hidden; overscroll-behavior-x: contain; scroll-snap-type: x mandatory; scroll-padding-inline: 14px;
+  padding: 14px; scrollbar-width: none; align-items: stretch; outline: none; }
+.pl .rail::-webkit-scrollbar { display: none; }
+.pl .rail > .card { scroll-snap-align: start; min-width: 0; }
+.pl .rail > [hidden] { display: none; }
+@media (prefers-reduced-motion: no-preference) { .pl .rail { scroll-behavior: smooth; } }
+@media (max-width: 1023px) { .pl .rail { grid-auto-columns: calc((100% - 28px - 24px) / 2.25); } }
+@media (max-width: 767px) { .pl .rail { grid-auto-columns: calc(100% - 28px - 44px); gap: 16px; } .pl .rail-btn { width: 40px; height: 40px; } }
