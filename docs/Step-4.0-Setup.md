@@ -12,14 +12,17 @@
 | 5 | Database | `saraamro_plstg` + user `saraamro_plstg` (ALL PRIVILEGES on that DB only). Generated password. |
 | 6 | WordPress | **7.1.4** in `public_html/pl` (uploaded + extracted by API). `wp-config.php`: table prefix `plx_`, `WP_ENVIRONMENT_TYPE=staging`, debug log **outside** the web root (`~/pl-deploy/debug.log`), `DISABLE_WP_CRON`, `DISALLOW_FILE_EDIT`. Installed with "Discourage search engines" on. Admin user **`sara`**. |
 | 7 | Deploy user | `claude-deploy` (administrator) + Application Password "deploy". |
-| 8 | Password | **Directory Privacy on `/pl`** ("PL staging"), users `sara` and `claude-deploy`. Anonymous visitors get **401** ✅. |
+| 8 | Password | ~~Directory Privacy on `/pl`~~ — **removed by Sara's decision (5 Nov 2026, 2:38 PM)**: the folder is open to anyone with the link. Protection = noindex only (row 9). Re-enable any time with one API call (users `sara`, `claude-deploy` are kept in the password file). |
 | 9 | noindex | mu-plugin `pl-staging.php` (forces "Discourage search engines", `X-Robots-Tag: noindex, nofollow` on every response, robots meta) ✅ uploaded. Remove at launch (6.3). |
 | 10 | Secrets | `deploy/.env` (git-ignored) + private copy in `~/pl-deploy/.env` (0700, outside `public_html`). A new session restores it from the server automatically — the cPanel token is the only secret the environment needs. |
 | 11 | Scripts | `deploy/lib.sh` (cPanel API + WP REST helpers) · `deploy/deploy.sh plugin|theme <folder>` (lint → zip → upload → replace → extract → activate → flush) · `deploy/setup-staging.sh` (Hello Elementor, Elementor, SCF, UAE HFB, Forminator, Rank Math, permalinks, then the deploy test) · `deploy/seed-staging.sh` (content from `data/pl-data.json`) · `deploy/test-plugin/pl-hello` · `deploy/sandbox/setup.sh` (sandbox WordPress for tests). |
 
+## Decision change — 4.0-6 (Sara)
+**Replaces S8 "Directory Privacy password".** Staging is public (no password) and stays out of search engines by noindex (`X-Robots-Tag` + robots meta + "Discourage search engines", verified on the live response). Risk: anyone who gets the link sees the site before the reveal — and nothing would stop it being shared. Removing the password does **not** fix the deploy blocker below: the WordPress REST API still needs `Authorization: Basic`, which the proxy still overwrites.
+
 ## ⛔ The blocker — and the fix (Sara, 1 minute, browser)
 The network secret is set for **`saraamrousy.net` + `*.saraamrousy.net`**. The agent proxy therefore **replaces the `Authorization` header on every request to the website itself**, not just to cPanel. Proven with a test script: whatever we send, PHP receives `Authorization: cpanel …`. Effects:
-1. The folder password and the WordPress REST API (both use `Authorization: Basic`) always answer **401** → no plugin activation from here.
+1. The WordPress REST API (`Authorization: Basic` + Application Password) always answers **401** → no plugin activation from here.
 2. **The cPanel token is sent to the staging WordPress** on every request from the sandbox (any plugin could read it). The staging guard mu-plugin now strips a non-Basic `Authorization` header, but the real fix is to stop sending it.
 
 **Fix:** claude.ai/code → environment `pl-events` → Edit → Network secrets → change the secret's host to **`cpanel.saraamrousy.net` only** (remove `saraamrousy.net` and `*.saraamrousy.net`). Then start a **new session** and say: "كمّل 4.0 — شغّل deploy/setup-staging.sh". That runs the free plugins install, the deploy test (`pl-hello` → activated → `/pl-hello/v1/ping` answers) and the noindex/401 checks = DoD.

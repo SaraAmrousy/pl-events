@@ -4,7 +4,7 @@
 > **Threads:** one thread per group below (not per step). Open a new thread early if the current one gets long; the Step Summaries in the Project carry the context.
 > Last updated: 5 Nov 2026 (Thread 6)
 
-**Now:** Thread 6 — **4.1 plugin built and tested in the sandbox** (`docs/Step-4.1-Plugin.md`); **4.0 at 90 %**: staging WordPress installed, locked (password + noindex), deploy scripts ready — **blocked** until Sara scopes the cPanel network secret to `cpanel.saraamrousy.net` only (`docs/Step-4.0-Setup.md`). Then a new session runs `deploy/setup-staging.sh` (4.0 DoD) + deploys/seeds the plugin (4.1 DoD). ⏳ Pending before reveal: (1) clean reveal copy of the prototype, (2) regenerate the owner pack.
+**Now:** Thread 6 — **4.1 plugin built and tested in the sandbox** (`docs/Step-4.1-Plugin.md`); **4.0 at 90 %**: staging WordPress installed, noindex (password removed by Sara, 5 Nov), deploy scripts ready — **blocked** until Sara scopes the cPanel network secret to `cpanel.saraamrousy.net` only (`docs/Step-4.0-Setup.md`). Then a new session runs `deploy/setup-staging.sh` (4.0 DoD) + deploys/seeds the plugin (4.1 DoD). ⏳ Pending before reveal: (1) clean reveal copy of the prototype, (2) regenerate the owner pack.
 
 ---
 
