@@ -283,6 +283,10 @@
   "title": "About",
   "front": false,
   "privacy": false,
+  "seo": {
+   "title": "About PL Events — Head office Alexandria, office in Dubai",
+   "description": "How PL Events works for scientific societies: every congress on the map, the societies that trust us, and our teams in Alexandria and Dubai."
+  },
   "_note": "Read by plt_provision_pages(); Elementor ignores this key."
  }
 }

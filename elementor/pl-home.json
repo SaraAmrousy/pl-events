@@ -238,6 +238,10 @@
   "title": "Home",
   "front": true,
   "privacy": false,
+  "seo": {
+   "title": "PL Events — Medical congresses from Alexandria & Dubai",
+   "description": "PL Events plans and runs medical congresses for scientific societies from Alexandria and Dubai: the science, the sponsors, the stage and the travel."
+  },
   "_note": "Read by plt_provision_pages(); Elementor ignores this key."
  }
 }

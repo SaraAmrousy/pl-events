@@ -103,6 +103,10 @@
   "title": "Events",
   "front": false,
   "privacy": false,
+  "seo": {
+   "title": "Events — Congresses, symposia & meetings | PL Events",
+   "description": "Live, upcoming and past PL Events congresses, symposia and meetings, with dates, cities, venues and registration. Filter by specialty, country or year."
+  },
   "_note": "Read by plt_provision_pages(); Elementor ignores this key."
  }
 }

@@ -186,10 +186,37 @@ function plt_provision_pages( $force = false ) {
 	return $log;
 }
 
+/**
+ * Rank Math title + description per page, from elementor/pl-*.json → "pl.seo" (Step 5.3).
+ * Fills only empty fields, so an editor's own text in Rank Math is never overwritten (unless $force).
+ */
+function plt_provision_seo( $force = false ) {
+	$log = array();
+	foreach ( glob( PLT_DIR . 'elementor/pl-*.json' ) as $file ) {
+		$tpl  = json_decode( (string) file_get_contents( $file ), true );
+		$m    = $tpl['pl'] ?? array();
+		$page = empty( $m['slug'] ) || empty( $m['seo'] ) ? null : get_page_by_path( $m['slug'] );
+		if ( ! $page ) {
+			continue;
+		}
+		foreach ( array( 'title' => 'rank_math_title', 'description' => 'rank_math_description' ) as $k => $key ) {
+			$now = (string) get_post_meta( $page->ID, $key, true );
+			if ( $force || '' === trim( $now ) ) {
+				update_post_meta( $page->ID, $key, wp_slash( $m['seo'][ $k ] ) );
+				$log[] = "seo {$m['slug']}: $k set";
+			} elseif ( $now !== $m['seo'][ $k ] ) {
+				$log[] = "seo {$m['slug']}: $k kept (edited in Rank Math)";
+			}
+		}
+	}
+	return $log;
+}
+
 /** Everything: pages, header/footer, menus. */
 function plt_provision( $force = false ) {
 	$log = function_exists( 'plt_provision_pages' ) ? plt_provision_pages( $force ) : array();
 	$log = array_merge( $log, plt_provision_chrome( $force ) ); // header, footer, then menus (pages exist by now).
+	$log = array_merge( $log, plt_provision_seo( $force ) );
 	if ( function_exists( 'plt_provision_forms' ) ) {
 		$log = array_merge( $log, plt_provision_forms( $force ) );
 	}

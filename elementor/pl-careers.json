@@ -148,6 +148,10 @@
   "title": "Careers",
   "front": false,
   "privacy": false,
+  "seo": {
+   "title": "Careers at PL Events — Jobs in Alexandria & Dubai",
+   "description": "Work behind the lens: PL Events hires for congress operations, production, registration and sponsorship in Alexandria and Dubai. Send us your CV."
+  },
   "_note": "Read by plt_provision_pages(); Elementor ignores this key."
  }
 }

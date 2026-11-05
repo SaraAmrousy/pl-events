@@ -193,6 +193,10 @@
   "title": "Services",
   "front": false,
   "privacy": false,
+  "seo": {
+   "title": "Services — Congress planning & sponsorship | PL Events",
+   "description": "Scientific programmes, wetlabs and live surgery, sponsorship and exhibitions, stage and AV, registration and travel — for congresses and webinars."
+  },
   "_note": "Read by plt_provision_pages(); Elementor ignores this key."
  }
 }

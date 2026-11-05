@@ -93,13 +93,13 @@ class PL_Event_Page {
 		return $template;
 	}
 
-	/** Description + share image (Rank Math adds the rest; schema comes in Step 5.3). */
+	/** Without Rank Math: description + share image (same text as PL_SEO builds for Rank Math). */
 	public static function meta() {
 		$e = self::current();
 		if ( ! $e || defined( 'RANK_MATH_VERSION' ) ) {
 			return;
 		}
-		$desc = $e['description'] ? $e['description'] : $e['range'] . ' · ' . $e['place'] . ( $e['venue'] ? ' · ' . $e['venue'] : '' ) . '. Organised by PL Events.';
+		$desc = PL_SEO::event_description( $e );
 		printf( '<meta name="description" content="%s">' . "\n", esc_attr( $desc ) );
 		printf( '<meta property="og:title" content="%s">' . "\n", esc_attr( $e['name'] ) );
 		printf( '<meta property="og:description" content="%s">' . "\n", esc_attr( $desc ) );

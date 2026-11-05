@@ -107,6 +107,27 @@ PAGES = {
  ]},
 }
 
+# Rank Math title + meta description per page (Step 5.3). Unique, <= 60 / <= 155 chars, no typed numbers.
+SEO = {
+ 'home': ("PL Events — Medical congresses from Alexandria & Dubai",
+          "PL Events plans and runs medical congresses for scientific societies from Alexandria and Dubai: the science, the sponsors, the stage and the travel."),
+ 'events': ("Events — Congresses, symposia & meetings | PL Events",
+            "Live, upcoming and past PL Events congresses, symposia and meetings, with dates, cities, venues and registration. Filter by specialty, country or year."),
+ 'about': ("About PL Events — Head office Alexandria, office in Dubai",
+           "How PL Events works for scientific societies: every congress on the map, the societies that trust us, and our teams in Alexandria and Dubai."),
+ 'services': ("Services — Congress planning & sponsorship | PL Events",
+              "Scientific programmes, wetlabs and live surgery, sponsorship and exhibitions, stage and AV, registration and travel — for congresses and webinars."),
+ 'careers': ("Careers at PL Events — Jobs in Alexandria & Dubai",
+             "Work behind the lens: PL Events hires for congress operations, production, registration and sponsorship in Alexandria and Dubai. Send us your CV."),
+ 'contact': ("Contact PL Events — Alexandria & Dubai offices",
+             "Request a congress proposal or ask about sponsorship or registration. Write to the PL Events team in Alexandria or Dubai — the right office answers."),
+ 'privacy': ("Privacy policy | PL Events",
+             "How PL Events handles what you send through the contact and careers forms. The full privacy policy is being prepared."),
+}
+for k, (t, d) in SEO.items():
+    assert len(t) <= 60 and len(d) <= 155, (k, len(t), len(d))
+assert len({d for _, d in SEO.values()}) == len(SEO) and len({t for t, _ in SEO.values()}) == len(SEO)
+
 os.makedirs(OUT, exist_ok=True)
 for slug, p in PAGES.items():
     tpl = {
@@ -114,6 +135,7 @@ for slug, p in PAGES.items():
         "page_settings": {"template": "elementor_header_footer", "hide_title": "yes"},
         "content": [section(slug, i, code) for i, code in enumerate(p["sections"])],
         "pl": {"slug": slug, "title": p["title"], "front": bool(p.get("front")), "privacy": bool(p.get("privacy")),
+               "seo": {"title": SEO[slug][0], "description": SEO[slug][1]},
                "_note": "Read by plt_provision_pages(); Elementor ignores this key."},
     }
     with open(os.path.join(OUT, f'pl-{slug}.json'), 'w') as f:

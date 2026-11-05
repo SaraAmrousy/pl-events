@@ -103,6 +103,10 @@
   "title": "Contact",
   "front": false,
   "privacy": false,
+  "seo": {
+   "title": "Contact PL Events — Alexandria & Dubai offices",
+   "description": "Request a congress proposal or ask about sponsorship or registration. Write to the PL Events team in Alexandria or Dubai — the right office answers."
+  },
   "_note": "Read by plt_provision_pages(); Elementor ignores this key."
  }
 }

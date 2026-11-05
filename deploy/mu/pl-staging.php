@@ -11,6 +11,19 @@ add_filter( 'pre_option_blog_public', fn() => '0' );
 add_action( 'send_headers', fn() => header( 'X-Robots-Tag: noindex, nofollow', true ) );
 add_filter( 'rest_post_dispatch', function ( $r ) { if ( $r instanceof WP_REST_Response ) { $r->header( 'X-Robots-Tag', 'noindex, nofollow' ); } return $r; } );
 add_filter( 'wp_robots', fn( $robots ) => array_merge( $robots, [ 'noindex' => true, 'nofollow' => true ] ) );
+// Rank Math writes its own robots meta: force noindex there too (Step 5.3).
+add_filter( 'rank_math/frontend/robots', fn( $robots ) => array_merge( (array) $robots, [ 'index' => 'noindex', 'follow' => 'nofollow' ] ), 99 );
+// Staging never tells a search engine anything: block sitemap pings / IndexNow / indexing APIs at the HTTP layer.
+add_filter( 'pre_http_request', function ( $pre, $args, $url ) {
+	$host = (string) wp_parse_url( $url, PHP_URL_HOST );
+	foreach ( [ 'indexnow', 'bing.com', 'google.com/ping', 'googleapis.com/indexing', 'yandex', 'seznam', 'naver' ] as $needle ) {
+		if ( false !== stripos( $host . (string) wp_parse_url( $url, PHP_URL_PATH ), $needle ) ) {
+			error_log( '[pl-staging] blocked search-engine request: ' . $url );
+			return new WP_Error( 'pl_staging_blocked', 'Staging: search-engine requests are blocked.' );
+		}
+	}
+	return $pre;
+}, 1, 3 );
 // 3) Never keep a foreign Authorization header around for plugins to read.
 if ( isset( $_SERVER['HTTP_AUTHORIZATION'] ) && 0 !== stripos( $_SERVER['HTTP_AUTHORIZATION'], 'basic ' ) ) {
 	unset( $_SERVER['HTTP_AUTHORIZATION'], $_SERVER['REDIRECT_HTTP_AUTHORIZATION'] );

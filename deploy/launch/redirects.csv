@@ -1,0 +1,12 @@
+old_path,new_path,status,source
+# Old plevents.org paths → new paths. Fill the "old_path" column from the Step 1.1 audit (301 list) and the Step 2.1 old → new table.
+# Rows marked TBC are not applied. Paths are relative to the domain root; the new site lives at the root of plevents.org.
+/wp-content/uploads/2026/05/PL-Portfolio.pdf,/wp-content/uploads/2026/05/PL-Portfolio.pdf,keep,data/pl-data.json (portfolio link: same path — re-upload the file to the same year/month folder or keep this row as a 301 to the new upload)
+TBC,/,301,Step 1.1 — old home variants (e.g. /home/, /index.php)
+TBC,/about/,301,Step 1.1 / 2.1 — old About URL
+TBC,/events/,301,Step 1.1 / 2.1 — old events / conferences list
+TBC,/events/{event-slug}/,301,Step 1.1 — old single-event pages (one row per event; new slugs below)
+TBC,/services/,301,Step 1.1 / 2.1 — old services page(s) — all merge into one page
+TBC,/careers/,301,Step 1.1 / 2.1 — old careers / jobs
+TBC,/contact/,301,Step 1.1 / 2.1 — old contact page
+TBC,/privacy/,301,Step 1.1 — old privacy page

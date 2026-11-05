@@ -58,6 +58,10 @@
   "title": "Privacy",
   "front": false,
   "privacy": true,
+  "seo": {
+   "title": "Privacy policy | PL Events",
+   "description": "How PL Events handles what you send through the contact and careers forms. The full privacy policy is being prepared."
+  },
   "_note": "Read by plt_provision_pages(); Elementor ignores this key."
  }
 }

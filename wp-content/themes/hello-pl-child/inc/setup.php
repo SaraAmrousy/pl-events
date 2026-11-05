@@ -39,6 +39,7 @@ function plt_ver( $rel ) {
 }
 
 /* The plugin's templates ask the theme for the PL mark (hero aperture logo). */
+add_filter( 'pl_brand_logo', static fn() => PLT_URL . 'assets/img/logo-ink-sm.png' ); // Organization schema logo.
 add_filter( 'pl_brand_mark', static fn( $url, $variant = 'ink' ) => PLT_URL . 'assets/img/mark-' . ( 'white' === $variant ? 'white' : 'ink' ) . '.png', 10, 2 );
 
 /* Elementor "Full Width" pages print no <main>: add it, so the skip link (#content) lands
