@@ -1,35 +1,42 @@
 #!/usr/bin/env bash
-# Finishes staging setup (idempotent). Already done on 5 Nov 2026 by hand-run API
-# calls (see docs/Step-4.0-Setup.md): PHP 8.3 for /pl, DB saraamro_plstg,
-# WordPress 7.1.4, wp-config, admin "sara", deploy user + App Password,
-# Directory Privacy. This script adds: staging guard mu-plugin, Hello Elementor
-# + free plugins, pretty permalinks, and runs the deploy test.
+# Finishes staging setup (idempotent). Done earlier by API (docs/Step-4.0-Setup.md):
+# PHP 8.3 for /pl, DB, WordPress, wp-config, admin "sara", deploy user.
+# This script: staging guard mu-plugin (noindex), Hello Elementor + the free plugins,
+# permalinks/timezone, then the 4.0 DoD test (deploy + activate pl-hello).
 . "$(dirname "$0")/lib.sh"
 load_env
 
 say "mu-plugin: staging guard (noindex)"
 cp_ls "$STAGING_DIR/wp-content" | grep -qx mu-plugins || api2 Fileman mkdir "path=$STAGING_DIR/wp-content" name=mu-plugins >/dev/null
 cp_upload "$DEPLOY_DIR/mu/pl-staging.php" "$STAGING_DIR/wp-content/mu-plugins"
+check_site
 
-check_gate
+say "theme + free plugins from WordPress.org (downloaded by the server itself)"
+run_php '
+require_once ABSPATH . "wp-admin/includes/class-wp-upgrader.php";
+require_once ABSPATH . "wp-admin/includes/plugin-install.php";
+require_once ABSPATH . "wp-admin/includes/theme-install.php";
+$skin = new Automatic_Upgrader_Skin();
+if ( ! wp_get_theme( "hello-elementor" )->exists() ) { $r = ( new Theme_Upgrader( $skin ) )->install( "https://downloads.wordpress.org/theme/hello-elementor.latest-stable.zip" ); echo "theme hello-elementor: ", is_wp_error( $r ) ? $r->get_error_message() : "installed", PHP_EOL; }
+switch_theme( "hello-elementor" ); echo "active theme: ", get_stylesheet(), PHP_EOL;
+foreach ( array( "secure-custom-fields", "elementor", "header-footer-elementor", "forminator", "seo-by-rank-math" ) as $slug ) {
+	$all = get_plugins(); $file = "";
+	foreach ( $all as $f => $d ) { if ( 0 === strpos( $f, $slug . "/" ) ) { $file = $f; } }
+	if ( ! $file ) {
+		$r = ( new Plugin_Upgrader( new Automatic_Upgrader_Skin() ) )->install( "https://downloads.wordpress.org/plugin/" . $slug . ".latest-stable.zip" );
+		if ( is_wp_error( $r ) || ! $r ) { echo "plugin $slug: install FAILED ", is_wp_error( $r ) ? $r->get_error_message() : "", PHP_EOL; continue; }
+		wp_clean_plugins_cache(); foreach ( get_plugins() as $f => $d ) { if ( 0 === strpos( $f, $slug . "/" ) ) { $file = $f; } }
+	}
+	$a = activate_plugin( $file, "", false, true );
+	$v = get_plugins()[ $file ]["Version"] ?? "";
+	echo "plugin $file $v: ", is_wp_error( $a ) ? "ERROR " . $a->get_error_message() : "active", PHP_EOL;
+}
+delete_transient( "elementor_activation_redirect" ); delete_transient( "_hfe_activation_redirect" ); delete_option( "rank_math_redirect_about" );
+update_option( "permalink_structure", "/%postname%/" ); update_option( "timezone_string", "Africa/Cairo" ); update_option( "default_comment_status", "closed" ); update_option( "blog_public", "0" );
+flush_rewrite_rules();
+echo "settings: permalinks /%postname%/, Africa/Cairo, comments closed", PHP_EOL;'
 
-say "theme: Hello Elementor (parent)"
-curl -sS -L -o "$SCRATCH/hello-elementor.zip" https://downloads.wordpress.org/theme/hello-elementor.latest-stable.zip
-cp_upload "$SCRATCH/hello-elementor.zip" "$STAGING_DIR/wp-content/themes"
-cp_extract "$STAGING_DIR/wp-content/themes/hello-elementor.zip" "$STAGING_DIR/wp-content/themes"
-cp_delete "$STAGING_DIR/wp-content/themes/hello-elementor.zip"
-run_php "switch_theme( 'hello-elementor' ); echo 'theme=', get_stylesheet(), PHP_EOL;"
-
-for slug in elementor secure-custom-fields header-footer-elementor forminator seo-by-rank-math; do
-  say "plugin: $slug"
-  wp_rest POST /wp/v2/plugins -d "slug=$slug" -d status=active | python3 -c 'import json,sys;d=json.load(sys.stdin);print(" ",d.get("plugin") or d.get("code"),d.get("status") or d.get("message"))'
-done
-
-say "settings: permalinks /%postname%/, timezone Africa/Cairo, no comments by default"
-run_php "update_option('permalink_structure','/%postname%/'); update_option('timezone_string','Africa/Cairo'); update_option('default_comment_status','closed'); flush_rewrite_rules(); echo 'ok';"
-
-say "deploy test (4.0 DoD)"
+say "deploy test (4.0 DoD): pl-hello"
 "$DEPLOY_DIR/deploy.sh" plugin "$DEPLOY_DIR/test-plugin/pl-hello"
-wp_rest GET /pl-hello/v1/ping; echo
-say "noindex header: $(site_curl -sI "$STAGING_URL/" | grep -i x-robots-tag)"
-say "anonymous visitor gets: $(curl -s -o /dev/null -w '%{http_code}' "$STAGING_URL/") (must be 401)"
+run_php 'echo wp_json_encode( rest_do_request( new WP_REST_Request( "GET", "/pl-hello/v1/ping" ) )->get_data() ), PHP_EOL;'
+say "noindex header: $(curl -sI "$STAGING_URL/" | grep -i x-robots-tag | tr -d '\r')"

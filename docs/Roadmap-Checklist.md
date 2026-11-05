@@ -4,7 +4,7 @@
 > **Threads:** one thread per group below (not per step). Open a new thread early if the current one gets long; the Step Summaries in the Project carry the context.
 > Last updated: 5 Nov 2026 (Thread 6)
 
-**Now:** Thread 6 — **4.1 plugin built and tested in the sandbox** (`docs/Step-4.1-Plugin.md`); **4.0 at 90 %**: staging WordPress installed, noindex (password removed by Sara, 5 Nov), deploy scripts ready — **blocked** until Sara scopes the cPanel network secret to `cpanel.saraamrousy.net` only (`docs/Step-4.0-Setup.md`). Then a new session runs `deploy/setup-staging.sh` (4.0 DoD) + deploys/seeds the plugin (4.1 DoD). ⏳ Pending before reveal: (1) clean reveal copy of the prototype, (2) regenerate the owner pack.
+**Now:** ✅ Thread 6 done (4.0 Setup · 4.1 Plugin, 5 Nov 2026) — staging `saraamrousy.net/pl` runs WordPress 7.1.4 + the free plugins + `pl-events-core`, seeded (15 / 7 / 5), noindex, real cron every 15 min → **Next: Step 4.2 — Child Theme & Global Styles** (Thread 7). ⏳ Pending before reveal: (1) clean reveal copy of the prototype, (2) regenerate the owner pack. ⚠ cPanel token expires 5 Jan 2028 — revoke at the end of Phase 4.
 
 ---
 
@@ -22,13 +22,13 @@
 | 9 | 6.1–6.3 QA & launch | |
 
 ### Starter message for the next thread
-Open **claude.ai/code** in the browser → repo `SaraAmrousy/pl-events` → environment `pl-events` (setup in the plan). The repo has `CLAUDE.md`, the docs, the prototype and the data, because Claude Code can't read the claude.ai Project.
+Open **claude.ai/code** → repo `SaraAmrousy/pl-events` (branch `main`) → environment `pl-events`.
 ```
-Thread 6 — Phase 4 Setup + Plugin (4.0 + 4.1) — Claude Code.
-اقرا CLAUDE.md وبعدين docs/PL-Events-Project-Instructions.md (v2.6) و docs/Roadmap-Checklist.md و docs/Step-4.0-Setup-Plan.md و docs/Step-2.2-Data-Model-Final.md و docs/Step-3.4b-Prototype-v1.md.
-المرجع البصري: reference/prototype/site (البروتوتايب v1.7) والسورس في reference/prototype/src. الداتا: data/pl-data.json.
-ابدأ بـ 4.0 — Setup حسب docs/Step-4.0-Setup-Plan.md (v3، كله من البراوزر). أنا مش هشتغل بإيدي ومش هفتح desktop app: إنت اللي تتأكد إن الـ environment واصل لـ cPanel و WordPress.org، وتظبط cPanel بالـ API token (متحط كـ Network secret على saraamrousy.net، مش هتشوفه، اندهي الـ API عادي) (الداتابيز، والـ WordPress في الفولدر الموجود saraamrousy.net/pl من غير ما تلمس أي حاجة تانية على الدومين)، وتنصّب WordPress على الـ staging، وتقفله بباسورد و noindex، وترفع test plugin بأمر واحد.
-بعدها 4.1 — pl-events-core plugin حسب 2.2 §8 وقرارات 3.4a/3.4b (من غير [pl_help] ولا saved-list).
+Thread 7 — Phase 4 Theme, Header/Footer, Pages, Forms (4.2–4.5) — Claude Code.
+اقرا CLAUDE.md وبعدين docs/PL-Events-Project-Instructions.md و docs/Roadmap-Checklist.md و docs/Step-4.0-Setup.md و docs/Step-4.1-Plugin.md و docs/Step-3.2-3.3-Design-and-Motion.md و docs/Step-3.4a-Hi-fi.md و docs/Step-3.4b-Prototype-v1.md.
+المرجع البصري: reference/prototype/site (v1.7) والسورس في reference/prototype/src (base.css + proto.css + motion.js).
+شغّل deploy/sandbox/setup.sh للتست، والـ deploy على الـ staging بـ deploy/deploy.sh (الـ secrets بترجع لوحدها من ~/pl-deploy/.env).
+ابدأ بـ 4.2 — hello-pl-child: الـ tokens والـ classes من البروتوتايب (نفس أسماء الـ classes اللي في templates الـ plugin)، Montserrat self-hosted، motion modules من 3.4b §5 (GSAP + ScrollTrigger من غير pin، Lenis على Home بس)، وصلّح .story2 .steps{min-width:0}. بعدها 4.3 / 4.4 / 4.5.
 في آخر كل step علّم عليها في docs/Roadmap-Checklist.md واكتب الـ Step Summary في docs/.
 ```
 
@@ -58,8 +58,8 @@ Thread 6 — Phase 4 Setup + Plugin (4.0 + 4.1) — Claude Code.
 
 ## Phase 4 — Build (البناء)
 > Built in **Claude Code on the web** (Sara hands-off, browser only): private repo `SaraAmrousy/pl-events` (`pl-events-core`, `hello-pl-child`, data JSON, Elementor templates). Deploy to Sara's staging `saraamrousy.net/pl` on her cPanel host driven by Claude Code through the cPanel API token + WordPress REST API over HTTPS; content seeded by the plugin importer, never a DB dump. Plan: `docs/Step-4.0-Setup-Plan.md`.
-- [ ] **4.0 Setup** (التجهيز) — ⏳ 90 % · Summary: `docs/Step-4.0-Setup.md` · blocked on the network secret scope (Sara) · Sara + Claude Code · Sara (browser only): GitHub repo + Claude Code web environment + 1 cPanel API token · Claude Code: sandbox test WP; free plugins on staging (Elementor, SCF, UAE HFB, Forminator, Rank Math); HTTPS deploy; staging `saraamrousy.net/pl` noindex + password · Plan: `docs/Step-4.0-Setup-Plan.md` (S1–S8)
-- [ ] **4.1 pl-events-core Plugin** (البلجن) — ✅ built + sandbox editor test passed · ⏳ staging install after 4.0 · Summary: `docs/Step-4.1-Plugin.md` · `pl-events-data-wp` · SCF; follow "Built to grow" (2.2 §8); test page + CPT sharing the `events` slug; new pieces from 3.1/3.4a/3.4b (`[pl_live_ribbon]`, `[pl_next_event layout="strip"]`, `[pl_company field=…]`, `[pl_stats layout="line|sponsor_line"]`, calendar search/Type/Grid–List, tabs All · Live now · Upcoming · Past with `default` attribute, `[pl_story layout="sticky explore"]`, `[pl_services layout="zigzag"]`, event-page mini map). Seed from `claude/pl-data.json`. **No `[pl_help]` (3.4b P1), no saved-list module (3.4a H4).**
+- [x] **4.0 Setup** (التجهيز) — ✅ 5 Nov 2026 · Summary: `docs/Step-4.0-Setup.md` (one-command deploy proven with `pl-hello`; noindex; password removed by Sara; cron */15) · Sara + Claude Code · Sara (browser only): GitHub repo + Claude Code web environment + 1 cPanel API token · Claude Code: sandbox test WP; free plugins on staging (Elementor, SCF, UAE HFB, Forminator, Rank Math); HTTPS deploy; staging `saraamrousy.net/pl` noindex + password · Plan: `docs/Step-4.0-Setup-Plan.md` (S1–S8)
+- [x] **4.1 pl-events-core Plugin** (البلجن) — ✅ 5 Nov 2026 · on staging + seeded (15 / 7 / 5 checked live); editor test passed in the sandbox · Summary: `docs/Step-4.1-Plugin.md` · `pl-events-data-wp` · SCF; follow "Built to grow" (2.2 §8); test page + CPT sharing the `events` slug; new pieces from 3.1/3.4a/3.4b (`[pl_live_ribbon]`, `[pl_next_event layout="strip"]`, `[pl_company field=…]`, `[pl_stats layout="line|sponsor_line"]`, calendar search/Type/Grid–List, tabs All · Live now · Upcoming · Past with `default` attribute, `[pl_story layout="sticky explore"]`, `[pl_services layout="zigzag"]`, event-page mini map). Seed from `claude/pl-data.json`. **No `[pl_help]` (3.4b P1), no saved-list module (3.4a H4).**
 - [ ] **4.2 Child Theme & Global Styles** (الثيم والستايل العام) — `pl-events-data-wp` · Tokens + classes from the 3.2 Design System (+ 3.4a H7 button fix) + motion modules from 3.4b §5 (no ScrollTrigger pin; Lenis Home only; `@view-transition`); confirm Elementor Free custom Global Colors
 - [ ] **4.3 Header & Footer** (الهيدر والفوتر) — `pl-events-data-wp` · Header: Home · Events · Services · About · Careers · Contact + Request a proposal + Portfolio (3.4a H5–H6)
 - [ ] **4.4 Pages in Elementor** (بناء الصفحات) — `pl-events-data-wp` · Pages exported as Elementor template JSON by Claude Code and imported (Elementor Free Templates › Import — confirm the JSON format on the installed version); tested locally, then on the staging folder (noindex); confirm Elementor Free background video (self-hosted MP4 + poster)

@@ -4,10 +4,10 @@
 #   deploy/deploy.sh theme  wp-content/themes/hello-pl-child
 #   deploy/deploy.sh plugin deploy/test-plugin/pl-hello      (4.0 DoD test)
 #   deploy/deploy.sh remove-plugin pl-hello
-# zip → cPanel upload → replace folder → extract → activate (WP REST / WP itself).
+# lint → zip → cPanel upload → replace folder → extract → activate inside WordPress.
 # Content is never pushed as a DB dump; the plugin importer seeds it.
 . "$(dirname "$0")/lib.sh"
-load_env; check_gate
+load_env; check_site
 kind="${1:?plugin|theme|remove-plugin}"; src="${2:?folder or slug}"
 
 case "$kind" in
@@ -25,7 +25,7 @@ case "$kind" in
     if [ "$kind" = plugin ]; then
       main=$(grep -l "Plugin Name:" "$src"/*.php | head -1); main=$(basename "$main" .php)
       say "activate $slug/$main"
-      wp_rest POST "/wp/v2/plugins/$slug/$main" -d status=active | python3 -c 'import json,sys;d=json.load(sys.stdin);print(d.get("plugin"),d.get("status"),d.get("version"),d.get("message",""))'
+      run_php "\$r = activate_plugin( '$slug/$main.php' ); echo is_wp_error( \$r ) ? 'ERROR ' . \$r->get_error_message() : 'active: $slug ' . ( get_plugin_data( WP_PLUGIN_DIR . '/$slug/$main.php' )['Version'] ?? '' ), PHP_EOL;"
     else
       say "activate theme $slug"
       run_php "switch_theme( '$slug' ); echo get_stylesheet();"
@@ -33,8 +33,7 @@ case "$kind" in
     run_php 'flush_rewrite_rules(); wp_cache_flush(); echo "flushed";'
     ;;
   remove-plugin)
-    wp_rest PUT "/wp/v2/plugins/$src/$src" -d status=inactive >/dev/null || true
-    wp_rest DELETE "/wp/v2/plugins/$src/$src" | head -c 200; echo
+    run_php "deactivate_plugins( '$src/$src.php' ); \$r = delete_plugins( array( '$src/$src.php' ) ); echo is_wp_error( \$r ) ? 'ERROR ' . \$r->get_error_message() : 'deleted: $src', PHP_EOL;"
     ;;
   *) die "unknown kind $kind" ;;
 esac

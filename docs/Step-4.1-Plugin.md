@@ -1,6 +1,6 @@
 # Step 4.1 — `pl-events-core` plugin: Step Summary (Thread 6, 5 Nov 2026)
 
-**Status: ✅ built and tested in the sandbox · ⏳ staging install waits for the 4.0 blocker** (network secret scope). DoD "Sara installs it on staging and the editor test passes": the editor test **passed in the sandbox** (below); on staging it is one command once 4.0 is unblocked: `deploy/deploy.sh plugin wp-content/plugins/pl-events-core && deploy/seed-staging.sh`.
+**Status: ✅ DONE — 5 Nov 2026.** Deployed to staging with one command (`deploy/deploy.sh plugin wp-content/plugins/pl-events-core` → `active: pl-events-core 0.1.0`) and seeded with `deploy/seed-staging.sh` (47 created + company, 7 photos, 0 errors). **Checked as a visitor on `saraamrousy.net/pl`:** `/pl-check/` shows "15 congresses. 7 cities. 5 countries. One name." and "Next congress · DEOSS 2027 · Tunis · in 85 days"; `/events/` shows "Calendar · 15 events since Jun 2024", tabs All · 15 / Upcoming · 2 / Past · 13, Country filter = Egypt, UAE, Saudi Arabia, Tunisia, Iraq; `/events/esoirs-2026/` 200, `/events/deoss-atmo-2027/ics/` `text/calendar`, unknown event 404, `/?rest_route=/pl/v1/data` JSON. The editor test passed in the sandbox (below); Sara can repeat it on staging (PL Website › ＋ Add event). Staging still runs plain Hello Elementor — the look comes in 4.2.
 
 ## Structure (Step 2.2 §8 — binding, followed)
 | Principle | Where |

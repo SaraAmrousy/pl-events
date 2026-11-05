@@ -76,23 +76,17 @@ env_set() { # KEY VALUE  (add or replace in deploy/.env)
 }
 
 # --- HTTP to staging --------------------------------------------------------------
-# REQUIRES the cPanel network secret to be scoped to cpanel.saraamrousy.net ONLY.
-# If it also covers saraamrousy.net, the proxy replaces our Authorization header
-# with the cPanel token → every call here gets 401 (and the token reaches WP).
-# The folder is behind Directory Privacy. The deploy htpasswd user has the same
-# name + password as the WP Application Password, so one Basic header passes both.
-site_curl() { curl -sS -u "${WP_DEPLOY_USER}:${WP_DEPLOY_APPPASS}" "$@"; }
-wp_rest() { # METHOD route [curl args...]
-  local m="$1" r="$2"; shift 2
-  site_curl -X "$m" "$STAGING_URL/?rest_route=$r" "$@"
+# Activation runs INSIDE WordPress through run_php (below), so deploys never depend on
+# HTTP auth to the site. (While a session's network secret still covers saraamrousy.net,
+# the proxy replaces every Authorization header sent to the site — REST/Basic can't work.)
+check_site() {
+  local code; code=$(curl -s -o /dev/null -w '%{http_code}' "$STAGING_URL/wp-login.php")
+  [ "$code" = 200 ] || die "Staging answered $code on wp-login.php."
 }
-check_gate() {
-  local code; code=$(site_curl -o /dev/null -w '%{http_code}' "$STAGING_URL/?rest_route=/wp/v2/users/me")
-  [ "$code" = 200 ] || die "Staging answered $code with the deploy login. 401 = the cPanel network secret still covers saraamrousy.net — scope it to cpanel.saraamrousy.net only, then start a new session."
-}
+check_gate() { check_site; } # old name
 
-# run_php 'php code' → uploads a one-shot script (random name + 128-bit token,
-# behind the folder password), runs it inside WordPress as claude-deploy, deletes it.
+# run_php 'php code' → uploads a one-shot script (random name + 128-bit token; it deletes
+# itself when it ends, and is deleted again by the API), runs it inside WordPress as claude-deploy.
 run_php() {
   local code="$1" tok name f out
   tok=$(python3 -c 'import secrets;print(secrets.token_hex(16))')
@@ -100,6 +94,7 @@ run_php() {
   f="$SCRATCH/$name"
   cat > "$f" <<PHP
 <?php
+unset( \$_SERVER['HTTP_AUTHORIZATION'], \$_SERVER['REDIRECT_HTTP_AUTHORIZATION'] );
 if ( ! isset( \$_GET['t'] ) || ! hash_equals( '$tok', (string) \$_GET['t'] ) ) { http_response_code( 404 ); exit; }
 register_shutdown_function( function () { @unlink( __FILE__ ); } );
 require __DIR__ . '/wp-load.php';
@@ -111,7 +106,7 @@ if ( \$u ) { wp_set_current_user( \$u->ID ); }
 $code
 PHP
   cp_upload "$f" "$STAGING_DIR"; rm -f "$f"
-  if [ -n "${WP_DEPLOY_APPPASS:-}" ]; then out=$(site_curl "$STAGING_URL/$name?t=$tok"); else out=$(curl -sS "$STAGING_URL/$name?t=$tok"); fi
+  out=$(curl -sS --max-time 300 "$STAGING_URL/$name?t=$tok")
   cp_delete "$STAGING_DIR/$name" || true
   printf '%s\n' "$out"
 }
