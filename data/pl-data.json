@@ -1,0 +1,949 @@
+{
+ "meta": {
+  "schema": "pl-events-core/1",
+  "generated": "2026-11-04",
+  "source": "PL-Data-Sheet-Step-0.2 (public data) + Step 3.4a",
+  "note": "Same shape as the pl-events-core data layer. Keys starting with _ are build notes and are never shown on the site."
+ },
+ "company": {
+  "name": "PL Events",
+  "tagline": "Science in focus.",
+  "hero_headline": {
+   "id": "stage",
+   "text": "Your science.",
+   "em": "Our stage."
+  },
+  "figures": [
+   {
+    "value": "13+",
+    "label": "years"
+   },
+   {
+    "value": "500+",
+    "label": "conferences"
+   },
+   {
+    "value": "190+",
+    "label": "webinars"
+   }
+  ],
+  "portfolio": {
+   "url": "https://plevents.org/wp-content/uploads/2026/05/PL-Portfolio.pdf",
+   "size": "4.7 MB"
+  },
+  "showreel": {
+   "poster": "assets/hero-stage.jpg",
+   "stills": [
+    "assets/hero-stage.jpg",
+    "assets/hall-esoirs.jpg",
+    "assets/av-stage.jpg",
+    "assets/hall-saudi.jpg"
+   ],
+   "sample": true,
+   "caption": "PL portfolio stills"
+  },
+  "social": [
+   {
+    "label": "LinkedIn",
+    "url": "https://www.linkedin.com/company/pl-events/"
+   },
+   {
+    "label": "Facebook",
+    "url": "https://www.facebook.com/PLEventsEgypt/"
+   },
+   {
+    "label": "Instagram",
+    "url": "https://www.instagram.com/pl_events1/"
+   },
+   {
+    "label": "X",
+    "url": "https://x.com/plevents"
+   }
+  ]
+ },
+ "offices": [
+  {
+   "id": "alexandria",
+   "role": "Head office",
+   "city": "Alexandria",
+   "country": "EG",
+   "address": "Kirosiez Mall building, administrative tower, level 6, Ibrahim Sherif St, Alexandria 21500, Egypt",
+   "phones": [
+    {
+     "label": "Phone / WhatsApp",
+     "number": "+20 102 555 9003",
+     "whatsapp": true
+    }
+   ],
+   "emails": [
+    "events@plevents.org"
+   ],
+   "hours": [],
+   "covers": [],
+   "order": 1,
+   "show_on_site": true
+  },
+  {
+   "id": "dubai",
+   "role": "Regional office",
+   "city": "Dubai",
+   "country": "AE",
+   "address": "Office F-204-23, Al Baraha, Dubai, UAE",
+   "phones": [
+    {
+     "label": "Phone / WhatsApp",
+     "number": "+971 55 158 2689",
+     "whatsapp": true
+    }
+   ],
+   "emails": [
+    "dina@plevents.org"
+   ],
+   "hours": [],
+   "covers": [
+    "AE",
+    "SA",
+    "IQ"
+   ],
+   "order": 2,
+   "show_on_site": true,
+   "_tbc": [
+    "covers (proposed: Gulf + Iraq → Dubai)",
+    "hours"
+   ]
+  }
+ ],
+ "events": [
+  {
+   "id": "esoirs-2024",
+   "name": "ESOIRS Annual Congress 2024",
+   "type": "Congress",
+   "specialties": [
+    "Ophthalmology"
+   ],
+   "series": "ESOIRS",
+   "edition": "36th (TBC)",
+   "start": "2024-06-05",
+   "end": "2024-06-07",
+   "country": "EG",
+   "city": "Alexandria",
+   "venue": "Hilton Alexandria Green Plaza",
+   "website": "https://esoirs.org/",
+   "registration_url": "",
+   "registration": "closed",
+   "more_links": [],
+   "phones": [],
+   "email": "",
+   "logo": "",
+   "poster": "",
+   "photos": [],
+   "description": "",
+   "delegates": null,
+   "pin_home": false,
+   "show_on_site": true,
+   "sample": false
+  },
+  {
+   "id": "asaic-2024",
+   "name": "27th ASAIC",
+   "type": "Congress",
+   "specialties": [
+    "Ophthalmology"
+   ],
+   "series": "ASAIC",
+   "edition": "27th",
+   "start": "2024-09-28",
+   "end": "2024-09-30",
+   "country": "EG",
+   "city": "Alexandria",
+   "venue": "Bibliotheca Alexandrina",
+   "website": "https://newasaic.com/",
+   "registration_url": "",
+   "registration": "closed",
+   "more_links": [],
+   "phones": [],
+   "email": "",
+   "logo": "",
+   "poster": "",
+   "photos": [],
+   "description": "",
+   "delegates": null,
+   "pin_home": false,
+   "show_on_site": true,
+   "sample": false
+  },
+  {
+   "id": "deoss-2025",
+   "name": "2nd DEOSS Congress",
+   "type": "Congress",
+   "specialties": [
+    "Ophthalmology"
+   ],
+   "series": "DEOSS",
+   "edition": "2nd",
+   "start": "2025-02-20",
+   "end": "2025-02-21",
+   "country": "EG",
+   "city": "Luxor",
+   "venue": "Steigenberger Nile Palace",
+   "website": "https://deoss-society.org/",
+   "registration_url": "",
+   "registration": "closed",
+   "more_links": [],
+   "phones": [],
+   "email": "",
+   "logo": "",
+   "poster": "",
+   "photos": [],
+   "description": "",
+   "delegates": null,
+   "pin_home": false,
+   "show_on_site": true,
+   "sample": false
+  },
+  {
+   "id": "egyptlymphedema-2025",
+   "name": "Egyptian Lymphedema Conference",
+   "type": "Conference",
+   "specialties": [
+    "Vascular",
+    "Lymphology"
+   ],
+   "series": "EGYPTLYMPHEDEMA",
+   "edition": "2025",
+   "start": "2025-06-26",
+   "end": "2025-06-26",
+   "country": "EG",
+   "city": "Alexandria",
+   "venue": "Tolip Hotel Alexandria",
+   "website": "",
+   "registration_url": "",
+   "registration": "closed",
+   "more_links": [],
+   "phones": [],
+   "email": "",
+   "logo": "",
+   "poster": "",
+   "photos": [],
+   "description": "",
+   "delegates": null,
+   "pin_home": false,
+   "show_on_site": true,
+   "sample": false
+  },
+  {
+   "id": "asaic-2025",
+   "name": "28th ASAIC",
+   "type": "Congress",
+   "specialties": [
+    "Ophthalmology"
+   ],
+   "series": "ASAIC",
+   "edition": "28th",
+   "start": "2025-09-16",
+   "end": "2025-09-18",
+   "country": "EG",
+   "city": "Alexandria",
+   "venue": "Hilton Alexandria Green Plaza",
+   "website": "https://newasaic.com/",
+   "registration_url": "",
+   "registration": "closed",
+   "more_links": [],
+   "phones": [],
+   "email": "",
+   "logo": "",
+   "poster": "",
+   "photos": [],
+   "description": "",
+   "delegates": null,
+   "pin_home": false,
+   "show_on_site": true,
+   "sample": false
+  },
+  {
+   "id": "meom-2025",
+   "name": "7th MEOM Conference",
+   "type": "Conference",
+   "specialties": [
+    "Ophthalmology"
+   ],
+   "series": "MEOM",
+   "edition": "7th",
+   "start": "2025-10-30",
+   "end": "2025-11-01",
+   "country": "AE",
+   "city": "Dubai",
+   "venue": "InterContinental Dubai Festival City",
+   "website": "https://meomacademy.com/",
+   "registration_url": "",
+   "registration": "closed",
+   "more_links": [],
+   "phones": [],
+   "email": "",
+   "logo": "",
+   "poster": "",
+   "photos": [],
+   "description": "",
+   "delegates": null,
+   "pin_home": false,
+   "show_on_site": true,
+   "sample": false
+  },
+  {
+   "id": "srs-2026",
+   "name": "4th Saudi Retina Symposium (SRS 2026)",
+   "type": "Symposium",
+   "specialties": [
+    "Ophthalmology"
+   ],
+   "series": "SRS",
+   "edition": "4th",
+   "start": "2026-02-05",
+   "end": "2026-02-07",
+   "country": "SA",
+   "city": "Jeddah",
+   "venue": "Hilton Jeddah",
+   "website": "https://saudi-retina.org/",
+   "registration_url": "",
+   "registration": "closed",
+   "more_links": [],
+   "phones": [],
+   "email": "",
+   "logo": "",
+   "poster": "",
+   "photos": [],
+   "description": "",
+   "delegates": null,
+   "pin_home": false,
+   "show_on_site": true,
+   "sample": false
+  },
+  {
+   "id": "el-safwa-2026",
+   "name": "11th El Safwa Annual Forum & 2nd Damanhour Eye Center Conjoint Meeting",
+   "type": "Forum",
+   "specialties": [
+    "Ophthalmology"
+   ],
+   "series": "El Safwa",
+   "edition": "11th / 2nd",
+   "start": "2026-02-12",
+   "end": "2026-02-13",
+   "country": "EG",
+   "city": "Alexandria",
+   "venue": "Crowne Plaza Alexandria Mirage",
+   "website": "",
+   "registration_url": "",
+   "registration": "closed",
+   "more_links": [],
+   "phones": [],
+   "email": "",
+   "logo": "",
+   "poster": "",
+   "photos": [],
+   "description": "",
+   "delegates": null,
+   "pin_home": false,
+   "show_on_site": true,
+   "sample": false
+  },
+  {
+   "id": "phleboegypt-2026",
+   "name": "13th International Congress of the Egyptian Venous Forum (PHLEBOEGYPT)",
+   "type": "Congress",
+   "specialties": [
+    "Vascular"
+   ],
+   "series": "PHLEBOEGYPT",
+   "edition": "13th",
+   "start": "2026-04-23",
+   "end": "2026-04-24",
+   "country": "EG",
+   "city": "Alexandria",
+   "venue": "Helnan Antoniades Palace Hotel",
+   "website": "",
+   "registration_url": "",
+   "registration": "closed",
+   "more_links": [],
+   "phones": [],
+   "email": "",
+   "logo": "",
+   "poster": "",
+   "photos": [],
+   "description": "",
+   "delegates": null,
+   "pin_home": false,
+   "show_on_site": true,
+   "sample": false
+  },
+  {
+   "id": "bridge-retina-2026",
+   "name": "3rd Bridge Retina Congress",
+   "type": "Congress",
+   "specialties": [
+    "Ophthalmology"
+   ],
+   "series": "Bridge Retina",
+   "edition": "3rd",
+   "start": "2026-05-21",
+   "end": "2026-05-22",
+   "country": "EG",
+   "city": "New Alamein",
+   "venue": "AASTMT El Alamein Campus",
+   "website": "https://bridge-retina.com/",
+   "registration_url": "",
+   "registration": "closed",
+   "more_links": [],
+   "phones": [],
+   "email": "",
+   "logo": "",
+   "poster": "",
+   "photos": [],
+   "description": "",
+   "delegates": null,
+   "pin_home": false,
+   "show_on_site": true,
+   "sample": false
+  },
+  {
+   "id": "esoirs-2026",
+   "name": "38th ESOIRS Annual Congress",
+   "type": "Congress",
+   "specialties": [
+    "Ophthalmology"
+   ],
+   "series": "ESOIRS",
+   "edition": "38th",
+   "start": "2026-06-17",
+   "end": "2026-06-19",
+   "country": "EG",
+   "city": "Alexandria",
+   "venue": "Hilton Alexandria Green Plaza",
+   "website": "https://esoirs.org/",
+   "registration_url": "",
+   "registration": "closed",
+   "more_links": [],
+   "phones": [],
+   "email": "",
+   "logo": "",
+   "poster": "",
+   "photos": [],
+   "description": "",
+   "delegates": null,
+   "pin_home": false,
+   "show_on_site": true,
+   "sample": false
+  },
+  {
+   "id": "asaic-2026",
+   "name": "29th ASAIC",
+   "type": "Congress",
+   "specialties": [
+    "Ophthalmology"
+   ],
+   "series": "ASAIC",
+   "edition": "29th",
+   "start": "2026-09-22",
+   "end": "2026-09-24",
+   "country": "EG",
+   "city": "Alexandria",
+   "venue": "Hilton Alexandria Green Plaza",
+   "website": "https://newasaic.com/",
+   "registration_url": "",
+   "registration": "closed",
+   "more_links": [],
+   "phones": [],
+   "email": "",
+   "logo": "",
+   "poster": "",
+   "photos": [],
+   "description": "",
+   "delegates": null,
+   "pin_home": false,
+   "show_on_site": true,
+   "sample": false
+  },
+  {
+   "id": "meom-2026",
+   "name": "8th MEOM Conference",
+   "type": "Conference",
+   "specialties": [
+    "Ophthalmology"
+   ],
+   "series": "MEOM",
+   "edition": "8th",
+   "start": "2026-10-30",
+   "end": "2026-11-01",
+   "country": "AE",
+   "city": "Dubai",
+   "venue": "InterContinental Dubai Festival City",
+   "website": "https://meomacademy.com/",
+   "registration_url": "https://meomacademy.com/registration-member-non-member/",
+   "registration": "open",
+   "more_links": [],
+   "phones": [],
+   "email": "",
+   "logo": "",
+   "poster": "",
+   "photos": [],
+   "description": "",
+   "delegates": null,
+   "pin_home": false,
+   "show_on_site": true,
+   "sample": false
+  },
+  {
+   "id": "deoss-atmo-2027",
+   "name": "4th DEOSS Congress & 17th ATMO",
+   "type": "Congress",
+   "specialties": [
+    "Ophthalmology"
+   ],
+   "series": "DEOSS",
+   "edition": "4th / 17th",
+   "start": "2027-01-29",
+   "end": "2027-01-30",
+   "country": "TN",
+   "city": "Tunis",
+   "venue": "Mövenpick Hotel du Lac Tunis",
+   "website": "https://deoss-society.org/",
+   "registration_url": "https://deoss-society.org/registration/",
+   "registration": "open",
+   "more_links": [],
+   "phones": [],
+   "email": "",
+   "logo": "",
+   "poster": "",
+   "photos": [],
+   "description": "",
+   "delegates": null,
+   "pin_home": false,
+   "show_on_site": true,
+   "sample": false,
+   "_tbc": [
+    "registration"
+   ]
+  },
+  {
+   "id": "mocat-6-2027",
+   "name": "MOCAT 6 — Mesopotamia Ophthalmology Conference for Advanced Techniques",
+   "type": "Conference",
+   "specialties": [
+    "Ophthalmology"
+   ],
+   "series": "MOCAT",
+   "edition": "6th",
+   "start": "2027-03-26",
+   "end": "2027-03-27",
+   "country": "IQ",
+   "city": "Baghdad",
+   "venue": "Royal Tulip Al Rasheed",
+   "website": "https://mocatiscrs.iq/",
+   "registration_url": "https://mocatiscrs.iq/registration/",
+   "registration": "open",
+   "more_links": [],
+   "phones": [],
+   "email": "",
+   "logo": "",
+   "poster": "",
+   "photos": [],
+   "description": "",
+   "delegates": null,
+   "pin_home": false,
+   "show_on_site": true,
+   "sample": false,
+   "_tbc": [
+    "registration",
+    "venue"
+   ]
+  }
+ ],
+ "societies": [
+  {
+   "name": "ESOIRS",
+   "logo": "",
+   "url": "",
+   "show_on_site": true
+  },
+  {
+   "name": "ASAIC",
+   "logo": "",
+   "url": "",
+   "show_on_site": true
+  },
+  {
+   "name": "MEOM Academy",
+   "logo": "",
+   "url": "",
+   "show_on_site": true
+  },
+  {
+   "name": "DEOSS",
+   "logo": "",
+   "url": "",
+   "show_on_site": true
+  },
+  {
+   "name": "ATMO",
+   "logo": "",
+   "url": "",
+   "show_on_site": true
+  },
+  {
+   "name": "Egyptian Venous Forum",
+   "logo": "",
+   "url": "",
+   "show_on_site": true
+  },
+  {
+   "name": "El Safwa Forum",
+   "logo": "",
+   "url": "",
+   "show_on_site": true
+  },
+  {
+   "name": "Damanhour Eye Center",
+   "logo": "",
+   "url": "",
+   "show_on_site": true
+  },
+  {
+   "name": "Bridge Retina",
+   "logo": "",
+   "url": "",
+   "show_on_site": true
+  },
+  {
+   "name": "Saudi Retina Association",
+   "logo": "",
+   "url": "",
+   "show_on_site": true
+  }
+ ],
+ "sponsors": [
+  {
+   "name": "Alcon",
+   "logo": "",
+   "show_on_site": true
+  },
+  {
+   "name": "AbbVie",
+   "logo": "",
+   "show_on_site": true
+  },
+  {
+   "name": "Bayer",
+   "logo": "",
+   "show_on_site": true
+  },
+  {
+   "name": "Roche",
+   "logo": "",
+   "show_on_site": true
+  },
+  {
+   "name": "Santen",
+   "logo": "",
+   "show_on_site": true
+  },
+  {
+   "name": "Théa",
+   "logo": "",
+   "show_on_site": true
+  },
+  {
+   "name": "Novartis",
+   "logo": "",
+   "show_on_site": true
+  },
+  {
+   "name": "Johnson & Johnson",
+   "logo": "",
+   "show_on_site": true
+  },
+  {
+   "name": "Pfizer",
+   "logo": "",
+   "show_on_site": true
+  },
+  {
+   "name": "Sanofi",
+   "logo": "",
+   "show_on_site": true
+  },
+  {
+   "name": "Topcon",
+   "logo": "",
+   "show_on_site": true
+  },
+  {
+   "name": "Bausch + Lomb",
+   "logo": "",
+   "show_on_site": true
+  },
+  {
+   "name": "Medtronic",
+   "logo": "",
+   "show_on_site": true
+  },
+  {
+   "name": "Karl Storz",
+   "logo": "",
+   "show_on_site": true
+  },
+  {
+   "name": "Eva Pharma",
+   "logo": "",
+   "show_on_site": true
+  },
+  {
+   "name": "Jamjoom Pharma",
+   "logo": "",
+   "show_on_site": true
+  }
+ ],
+ "services": [
+  {
+   "group": "Scientific & content",
+   "line": "Programmes, speakers, wetlabs and live surgery.",
+   "image": "assets/svc-wetlab.jpg",
+   "image_alt": "Hands-on wetlab at a PL congress",
+   "items": [
+    "Conference planning & management",
+    "Speaker & content management",
+    "Training, workshops & wetlabs (Corneal, Vitrectomy, IRIS Claw Lens, Yamane technique)",
+    "Live surgery",
+    "Virtual events & webinars"
+   ]
+  },
+  {
+   "group": "Sponsors & exhibitors",
+   "line": "Sponsor packages, floor plans and booth production.",
+   "image": "assets/svc-booth.jpg",
+   "image_alt": "Sponsor booth built by PL",
+   "items": [
+    "Sponsorship & exhibitor management",
+    "Event marketing & promotion"
+   ]
+  },
+  {
+   "group": "Production & on-site",
+   "line": "Stage, audiovisual, live streaming and registration desks.",
+   "image": "assets/av-stage.jpg",
+   "image_alt": "Congress stage and audiovisual set-up",
+   "items": [
+    "Production: booths, graphics, AV and logistics",
+    "Audiovisual services, live streaming and recording",
+    "On-site support & technology solutions",
+    "Photography, videography & promotion",
+    "Giveaways & trophies"
+   ]
+  },
+  {
+   "group": "Travel & hospitality",
+   "line": "Flights, hotels, transfers and networking dinners.",
+   "image": "assets/svc-travel.jpg",
+   "image_alt": "Delegates on a PL transfer coach",
+   "items": [
+    "Travel & hospitality management",
+    "Networking events and dinners"
+   ]
+  }
+ ],
+ "jobs": [],
+ "memberships": [],
+ "geo": {
+  "countries": {
+   "EG": {
+    "name": "Egypt",
+    "tz": "Africa/Cairo",
+    "centre": [
+     30.8,
+     26.8
+    ],
+    "dial": "+20"
+   },
+   "AE": {
+    "name": "UAE",
+    "tz": "Asia/Dubai",
+    "centre": [
+     54.0,
+     24.0
+    ],
+    "dial": "+971"
+   },
+   "SA": {
+    "name": "Saudi Arabia",
+    "tz": "Asia/Riyadh",
+    "centre": [
+     45.0,
+     24.0
+    ],
+    "dial": "+966"
+   },
+   "TN": {
+    "name": "Tunisia",
+    "tz": "Africa/Tunis",
+    "centre": [
+     9.5,
+     34.0
+    ],
+    "dial": "+216"
+   },
+   "IQ": {
+    "name": "Iraq",
+    "tz": "Asia/Baghdad",
+    "centre": [
+     43.7,
+     33.2
+    ],
+    "dial": "+964"
+   },
+   "JO": {
+    "name": "Jordan",
+    "tz": "Asia/Amman",
+    "centre": [
+     36.2,
+     31.2
+    ],
+    "dial": "+962"
+   },
+   "LB": {
+    "name": "Lebanon",
+    "tz": "Asia/Beirut",
+    "centre": [
+     35.9,
+     33.9
+    ],
+    "dial": "+961"
+   },
+   "MA": {
+    "name": "Morocco",
+    "tz": "Africa/Casablanca",
+    "centre": [
+     -6.8,
+     31.8
+    ],
+    "dial": "+212"
+   },
+   "KW": {
+    "name": "Kuwait",
+    "tz": "Asia/Kuwait",
+    "centre": [
+     47.6,
+     29.3
+    ],
+    "dial": "+965"
+   },
+   "OM": {
+    "name": "Oman",
+    "tz": "Asia/Muscat",
+    "centre": [
+     57.0,
+     21.0
+    ],
+    "dial": "+968"
+   }
+  },
+  "cities": {
+   "Alexandria": [
+    29.92,
+    31.2
+   ],
+   "New Alamein": [
+    28.95,
+    30.83
+   ],
+   "Luxor": [
+    32.64,
+    25.69
+   ],
+   "Cairo": [
+    31.24,
+    30.04
+   ],
+   "Hurghada": [
+    33.81,
+    27.26
+   ],
+   "Damanhour": [
+    30.47,
+    31.03
+   ],
+   "Dubai": [
+    55.27,
+    25.2
+   ],
+   "Abu Dhabi": [
+    54.37,
+    24.45
+   ],
+   "Jeddah": [
+    39.17,
+    21.54
+   ],
+   "Riyadh": [
+    46.72,
+    24.69
+   ],
+   "Tunis": [
+    10.18,
+    36.81
+   ],
+   "Baghdad": [
+    44.37,
+    33.31
+   ],
+   "Amman": [
+    35.93,
+    31.95
+   ],
+   "Beirut": [
+    35.5,
+    33.89
+   ],
+   "Casablanca": [
+    -7.59,
+    33.57
+   ],
+   "Kuwait City": [
+    47.98,
+    29.37
+   ],
+   "Muscat": [
+    58.41,
+    23.59
+   ]
+  },
+  "credits": "Map data: GeoNames (CC BY 4.0), mledoze/countries (ODbL)"
+ },
+ "_sample_event": {
+  "id": "sample-amman-2027",
+  "name": "Sample Ophthalmology Symposium (test row)",
+  "type": "Symposium",
+  "specialties": [
+   "Ophthalmology"
+  ],
+  "series": "Sample",
+  "edition": "1st",
+  "start": "2027-05-13",
+  "end": "2027-05-14",
+  "country": "JO",
+  "city": "Amman",
+  "venue": "Sample venue",
+  "website": "https://example.com/",
+  "registration_url": "",
+  "registration": "not_open",
+  "more_links": [],
+  "phones": [],
+  "email": "",
+  "logo": "",
+  "poster": "",
+  "photos": [],
+  "description": "",
+  "delegates": null,
+  "pin_home": false,
+  "show_on_site": true,
+  "sample": true
+ }
+}

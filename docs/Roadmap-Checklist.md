@@ -1,0 +1,86 @@
+# PL Events Website — Roadmap Checklist (قايمة الخطوات)
+
+> **Rule for Claude:** at the end of every step, (1) tick it here, (2) write the Step Summary to the Project, (3) end the reply with **"الخطوة الجاية: Step X.Y — Name"**. At the end of the last step in a thread, also give Sara the starter message for the next thread.
+> **Threads:** one thread per group below (not per step). Open a new thread early if the current one gets long; the Step Summaries in the Project carry the context.
+> Last updated: 5 Nov 2026 (Thread 5)
+
+**Now:** ✅ Thread 5 done (3.4a Hi-fi · 3.4b Prototype v1.7) → **Next: Step 4.0 — Setup in Claude Code** (Thread 6) — plan ready (`docs/Step-4.0-Setup-Plan.md`), kit `pl-events-kit.zip` sent to Sara. ⏳ Pending before reveal: (1) a clean reveal copy of the prototype without the Prototype controls, (2) regenerate the owner pack (needs the two xlsx files).
+
+---
+
+## Thread plan (خطة الثريدات)
+| Thread | Steps | Why grouped this way |
+|---|---|---|
+| 1 | 0.1–0.3 ✅ | Setup |
+| 2 | 1.1–1.3 Discovery ✅ | Research and writing, light |
+| 3 | 2.1–2.3 Structure ✅ | Each step feeds the next |
+| 4 | 3.1–3.3 Wireframes, design system, motion spec ✅ | Design decisions together |
+| 5 | 3.4a Hi-fi ✅ + 3.4b Prototype v1 ✅ | Visual sign-off on the canvas first (cheap edits), then the full HTML prototype |
+| 6 | 4.0 Setup + 4.1 Plugin — **Claude Code** | **Claude Code on the web (browser only)** on the private repo `SaraAmrousy/pl-events`; cPanel driven by an API token; deploy over HTTPS; PHP/JS built and tested in the cloud sandbox |
+| 7 | 4.2–4.5 Theme, header/footer, pages, forms — **Claude Code** | Child theme, Elementor templates as JSON imports, forms; deploy to the staging subdomain |
+| 8 | 5.1–5.3 Content & SEO | |
+| 9 | 6.1–6.3 QA & launch | |
+
+### Starter message for the next thread
+Open **claude.ai/code** in the browser → repo `SaraAmrousy/pl-events` → environment `pl-events` (setup in the plan). The repo has `CLAUDE.md`, the docs, the prototype and the data, because Claude Code can't read the claude.ai Project.
+```
+Thread 6 — Phase 4 Setup + Plugin (4.0 + 4.1) — Claude Code.
+اقرا CLAUDE.md وبعدين docs/PL-Events-Project-Instructions.md (v2.6) و docs/Roadmap-Checklist.md و docs/Step-4.0-Setup-Plan.md و docs/Step-2.2-Data-Model-Final.md و docs/Step-3.4b-Prototype-v1.md.
+المرجع البصري: reference/prototype/site (البروتوتايب v1.7) والسورس في reference/prototype/src. الداتا: data/pl-data.json.
+ابدأ بـ 4.0 — Setup حسب docs/Step-4.0-Setup-Plan.md (v3، كله من البراوزر). أنا مش هشتغل بإيدي ومش هفتح desktop app: إنت اللي تتأكد إن الـ environment واصل لـ cPanel و WordPress.org، وتظبط cPanel بالـ API token اللي في المتغير CPANEL_TOKEN (الـ subdomain pl.saraamrousy.net والـ SSL والـ PHP والداتابيز)، وتنصّب WordPress على الـ staging، وتقفله بباسورد و noindex، وترفع test plugin بأمر واحد.
+بعدها 4.1 — pl-events-core plugin حسب 2.2 §8 وقرارات 3.4a/3.4b (من غير [pl_help] ولا saved-list).
+في آخر كل step علّم عليها في docs/Roadmap-Checklist.md واكتب الـ Step Summary في docs/.
+```
+
+---
+
+## Phase 0 — Setup (التجهيز) ✅
+- [x] **0.1 Project Setup** (تجهيز الـ Project) — Sara
+- [x] **0.2 Public Data Harvest** (جمع الداتا العامة) — `pl-content-qa` · Output: `PL-Data-Sheet-Step-0.2.xlsx` · Summary: `claude/Step-0.2-Data-Harvest-Summary.md`
+- [x] **0.3 Owner Request Pack** (الطلبات لأصحاب الشركة) — `pl-content-qa` · Output: `PL-Website-Data-Pack.xlsx` + 2 messages · Summary: `claude/Step-0.3-Owner-Request-Pack.md`
+
+## Phase 1 — Discovery (الاستكشاف) ✅
+- [x] **1.1 Current Site Audit** (مراجعة الموقع الحالي) — `pl-content-qa` · Output + Summary: `claude/Step-1.1-Current-Site-Audit.md` (29 issues: 5 Blocker, 16 Major, 8 Minor)
+- [x] **1.2 Competitor Teardown** (تحليل المنافسين) — `pl-design-motion` · Output + Summary: `claude/Step-1.2-Competitor-Teardown.md` (steal / avoid / beat; 4 proposals approved in principle)
+- [x] **1.3 Positioning & Messaging** (التموضع والرسائل) — `pl-content-qa` · Output + Summary: `claude/Step-1.3-Positioning-Messaging.md` (approved in principle; tagline "Science in focus.")
+
+## Phase 2 — Structure (الهيكل) ✅
+- [x] **2.1 Sitemap & User Flows** (خريطة الموقع ورحلات المستخدم) — `pl-design-motion` · Output + Summary: `claude/Step-2.1-Sitemap-User-Flows.md` (6 pages + event detail view; 5 flows, all ≤ 3 steps; proposals P1–P7)
+- [x] **2.2 Data Model — Final** (نموذج الداتا النهائي) — `pl-events-data-wp` · Output + Summary: `claude/Step-2.2-Data-Model-Final.md` (8 content types on SCF; country-local time; no coordinates; phones/links as repeaters; built-to-grow plugin). Pack regeneration deferred → Reveal point.
+- [x] **2.3 Page Content Outlines** (محتوى كل صفحة) — `pl-content-qa` · Output + Summary: `claude/Step-2.3-Page-Content-Outlines.md` (35 sections across 7 templates, each with purpose, source and empty state; H1 + meta per page)
+
+## Phase 3 — Design (التصميم)
+- [x] **3.1 Wireframes** (الـ wireframes) — `pl-design-motion` · Output: Design canvas https://claude.ai/artifact/1Pp9xGiZ8TvyXsHTWWq8Wh (page "✅ Final — D × B") · Summary: `claude/Step-3.1-Wireframes.md` (Final approved by Sara 4 Nov 2026; rule: familiar controls only; video hero about PL; Events Grid/List + labelled filters)
+- [x] **3.2 Design System** (الـ design system) — `pl-design-motion` · Output: Design System "PL Events" https://claude.ai/artifact/QfopWoDHG2RSWUSk2VWayR · Summary: `claude/Step-3.2-Design-System.md` (Montserrat; portfolio palette ink / navy / blue #2C4894 on warm paper; 14 components; wrapping rules; Elementor Globals mapping)
+- [x] **3.3 Motion Spec** (مواصفات الحركة) — `pl-design-motion` · Output + Summary: `claude/Step-3.3-Motion-Spec.md` (3 signatures: iris hero · viewfinder on the card in focus · story map → explorer; Full / Light / Reduced contexts; transform-only iris; no motion on reading text; Lenis on Home + About only)
+- [x] **3.4a Hi-fi** (التصميم عالي الدقة) — `pl-design-motion` · Output: Design canvas https://claude.ai/artifact/4c4cCfC1k1Wced3QKYW13T · Summary: `claude/Step-3.4a-Hi-fi.md` (approved by Sara 4 Nov 2026; tabs All · Live now · Upcoming · Past, default All, one continuous grid; no favourites / My list; header CTA Portfolio + Home link; real portfolio photos; typographic event posters)
+- [x] **3.4b HTML Prototype v1** (البروتوتايب الكامل) — `pl-design-motion` · Output: https://claude.ai/artifact/1CYF4Vfn6i1etX4UELAa8Z (v1.7, public) + data `claude/pl-data.json` · Summary: `claude/Step-3.4b-Prototype-v1.md` (approved by Sara 5 Nov 2026; decisions P1–P12: closing band instead of [pl_help], Lenis Home only, About sticky map + chapters (no pin), headline "Your science. Our stage.", stats/About H1 in blue pills + viewfinder, cinematic pass, Services zigzag, next-congress strip)
+
+## Phase 4 — Build (البناء)
+> Built in **Claude Code on the web** (Sara hands-off, browser only): private repo `SaraAmrousy/pl-events` (`pl-events-core`, `hello-pl-child`, data JSON, Elementor templates). Deploy to Sara's staging subdomain `pl.saraamrousy.net` on her cPanel host driven by Claude Code through the cPanel API token + WordPress REST API over HTTPS; content seeded by the plugin importer, never a DB dump. Plan: `docs/Step-4.0-Setup-Plan.md`.
+- [ ] **4.0 Setup** (التجهيز) — Sara + Claude Code · Sara (browser only): GitHub repo + Claude Code web environment + 1 cPanel API token · Claude Code: sandbox test WP; free plugins on staging (Elementor, SCF, UAE HFB, Forminator, Rank Math); HTTPS deploy; staging `pl.saraamrousy.net` noindex + password · Plan: `docs/Step-4.0-Setup-Plan.md` (S1–S8)
+- [ ] **4.1 pl-events-core Plugin** (البلجن) — `pl-events-data-wp` · SCF; follow "Built to grow" (2.2 §8); test page + CPT sharing the `events` slug; new pieces from 3.1/3.4a/3.4b (`[pl_live_ribbon]`, `[pl_next_event layout="strip"]`, `[pl_company field=…]`, `[pl_stats layout="line|sponsor_line"]`, calendar search/Type/Grid–List, tabs All · Live now · Upcoming · Past with `default` attribute, `[pl_story layout="sticky explore"]`, `[pl_services layout="zigzag"]`, event-page mini map). Seed from `claude/pl-data.json`. **No `[pl_help]` (3.4b P1), no saved-list module (3.4a H4).**
+- [ ] **4.2 Child Theme & Global Styles** (الثيم والستايل العام) — `pl-events-data-wp` · Tokens + classes from the 3.2 Design System (+ 3.4a H7 button fix) + motion modules from 3.4b §5 (no ScrollTrigger pin; Lenis Home only; `@view-transition`); confirm Elementor Free custom Global Colors
+- [ ] **4.3 Header & Footer** (الهيدر والفوتر) — `pl-events-data-wp` · Header: Home · Events · Services · About · Careers · Contact + Request a proposal + Portfolio (3.4a H5–H6)
+- [ ] **4.4 Pages in Elementor** (بناء الصفحات) — `pl-events-data-wp` · Pages exported as Elementor template JSON by Claude Code and imported (Elementor Free Templates › Import — confirm the JSON format on the installed version); tested locally, then on the staging subdomain (noindex); confirm Elementor Free background video (self-hosted MP4 + poster)
+- [ ] **4.5 Forms** (الفورمز) — `pl-events-data-wp` · Confirm Forminator Free URL pre-fill for topic/office (2.1 P4)
+
+## Phase 5 — Content & SEO (المحتوى والـ SEO)
+- [ ] **5.1 Final Copy** (الكتابة النهائية) — `pl-content-qa`
+- [ ] **5.2 Event Data Entry** (إدخال الداتا) — PL editor, Claude supports
+- [ ] **5.3 SEO Setup** (الـ SEO) — `pl-content-qa` · Use the 301 map list in the Step 1.1 summary + old → new URLs in the 2.1 summary
+
+## Phase 6 — QA & Launch (المراجعة والإطلاق)
+- [ ] **6.1 Independent QA** (المراجعة المستقلة) — `pl-content-qa`
+- [ ] **6.2 Editor Handover** (تسليم الموظف) — `pl-content-qa`
+- [ ] **6.3 Launch Checklist** (الإطلاق) — `pl-events-data-wp` · Must include: move from the staging subdomain to plevents.org, **remove noindex** ("Discourage search engines" off), apply the 301 map, real server cron for WP-Cron + check the hourly status check + cache purge runs (2.2 D9)
+
+## Phase 7 — After Launch (بعد الإطلاق, optional)
+- [ ] **7.1 Monthly Content Check** (مراجعة شهرية) · Also review the home meta description's region wording yearly
+- [ ] **7.2 Calls for Submissions Page** (صفحة التقديمات, if needed)
+- [ ] **7.3 Congress Case Studies** (صفحات الكيس ستادي)
+
+---
+
+### Reveal point (لحظة المفاجأة)
+After **3.4** is approved: **make a clean reveal copy of the prototype (no Prototype controls)**, **regenerate the owner pack** to the Step 2.2 §7 "Pack v2" columns (attach `PL-Data-Sheet-Step-0.2.xlsx` + `PL-Website-Data-Pack.xlsx`; update the counts in both messages), then show the prototype to PL's owners, then send the **0.3** pack (`claude/Step-0.3-Owner-Request-Pack.md` has both messages). Their data goes in through wp-admin from **5.2**. Raise the two privacy issues from Step 1.1 (B2, B3) first thing. Also ask: official logo vectors + any brand guide (3.2), 30–60 s of real congress video for the hero showreel (3.1), office opening hours (3.1), memberships/awards (with proof links), server cron on the host, attendance per congress, any existing tagline, hidden event pages (see 1.1), privacy text + CV retention period (2.1), **registration state of upcoming events (3.4a)**, **society/sponsor logo files + permission (3.4a)**.
