@@ -11,7 +11,7 @@
 | # | Decision | Why |
 |---|---|---|
 | S1 | **Work runs in Claude Code on the web** (claude.ai/code, browser), on the private GitHub repo **`SaraAmrousy/pl-events`**. Every change is a commit; Sara never handles files. | No desktop app, no local installs. |
-| S2 | **One custom cloud environment `pl-events`**: Network access = **Custom**, keep the default list ("Also include default list…") and add `saraamrousy.net`, `*.saraamrousy.net`, `wordpress.org`, `*.wordpress.org`, `api.wordpress.org`, `downloads.wordpress.org`. Environment variable `CPANEL_TOKEN` (personal environment only; values are visible to anyone who uses the environment, so never share it). | Reach the host and WordPress.org without opening everything. |
+| S2 | **One custom cloud environment `pl-events`**: Network access = **Custom**, keep the default list ("Also include default list…") and add `saraamrousy.net`, `*.saraamrousy.net`, `wordpress.org`, `*.wordpress.org`, `api.wordpress.org`, `downloads.wordpress.org`. **The cPanel token is a Network secret, not an environment variable:** host `saraamrousy.net` (+ `cpanel.saraamrousy.net`), header `Authorization`, prefix `cpanel`, value `saraamro:<token>`. The agent proxy adds it to requests; the session never sees it. | Reach the host and WordPress.org without opening everything. |
 | S3 | **cPanel driven by its HTTPS API** (UAPI, API 2 where needed) with one token named `claude-code-pl`, **expiry ~1 month**, revoked when Phase 4 ends: database + user, Directory Privacy on the `pl` folder, cron. **No subdomain:** staging = **`https://saraamrousy.net/pl`**, in the folder Sara already made (`public_html/pl` — verify the real path). Check first whether the root of `saraamrousy.net` runs its own WordPress/`.htaccess` rules and make sure they don't catch `/pl/` (and never touch the root site). | Sara never clicks through cPanel; her choice of path (5 Nov). |
 | S4 | **Deploy over HTTPS, not SSH:** build zips of `pl-events-core` + `hello-pl-child` → upload + extract with the cPanel API → activate/flush with the **WordPress REST API** (Application Password, kept as an env var). If SSH works through the sandbox, WP-CLI over SSH may be used too. | The sandbox proxy is HTTP(S); SSH may not pass. |
 | S5 | **WordPress on staging:** installed once via cPanel API (WordPress core zip upload + extract + `wp-config.php` written by Claude Code) or Softaculous via its API — whichever the host allows; then the free plugins via the REST API. | Scripted. |
@@ -23,7 +23,7 @@
 1. ✅ Repo `SaraAmrousy/pl-events` created; Claude pushed the kit (5 Nov).
 2. **claude.ai/code** → connect GitHub if asked → choose repo `SaraAmrousy/pl-events`.
 3. Environment selector → **Add cloud environment** `pl-events` → Network access **Custom** → tick "Also include default list…" → paste the domains in S2 → Create.
-4. **cPanel › Security › Manage API Tokens › Create** `claude-code-pl` with an expiry date → copy → in the `pl-events` environment, add the variable `CPANEL_TOKEN=<token>` → Save.
+4. **cPanel › Security › Manage API Tokens › Create** `claude-code-pl` with an expiry date → copy → edit the `pl-events` environment → **Network secrets › Add secret** (S2) → Add. No environment variables.
 5. Start a session in that environment with the starter message; approve prompts; open the staging link to review.
 
 ## Claude Code does (everything else)

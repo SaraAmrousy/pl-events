@@ -27,7 +27,7 @@ Open **claude.ai/code** in the browser → repo `SaraAmrousy/pl-events` → envi
 Thread 6 — Phase 4 Setup + Plugin (4.0 + 4.1) — Claude Code.
 اقرا CLAUDE.md وبعدين docs/PL-Events-Project-Instructions.md (v2.6) و docs/Roadmap-Checklist.md و docs/Step-4.0-Setup-Plan.md و docs/Step-2.2-Data-Model-Final.md و docs/Step-3.4b-Prototype-v1.md.
 المرجع البصري: reference/prototype/site (البروتوتايب v1.7) والسورس في reference/prototype/src. الداتا: data/pl-data.json.
-ابدأ بـ 4.0 — Setup حسب docs/Step-4.0-Setup-Plan.md (v3، كله من البراوزر). أنا مش هشتغل بإيدي ومش هفتح desktop app: إنت اللي تتأكد إن الـ environment واصل لـ cPanel و WordPress.org، وتظبط cPanel بالـ API token اللي في المتغير CPANEL_TOKEN (الداتابيز، والـ WordPress في الفولدر الموجود saraamrousy.net/pl من غير ما تلمس أي حاجة تانية على الدومين)، وتنصّب WordPress على الـ staging، وتقفله بباسورد و noindex، وترفع test plugin بأمر واحد.
+ابدأ بـ 4.0 — Setup حسب docs/Step-4.0-Setup-Plan.md (v3، كله من البراوزر). أنا مش هشتغل بإيدي ومش هفتح desktop app: إنت اللي تتأكد إن الـ environment واصل لـ cPanel و WordPress.org، وتظبط cPanel بالـ API token (متحط كـ Network secret على saraamrousy.net، مش هتشوفه، اندهي الـ API عادي) (الداتابيز، والـ WordPress في الفولدر الموجود saraamrousy.net/pl من غير ما تلمس أي حاجة تانية على الدومين)، وتنصّب WordPress على الـ staging، وتقفله بباسورد و noindex، وترفع test plugin بأمر واحد.
 بعدها 4.1 — pl-events-core plugin حسب 2.2 §8 وقرارات 3.4a/3.4b (من غير [pl_help] ولا saved-list).
 في آخر كل step علّم عليها في docs/Roadmap-Checklist.md واكتب الـ Step Summary في docs/.
 ```
