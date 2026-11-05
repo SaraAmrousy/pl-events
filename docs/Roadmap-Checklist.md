@@ -17,7 +17,7 @@
 | 4 | 3.1–3.3 Wireframes, design system, motion spec ✅ | Design decisions together |
 | 5 | 3.4a Hi-fi ✅ + 3.4b Prototype v1 ✅ | Visual sign-off on the canvas first (cheap edits), then the full HTML prototype |
 | 6 | 4.0 Setup + 4.1 Plugin — **Claude Code** | **Claude Code on the web (browser only)** on the private repo `SaraAmrousy/pl-events`; cPanel driven by an API token; deploy over HTTPS; PHP/JS built and tested in the cloud sandbox |
-| 7 | 4.2–4.5 Theme, header/footer, pages, forms — **Claude Code** | Child theme, Elementor templates as JSON imports, forms; deploy to the staging subdomain |
+| 7 | 4.2–4.5 Theme, header/footer, pages, forms — **Claude Code** | Child theme, Elementor templates as JSON imports, forms; deploy to the staging folder |
 | 8 | 5.1–5.3 Content & SEO | |
 | 9 | 6.1–6.3 QA & launch | |
 
@@ -27,7 +27,7 @@ Open **claude.ai/code** in the browser → repo `SaraAmrousy/pl-events` → envi
 Thread 6 — Phase 4 Setup + Plugin (4.0 + 4.1) — Claude Code.
 اقرا CLAUDE.md وبعدين docs/PL-Events-Project-Instructions.md (v2.6) و docs/Roadmap-Checklist.md و docs/Step-4.0-Setup-Plan.md و docs/Step-2.2-Data-Model-Final.md و docs/Step-3.4b-Prototype-v1.md.
 المرجع البصري: reference/prototype/site (البروتوتايب v1.7) والسورس في reference/prototype/src. الداتا: data/pl-data.json.
-ابدأ بـ 4.0 — Setup حسب docs/Step-4.0-Setup-Plan.md (v3، كله من البراوزر). أنا مش هشتغل بإيدي ومش هفتح desktop app: إنت اللي تتأكد إن الـ environment واصل لـ cPanel و WordPress.org، وتظبط cPanel بالـ API token اللي في المتغير CPANEL_TOKEN (الـ subdomain pl.saraamrousy.net والـ SSL والـ PHP والداتابيز)، وتنصّب WordPress على الـ staging، وتقفله بباسورد و noindex، وترفع test plugin بأمر واحد.
+ابدأ بـ 4.0 — Setup حسب docs/Step-4.0-Setup-Plan.md (v3، كله من البراوزر). أنا مش هشتغل بإيدي ومش هفتح desktop app: إنت اللي تتأكد إن الـ environment واصل لـ cPanel و WordPress.org، وتظبط cPanel بالـ API token اللي في المتغير CPANEL_TOKEN (الداتابيز، والـ WordPress في الفولدر الموجود saraamrousy.net/pl من غير ما تلمس أي حاجة تانية على الدومين)، وتنصّب WordPress على الـ staging، وتقفله بباسورد و noindex، وترفع test plugin بأمر واحد.
 بعدها 4.1 — pl-events-core plugin حسب 2.2 §8 وقرارات 3.4a/3.4b (من غير [pl_help] ولا saved-list).
 في آخر كل step علّم عليها في docs/Roadmap-Checklist.md واكتب الـ Step Summary في docs/.
 ```
@@ -57,12 +57,12 @@ Thread 6 — Phase 4 Setup + Plugin (4.0 + 4.1) — Claude Code.
 - [x] **3.4b HTML Prototype v1** (البروتوتايب الكامل) — `pl-design-motion` · Output: https://claude.ai/artifact/1CYF4Vfn6i1etX4UELAa8Z (v1.7, public) + data `claude/pl-data.json` · Summary: `claude/Step-3.4b-Prototype-v1.md` (approved by Sara 5 Nov 2026; decisions P1–P12: closing band instead of [pl_help], Lenis Home only, About sticky map + chapters (no pin), headline "Your science. Our stage.", stats/About H1 in blue pills + viewfinder, cinematic pass, Services zigzag, next-congress strip)
 
 ## Phase 4 — Build (البناء)
-> Built in **Claude Code on the web** (Sara hands-off, browser only): private repo `SaraAmrousy/pl-events` (`pl-events-core`, `hello-pl-child`, data JSON, Elementor templates). Deploy to Sara's staging subdomain `pl.saraamrousy.net` on her cPanel host driven by Claude Code through the cPanel API token + WordPress REST API over HTTPS; content seeded by the plugin importer, never a DB dump. Plan: `docs/Step-4.0-Setup-Plan.md`.
-- [ ] **4.0 Setup** (التجهيز) — Sara + Claude Code · Sara (browser only): GitHub repo + Claude Code web environment + 1 cPanel API token · Claude Code: sandbox test WP; free plugins on staging (Elementor, SCF, UAE HFB, Forminator, Rank Math); HTTPS deploy; staging `pl.saraamrousy.net` noindex + password · Plan: `docs/Step-4.0-Setup-Plan.md` (S1–S8)
+> Built in **Claude Code on the web** (Sara hands-off, browser only): private repo `SaraAmrousy/pl-events` (`pl-events-core`, `hello-pl-child`, data JSON, Elementor templates). Deploy to Sara's staging `saraamrousy.net/pl` on her cPanel host driven by Claude Code through the cPanel API token + WordPress REST API over HTTPS; content seeded by the plugin importer, never a DB dump. Plan: `docs/Step-4.0-Setup-Plan.md`.
+- [ ] **4.0 Setup** (التجهيز) — Sara + Claude Code · Sara (browser only): GitHub repo + Claude Code web environment + 1 cPanel API token · Claude Code: sandbox test WP; free plugins on staging (Elementor, SCF, UAE HFB, Forminator, Rank Math); HTTPS deploy; staging `saraamrousy.net/pl` noindex + password · Plan: `docs/Step-4.0-Setup-Plan.md` (S1–S8)
 - [ ] **4.1 pl-events-core Plugin** (البلجن) — `pl-events-data-wp` · SCF; follow "Built to grow" (2.2 §8); test page + CPT sharing the `events` slug; new pieces from 3.1/3.4a/3.4b (`[pl_live_ribbon]`, `[pl_next_event layout="strip"]`, `[pl_company field=…]`, `[pl_stats layout="line|sponsor_line"]`, calendar search/Type/Grid–List, tabs All · Live now · Upcoming · Past with `default` attribute, `[pl_story layout="sticky explore"]`, `[pl_services layout="zigzag"]`, event-page mini map). Seed from `claude/pl-data.json`. **No `[pl_help]` (3.4b P1), no saved-list module (3.4a H4).**
 - [ ] **4.2 Child Theme & Global Styles** (الثيم والستايل العام) — `pl-events-data-wp` · Tokens + classes from the 3.2 Design System (+ 3.4a H7 button fix) + motion modules from 3.4b §5 (no ScrollTrigger pin; Lenis Home only; `@view-transition`); confirm Elementor Free custom Global Colors
 - [ ] **4.3 Header & Footer** (الهيدر والفوتر) — `pl-events-data-wp` · Header: Home · Events · Services · About · Careers · Contact + Request a proposal + Portfolio (3.4a H5–H6)
-- [ ] **4.4 Pages in Elementor** (بناء الصفحات) — `pl-events-data-wp` · Pages exported as Elementor template JSON by Claude Code and imported (Elementor Free Templates › Import — confirm the JSON format on the installed version); tested locally, then on the staging subdomain (noindex); confirm Elementor Free background video (self-hosted MP4 + poster)
+- [ ] **4.4 Pages in Elementor** (بناء الصفحات) — `pl-events-data-wp` · Pages exported as Elementor template JSON by Claude Code and imported (Elementor Free Templates › Import — confirm the JSON format on the installed version); tested locally, then on the staging folder (noindex); confirm Elementor Free background video (self-hosted MP4 + poster)
 - [ ] **4.5 Forms** (الفورمز) — `pl-events-data-wp` · Confirm Forminator Free URL pre-fill for topic/office (2.1 P4)
 
 ## Phase 5 — Content & SEO (المحتوى والـ SEO)
@@ -73,7 +73,7 @@ Thread 6 — Phase 4 Setup + Plugin (4.0 + 4.1) — Claude Code.
 ## Phase 6 — QA & Launch (المراجعة والإطلاق)
 - [ ] **6.1 Independent QA** (المراجعة المستقلة) — `pl-content-qa`
 - [ ] **6.2 Editor Handover** (تسليم الموظف) — `pl-content-qa`
-- [ ] **6.3 Launch Checklist** (الإطلاق) — `pl-events-data-wp` · Must include: move from the staging subdomain to plevents.org, **remove noindex** ("Discourage search engines" off), apply the 301 map, real server cron for WP-Cron + check the hourly status check + cache purge runs (2.2 D9)
+- [ ] **6.3 Launch Checklist** (الإطلاق) — `pl-events-data-wp` · Must include: move from the staging folder to plevents.org, **remove noindex** ("Discourage search engines" off), apply the 301 map, real server cron for WP-Cron + check the hourly status check + cache purge runs (2.2 D9)
 
 ## Phase 7 — After Launch (بعد الإطلاق, optional)
 - [ ] **7.1 Monthly Content Check** (مراجعة شهرية) · Also review the home meta description's region wording yearly
