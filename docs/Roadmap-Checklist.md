@@ -4,7 +4,7 @@
 > **Threads:** one thread per group below (not per step). Open a new thread early if the current one gets long; the Step Summaries in the Project carry the context.
 > Last updated: 5 Nov 2026 (Thread 6)
 
-**Now:** Thread 7 — ✅ 4.2 Child Theme · ✅ 4.3 Header & Footer · ⏳ 4.4 Pages (built; Sara's phone check open) (5 Nov 2026) → **Next: Step 4.5 — Forms**. Staging `saraamrousy.net/pl` runs `hello-pl-child` + `pl-events-core` (15 / 7 / 5). ⏳ Pending before reveal: (1) clean reveal copy of the prototype, (2) regenerate the owner pack. ⚠ cPanel token expires 5 Jan 2028 — revoke at the end of Phase 4.
+**Now:** ✅ Thread 7 (5 Nov 2026) — 4.2 Theme · 4.3 Header & Footer · 4.5 Forms done; ⏳ 4.4 Pages built and live, waiting for Sara's phone check + page-cache decision → **Next: Thread 8 — Step 5.1 Final Copy**. Staging `saraamrousy.net/pl` runs `hello-pl-child` + `pl-events-core` (15 / 7 / 5). ⏳ Pending before reveal: (1) clean reveal copy of the prototype, (2) regenerate the owner pack. ⚠ cPanel token expires 5 Jan 2028 — revoke at the end of Phase 4.
 
 ---
 
@@ -24,12 +24,12 @@
 ### Starter message for the next thread
 Open **claude.ai/code** → repo `SaraAmrousy/pl-events` (branch `main`) → environment `pl-events`.
 ```
-Thread 7 — Phase 4 Theme, Header/Footer, Pages, Forms (4.2–4.5) — Claude Code.
-اقرا CLAUDE.md وبعدين docs/PL-Events-Project-Instructions.md و docs/Roadmap-Checklist.md و docs/Step-4.0-Setup.md و docs/Step-4.1-Plugin.md و docs/Step-3.2-3.3-Design-and-Motion.md و docs/Step-3.4a-Hi-fi.md و docs/Step-3.4b-Prototype-v1.md.
-المرجع البصري: reference/prototype/site (v1.7) والسورس في reference/prototype/src (base.css + proto.css + motion.js).
-شغّل deploy/sandbox/setup.sh للتست، والـ deploy على الـ staging بـ deploy/deploy.sh (الـ secrets بترجع لوحدها من ~/pl-deploy/.env).
-ابدأ بـ 4.2 — hello-pl-child: الـ tokens والـ classes من البروتوتايب (نفس أسماء الـ classes اللي في templates الـ plugin)، Montserrat self-hosted، motion modules من 3.4b §5 (GSAP + ScrollTrigger من غير pin، Lenis على Home بس)، وصلّح .story2 .steps{min-width:0}. بعدها 4.3 / 4.4 / 4.5.
-في آخر كل step علّم عليها في docs/Roadmap-Checklist.md واكتب الـ Step Summary في docs/.
+Thread 8 — Phase 5 Content & SEO (5.1–5.3) — Claude Code.
+اقرا CLAUDE.md وبعدين docs/PL-Events-Project-Instructions.md و docs/Roadmap-Checklist.md و docs/Step-4.4-Pages.md و docs/Step-4.5-Forms.md.
+الأول: قفّل 4.4 (نتيجة فحص الموبايل اللي هبعتهولك + قرار LiteSpeed Cache).
+بعدها 5.1 — Final copy (skill pl-content-qa): راجع كل نص على saraamrousy.net/pl، مفيش placeholder، والـ TBC واضحة.
+الـ staging: الإيميلات كلها بتروحلي أنا (plt_mail_override + الـ mu-plugin) — متغيّرهاش قبل الإطلاق.
+متكتبش أي باسورد في الشات.
 ```
 
 ---
@@ -63,7 +63,7 @@ Thread 7 — Phase 4 Theme, Header/Footer, Pages, Forms (4.2–4.5) — Claude C
 - [x] **4.2 Child Theme & Global Styles** (الثيم والستايل العام) — ✅ 5 Nov 2026 · Summary: `docs/Step-4.2-Child-Theme.md` (prototype CSS built into the theme, self-hosted Montserrat, 5 motion modules, Elementor Globals, `[pl_hero]`) · `pl-events-data-wp` · Tokens + classes from the 3.2 Design System (+ 3.4a H7 button fix) + motion modules from 3.4b §5 (no ScrollTrigger pin; Lenis Home only; `@view-transition`); confirm Elementor Free custom Global Colors
 - [x] **4.3 Header & Footer** (الهيدر والفوتر) — ✅ 5 Nov 2026 · Summary: `docs/Step-4.3-Header-Footer.md` (UAE HFB templates with `[pl_site_header]` / `[pl_site_footer]`; sticky; keyboard-tested) · `pl-events-data-wp` · Header: Home · Events · Services · About · Careers · Contact + Request a proposal + Portfolio (3.4a H5–H6)
 - [ ] **4.4 Pages in Elementor** (بناء الصفحات) — ⏳ built + live on staging, matches prototype at 375/768/1280, Lighthouse mobile perf 91–96 / a11y 100 · **open: Sara's real iPhone/Android check + page-cache decision** · Summary: `docs/Step-4.4-Pages.md` · `pl-events-data-wp` · Pages exported as Elementor template JSON by Claude Code and imported (Elementor Free Templates › Import — confirm the JSON format on the installed version); tested locally, then on the staging folder (noindex); confirm Elementor Free background video (self-hosted MP4 + poster)
-- [ ] **4.5 Forms** (الفورمز) — `pl-events-data-wp` · Confirm Forminator Free URL pre-fill for topic/office (2.1 P4)
+- [x] **4.5 Forms** (الفورمز) — ✅ 5 Nov 2026 · Summary: `docs/Step-4.5-Forms.md` (Forminator Contact + Careers/CV, topic+office pre-fill confirmed in Free, routing by office, staging mail → Sara only with a hard safety net) · `pl-events-data-wp` · Confirm Forminator Free URL pre-fill for topic/office (2.1 P4)
 
 ## Phase 5 — Content & SEO (المحتوى والـ SEO)
 - [ ] **5.1 Final Copy** (الكتابة النهائية) — `pl-content-qa`

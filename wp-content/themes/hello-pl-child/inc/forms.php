@@ -190,14 +190,19 @@ function plt_provision_forms( $force = false ) {
 
 /* ------------------------------------------------------------- staging safety */
 
-add_filter( 'forminator_custom_form_get_admin_email_recipients', static function ( $emails ) {
+/* Forminator's filter is "forminator_{module_slug}_get_admin_email_recipients" with module_slug
+   "form" (checked in 1.58.4). Both spellings are hooked in case a version renames it; the staging
+   mu-plugin also replaces recipients in wp_mail itself as a last safety net. */
+$plt_override = static function ( $emails ) {
 	$o = get_option( 'plt_mail_override' );
 	if ( $o && is_email( $o ) ) {
 		$GLOBALS['plt_mail_intended'] = $emails;
 		return array( $o );
 	}
 	return $emails;
-}, 99 );
+};
+add_filter( 'forminator_form_get_admin_email_recipients', $plt_override, 99 );
+add_filter( 'forminator_custom_form_get_admin_email_recipients', $plt_override, 99 );
 
 add_filter( 'forminator_custom_form_mail_admin_message', static function ( $message ) {
 	if ( ! empty( $GLOBALS['plt_mail_intended'] ) ) {
