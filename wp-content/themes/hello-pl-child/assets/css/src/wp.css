@@ -125,3 +125,10 @@ html.pl-iris #iris { transform: scale(.25); }
 .pl .forminator-custom-form .forminator-button-submit { width: auto; align-self: flex-start; }
 .pl .forminator-custom-form .forminator-row-last .forminator-col, .pl .forminator-custom-form .forminator-row-last .forminator-field { display: flex; flex-direction: column; align-items: flex-start; }
 .pl .forminator-custom-form .forminator-upload--remove { border: 0; background: transparent; color: var(--mut); text-decoration: underline; cursor: pointer; font: inherit; font-size: 14px; }
+
+/* ===== Hero fix (Thread 8): Elementor's ".elementor img { height:auto }" (0,1,1) beat the
+   prototype's ".still { height:100% }" (0,1,0), so the photo stopped at its natural height on
+   short windows and left grey shade below it. The media always fills the whole hero. */
+.pl .hero .media, .pl .hero .media > .iris:not([style]), .pl .hero .iris > .iris-in:not([style]) { position: absolute; inset: 0; }
+.pl .hero .iris-in .still, .pl .hero .iris-in .reel { position: absolute; inset: 0; width: 100%; height: 100%; max-width: none; max-height: none; object-fit: cover; }
+.pl .elementor .poster .pimg { height: 100%; max-width: none; }

@@ -34,8 +34,11 @@
     hdr.classList.add('over');
     var top = hdr.closest('.topbar'); if (top) top.classList.add('fx');
     PLM.setTop();
+    /* solid as soon as the framed hero content (brackets, headline) reaches the header, so nothing
+       slides under the transparent logo; transparent again at the very top */
+    var frame = document.getElementById('heroFrame') || hero;
     window.ScrollTrigger.create({
-      trigger: hero, start: function () { return 'bottom ' + (hdr.offsetHeight + 1); },
+      trigger: frame, start: function () { return 'top ' + (hdr.offsetHeight + 8); },
       onEnter: function () { hdr.classList.remove('over'); }, onLeaveBack: function () { hdr.classList.add('over'); }
     });
   }

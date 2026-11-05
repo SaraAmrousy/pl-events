@@ -25,13 +25,25 @@
     var btn = hero.querySelector('[data-act="pause"]');
     var paused = false, timer = null, idx = 0, R = 1, kb = null;
 
-    /* aperture geometry: circle centred at 74% / 46% that covers the hero when open */
+    /* aperture geometry — only while the iris is opening: a circle centred at 74% / 46% whose
+       radius reaches the farthest corner of the hero as it really is now (getBoundingClientRect),
+       recomputed on resize / when the hero's height changes (fonts, content). Once open, the
+       media goes back to full-bleed (CSS inset:0), so it can never be shorter than the hero. */
+    var opening = false;
     function layout() {
-      var W = hero.clientWidth, H = hero.clientHeight, px = 0.74 * W, py = 0.46 * H;
+      var r = hero.getBoundingClientRect(), W = r.width, H = r.height, px = 0.74 * W, py = 0.46 * H;
       R = Math.ceil(Math.max(Math.hypot(px, py), Math.hypot(W - px, py), Math.hypot(px, H - py), Math.hypot(W - px, H - py)));
       Object.assign(iris.style, { inset: 'auto', left: px - R + 'px', top: py - R + 'px', width: 2 * R + 'px', height: 2 * R + 'px', borderRadius: '50%' });
       Object.assign(inn.style, { inset: 'auto', left: -(px - R) + 'px', top: -(py - R) + 'px', width: W + 'px', height: H + 'px', transformOrigin: px + 'px ' + py + 'px' });
     }
+    function fullBleed() {
+      opening = false;
+      iris.removeAttribute('style');
+      inn.removeAttribute('style');
+    }
+    function relayout() { if (opening) { layout(); if (window.__plIrisSet) window.__plIrisSet(); } }
+    window.addEventListener('resize', relayout, { passive: true });
+    if ('ResizeObserver' in window) new ResizeObserver(relayout).observe(hero);
 
     /* showreel: real video on desktop (Full) when PL uploads one; else stills */
     var useVideo = !!reel && C === 'full';
@@ -79,8 +91,6 @@
     }
 
     /* Full */
-    layout();
-    window.addEventListener('resize', layout, { passive: true });
     show(0);
     start();
     var seen = false; try { seen = sessionStorage.getItem('plIris') === '1'; } catch (e) {}
@@ -89,8 +99,12 @@
       return;
     }
     try { sessionStorage.setItem('plIris', '1'); } catch (e) {}
-    var p = { s: 250 / R };
+    opening = true;
+    layout();
+    var p = { s: 250 / R }, s0 = p.s;
+    /* the scale is relative to the radius, so a resize mid-opening keeps the same aperture size */
     var set = function () { gsap.set(iris, { scale: p.s }); gsap.set(inn, { scale: 1 / p.s }); };
+    window.__plIrisSet = function () { var k = (p.s - s0) / (1 - s0); s0 = 250 / R; p.s = s0 + k * (1 - s0); set(); };
     var ap = document.getElementById('apLogo');
     set();
     var tl = gsap.timeline({ defaults: { ease: 'power2.out' } });
@@ -105,11 +119,12 @@
       .to('#heroH1 .w', { opacity: 1, filter: 'blur(0px)', duration: 0.7, stagger: 0.09 }, 1.7)
       .to('.hfade', { opacity: 1, duration: 0.3 }, 2.0)
       .set('#heroH1 .w, #hdr, #shade, .hfade', { clearProps: 'filter,opacity' })
-      .set(iris, { clearProps: 'transform' }).set(inn, { clearProps: 'transform' });
+      .set(iris, { clearProps: 'transform' }).set(inn, { clearProps: 'transform' })
+      .call(fullBleed);
     var evs = ['wheel', 'keydown', 'pointerdown', 'touchstart'];
     var off = function () { evs.forEach(function (e) { window.removeEventListener(e, skip, true); }); };
     var skip = function () { tl.progress(1); off(); };
     evs.forEach(function (e) { window.addEventListener(e, skip, { capture: true, passive: true, once: true }); });
-    tl.eventCallback('onComplete', off);
+    tl.eventCallback('onComplete', function () { off(); fullBleed(); window.__plIrisSet = null; });
   });
 })();
