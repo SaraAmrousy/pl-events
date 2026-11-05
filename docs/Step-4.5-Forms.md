@@ -1,6 +1,6 @@
 # Step 4.5 — Forms: Step Summary (Thread 7, 5 Nov 2026)
 
-**Status:** ⏳ built and tested on staging; **one DoD item to confirm: the two final form emails ("Mona Hassan", "Omar Adel") in Sara's inbox** — sent without error but not yet in Gmail when the session stopped checking.
+**Status: ✅ DONE — 6 Nov 2026.** Both forms tested end to end on staging: submissions stored, emails delivered to Sara's Gmail **inbox** through authenticated SMTP, CV attached.
 
 ## What was built
 - **Forminator Free**, two forms created by code (`plt_provision_forms()`, theme `inc/forms.php`) and shown on the pages through `[pl_form name="contact|careers"]`:
@@ -47,3 +47,17 @@ Test entries are in wp-admin › Forminator › Submissions (marked "test — pl
 - ✅ Mail from staging reaches Sara's Gmail inbox through the same route Forminator now uses (PHPMailer → sendmail, account sender): test "t3" (HTML + Reply-To) arrived, and ~10 diagnostic copies of the real Forminator message (with the "STAGING — on the live site this goes to: dina@plevents.org" line and all fields) arrived.
 - ⏳ The two final end-to-end submissions — Contact "Mona Hassan" (Sponsorship · Dubai, 14:23 UTC) and Careers "Omar Adel" + PDF (14:24 UTC) — left WordPress with no error (mail log) but were **not in Gmail yet** when checked. **Sara:** search Gmail for `Mona Hassan` / `Omar Adel`. If they never come, the host's outbound filter is dropping some messages silently → set up authenticated SMTP before launch (Open 2) and re-test.
 - Sara's inbox also has ~15 "[PL staging] …" diagnostic emails from today — safe to delete.
+
+## Closing run — authenticated SMTP (Thread 8)
+Sara confirmed (5 Nov, 16:50 Cairo) that the "Mona Hassan" / "Omar Adel" emails never arrived — not in the inbox, not in spam. So PHP mail/sendmail on this host was dropping them silently.
+| Step | Result |
+|---|---|
+| Mailbox | **`pl-staging@saraamrousy.net`** created through the cPanel API (50 MB quota). No other mailbox touched. |
+| Password | generated; stored **only** in `deploy/.env` (git-ignored) and `~/pl-deploy/.env` (0700, outside `public_html`). Never in the database, git or chat. |
+| Plugin | **WP Mail SMTP 4.10.3** (free — the SMTP mailer has no limits in the free version; its email log is Pro). Configured by its `WPMS_*` constants, defined in the staging mu-plugin, which reads the password from `~/pl-deploy/.env` at runtime. Server `mail.saraamrousy.net:465`, SSL, auth on, From = the mailbox (forced). |
+| Removed | the sendmail workaround (no longer needed). |
+| Kept | the hard safety net (`wp_mail` → Sara only, every message logged) and `plt_mail_override`. |
+| Test | Contact "Nadia Farouk" (Sponsorship · Dubai) and Careers "Karim Mostafa" (+ PDF) → **both in Sara's Gmail inbox** within a minute: first line "on the live site this goes to: **dina@plevents.org**" / "**events@plevents.org**" (routing correct), CV **attached** as PDF. |
+| Privacy | the CV was also downloadable by direct URL (200). Now **blocked (403)** for every file type a CV can be (`pdf, doc, docx, rtf, odt`) in `uploads/forminator/` — `deploy/htaccess-cv.sh`, this folder only. The CV still reaches the office as an attachment. |
+
+**At launch (6.3):** PL's own mailbox + the same plugin (constants in PL's private config), remove the staging mu-plugin and `plt_mail_override`, keep the CV block.

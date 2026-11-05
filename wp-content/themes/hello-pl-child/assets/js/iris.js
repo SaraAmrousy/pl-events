@@ -14,6 +14,13 @@
     var gsap = window.gsap, ST = window.ScrollTrigger;
     var iris = document.getElementById('iris'), inn = document.getElementById('irisIn');
     var stills = Array.prototype.slice.call(inn.querySelectorAll('img.still'));
+    /* stills 2…n ship without src (they would compete with the LCP image on phones);
+       only the desktop crossfade needs them */
+    if (C === 'full') stills.forEach(function (im) {
+      if (im.dataset.srcset) im.srcset = im.dataset.srcset;
+      if (im.dataset.src) im.src = im.dataset.src;
+    });
+    stills = stills.filter(function (im) { return im.getAttribute('src'); });
     var reel = inn.querySelector('video.reel');
     var btn = hero.querySelector('[data-act="pause"]');
     var paused = false, timer = null, idx = 0, R = 1, kb = null;

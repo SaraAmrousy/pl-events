@@ -34,6 +34,20 @@ class PL_Cache {
 	public static function bump() {
 		update_option( self::VERSION_OPTION, self::version() + 1, true );
 		do_action( 'pl_cache_flushed' );
+		self::purge_later();
+	}
+
+	/**
+	 * Any change to PL content can change Home, Events, About… (lists, counts, map), which a page
+	 * cache cannot know: purge the whole page cache once, at the end of the request (4.4 close).
+	 */
+	public static function purge_later() {
+		static $queued = false;
+		if ( $queued ) {
+			return;
+		}
+		$queued = true;
+		add_action( 'shutdown', array( __CLASS__, 'purge_page_caches' ), 1 );
 	}
 
 	public static function remember( $key, callable $fn, $ttl = DAY_IN_SECONDS ) {
@@ -109,8 +123,8 @@ class PL_Cache {
 		if ( function_exists( 'w3tc_flush_all' ) ) {
 			w3tc_flush_all();
 		}
-		if ( class_exists( 'LiteSpeed\Purge' ) ) {
-			do_action( 'litespeed_purge_all' );
+		if ( defined( 'LSCWP_V' ) || class_exists( 'LiteSpeed\Purge' ) ) {
+			do_action( 'litespeed_purge_all', 'pl-events-core' ); // LiteSpeed Cache public API
 		}
 		if ( function_exists( 'wp_cache_clear_cache' ) ) {
 			wp_cache_clear_cache();

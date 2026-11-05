@@ -31,7 +31,11 @@ $moving  = $sr['video'] || count( $stills ) > 1;
 				$att = attachment_url_to_postid( $src );
 				$set = $att ? wp_get_attachment_image_srcset( $att, 'full' ) : '';
 				?>
-				<img class="still<?php echo 0 === $i ? ' on' : ''; ?>" src="<?php echo esc_url( $src ); ?>"<?php echo $set ? ' srcset="' . esc_attr( $set ) . '" sizes="100vw"' : ''; ?> alt="" <?php echo 0 === $i ? 'fetchpriority="high"' : 'loading="lazy"'; ?> decoding="async">
+				<?php if ( 0 === $i ) : // the first still is the poster and the LCP image ?>
+				<img class="still on" src="<?php echo esc_url( $src ); ?>"<?php echo $set ? ' srcset="' . esc_attr( $set ) . '" sizes="100vw"' : ''; ?> alt="" fetchpriority="high" decoding="async">
+				<?php else : // the others only feed the desktop crossfade: iris.js loads them in the Full context ?>
+				<img class="still" data-src="<?php echo esc_url( $src ); ?>"<?php echo $set ? ' data-srcset="' . esc_attr( $set ) . '" sizes="100vw"' : ''; ?> alt="" decoding="async">
+				<?php endif; ?>
 			<?php endforeach; ?>
 			<?php if ( $sr['video'] ) : ?>
 				<video class="still reel" muted playsinline loop preload="none" aria-hidden="true" data-src="<?php echo esc_url( $sr['video'] ); ?>"<?php echo $stills ? ' poster="' . esc_url( $stills[0] ) . '"' : ''; ?>></video>

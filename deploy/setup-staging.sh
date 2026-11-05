@@ -36,6 +36,10 @@ update_option( "permalink_structure", "/%postname%/" ); update_option( "timezone
 flush_rewrite_rules();
 echo "settings: permalinks /%postname%/, Africa/Cairo, comments closed", PHP_EOL;'
 
+say ".htaccess (this folder only): static cache headers + private form uploads"
+"$DEPLOY_DIR/htaccess-cache.sh"
+"$DEPLOY_DIR/htaccess-cv.sh"
+
 say "deploy test (4.0 DoD): pl-hello"
 "$DEPLOY_DIR/deploy.sh" plugin "$DEPLOY_DIR/test-plugin/pl-hello"
 run_php 'echo wp_json_encode( rest_do_request( new WP_REST_Request( "GET", "/pl-hello/v1/ping" ) )->get_data() ), PHP_EOL;'

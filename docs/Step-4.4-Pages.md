@@ -49,3 +49,16 @@ Open `https://saraamrousy.net/pl/` on **iPhone (Safari)** and an **Android phone
 1. Copy lives in HTML inside Shortcode widgets: fine for Sara, not for a non-technical editor — but page copy is not editor content by design (R11 covers data, not layout).
 2. Home is the heaviest page (hero stills + GSAP + Lenis ≈ 95 KB JS deferred); a real MP4 showreel must stay ≤ 2.5 MB.
 3. Lighthouse runs from the sandbox's network, not a phone on a real 4G line — the numbers are directional; repeat in 6.1 from PageSpeed Insights once the site is public.
+
+## Thread 8 — page cache (Sara approved LiteSpeed Cache, 6 Nov 2026)
+| Item | Result |
+|---|---|
+| Plugin | **LiteSpeed Cache 7.9.3** (free; the host runs LiteSpeed, so full-page caching is free and server-level). Page cache on, 7-day TTL. CSS/JS combine/minify, lazy-load and image optimisation **off** (they would fight the motion scripts and the srcset work). |
+| Excluded | `/contact/`, `/careers/` — their forms carry a security nonce that expires; a cached copy would break submissions. |
+| Speed | server response on cached pages **0.87 s → 0.22 s** (`X-LiteSpeed-Cache: hit`). |
+| Purge | `pl-events-core` now purges the whole page cache **after any change to PL content** (save/trash/delete of any PL item, Company page, list terms) and on the hourly status check (an event going Live/Past). Tested: re-saving an event turned Home, Events and About from `hit` to `miss`, then `hit` again. |
+| Mobile weight | Home: the 3 extra showreel stills (~400 KB) no longer load on phones (they only feed the desktop crossfade; `iris.js` loads them in the Full context). Home page weight **800 KB → 317 KB**; desktop crossfade still works. LCP image preloaded. |
+| Lighthouse (mobile, from the sandbox) | Events 96 · About 96 · Contact 93 · Home 86–93 (LCP 2.6–2.9 s; most of it is the sandbox↔server route through the proxy — TTFB 0.5–0.9 s even on cache hits). **Check from a normal network with PageSpeed Insights** once the site is public (6.1). |
+
+## Still open
+- **Sara's phone check (iPhone Safari + Android Chrome)** — result not received yet ("[هكتبها هنا]" left empty in the Thread 8 message). 4.4 closes when it arrives.

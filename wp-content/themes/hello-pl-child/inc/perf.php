@@ -44,3 +44,23 @@ add_action( 'wp_default_scripts', static function ( $scripts ) {
 		}
 	}
 } );
+
+/* Home: the first showreel still is the LCP element — preload it (same srcset/sizes as the <img>),
+   so it starts with the CSS instead of after it. */
+add_action( 'wp_head', static function () {
+	if ( ! is_front_page() || ! class_exists( 'PL_Data' ) || plt_is_builder_request() ) {
+		return;
+	}
+	$c   = PL_Data::company();
+	$src = $c['showreel']['poster'] ?: ( $c['showreel']['stills'][0] ?? '' );
+	if ( ! $src ) {
+		return;
+	}
+	$id  = attachment_url_to_postid( $src );
+	$set = $id ? wp_get_attachment_image_srcset( $id, 'full' ) : '';
+	printf(
+		'<link rel="preload" as="image" href="%s"%s fetchpriority="high">' . "\n",
+		esc_url( $src ),
+		$set ? ' imagesrcset="' . esc_attr( $set ) . '" imagesizes="100vw"' : ''
+	);
+}, 2 );

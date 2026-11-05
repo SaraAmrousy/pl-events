@@ -16,17 +16,39 @@ if ( isset( $_SERVER['HTTP_AUTHORIZATION'] ) && 0 !== stripos( $_SERVER['HTTP_AU
 	unset( $_SERVER['HTTP_AUTHORIZATION'], $_SERVER['REDIRECT_HTTP_AUTHORIZATION'] );
 }
 
-// 4) Mail on this host leaves only from the account's real address with that address as the
-//    envelope sender (tested 5 Nov 2026: wordpress@… and noreply@… never arrived). Staging only;
-//    the live host gets its own setting at launch (Step 6.3).
-const PL_STAGING_MAIL_FROM = 'saraamro@saraamrousy.net';
-add_filter( 'wp_mail_from', fn() => PL_STAGING_MAIL_FROM, 99 );
-add_filter( 'wp_mail_from_name', fn( $n ) => ( 'WordPress' === $n || '' === $n ) ? 'PL Events (staging)' : $n, 99 );
-add_filter( 'forminator_custom_form_mail_admin_from_email', fn() => PL_STAGING_MAIL_FROM, 99 );
-// This host's PHP mail() fails as soon as a message has an extra header (Reply-To, HTML);
-// piping to sendmail directly works. Its outbound filter also silently refuses some test-like
-// subjects ("… test 7"): real names pass. (Tested 5 Nov 2026.)
-add_action( 'phpmailer_init', function ( $m ) { $m->Sender = PL_STAGING_MAIL_FROM; $m->isSendmail(); $m->Sendmail = '/usr/sbin/sendmail'; }, 99 );
+// 4) Authenticated SMTP (Step 4.5 close, 6 Nov 2026). PHP mail/sendmail on this host dropped
+//    messages silently, so mail goes through the mailbox pl-staging@saraamrousy.net with the free
+//    WP Mail SMTP plugin, configured here by its constants. The password is read from
+//    ~/pl-deploy/.env (outside public_html, 0700) — never stored in the database or in git.
+//    Staging only; the live host gets PL's own mailbox at launch (Step 6.3).
+( function () {
+	$env = dirname( ABSPATH, 2 ) . '/pl-deploy/.env'; // ABSPATH = /home/<user>/public_html/pl/ → /home/<user>/pl-deploy/.env
+	if ( ! is_readable( $env ) ) {
+		return;
+	}
+	$v = array();
+	foreach ( (array) file( $env, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES ) as $line ) {
+		if ( preg_match( '/^(SMTP_[A-Z]+)=(.*)$/', $line, $m ) ) {
+			$v[ $m[1] ] = trim( $m[2] );
+		}
+	}
+	if ( empty( $v['SMTP_USER'] ) || empty( $v['SMTP_PASS'] ) ) {
+		return;
+	}
+	defined( 'WPMS_ON' ) || define( 'WPMS_ON', true );
+	defined( 'WPMS_MAILER' ) || define( 'WPMS_MAILER', 'smtp' );
+	defined( 'WPMS_SMTP_HOST' ) || define( 'WPMS_SMTP_HOST', $v['SMTP_HOST'] ?? 'mail.saraamrousy.net' );
+	defined( 'WPMS_SMTP_PORT' ) || define( 'WPMS_SMTP_PORT', (int) ( $v['SMTP_PORT'] ?? 465 ) );
+	defined( 'WPMS_SSL' ) || define( 'WPMS_SSL', 'ssl' );
+	defined( 'WPMS_SMTP_AUTH' ) || define( 'WPMS_SMTP_AUTH', true );
+	defined( 'WPMS_SMTP_USER' ) || define( 'WPMS_SMTP_USER', $v['SMTP_USER'] );
+	defined( 'WPMS_SMTP_PASS' ) || define( 'WPMS_SMTP_PASS', $v['SMTP_PASS'] );
+	defined( 'WPMS_MAIL_FROM' ) || define( 'WPMS_MAIL_FROM', $v['SMTP_USER'] );
+	defined( 'WPMS_MAIL_FROM_FORCE' ) || define( 'WPMS_MAIL_FROM_FORCE', true );
+	defined( 'WPMS_MAIL_FROM_NAME' ) || define( 'WPMS_MAIL_FROM_NAME', 'PL Events (staging)' );
+	defined( 'WPMS_SMTP_AUTOTLS' ) || define( 'WPMS_SMTP_AUTOTLS', true );
+	add_filter( 'forminator_custom_form_mail_admin_from_email', fn() => $v['SMTP_USER'], 99 );
+} )();
 
 // 5) Staging mail log: every outgoing email (recipients + subject only) goes to the debug log.
 // 6) HARD SAFETY NET: on staging no email may reach anyone but the override address (Sara).
