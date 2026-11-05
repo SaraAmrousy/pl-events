@@ -135,7 +135,7 @@ class PL_Shortcodes {
 	 * [pl_stats layout="number" field="cities"]   → number in a blue pill
 	 */
 	public static function stats( $atts ) {
-		$a = shortcode_atts( array( 'layout' => '', 'field' => '', 'type' => '', 'specialty' => '', 'country' => '', 'year' => '' ), $atts, 'pl_stats' );
+		$a = shortcode_atts( array( 'layout' => '', 'field' => '', 'type' => '', 'specialty' => '', 'country' => '', 'year' => '', 'tag' => 'p' ), $atts, 'pl_stats' );
 		$s = PL_Data::stats( PL_Data::events( self::event_filters( $a ) ) );
 		if ( $a['field'] && '' === $a['layout'] ) {
 			return esc_html( (string) ( $s[ $a['field'] ] ?? '' ) );
@@ -145,7 +145,8 @@ class PL_Shortcodes {
 		}
 		if ( 'sponsor_line' === $a['layout'] ) {
 			$up = PL_Data::events( array( 'status' => 'current' ) + self::event_filters( $a ) );
-			return '<p class="pl-sponsor-line">' . esc_html( self::sponsor_line( $up ) ) . '</p>';
+			$tag = in_array( $a['tag'], array( 'p', 'span' ), true ) ? $a['tag'] : 'p';
+			return '<' . $tag . ' class="pl-sponsor-line">' . esc_html( self::sponsor_line( $up ) ) . '</' . $tag . '>';
 		}
 		return PL_Template::render( 'stats-line', array( 's' => $s ) );
 	}

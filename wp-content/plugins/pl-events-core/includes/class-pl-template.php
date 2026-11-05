@@ -43,6 +43,26 @@ class PL_Template {
 		return '<img class="flag" src="' . esc_url( $url ) . '" ' . $size . ' alt="" aria-hidden="true" loading="lazy" decoding="async"' . $extra . '>';
 	}
 
+	/** <img> for a Media Library URL, with srcset/sizes when the attachment is known. */
+	public static function img( $url, $alt = '', $class = '', $style = '', $sizes = '100vw', $eager = false ) {
+		if ( ! $url ) {
+			return '';
+		}
+		$id  = attachment_url_to_postid( $url );
+		$set = $id ? wp_get_attachment_image_srcset( $id, 'full' ) : '';
+		$wh  = $id ? wp_get_attachment_image_src( $id, 'full' ) : null;
+		return sprintf(
+			'<img src="%s"%s alt="%s" class="%s" style="%s"%s %s decoding="async">',
+			esc_url( $url ),
+			$set ? ' srcset="' . esc_attr( $set ) . '" sizes="' . esc_attr( $sizes ) . '"' : '',
+			esc_attr( $alt ),
+			esc_attr( $class ),
+			esc_attr( $style ),
+			$wh ? ' width="' . (int) $wh[1] . '" height="' . (int) $wh[2] . '"' : '',
+			$eager ? 'fetchpriority="high"' : 'loading="lazy"'
+		);
+	}
+
 	public static function icon( $name ) {
 		$i = array(
 			'cal'    => '<svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>',

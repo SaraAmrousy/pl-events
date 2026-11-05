@@ -1,0 +1,153 @@
+{
+ "version": "0.4",
+ "title": "PL — Careers",
+ "type": "page",
+ "page_settings": {
+  "template": "elementor_header_footer",
+  "hide_title": "yes"
+ },
+ "content": [
+  {
+   "id": "177f21c",
+   "elType": "container",
+   "isInner": false,
+   "settings": {
+    "content_width": "full",
+    "padding": {
+     "unit": "px",
+     "top": "0",
+     "right": "0",
+     "bottom": "0",
+     "left": "0",
+     "isLinked": true
+    },
+    "margin": {
+     "unit": "px",
+     "top": "0",
+     "right": "0",
+     "bottom": "0",
+     "left": "0",
+     "isLinked": true
+    },
+    "flex_gap": {
+     "unit": "px",
+     "size": 0,
+     "column": "0",
+     "row": "0",
+     "isLinked": true
+    },
+    "css_classes": "pl-raw",
+    "_title": "pl_section class=\"\" style=\"padding:72px "
+   },
+   "elements": [
+    {
+     "id": "5cf3b66",
+     "elType": "widget",
+     "widgetType": "shortcode",
+     "isInner": false,
+     "settings": {
+      "shortcode": "[pl_section class=\"\" style=\"padding:72px 0 40px\" wrap_style=\"display:flex;flex-direction:column;gap:20px\"]\n<span class=\"lab mut\">Careers</span><h1 class=\"h1\">Work behind the <span class=\"em\">lens.</span></h1><p class=\"lead\">We hire for congress operations, production, registration and sponsorship in Alexandria and Dubai.</p>\n[/pl_section]"
+     },
+     "elements": []
+    }
+   ]
+  },
+  {
+   "id": "52921d4",
+   "elType": "container",
+   "isInner": false,
+   "settings": {
+    "content_width": "full",
+    "padding": {
+     "unit": "px",
+     "top": "0",
+     "right": "0",
+     "bottom": "0",
+     "left": "0",
+     "isLinked": true
+    },
+    "margin": {
+     "unit": "px",
+     "top": "0",
+     "right": "0",
+     "bottom": "0",
+     "left": "0",
+     "isLinked": true
+    },
+    "flex_gap": {
+     "unit": "px",
+     "size": 0,
+     "column": "0",
+     "row": "0",
+     "isLinked": true
+    },
+    "css_classes": "pl-raw",
+    "_title": "pl_section class=\"\" style=\"padding:24px "
+   },
+   "elements": [
+    {
+     "id": "7c2b2ff",
+     "elType": "widget",
+     "widgetType": "shortcode",
+     "isInner": false,
+     "settings": {
+      "shortcode": "[pl_section class=\"\" style=\"padding:24px 0 56px\"][pl_careers][/pl_section]"
+     },
+     "elements": []
+    }
+   ]
+  },
+  {
+   "id": "4bea8c4",
+   "elType": "container",
+   "isInner": false,
+   "settings": {
+    "content_width": "full",
+    "padding": {
+     "unit": "px",
+     "top": "0",
+     "right": "0",
+     "bottom": "0",
+     "left": "0",
+     "isLinked": true
+    },
+    "margin": {
+     "unit": "px",
+     "top": "0",
+     "right": "0",
+     "bottom": "0",
+     "left": "0",
+     "isLinked": true
+    },
+    "flex_gap": {
+     "unit": "px",
+     "size": 0,
+     "column": "0",
+     "row": "0",
+     "isLinked": true
+    },
+    "css_classes": "pl-raw",
+    "_title": "pl_section class=\"sand sec\" id=\"cv\" wrap"
+   },
+   "elements": [
+    {
+     "id": "8249dd1",
+     "elType": "widget",
+     "widgetType": "shortcode",
+     "isInner": false,
+     "settings": {
+      "shortcode": "[pl_section class=\"sand sec\" id=\"cv\" wrap_style=\"max-width:860px;display:flex;flex-direction:column;gap:20px\"]\n<h2 class=\"h2 m-title\" style=\"font-size:40px\">Send your CV</h2>[pl_form name=\"careers\"]\n[/pl_section]"
+     },
+     "elements": []
+    }
+   ]
+  }
+ ],
+ "pl": {
+  "slug": "careers",
+  "title": "Careers",
+  "front": false,
+  "privacy": false,
+  "_note": "Read by plt_provision_pages(); Elementor ignores this key."
+ }
+}

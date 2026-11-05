@@ -1,0 +1,198 @@
+{
+ "version": "0.4",
+ "title": "PL — Services",
+ "type": "page",
+ "page_settings": {
+  "template": "elementor_header_footer",
+  "hide_title": "yes"
+ },
+ "content": [
+  {
+   "id": "ac47cbb",
+   "elType": "container",
+   "isInner": false,
+   "settings": {
+    "content_width": "full",
+    "padding": {
+     "unit": "px",
+     "top": "0",
+     "right": "0",
+     "bottom": "0",
+     "left": "0",
+     "isLinked": true
+    },
+    "margin": {
+     "unit": "px",
+     "top": "0",
+     "right": "0",
+     "bottom": "0",
+     "left": "0",
+     "isLinked": true
+    },
+    "flex_gap": {
+     "unit": "px",
+     "size": 0,
+     "column": "0",
+     "row": "0",
+     "isLinked": true
+    },
+    "css_classes": "pl-raw",
+    "_title": "pl_section class=\"\" style=\"padding:72px "
+   },
+   "elements": [
+    {
+     "id": "cb3d6c0",
+     "elType": "widget",
+     "widgetType": "shortcode",
+     "isInner": false,
+     "settings": {
+      "shortcode": "[pl_section class=\"\" style=\"padding:72px 0 24px\" wrap_style=\"display:flex;flex-direction:column;gap:20px\"]\n<span class=\"lab mut\">Services</span><h1 class=\"h1\">Behind the <span class=\"em\">lens.</span></h1><p class=\"lead\">One team runs the science, the sponsors, the stage and the travel — for congresses, symposia, wetlabs and webinars.</p>\n[/pl_section]"
+     },
+     "elements": []
+    }
+   ]
+  },
+  {
+   "id": "a3691d6",
+   "elType": "container",
+   "isInner": false,
+   "settings": {
+    "content_width": "full",
+    "padding": {
+     "unit": "px",
+     "top": "0",
+     "right": "0",
+     "bottom": "0",
+     "left": "0",
+     "isLinked": true
+    },
+    "margin": {
+     "unit": "px",
+     "top": "0",
+     "right": "0",
+     "bottom": "0",
+     "left": "0",
+     "isLinked": true
+    },
+    "flex_gap": {
+     "unit": "px",
+     "size": 0,
+     "column": "0",
+     "row": "0",
+     "isLinked": true
+    },
+    "css_classes": "pl-raw",
+    "_title": "pl_section class=\"\" style=\"padding:24px "
+   },
+   "elements": [
+    {
+     "id": "fc42377",
+     "elType": "widget",
+     "widgetType": "shortcode",
+     "isInner": false,
+     "settings": {
+      "shortcode": "[pl_section class=\"\" style=\"padding:24px 0 72px\"][pl_services layout=\"zigzag\"][/pl_section]"
+     },
+     "elements": []
+    }
+   ]
+  },
+  {
+   "id": "338507a",
+   "elType": "container",
+   "isInner": false,
+   "settings": {
+    "content_width": "full",
+    "padding": {
+     "unit": "px",
+     "top": "0",
+     "right": "0",
+     "bottom": "0",
+     "left": "0",
+     "isLinked": true
+    },
+    "margin": {
+     "unit": "px",
+     "top": "0",
+     "right": "0",
+     "bottom": "0",
+     "left": "0",
+     "isLinked": true
+    },
+    "flex_gap": {
+     "unit": "px",
+     "size": 0,
+     "column": "0",
+     "row": "0",
+     "isLinked": true
+    },
+    "css_classes": "pl-raw",
+    "_title": "pl_section class=\"ink sec\" id=\"sponsorsh"
+   },
+   "elements": [
+    {
+     "id": "9ff5083",
+     "elType": "widget",
+     "widgetType": "shortcode",
+     "isInner": false,
+     "settings": {
+      "shortcode": "[pl_section class=\"ink sec\" id=\"sponsorship\" wrap_style=\"display:flex;flex-direction:column;gap:24px\"]\n<span class=\"lab mut\">Sponsorship</span><h2 class=\"h2 m-title\">Put your brand <span class=\"em\">in focus.</span></h2><p class=\"lead\" style=\"color:var(--oim)\">[pl_stats layout=\"sponsor_line\" tag=\"span\"] Companies that have sponsored PL congresses:</p>[pl_logos type=\"sponsor\"]<div class=\"row\"><a href=\"[pl_url to=\"contact\" topic=\"sponsor\"]\" class=\"btn bw\">Sponsor a congress</a></div>\n[/pl_section]"
+     },
+     "elements": []
+    }
+   ]
+  },
+  {
+   "id": "ce43578",
+   "elType": "container",
+   "isInner": false,
+   "settings": {
+    "content_width": "full",
+    "padding": {
+     "unit": "px",
+     "top": "0",
+     "right": "0",
+     "bottom": "0",
+     "left": "0",
+     "isLinked": true
+    },
+    "margin": {
+     "unit": "px",
+     "top": "0",
+     "right": "0",
+     "bottom": "0",
+     "left": "0",
+     "isLinked": true
+    },
+    "flex_gap": {
+     "unit": "px",
+     "size": 0,
+     "column": "0",
+     "row": "0",
+     "isLinked": true
+    },
+    "css_classes": "pl-raw",
+    "_title": "pl_section class=\"sec\" wrap_class=\"sh\""
+   },
+   "elements": [
+    {
+     "id": "08a5ddf",
+     "elType": "widget",
+     "widgetType": "shortcode",
+     "isInner": false,
+     "settings": {
+      "shortcode": "[pl_section class=\"sec\" wrap_class=\"sh\"]\n<h2 class=\"h2 m-title\" style=\"max-width:720px\">Planning a congress? Talk to our <span class=\"em\">team.</span></h2><a href=\"[pl_url to=\"contact\" topic=\"proposal\"]\" class=\"btn bp\">Request a proposal</a>\n[/pl_section]"
+     },
+     "elements": []
+    }
+   ]
+  }
+ ],
+ "pl": {
+  "slug": "services",
+  "title": "Services",
+  "front": false,
+  "privacy": false,
+  "_note": "Read by plt_provision_pages(); Elementor ignores this key."
+ }
+}

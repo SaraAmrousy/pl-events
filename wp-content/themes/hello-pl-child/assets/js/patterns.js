@@ -17,6 +17,7 @@
 
     $$('.m-title, .h1').forEach(function (el) {
       if (el.id === 'heroH1' || el.closest('.hdr, .mmenu, footer')) return;
+      if (!full && el.classList.contains('h1')) return; /* Light: the page H1 is the LCP — never delay it */
       gsap.from(el, full
         ? { filter: 'blur(6px)', opacity: 0, duration: 0.6, ease: 'power2.out', clearProps: 'filter,opacity', scrollTrigger: { trigger: el, start: 'top 85%', once: true } }
         : { opacity: 0, duration: 0.3, clearProps: 'opacity', scrollTrigger: { trigger: el, start: 'top 90%', once: true } });

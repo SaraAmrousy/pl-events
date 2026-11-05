@@ -41,7 +41,7 @@ body.pl { overflow: visible; min-height: 100vh; }
 
 /* Motion: no flash before the first frame. html.pl-mp is set in <head> only when motion
    will run (Full/Light); core.js removes it once start states are set (fallback 2.5 s). */
-html.pl-mp .h1:not(#heroH1) { opacity: 0; }
+html.pl-mp[data-motion="full"] .h1:not(#heroH1) { opacity: 0; } /* Full only: on mobile the H1 is the LCP and paints at once */
 /* Iris (first Home visit of the session, Full only): start closed, header hidden. */
 html.pl-iris #hdr, html.pl-iris .hfade, html.pl-iris #shade, html.pl-iris #heroH1 .w, html.pl-iris #heroFrame .brk { opacity: 0; }
 html.pl-iris #iris { transform: scale(.25); }
@@ -69,3 +69,13 @@ html.pl-iris #iris { transform: scale(.25); }
 #colophon { display: block; }
 .pl .ftc .pl-offices-compact { gap: 28px; }
 @media (max-width: 767px) { .pl #ft > .ftc { grid-column: 1 / -1 !important; } .pl .pl-offices-compact { grid-template-columns: minmax(0, 1fr) !important; } }
+
+/* ===== 4.4 pages ===== */
+.pl p.pl-sponsor-line { font-size: 18px; line-height: 1.55; color: var(--oim); max-width: 46ch; }
+.pl .ab-int .lead, .pl .lead { text-wrap: pretty; }
+/* About story: chapters only at ≥1024 (the prototype decided this at render; here CSS does). */
+@media (max-width: 1023px) { .pl .pl-wide { display: none !important; } }
+@media (min-width: 1024px) { .pl .pl-narrow { display: none !important; } }
+
+/* Event page hero is ink without the .ink class (prototype): muted text needs the on-ink colour (contrast ≥ 4.5). */
+.pl .ev-hero .dl dt, .pl .ev-hero .mut { color: var(--oim); }

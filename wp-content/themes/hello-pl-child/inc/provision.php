@@ -96,9 +96,14 @@ function plt_provision_menus( $force = false ) {
 	);
 	$locs = get_nav_menu_locations();
 	foreach ( $want as $loc => $m ) {
+		$expect = count( array_filter( $m[1], static fn( $slug ) => 'home' === $slug || get_page_by_path( $slug ) ) );
 		if ( ! empty( $locs[ $loc ] ) && ! $force ) {
-			$log[] = "$m[0]: assigned already — left as is";
-			continue;
+			$have = count( (array) wp_get_nav_menu_items( $locs[ $loc ] ) );
+			$ours = (int) get_option( 'plt_menu_links_' . $loc, -1 ) === $have; // untouched since we built it.
+			if ( $have >= $expect || ! $ours ) {
+				$log[] = "$m[0]: assigned ($have links) — left as is";
+				continue;
+			}
 		}
 		$menu = wp_get_nav_menu_object( $m[0] );
 		$id   = $menu ? $menu->term_id : wp_create_nav_menu( $m[0] );
@@ -121,12 +126,67 @@ function plt_provision_menus( $force = false ) {
 		}
 		$locs[ $loc ] = $id;
 		$log[]        = "$m[0]: $n links → $loc";
+		update_option( 'plt_menu_links_' . $loc, $n, false );
 	}
 	set_theme_mod( 'nav_menu_locations', $locs );
 	return $log;
 }
 
-/** Everything (4.3 now; 4.4 adds pages). */
+/* ------------------------------------------------------------------ 4.4 pages */
+
+/**
+ * Pages from the Elementor templates in /elementor (pl-{slug}.json). A page is (re)written
+ * when it is new, was never built with Elementor, or $force. post_content gets the same
+ * shortcodes, so the page still works if Elementor is ever switched off.
+ */
+function plt_provision_pages( $force = false ) {
+	$log = array();
+	if ( class_exists( 'PL_Importer' ) && method_exists( 'PL_Importer', 'seed_media' ) ) {
+		PL_Importer::seed_media( 'assets/hall-wide.jpg', 'Delegates seated in a congress hall set up by PL Events' );
+	}
+	foreach ( glob( PLT_DIR . 'elementor/pl-*.json' ) as $file ) {
+		$tpl = json_decode( (string) file_get_contents( $file ), true );
+		if ( empty( $tpl['pl']['slug'] ) || empty( $tpl['content'] ) ) {
+			continue;
+		}
+		$m    = $tpl['pl'];
+		$page = get_page_by_path( $m['slug'] );
+		$codes = array();
+		array_walk_recursive( $tpl['content'], static function ( $v, $k ) use ( &$codes ) { if ( 'shortcode' === $k ) { $codes[] = $v; } } );
+		if ( $page && ! $force && get_post_meta( $page->ID, '_plt_page', true ) ) {
+			$log[] = "page {$m['slug']}: exists (#{$page->ID}) — left as is";
+		} else {
+			$data = array( 'post_type' => 'page', 'post_status' => 'publish', 'post_title' => $m['title'], 'post_name' => $m['slug'], 'post_content' => implode( "\n\n", $codes ) );
+			if ( $page ) {
+				$data['ID'] = $page->ID;
+			}
+			$id = wp_insert_post( wp_slash( $data ), true );
+			if ( is_wp_error( $id ) ) {
+				$log[] = "page {$m['slug']}: ERROR " . $id->get_error_message();
+				continue;
+			}
+			update_post_meta( $id, '_plt_page', basename( $file ) );
+			plt_el_save( $id, $tpl['content'], $tpl['page_settings']['template'] ?? 'elementor_header_footer' );
+			$log[] = "page {$m['slug']}: " . ( $page ? 'rewritten' : 'created' ) . " (#$id), " . count( $tpl['content'] ) . ' sections';
+			$page = get_post( $id );
+		}
+		if ( ! empty( $m['front'] ) ) {
+			update_option( 'show_on_front', 'page' );
+			update_option( 'page_on_front', $page->ID );
+		}
+		if ( ! empty( $m['privacy'] ) ) {
+			update_option( 'wp_page_for_privacy_policy', $page->ID );
+		}
+	}
+	$tmp = get_page_by_path( 'pl-check' );
+	if ( $tmp ) {
+		wp_trash_post( $tmp->ID );
+		$log[] = 'temporary /pl-check/ page moved to the bin';
+	}
+	return $log;
+}
+
+/** Everything: pages, header/footer, menus. */
 function plt_provision( $force = false ) {
 	$log = function_exists( 'plt_provision_pages' ) ? plt_provision_pages( $force ) : array();
 	$log = array_merge( $log, plt_provision_chrome( $force ) ); // header, footer, then menus (pages exist by now).

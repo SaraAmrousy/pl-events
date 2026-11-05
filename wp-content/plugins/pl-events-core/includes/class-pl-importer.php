@@ -199,6 +199,17 @@ class PL_Importer {
 		$this->count( $type, $existing ? 'updated' : 'created' );
 	}
 
+	/** A photo from the bundled seed (e.g. "assets/hall-wide.jpg") → attachment ID, imported once. */
+	public static function seed_media( $src, $alt = '' ) {
+		require_once ABSPATH . 'wp-admin/includes/file.php';
+		require_once ABSPATH . 'wp-admin/includes/media.php';
+		require_once ABSPATH . 'wp-admin/includes/image.php';
+		$i           = new self();
+		$i->base_dir = trailingslashit( PL_EVENTS_DIR . 'seed' );
+		$i->report   = array( 'media' => 0, 'errors' => array() );
+		return $i->media( $src, $alt );
+	}
+
 	/** URL or seed-relative path → attachment ID (re-used on the next import). */
 	public function media( $src, $alt = '' ) {
 		$src = trim( (string) $src );

@@ -1,10 +1,13 @@
 /* Montserrat (SIL OFL 1.1), self-hosted, latin subset */
 @font-face{font-family:"Montserrat";font-style:normal;font-weight:400 800;font-display:swap;src:url(../fonts/montserrat-normal-latin.woff2) format("woff2")}
 @font-face{font-family:"Montserrat";font-style:italic;font-weight:500;font-display:swap;src:url(../fonts/montserrat-italic-latin.woff2) format("woff2")}
+/* Metric-matched fallback: while Montserrat loads on a slow line, Arial takes the same space,
+   so the swap does not re-wrap lines (CLS). Values: Montserrat vs Arial (as used by Next.js). */
+@font-face{font-family:"Montserrat Fallback";src:local("Arial"),local("Helvetica"),local("Liberation Sans");ascent-override:84.95%;descent-override:22.03%;line-gap-override:0%;size-adjust:113.39%}
 
 /* ---- prototype base.css ---- */
 .pl{--paper:#FAFAF7;--sand:#EFECE5;--surface:#FFFFFF;--line:#E2DED6;--cb:#8C8880;--ink:#0A0D18;--ink2:#161C30;--navy:#142040;--blue:#2C4894;--blueh:#233A78;--bsoft:#E6EBF7;--boi:#9DB2F2;--mut:#57534C;--oi:#FAFAF7;--oim:#B9BDC9;--live:#C62828;--liveoi:#E24C4C;--open:#1B7A4A;--soon:#8A5A00;
-font-family:"Montserrat","Segoe UI",system-ui,sans-serif;color:var(--ink);background:var(--paper);-webkit-font-smoothing:antialiased;overflow:hidden;font-size:17px;line-height:1.65}
+font-family:"Montserrat","Montserrat Fallback","Segoe UI",system-ui,sans-serif;color:var(--ink);background:var(--paper);-webkit-font-smoothing:antialiased;overflow:hidden;font-size:17px;line-height:1.65}
 .pl *{box-sizing:border-box}
 .pl a{color:inherit}
 .pl h1,.pl h2,.pl h3,.pl h4,.pl p{margin:0}
@@ -232,8 +235,8 @@ main:focus{outline:none}
 .f-TN{background:radial-gradient(circle,#E70013 0 2.2px,#fff 2.4px 4.6px,transparent 4.8px),#E70013}
 .erow{grid-template-columns:200px minmax(0,1fr) 210px 170px auto}
 @media (max-width:1023px){
- main [style*="grid-template-columns:repeat(12"],footer [style*="grid-template-columns:repeat(12"]{display:flex!important;flex-direction:column;align-items:stretch!important;gap:28px!important}
- main [style*="grid-column:8"]{grid-column:auto!important}
+ :is(main,.elementor,.pl-event) [style*="grid-template-columns:repeat(12"],footer [style*="grid-template-columns:repeat(12"]{display:flex!important;flex-direction:column;align-items:stretch!important;gap:28px!important}
+ :is(main,.elementor,.pl-event) [style*="grid-column:8"]{grid-column:auto!important}
  .svc4,.pl-tiles,.sp-tiles{grid-template-columns:repeat(2,minmax(0,1fr))!important}
  .svc4 > *{margin-top:0!important}
  .hero .copy #heroFrame{padding:36px 24px 32px!important}
@@ -430,7 +433,7 @@ body.pl { overflow: visible; min-height: 100vh; }
 
 /* Motion: no flash before the first frame. html.pl-mp is set in <head> only when motion
    will run (Full/Light); core.js removes it once start states are set (fallback 2.5 s). */
-html.pl-mp .h1:not(#heroH1) { opacity: 0; }
+html.pl-mp[data-motion="full"] .h1:not(#heroH1) { opacity: 0; } /* Full only: on mobile the H1 is the LCP and paints at once */
 /* Iris (first Home visit of the session, Full only): start closed, header hidden. */
 html.pl-iris #hdr, html.pl-iris .hfade, html.pl-iris #shade, html.pl-iris #heroH1 .w, html.pl-iris #heroFrame .brk { opacity: 0; }
 html.pl-iris #iris { transform: scale(.25); }
@@ -458,3 +461,13 @@ html.pl-iris #iris { transform: scale(.25); }
 #colophon { display: block; }
 .pl .ftc .pl-offices-compact { gap: 28px; }
 @media (max-width: 767px) { .pl #ft > .ftc { grid-column: 1 / -1 !important; } .pl .pl-offices-compact { grid-template-columns: minmax(0, 1fr) !important; } }
+
+/* ===== 4.4 pages ===== */
+.pl p.pl-sponsor-line { font-size: 18px; line-height: 1.55; color: var(--oim); max-width: 46ch; }
+.pl .ab-int .lead, .pl .lead { text-wrap: pretty; }
+/* About story: chapters only at ≥1024 (the prototype decided this at render; here CSS does). */
+@media (max-width: 1023px) { .pl .pl-wide { display: none !important; } }
+@media (min-width: 1024px) { .pl .pl-narrow { display: none !important; } }
+
+/* Event page hero is ink without the .ink class (prototype): muted text needs the on-ink colour (contrast ≥ 4.5). */
+.pl .ev-hero .dl dt, .pl .ev-hero .mut { color: var(--oim); }

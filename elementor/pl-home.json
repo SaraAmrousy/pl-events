@@ -1,0 +1,243 @@
+{
+ "version": "0.4",
+ "title": "PL — Home",
+ "type": "page",
+ "page_settings": {
+  "template": "elementor_header_footer",
+  "hide_title": "yes"
+ },
+ "content": [
+  {
+   "id": "883a793",
+   "elType": "container",
+   "isInner": false,
+   "settings": {
+    "content_width": "full",
+    "padding": {
+     "unit": "px",
+     "top": "0",
+     "right": "0",
+     "bottom": "0",
+     "left": "0",
+     "isLinked": true
+    },
+    "margin": {
+     "unit": "px",
+     "top": "0",
+     "right": "0",
+     "bottom": "0",
+     "left": "0",
+     "isLinked": true
+    },
+    "flex_gap": {
+     "unit": "px",
+     "size": 0,
+     "column": "0",
+     "row": "0",
+     "isLinked": true
+    },
+    "css_classes": "pl-raw",
+    "_title": "pl_hero"
+   },
+   "elements": [
+    {
+     "id": "2bc6a04",
+     "elType": "widget",
+     "widgetType": "shortcode",
+     "isInner": false,
+     "settings": {
+      "shortcode": "[pl_hero]"
+     },
+     "elements": []
+    }
+   ]
+  },
+  {
+   "id": "ae33895",
+   "elType": "container",
+   "isInner": false,
+   "settings": {
+    "content_width": "full",
+    "padding": {
+     "unit": "px",
+     "top": "0",
+     "right": "0",
+     "bottom": "0",
+     "left": "0",
+     "isLinked": true
+    },
+    "margin": {
+     "unit": "px",
+     "top": "0",
+     "right": "0",
+     "bottom": "0",
+     "left": "0",
+     "isLinked": true
+    },
+    "flex_gap": {
+     "unit": "px",
+     "size": 0,
+     "column": "0",
+     "row": "0",
+     "isLinked": true
+    },
+    "css_classes": "pl-raw",
+    "_title": "pl_upcoming layout=\"grid\" tabs=\"all,live"
+   },
+   "elements": [
+    {
+     "id": "64ceb51",
+     "elType": "widget",
+     "widgetType": "shortcode",
+     "isInner": false,
+     "settings": {
+      "shortcode": "[pl_upcoming layout=\"grid\" tabs=\"all,live,upcoming,past\" default=\"all\" limit=\"6\"]"
+     },
+     "elements": []
+    }
+   ]
+  },
+  {
+   "id": "7828c11",
+   "elType": "container",
+   "isInner": false,
+   "settings": {
+    "content_width": "full",
+    "padding": {
+     "unit": "px",
+     "top": "0",
+     "right": "0",
+     "bottom": "0",
+     "left": "0",
+     "isLinked": true
+    },
+    "margin": {
+     "unit": "px",
+     "top": "0",
+     "right": "0",
+     "bottom": "0",
+     "left": "0",
+     "isLinked": true
+    },
+    "flex_gap": {
+     "unit": "px",
+     "size": 0,
+     "column": "0",
+     "row": "0",
+     "isLinked": true
+    },
+    "css_classes": "pl-raw",
+    "_title": "pl_section class=\"sec\" style=\"border-top"
+   },
+   "elements": [
+    {
+     "id": "ce58d73",
+     "elType": "widget",
+     "widgetType": "shortcode",
+     "isInner": false,
+     "settings": {
+      "shortcode": "[pl_section class=\"sec\" style=\"border-top:1.5px solid var(--line);overflow:hidden;position:relative\" wrap_style=\"display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:32px;align-items:center\"]\n<div class=\"d-only\" style=\"grid-column:span 5;margin-left:-120px\" aria-hidden=\"true\"><svg viewBox=\"0 0 520 330\" width=\"520\" height=\"330\" style=\"overflow:visible\"><text id=\"plOutline\" x=\"0\" y=\"320\" fill=\"#FAFAF7\" stroke=\"#0A0D18\" stroke-width=\"4\" style=\"font:800 420px Montserrat,sans-serif;letter-spacing:-.02em;paint-order:stroke fill\">PL</text></svg></div>\n<div style=\"grid-column:span 7;display:flex;flex-direction:column;gap:20px\" class=\"nm\">[pl_stats layout=\"line\"][pl_logos type=\"society\"]<a href=\"[pl_url to=\"about\" anchor=\"story\"]\" class=\"btn bg\" style=\"align-self:flex-start\">Explore the record on the map →</a></div>\n[/pl_section]"
+     },
+     "elements": []
+    }
+   ]
+  },
+  {
+   "id": "04267f7",
+   "elType": "container",
+   "isInner": false,
+   "settings": {
+    "content_width": "full",
+    "padding": {
+     "unit": "px",
+     "top": "0",
+     "right": "0",
+     "bottom": "0",
+     "left": "0",
+     "isLinked": true
+    },
+    "margin": {
+     "unit": "px",
+     "top": "0",
+     "right": "0",
+     "bottom": "0",
+     "left": "0",
+     "isLinked": true
+    },
+    "flex_gap": {
+     "unit": "px",
+     "size": 0,
+     "column": "0",
+     "row": "0",
+     "isLinked": true
+    },
+    "css_classes": "pl-raw",
+    "_title": "pl_section class=\"sand cutb\" style=\"padd"
+   },
+   "elements": [
+    {
+     "id": "05404e2",
+     "elType": "widget",
+     "widgetType": "shortcode",
+     "isInner": false,
+     "settings": {
+      "shortcode": "[pl_section class=\"sand cutb\" style=\"padding:96px 0 136px\" wrap_style=\"display:flex;flex-direction:column;gap:32px\"]\n<div class=\"sh\"><h2 class=\"h2 m-title\">Behind the <span class=\"em\">lens.</span></h2><p class=\"mut\" style=\"font-size:17px;max-width:400px\">One team runs the science, the sponsors, the stage and the travel.</p></div>\n[pl_services layout=\"numbered\"]\n<a href=\"[pl_url to=\"services\"]\" class=\"btn bs\" style=\"align-self:flex-start\">All services</a>\n[/pl_section]"
+     },
+     "elements": []
+    }
+   ]
+  },
+  {
+   "id": "7a3882e",
+   "elType": "container",
+   "isInner": false,
+   "settings": {
+    "content_width": "full",
+    "padding": {
+     "unit": "px",
+     "top": "0",
+     "right": "0",
+     "bottom": "0",
+     "left": "0",
+     "isLinked": true
+    },
+    "margin": {
+     "unit": "px",
+     "top": "0",
+     "right": "0",
+     "bottom": "0",
+     "left": "0",
+     "isLinked": true
+    },
+    "flex_gap": {
+     "unit": "px",
+     "size": 0,
+     "column": "0",
+     "row": "0",
+     "isLinked": true
+    },
+    "css_classes": "pl-raw",
+    "_title": "pl_section class=\"ink\" id=\"cta\" style=\"p"
+   },
+   "elements": [
+    {
+     "id": "256fecc",
+     "elType": "widget",
+     "widgetType": "shortcode",
+     "isInner": false,
+     "settings": {
+      "shortcode": "[pl_section class=\"ink\" id=\"cta\" style=\"padding:112px 0 120px\" wrap_class=\"ctag\" wrap_style=\"display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0\"]\n<div class=\"ctacol\" style=\"display:flex;flex-direction:column;gap:18px;padding:8px 0\"><span class=\"lab mut\">For scientific societies</span><h2 class=\"h2 m-title h2l\">Planning a <span class=\"em\">congress?</span></h2><p style=\"font-size:18px;line-height:1.55;color:var(--oim);max-width:46ch\">Our Alexandria and Dubai teams plan the science, the sponsors, the stage and the travel — one team from programme to gala dinner.</p><div class=\"row\"><a href=\"[pl_url to=\"contact\" topic=\"proposal\"]\" class=\"btn bw\">Request a proposal</a></div></div>\n<div class=\"ctar\" style=\"border-left:1.5px solid #2A3149;padding-left:56px\"><div class=\"ctacol\" style=\"display:flex;flex-direction:column;gap:18px;padding:8px 0\"><span class=\"lab mut\">For sponsors &amp; exhibitors</span><h2 class=\"h2 m-title h2l\">Put your brand <span class=\"em\">in focus.</span></h2>[pl_stats layout=\"sponsor_line\"]<div class=\"row\"><a href=\"[pl_url to=\"contact\" topic=\"sponsor\"]\" class=\"btn bso\">Sponsor a congress</a><a href=\"[pl_url to=\"services\" anchor=\"sponsorship\"]\" class=\"btn bg\">See sponsorship</a></div></div></div>\n[/pl_section]"
+     },
+     "elements": []
+    }
+   ]
+  }
+ ],
+ "pl": {
+  "slug": "home",
+  "title": "Home",
+  "front": true,
+  "privacy": false,
+  "_note": "Read by plt_provision_pages(); Elementor ignores this key."
+ }
+}

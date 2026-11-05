@@ -21,4 +21,6 @@ require PLT_DIR . 'inc/setup.php';
 require PLT_DIR . 'inc/motion.php';
 require PLT_DIR . 'inc/elementor.php';
 require PLT_DIR . 'inc/chrome.php';
+require PLT_DIR . 'inc/blocks.php';
+require PLT_DIR . 'inc/perf.php';
 require PLT_DIR . 'inc/provision.php';

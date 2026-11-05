@@ -1,0 +1,108 @@
+{
+ "version": "0.4",
+ "title": "PL — Events",
+ "type": "page",
+ "page_settings": {
+  "template": "elementor_header_footer",
+  "hide_title": "yes"
+ },
+ "content": [
+  {
+   "id": "ac5c60e",
+   "elType": "container",
+   "isInner": false,
+   "settings": {
+    "content_width": "full",
+    "padding": {
+     "unit": "px",
+     "top": "0",
+     "right": "0",
+     "bottom": "0",
+     "left": "0",
+     "isLinked": true
+    },
+    "margin": {
+     "unit": "px",
+     "top": "0",
+     "right": "0",
+     "bottom": "0",
+     "left": "0",
+     "isLinked": true
+    },
+    "flex_gap": {
+     "unit": "px",
+     "size": 0,
+     "column": "0",
+     "row": "0",
+     "isLinked": true
+    },
+    "css_classes": "pl-raw",
+    "_title": "pl_calendar default=\"all\" search=\"1\" fil"
+   },
+   "elements": [
+    {
+     "id": "45f7103",
+     "elType": "widget",
+     "widgetType": "shortcode",
+     "isInner": false,
+     "settings": {
+      "shortcode": "[pl_calendar default=\"all\" search=\"1\" filters=\"specialty,country,year,type\" views=\"grid,list\"]"
+     },
+     "elements": []
+    }
+   ]
+  },
+  {
+   "id": "19bdb16",
+   "elType": "container",
+   "isInner": false,
+   "settings": {
+    "content_width": "full",
+    "padding": {
+     "unit": "px",
+     "top": "0",
+     "right": "0",
+     "bottom": "0",
+     "left": "0",
+     "isLinked": true
+    },
+    "margin": {
+     "unit": "px",
+     "top": "0",
+     "right": "0",
+     "bottom": "0",
+     "left": "0",
+     "isLinked": true
+    },
+    "flex_gap": {
+     "unit": "px",
+     "size": 0,
+     "column": "0",
+     "row": "0",
+     "isLinked": true
+    },
+    "css_classes": "pl-raw",
+    "_title": "pl_section class=\"ink cutt\" style=\"paddi"
+   },
+   "elements": [
+    {
+     "id": "779e681",
+     "elType": "widget",
+     "widgetType": "shortcode",
+     "isInner": false,
+     "settings": {
+      "shortcode": "[pl_section class=\"ink cutt\" style=\"padding:120px 0 96px\" wrap_class=\"sh\"]\n<h2 class=\"h2 m-title\" style=\"max-width:720px\">Running a congress? See how we can <span class=\"em\">help.</span></h2><a href=\"[pl_url to=\"contact\" topic=\"proposal\"]\" class=\"btn bw\">Request a proposal</a>\n[/pl_section]"
+     },
+     "elements": []
+    }
+   ]
+  }
+ ],
+ "pl": {
+  "slug": "events",
+  "title": "Events",
+  "front": false,
+  "privacy": false,
+  "_note": "Read by plt_provision_pages(); Elementor ignores this key."
+ }
+}

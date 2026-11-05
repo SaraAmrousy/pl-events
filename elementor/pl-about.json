@@ -1,0 +1,288 @@
+{
+ "version": "0.4",
+ "title": "PL — About",
+ "type": "page",
+ "page_settings": {
+  "template": "elementor_header_footer",
+  "hide_title": "yes"
+ },
+ "content": [
+  {
+   "id": "c3d3a7d",
+   "elType": "container",
+   "isInner": false,
+   "settings": {
+    "content_width": "full",
+    "padding": {
+     "unit": "px",
+     "top": "0",
+     "right": "0",
+     "bottom": "0",
+     "left": "0",
+     "isLinked": true
+    },
+    "margin": {
+     "unit": "px",
+     "top": "0",
+     "right": "0",
+     "bottom": "0",
+     "left": "0",
+     "isLinked": true
+    },
+    "flex_gap": {
+     "unit": "px",
+     "size": 0,
+     "column": "0",
+     "row": "0",
+     "isLinked": true
+    },
+    "css_classes": "pl-raw",
+    "_title": "pl_section class=\"\" style=\"padding:88px "
+   },
+   "elements": [
+    {
+     "id": "c80efe9",
+     "elType": "widget",
+     "widgetType": "shortcode",
+     "isInner": false,
+     "settings": {
+      "shortcode": "[pl_section class=\"\" style=\"padding:88px 0 72px\" wrap_style=\"display:flex;flex-direction:column;gap:36px\"]\n<span class=\"lab mut\">About PL Events</span><h1 class=\"h1 h1xl focus-set\">From <span class=\"hl-city\">Alexandria</span> to [pl_stats layout=\"number\" field=\"countries\"] countries.</h1>\n<div style=\"display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:32px\" class=\"ab-int\"><p class=\"lead\" style=\"grid-column:span 6\">PL Events plans and runs medical congresses for scientific societies, from a head office in Alexandria and a regional office in Dubai. Most of our work is ophthalmology; vascular, lymphology and nephrology are growing.</p><p class=\"mut\" style=\"grid-column:8 / span 5;font-size:17px\">One team handles the science, the sponsors, the stage and the travel — and every congress we run is on this site, with its date, city and registration.</p></div>\n<figure style=\"margin:0\">[pl_media src=\"assets/hall-wide.jpg\" alt=\"Delegates seated in a congress hall set up by PL Events\" class=\"photo rack\" style=\"height:420px;border-radius:10px;width:100%;object-fit:cover\"]<figcaption class=\"lab mut\" style=\"margin-top:10px\">From PL’s portfolio</figcaption></figure>\n[/pl_section]"
+     },
+     "elements": []
+    }
+   ]
+  },
+  {
+   "id": "4bff6d8",
+   "elType": "container",
+   "isInner": false,
+   "settings": {
+    "content_width": "full",
+    "padding": {
+     "unit": "px",
+     "top": "0",
+     "right": "0",
+     "bottom": "0",
+     "left": "0",
+     "isLinked": true
+    },
+    "margin": {
+     "unit": "px",
+     "top": "0",
+     "right": "0",
+     "bottom": "0",
+     "left": "0",
+     "isLinked": true
+    },
+    "flex_gap": {
+     "unit": "px",
+     "size": 0,
+     "column": "0",
+     "row": "0",
+     "isLinked": true
+    },
+    "css_classes": "pl-raw",
+    "_title": "pl_story layout=\"sticky explore\" aspect="
+   },
+   "elements": [
+    {
+     "id": "2687354",
+     "elType": "widget",
+     "widgetType": "shortcode",
+     "isInner": false,
+     "settings": {
+      "shortcode": "[pl_story layout=\"sticky explore\" aspect=\"1.3\"]"
+     },
+     "elements": []
+    }
+   ]
+  },
+  {
+   "id": "3683054",
+   "elType": "container",
+   "isInner": false,
+   "settings": {
+    "content_width": "full",
+    "padding": {
+     "unit": "px",
+     "top": "0",
+     "right": "0",
+     "bottom": "0",
+     "left": "0",
+     "isLinked": true
+    },
+    "margin": {
+     "unit": "px",
+     "top": "0",
+     "right": "0",
+     "bottom": "0",
+     "left": "0",
+     "isLinked": true
+    },
+    "flex_gap": {
+     "unit": "px",
+     "size": 0,
+     "column": "0",
+     "row": "0",
+     "isLinked": true
+    },
+    "css_classes": "pl-raw",
+    "_title": "pl_section class=\"sec\""
+   },
+   "elements": [
+    {
+     "id": "c061cd8",
+     "elType": "widget",
+     "widgetType": "shortcode",
+     "isInner": false,
+     "settings": {
+      "shortcode": "[pl_section class=\"sec\"][pl_company_figures layout=\"big\"][/pl_section]"
+     },
+     "elements": []
+    }
+   ]
+  },
+  {
+   "id": "66980ab",
+   "elType": "container",
+   "isInner": false,
+   "settings": {
+    "content_width": "full",
+    "padding": {
+     "unit": "px",
+     "top": "0",
+     "right": "0",
+     "bottom": "0",
+     "left": "0",
+     "isLinked": true
+    },
+    "margin": {
+     "unit": "px",
+     "top": "0",
+     "right": "0",
+     "bottom": "0",
+     "left": "0",
+     "isLinked": true
+    },
+    "flex_gap": {
+     "unit": "px",
+     "size": 0,
+     "column": "0",
+     "row": "0",
+     "isLinked": true
+    },
+    "css_classes": "pl-raw",
+    "_title": "pl_section class=\"sand sec\" style=\"paddi"
+   },
+   "elements": [
+    {
+     "id": "eee8543",
+     "elType": "widget",
+     "widgetType": "shortcode",
+     "isInner": false,
+     "settings": {
+      "shortcode": "[pl_section class=\"sand sec\" style=\"padding:88px 0\" wrap_style=\"display:flex;flex-direction:column;gap:24px\"]\n<h2 class=\"h2 m-title\" style=\"font-size:40px\">Societies that trust <span class=\"em\">us.</span></h2>[pl_logos type=\"society\"]\n[/pl_section]"
+     },
+     "elements": []
+    }
+   ]
+  },
+  {
+   "id": "9201942",
+   "elType": "container",
+   "isInner": false,
+   "settings": {
+    "content_width": "full",
+    "padding": {
+     "unit": "px",
+     "top": "0",
+     "right": "0",
+     "bottom": "0",
+     "left": "0",
+     "isLinked": true
+    },
+    "margin": {
+     "unit": "px",
+     "top": "0",
+     "right": "0",
+     "bottom": "0",
+     "left": "0",
+     "isLinked": true
+    },
+    "flex_gap": {
+     "unit": "px",
+     "size": 0,
+     "column": "0",
+     "row": "0",
+     "isLinked": true
+    },
+    "css_classes": "pl-raw",
+    "_title": "pl_offices layout=\"split\""
+   },
+   "elements": [
+    {
+     "id": "187bf2d",
+     "elType": "widget",
+     "widgetType": "shortcode",
+     "isInner": false,
+     "settings": {
+      "shortcode": "[pl_offices layout=\"split\"]"
+     },
+     "elements": []
+    }
+   ]
+  },
+  {
+   "id": "eb94a58",
+   "elType": "container",
+   "isInner": false,
+   "settings": {
+    "content_width": "full",
+    "padding": {
+     "unit": "px",
+     "top": "0",
+     "right": "0",
+     "bottom": "0",
+     "left": "0",
+     "isLinked": true
+    },
+    "margin": {
+     "unit": "px",
+     "top": "0",
+     "right": "0",
+     "bottom": "0",
+     "left": "0",
+     "isLinked": true
+    },
+    "flex_gap": {
+     "unit": "px",
+     "size": 0,
+     "column": "0",
+     "row": "0",
+     "isLinked": true
+    },
+    "css_classes": "pl-raw",
+    "_title": "pl_section class=\"sec\" style=\"padding:10"
+   },
+   "elements": [
+    {
+     "id": "e914942",
+     "elType": "widget",
+     "widgetType": "shortcode",
+     "isInner": false,
+     "settings": {
+      "shortcode": "[pl_section class=\"sec\" style=\"padding:104px 0 112px;position:relative;overflow:hidden;border-top:1.5px solid var(--line)\" wrap=\"0\"]\n<div aria-hidden=\"true\" class=\"out pl-out d-only\" style=\"position:absolute;right:40px;top:50%;transform:translateY(-50%);font-size:340px;line-height:.8;-webkit-text-stroke-color:#D9D5CC\">PL</div>\n<div class=\"wrap\" style=\"position:relative;display:flex;flex-direction:column;gap:22px\"><h2 class=\"h2 h2xl h2xxl\">Two cities. <span class=\"em\">One team.</span></h2><p class=\"mut\" style=\"font-size:18px;max-width:560px\">Tell us about your congress — the Alexandria or Dubai team answers.</p><div class=\"row\"><a href=\"[pl_url to=\"contact\" topic=\"proposal\"]\" class=\"btn bp\">Request a proposal</a>[pl_company field=\"portfolio_link\" class=\"btn bs\" label=\"Download our portfolio\"]</div></div>\n[/pl_section]"
+     },
+     "elements": []
+    }
+   ]
+  }
+ ],
+ "pl": {
+  "slug": "about",
+  "title": "About",
+  "front": false,
+  "privacy": false,
+  "_note": "Read by plt_provision_pages(); Elementor ignores this key."
+ }
+}

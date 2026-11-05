@@ -137,7 +137,7 @@ $filter_fields = static function ( $suffix ) use ( $fdefs, $F ) {
 	<?php endforeach; ?>
 </div></section>
 <?php endif; ?>
-<section style="padding:44px 0 96px;min-height:520px"><div class="wrap"><div class="results swap" id="results" data-view="<?php echo esc_attr( $view ); ?>">
+<section style="padding:44px 0 96px;min-height:520px" aria-labelledby="pl-results-h"><div class="wrap"><h2 class="sr" id="pl-results-h">Results</h2><div class="results swap" id="results" data-view="<?php echo esc_attr( $view ); ?>">
 	<div class="grid3 pl-view-grid"<?php echo 'grid' === $view ? '' : ' hidden'; ?>>
 		<?php
 		foreach ( $events as $e ) {

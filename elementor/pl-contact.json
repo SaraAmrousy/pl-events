@@ -1,0 +1,108 @@
+{
+ "version": "0.4",
+ "title": "PL — Contact",
+ "type": "page",
+ "page_settings": {
+  "template": "elementor_header_footer",
+  "hide_title": "yes"
+ },
+ "content": [
+  {
+   "id": "bf64412",
+   "elType": "container",
+   "isInner": false,
+   "settings": {
+    "content_width": "full",
+    "padding": {
+     "unit": "px",
+     "top": "0",
+     "right": "0",
+     "bottom": "0",
+     "left": "0",
+     "isLinked": true
+    },
+    "margin": {
+     "unit": "px",
+     "top": "0",
+     "right": "0",
+     "bottom": "0",
+     "left": "0",
+     "isLinked": true
+    },
+    "flex_gap": {
+     "unit": "px",
+     "size": 0,
+     "column": "0",
+     "row": "0",
+     "isLinked": true
+    },
+    "css_classes": "pl-raw",
+    "_title": "pl_section class=\"\" style=\"padding:72px "
+   },
+   "elements": [
+    {
+     "id": "ee1d989",
+     "elType": "widget",
+     "widgetType": "shortcode",
+     "isInner": false,
+     "settings": {
+      "shortcode": "[pl_section class=\"\" style=\"padding:72px 0 40px\" wrap_style=\"display:flex;flex-direction:column;gap:20px\"]\n<span class=\"lab mut\">Contact</span><h1 class=\"h1\">Talk to our <span class=\"em\">team.</span></h1><p class=\"lead\">Alexandria and Dubai. Tell us about your congress, your sponsorship or your registration — the right office answers.</p>\n[/pl_section]"
+     },
+     "elements": []
+    }
+   ]
+  },
+  {
+   "id": "45474d8",
+   "elType": "container",
+   "isInner": false,
+   "settings": {
+    "content_width": "full",
+    "padding": {
+     "unit": "px",
+     "top": "0",
+     "right": "0",
+     "bottom": "0",
+     "left": "0",
+     "isLinked": true
+    },
+    "margin": {
+     "unit": "px",
+     "top": "0",
+     "right": "0",
+     "bottom": "0",
+     "left": "0",
+     "isLinked": true
+    },
+    "flex_gap": {
+     "unit": "px",
+     "size": 0,
+     "column": "0",
+     "row": "0",
+     "isLinked": true
+    },
+    "css_classes": "pl-raw",
+    "_title": "pl_section class=\"\" style=\"padding:0 0 7"
+   },
+   "elements": [
+    {
+     "id": "0fdcc95",
+     "elType": "widget",
+     "widgetType": "shortcode",
+     "isInner": false,
+     "settings": {
+      "shortcode": "[pl_section class=\"\" style=\"padding:0 0 72px\" wrap_class=\"ct-grid\" wrap_style=\"display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:40px;align-items:start\"]\n<div style=\"grid-column:span 7\" class=\"ct-f\">[pl_form name=\"contact\"]</div><div style=\"grid-column:span 5;display:flex;flex-direction:column;gap:28px\" class=\"ct-o\">[pl_offices]</div>\n[/pl_section]"
+     },
+     "elements": []
+    }
+   ]
+  }
+ ],
+ "pl": {
+  "slug": "contact",
+  "title": "Contact",
+  "front": false,
+  "privacy": false,
+  "_note": "Read by plt_provision_pages(); Elementor ignores this key."
+ }
+}

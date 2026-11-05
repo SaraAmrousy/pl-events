@@ -19,6 +19,8 @@ if ( ! $has_hq ) {
 	$pts[] = array( 'city' => $origin['city'], 'cc' => $origin['country'], 'll' => $hq );
 }
 $vb   = PL_Map::view_box( array_merge( array_column( $pts, 'll' ), array( $hq ) ), 300, $aspect );
+$narrow = isset( $narrow ) ? (float) $narrow : 0;
+$vbn  = $narrow ? PL_Map::view_box( array_merge( array_column( $pts, 'll' ), array( $hq ) ), 300, $narrow ) : '';
 $hqp  = PL_Map::proj( $hq );
 $offices = PL_Data::offices();
 $office_city = array();
@@ -27,7 +29,7 @@ foreach ( $offices as $o ) {
 }
 $cities = array_column( $pts, 'city' );
 ?>
-<div class="map grain <?php echo esc_attr( $cls ?? '' ); ?>"><svg viewBox="<?php echo esc_attr( $vb ); ?>" data-full="<?php echo esc_attr( $vb ); ?>" data-aspect="<?php echo esc_attr( (string) $aspect ); ?>" data-origin="<?php echo esc_attr( $origin['city'] ); ?>" role="img" aria-label="<?php echo esc_attr( 'Map of PL Events congresses: ' . implode( ', ', $cities ) ); ?>">
+<div class="map grain <?php echo esc_attr( $cls ?? '' ); ?>"><svg viewBox="<?php echo esc_attr( $vb ); ?>" data-full="<?php echo esc_attr( $vb ); ?>"<?php echo $vbn ? ' data-full-narrow="' . esc_attr( $vbn ) . '" data-aspect-narrow="' . esc_attr( (string) $narrow ) . '"' : ''; ?> data-aspect="<?php echo esc_attr( (string) $aspect ); ?>" data-origin="<?php echo esc_attr( $origin['city'] ); ?>" role="img" aria-label="<?php echo esc_attr( 'Map of PL Events congresses: ' . implode( ', ', $cities ) ); ?>">
 	<image href="<?php echo esc_url( PL_Map::dots_url() ); ?>" x="0" y="0" width="<?php echo esc_attr( (string) PL_Map::W ); ?>" height="<?php echo esc_attr( (string) PL_Map::H ); ?>"/>
 	<?php
 	foreach ( $pts as $p ) {

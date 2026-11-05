@@ -1,0 +1,63 @@
+{
+ "version": "0.4",
+ "title": "PL — Privacy",
+ "type": "page",
+ "page_settings": {
+  "template": "elementor_header_footer",
+  "hide_title": "yes"
+ },
+ "content": [
+  {
+   "id": "60189e4",
+   "elType": "container",
+   "isInner": false,
+   "settings": {
+    "content_width": "full",
+    "padding": {
+     "unit": "px",
+     "top": "0",
+     "right": "0",
+     "bottom": "0",
+     "left": "0",
+     "isLinked": true
+    },
+    "margin": {
+     "unit": "px",
+     "top": "0",
+     "right": "0",
+     "bottom": "0",
+     "left": "0",
+     "isLinked": true
+    },
+    "flex_gap": {
+     "unit": "px",
+     "size": 0,
+     "column": "0",
+     "row": "0",
+     "isLinked": true
+    },
+    "css_classes": "pl-raw",
+    "_title": "pl_section class=\"\" style=\"padding:72px "
+   },
+   "elements": [
+    {
+     "id": "573b503",
+     "elType": "widget",
+     "widgetType": "shortcode",
+     "isInner": false,
+     "settings": {
+      "shortcode": "[pl_section class=\"\" style=\"padding:72px 0 96px\" wrap_style=\"max-width:860px;display:flex;flex-direction:column;gap:18px\"]\n<span class=\"lab mut\">Privacy</span><h1 class=\"h1\" style=\"font-size:64px\">Privacy policy</h1><p class=\"lead\">The full text comes from PL Events (reveal-day request). It will cover the contact and careers forms, CV retention and cookies.</p>[pl_sample label=\"Text TBC\"]<p class=\"mut\" style=\"font-size:14px\">[pl_credits]</p>\n[/pl_section]"
+     },
+     "elements": []
+    }
+   ]
+  }
+ ],
+ "pl": {
+  "slug": "privacy",
+  "title": "Privacy",
+  "front": false,
+  "privacy": true,
+  "_note": "Read by plt_provision_pages(); Elementor ignores this key."
+ }
+}

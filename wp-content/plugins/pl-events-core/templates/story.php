@@ -14,6 +14,7 @@ defined( 'ABSPATH' ) || exit;
 $sticky = false !== strpos( $a['layout'], 'sticky' );
 $explore = false !== strpos( $a['layout'], 'explore' );
 $aspect = (float) $a['aspect'];
+$narrow = (float) $a['mobile_aspect']; // < 1024 px the map is wider (3.4b: 1.3 desktop, 2.1 below)
 $years  = $stats['year_list'];
 sort( $years );
 if ( count( $years ) <= 6 ) {
@@ -30,11 +31,16 @@ $country = isset( $stats['country_list'] ) && in_array( $country, $stats['countr
 <section class="ink pl-story" id="story" aria-label="Our record on the map" data-pl="story">
 	<div class="wrap" style="padding-top:88px;padding-bottom:96px;display:flex;flex-direction:column;gap:28px">
 		<div style="display:flex;flex-direction:column;gap:10px">
-			<span class="lab mut"><?php echo esc_html( ( $sticky ? 'The story so far · ' : 'Our record · ' ) . PL_Template::plural( $stats['events'], 'event' ) . ' since ' . $stats['since'] ); ?></span>
-			<h2 class="h2 m-title"><?php echo $sticky ? 'One head office. A region of <span class="em">congresses.</span>' : 'Explore it <span class="em">yourself.</span>'; ?></h2>
+			<?php $pl_since = PL_Template::plural( $stats['events'], 'event' ) . ' since ' . $stats['since']; ?>
+			<?php if ( $sticky ) : /* wide screens (≥1024): the story; narrower: the explorer only (3.4b P3) */ ?>
+			<span class="lab mut pl-wide"><?php echo esc_html( 'The story so far · ' . $pl_since ); ?></span>
+			<h2 class="h2 m-title pl-wide">One head office. A region of <span class="em">congresses.</span></h2>
+			<?php endif; ?>
+			<span class="lab mut<?php echo $sticky ? ' pl-narrow' : ''; ?>"><?php echo esc_html( 'Our record · ' . $pl_since ); ?></span>
+			<h2 class="h2 m-title<?php echo $sticky ? ' pl-narrow' : ''; ?>">Explore it <span class="em">yourself.</span></h2>
 		</div>
 		<div class="story2">
-			<div class="mapcol"><div class="stick vf vfoi" id="mapWrap"><?php echo PL_Template::render( 'map', array( 'events' => $events, 'aspect' => $aspect ) ); // phpcs:ignore WordPress.Security.EscapeOutput ?></div></div>
+			<div class="mapcol"><div class="stick vf vfoi" id="mapWrap"><?php echo PL_Template::render( 'map', array( 'events' => $events, 'aspect' => $aspect, 'narrow' => $narrow ) ); // phpcs:ignore WordPress.Security.EscapeOutput ?></div></div>
 			<div class="steps">
 				<?php
 				if ( $sticky ) :
@@ -44,11 +50,11 @@ $country = isset( $stats['country_list'] ) && in_array( $country, $stats['countr
 						$before = array_map( fn( $e ) => $e['city'], array_filter( $events, fn( $e ) => $e['year'] < $ch['from'] ) );
 						$ycity  = $uniq( array_filter( array_map( fn( $e ) => $e['city'], $yr ) ) );
 						$new    = array_values( array_diff( $ycity, $before ) );
-						$lls    = array_merge( array_column( PL_Map::points( $yr ), 'll' ), array( $origin['lonlat'] ) );
+						$lls    = array_merge( array_column( PL_Map::points( $upto ), 'll' ), array( $origin['lonlat'] ) ); // camera frames everything on the map so far (prototype mapState)
 						$annc   = (bool) array_filter( $yr, fn( $e ) => 'past' !== $e['status'] );
 						$su     = PL_Data::stats( $upto );
 						?>
-				<article class="step d-only" data-ch="<?php echo (int) $i; ?>" data-vb="<?php echo esc_attr( PL_Map::view_box( $lls, 300, $aspect ) ); ?>" data-cities="<?php echo esc_attr( implode( '|', $ycity ) ); ?>">
+				<article class="step pl-wide" data-ch="<?php echo (int) $i; ?>" data-vb="<?php echo esc_attr( PL_Map::view_box( $lls, 330, $aspect ) ); ?>" data-cities="<?php echo esc_attr( implode( '|', $ycity ) ); ?>">
 					<div class="sidein" style="display:flex;flex-direction:column;gap:16px">
 						<span class="lab mut">Chapter <?php echo (int) ( $i + 1 ); ?> / <?php echo (int) $n; ?></span>
 						<span class="num" style="font-size:96px"><?php echo esc_html( $ch['label'] ); ?></span>
@@ -73,11 +79,11 @@ $country = isset( $stats['country_list'] ) && in_array( $country, $stats['countr
 					$panels = array_merge( array( '' ), $stats['country_list'] );
 					?>
 				<div class="step stepx" data-explore="1">
-					<?php if ( $sticky ) : ?><h3 class="h3 d-only" style="font-size:32px">Now explore it <span class="em">yourself.</span></h3><?php endif; ?>
+					<?php if ( $sticky ) : ?><h3 class="h3 pl-wide" style="font-size:32px">Now explore it <span class="em">yourself.</span></h3><?php endif; ?>
 					<div class="chips" id="cchips" role="group" aria-label="Choose a country">
 						<?php foreach ( $panels as $cc ) : ?>
 							<?php $n_cc = $cc ? count( array_filter( $events, fn( $e ) => $e['country'] === $cc ) ) : count( $events ); ?>
-							<a class="choice<?php echo $country === $cc ? ' on' : ''; ?>" href="<?php echo esc_url( add_query_arg( 'country', $cc ? $cc : false ) . '#story' ); ?>" data-cc="<?php echo esc_attr( $cc ); ?>" aria-pressed="<?php echo $country === $cc ? 'true' : 'false'; ?>"><?php echo $cc ? PL_Template::flag( $cc ) . esc_html( PL_Geo::name( $cc ) ) : 'All countries'; // phpcs:ignore WordPress.Security.EscapeOutput ?> <span style="opacity:.65"><?php echo (int) $n_cc; ?></span></a>
+							<a class="choice<?php echo $country === $cc ? ' on' : ''; ?>" href="<?php echo esc_url( add_query_arg( 'country', $cc ? $cc : false ) . '#story' ); ?>" data-cc="<?php echo esc_attr( $cc ); ?>" <?php echo $country === $cc ? 'aria-current="true"' : ''; ?>><?php echo $cc ? PL_Template::flag( $cc ) . esc_html( PL_Geo::name( $cc ) ) : 'All countries'; // phpcs:ignore WordPress.Security.EscapeOutput ?> <span style="opacity:.65"><?php echo (int) $n_cc; ?></span></a>
 						<?php endforeach; ?>
 					</div>
 					<div id="side" aria-live="polite">
@@ -98,7 +104,7 @@ $country = isset( $stats['country_list'] ) && in_array( $country, $stats['countr
 							$specs = $uniq( array_merge( array(), ...array_map( fn( $e ) => (array) $e['specialties'], $ex ) ) );
 							$lls   = array_merge( array_column( PL_Map::points( $ex ), 'll' ), array( $origin['lonlat'] ) );
 							?>
-						<div class="sidein pl-explore" data-cc="<?php echo esc_attr( $cc ); ?>" data-vb="<?php echo esc_attr( PL_Map::view_box( $lls, 300, $aspect ) ); ?>" style="display:flex;flex-direction:column;gap:16px"<?php echo $country === $cc ? '' : ' hidden'; ?>>
+						<div class="sidein pl-explore" data-cc="<?php echo esc_attr( $cc ); ?>" data-vb="<?php echo esc_attr( PL_Map::view_box( $lls, 330, $aspect ) ); ?>" data-vb-narrow="<?php echo esc_attr( PL_Map::view_box( $lls, 330, $narrow ) ); ?>" style="display:flex;flex-direction:column;gap:16px"<?php echo $country === $cc ? '' : ' hidden'; ?>>
 							<strong style="font-size:34px;line-height:1.1;letter-spacing:-.02em;display:flex;gap:12px;align-items:center"><?php echo $cc ? PL_Template::flag( $cc, true ) : ''; // phpcs:ignore WordPress.Security.EscapeOutput ?><?php echo esc_html( $name ); ?></strong>
 							<dl class="dl">
 								<dt>Congresses</dt><dd><?php echo count( $ex ); ?></dd>

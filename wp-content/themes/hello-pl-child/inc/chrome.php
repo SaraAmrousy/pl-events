@@ -62,7 +62,7 @@ function plt_contact_url( $topic = 'proposal' ) {
 }
 
 function plt_wordmark( $id_suffix = '' ) {
-	return '<img class="mk-i" src="' . esc_url( PLT_URL . 'assets/img/mark-ink.png' ) . '" alt="" width="34" height="38" style="height:38px;width:auto"><img class="mk-w" src="' . esc_url( PLT_URL . 'assets/img/mark-white.png' ) . '" alt="" width="34" height="38" style="height:38px;width:auto"><b>PL</b><span>EVENTS</span>';
+	return '<img class="mk-i" src="' . esc_url( PLT_URL . 'assets/img/mark-ink.png' ) . '" alt="" width="27" height="38" style="height:38px;width:auto"><img class="mk-w" src="' . esc_url( PLT_URL . 'assets/img/mark-white.png' ) . '" alt="" width="27" height="38" style="height:38px;width:auto"><b>PL</b> <span>EVENTS</span>';
 }
 
 function plt_site_header() {
@@ -93,8 +93,11 @@ function plt_site_header() {
 		<button type="button" class="btn ic menu-btn" data-act="menu" aria-label="Open menu" aria-expanded="false" aria-controls="mmenu" style="border:1.5px solid currentColor;background:transparent;color:inherit"><?php echo $menu_icon; // phpcs:ignore WordPress.Security.EscapeOutput ?></button>
 	</div>
 </div></header></div>
+<?php if ( is_front_page() ) : // Over the hero from the first paint — set while parsing, so nothing shifts (CLS). Without JS the header stays solid. ?>
+<script>(function(){var h=document.getElementById('hdr'),t=h&&h.parentNode;if(h){h.classList.add('over');t.classList.add('fx');}})();</script>
+<?php endif; ?>
 <div class="mmenu" id="mmenu" hidden role="dialog" aria-modal="true" aria-label="Menu">
-	<div class="row" style="justify-content:space-between;margin-bottom:12px"><span class="wm"><img src="<?php echo esc_url( PLT_URL . 'assets/img/mark-ink.png' ); ?>" alt="" style="height:32px;width:auto"><b>PL</b><span>EVENTS</span></span><button type="button" class="btn ic" data-act="menu-close" aria-label="Close menu" style="border:1.5px solid var(--cb)"><?php echo $x_icon; // phpcs:ignore WordPress.Security.EscapeOutput ?></button></div>
+	<div class="row" style="justify-content:space-between;margin-bottom:12px"><span class="wm"><img src="<?php echo esc_url( PLT_URL . 'assets/img/mark-ink.png' ); ?>" alt="" width="23" height="32" style="height:32px;width:auto"><b>PL</b> <span>EVENTS</span></span><button type="button" class="btn ic" data-act="menu-close" aria-label="Close menu" style="border:1.5px solid var(--cb)"><?php echo $x_icon; // phpcs:ignore WordPress.Security.EscapeOutput ?></button></div>
 	<?php echo $mnav; // phpcs:ignore WordPress.Security.EscapeOutput ?>
 	<a href="<?php echo esc_url( plt_contact_url( 'proposal' ) ); ?>" class="btn bp" style="margin-top:18px">Request a proposal</a>
 </div>
@@ -113,7 +116,7 @@ function plt_site_footer() {
 	ob_start();
 	?>
 <footer class="sand cutt foot" style="padding:112px 0 32px"><div class="wrap" style="display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:32px" id="ft">
-	<div style="grid-column:span 4;display:flex;flex-direction:column;gap:20px" class="ftc"><img src="<?php echo esc_url( PLT_URL . 'assets/img/logo-ink-sm.png' ); ?>" alt="PL Events — Conference organization" width="120" style="width:120px;height:auto" loading="lazy"><p style="font-size:44px;font-weight:800;line-height:.95;letter-spacing:-.035em"><?php echo $tag_html; // phpcs:ignore WordPress.Security.EscapeOutput ?></p></div>
+	<div style="grid-column:span 4;display:flex;flex-direction:column;gap:20px" class="ftc"><img src="<?php echo esc_url( PLT_URL . 'assets/img/logo-ink-sm.png' ); ?>" alt="PL Events — Conference organization" width="120" height="98" style="width:120px;height:auto" loading="lazy" decoding="async"><p style="font-size:44px;font-weight:800;line-height:.95;letter-spacing:-.035em"><?php echo $tag_html; // phpcs:ignore WordPress.Security.EscapeOutput ?></p></div>
 	<div style="grid-column:span 6;align-content:start" class="ftc"><?php echo '' !== $offices ? $offices : '<p class="mut" style="font-size:17px;margin:0">Both offices are listed above, with phones, WhatsApp and email.</p>'; // phpcs:ignore WordPress.Security.EscapeOutput ?></div>
 	<nav aria-label="Footer" class="nav ftc" style="grid-column:span 2;display:flex;flex-direction:column;gap:12px">
 		<?php foreach ( $links as $l ) : ?><a href="<?php echo esc_url( $l[1] ); ?>"<?php echo plt_is_current( $l[1] ) ? ' aria-current="page"' : ''; ?>><?php echo esc_html( $l[0] ); ?></a><?php endforeach; ?>

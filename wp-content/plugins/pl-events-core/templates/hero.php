@@ -27,7 +27,11 @@ $moving  = $sr['video'] || count( $stills ) > 1;
 	<div class="media grain" id="heroMedia">
 		<div class="iris" id="iris"><div class="iris-in" id="irisIn">
 			<?php foreach ( $stills as $i => $src ) : ?>
-				<img class="still<?php echo 0 === $i ? ' on' : ''; ?>" src="<?php echo esc_url( $src ); ?>" alt="" <?php echo 0 === $i ? 'fetchpriority="high"' : 'loading="lazy"'; ?> decoding="async">
+				<?php
+				$att = attachment_url_to_postid( $src );
+				$set = $att ? wp_get_attachment_image_srcset( $att, 'full' ) : '';
+				?>
+				<img class="still<?php echo 0 === $i ? ' on' : ''; ?>" src="<?php echo esc_url( $src ); ?>"<?php echo $set ? ' srcset="' . esc_attr( $set ) . '" sizes="100vw"' : ''; ?> alt="" <?php echo 0 === $i ? 'fetchpriority="high"' : 'loading="lazy"'; ?> decoding="async">
 			<?php endforeach; ?>
 			<?php if ( $sr['video'] ) : ?>
 				<video class="still reel" muted playsinline loop preload="none" aria-hidden="true" data-src="<?php echo esc_url( $sr['video'] ); ?>"<?php echo $stills ? ' poster="' . esc_url( $stills[0] ) . '"' : ''; ?>></video>
@@ -36,7 +40,7 @@ $moving  = $sr['video'] || count( $stills ) > 1;
 		<div class="shade" id="shade"></div>
 	</div>
 	<?php if ( $mark ) : ?>
-	<span id="apLogo" class="wm" aria-hidden="true" style="position:absolute;left:40px;top:24px;z-index:4;color:var(--ink);opacity:0"><img src="<?php echo esc_url( $mark ); ?>" alt="" style="height:38px;width:auto"><b>PL</b><span>EVENTS</span></span>
+	<span id="apLogo" class="wm" aria-hidden="true" style="position:absolute;left:40px;top:24px;z-index:4;color:var(--ink);opacity:0"><img src="<?php echo esc_url( $mark ); ?>" alt="" style="height:38px;width:auto"><b>PL</b> <span>EVENTS</span></span>
 	<?php endif; ?>
 	<div class="wrap copy"><div id="heroFrame" style="position:relative;padding:56px 56px 60px;display:flex;flex-direction:column;gap:24px;max-width:1160px">
 		<div class="brk vf vfw" aria-hidden="true"></div>
