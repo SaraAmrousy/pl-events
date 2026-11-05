@@ -1,6 +1,6 @@
 # Step 4.5 — Forms: Step Summary (Thread 7, 5 Nov 2026)
 
-**Status:** ✅ built and tested on staging — see DoD below (form email arrival in Sara's inbox: last line).
+**Status:** ⏳ built and tested on staging; **one DoD item to confirm: the two final form emails ("Mona Hassan", "Omar Adel") in Sara's inbox** — sent without error but not yet in Gmail when the session stopped checking.
 
 ## What was built
 - **Forminator Free**, two forms created by code (`plt_provision_forms()`, theme `inc/forms.php`) and shown on the pages through `[pl_form name="contact|careers"]`:
@@ -42,3 +42,8 @@ Test entries are in wp-admin › Forminator › Submissions (marked "test — pl
 1. Routing uses each office's **first** email; an office with a dedicated "proposals@" address would need a second rule.
 2. The honeypot stops bots, not humans pasting spam; add Forminator's free reCAPTCHA/hCaptcha after launch if spam appears.
 3. The native file picker ("Choose File / No file chosen") reads in the browser's language — fine for an English site, unstyled text varies by browser.
+
+## Email arrival — where it stands (5 Nov 2026, end of session)
+- ✅ Mail from staging reaches Sara's Gmail inbox through the same route Forminator now uses (PHPMailer → sendmail, account sender): test "t3" (HTML + Reply-To) arrived, and ~10 diagnostic copies of the real Forminator message (with the "STAGING — on the live site this goes to: dina@plevents.org" line and all fields) arrived.
+- ⏳ The two final end-to-end submissions — Contact "Mona Hassan" (Sponsorship · Dubai, 14:23 UTC) and Careers "Omar Adel" + PDF (14:24 UTC) — left WordPress with no error (mail log) but were **not in Gmail yet** when checked. **Sara:** search Gmail for `Mona Hassan` / `Omar Adel`. If they never come, the host's outbound filter is dropping some messages silently → set up authenticated SMTP before launch (Open 2) and re-test.
+- Sara's inbox also has ~15 "[PL staging] …" diagnostic emails from today — safe to delete.
