@@ -77,3 +77,50 @@
 ## Critique
 1. The row hides its scrollbar. On desktop with a mouse (no trackpad), the buttons are the only cue. They sit next to the tabs, which is clear but small. If PL's editor finds them hard to spot, I can add a thin scrollbar.
 2. Long event names (MOCAT 6, PHLEBOEGYPT) still take 3 lines in the list. A short name per event (Series "Short name") would help; that's PL's call in 5.2.
+
+---
+
+# Round 3 — Event card clean-up + logo (6 Nov 2026)
+
+## What changed (card on Home row + Events grid; same actions in List view and on the event page)
+| Item | Now |
+|---|---|
+| a. Register button | Text **"Register now"**. `aria-label` "Register now for {Series} {Year}" (e.g. "Register now for DEOSS 2027"), so screen readers can tell the cards apart. The "Website" link also gets "Website: DEOSS 2027". |
+| b. Buttons | "Register now" (primary blue) and "Website" (outline) side by side. If they don't fit, each takes the full card width. They fit on one line at 375 after tightening the padding; checked. Past events: Website only. |
+| c. WhatsApp | The brand mark: a #25D366 circle with the white glyph (Simple Icons, CC0), 40px, `aria-label="Share on WhatsApp"`. On the event page: "Share on WhatsApp" button with the green mark. |
+| d. Calendar | The old icon is gone. A text button **"Add to calendar ▾"** opens Google Calendar (`render?action=TEMPLATE`, new tab) · Apple Calendar (.ics) · Outlook (`outlook.live.com/calendar/0/action/compose…`, new tab). Upcoming/live only. It's a `<details>` element (works without JS); JS adds Esc (focus returns to the button), click-outside, one menu open at a time, and arrow keys. On cards it opens **upward**, because the Home row clips anything below. On the event page it opens downward. |
+| .ics | `Content-Type: text/calendar`, `Content-Disposition: inline; filename="deoss-2027.ics"` (series + year). `inline` lets Safari on iOS/macOS hand the file straight to Calendar; other browsers save it under a clear name. LiteSpeed no longer caches it. |
+| e. Meta line | Flag · "City, Country · Venue". The date is only in the date box. |
+| f. Bottom | Actions are always the last block of the card, 8px under the text, the same in every card. **Trade-off (decided):** names run 1 to 5 lines and venues 2 to 4, so a row can't have both equal-height cards and a constant gap. Cards now take their own height, with no empty space inside. Before, the gap above the buttons ranged from 8px to 150px. |
+| g. Elsewhere | The event page and List view use the same renderer (`PL_Template::actions()`). The List row puts its actions on two lines in a 232px column, so the name column stays ≥ 265px at 1280. |
+
+## Logo
+- The wordmark is the monogram + **EVENTS** (800, letter-spacing .06em), optically centred on the mark, in the header, mobile menu and the hero intro logo.
+- The footer already uses PL's official logo image (monogram over EVENTS), so it's unchanged.
+- The accessible name "PL Events — Home" and the schema logo are unchanged.
+
+## Tests
+- Sandbox + staging, Chromium 1280 / 375 (Firefox/WebKit can't run in this sandbox):
+  - "Register now" + aria-label ✓;
+  - the two buttons on one line ✓;
+  - WhatsApp `rgb(37, 211, 102)` ✓;
+  - no year in the meta line (0/15) ✓;
+  - no calendar on past events (0) ✓;
+  - buttons 21px from the bottom on every card ✓;
+  - the menu opens inside the card ✓, Esc closes it and focus goes back to the summary ✓, a click outside closes it ✓, Enter goes to "Google Calendar" and ↓ to "Apple Calendar" ✓;
+  - Google link: `https://calendar.google.com/calendar/render?action=TEMPLATE…`, `target=_blank` ✓.
+- `.ics` on staging: 200, `text/calendar`, `deoss-2027.ics`, `X-Litespeed-Cache-Control: no-cache` ✓.
+- **Not verifiable from the sandbox:** the network here blocks google.com and outlook.live.com, so the links are checked by format, not by a live click. **Sara: one click on each, from staging, on a phone and a laptop.** If either misbehaves, I'll remove the calendar from the card and keep it on the event page only (your rule).
+- List view: name column 265/289/219/251px at 1280/1024/768/375, no sideways scroll. Event page: no sideways scroll at 375.
+- Image fit 222/222. Data-layer tests passed.
+- Screenshots: `docs/img/card-cleanup-375.jpg`, `docs/img/card-cleanup-1280.jpg`.
+
+## Files
+- Plugin:
+  - `includes/class-pl-template.php` (`actions()`, `wa_icon()`)
+  - `includes/class-pl-data.php` (`outlook_url`, `ics_name`, `register_aria`, `short_label`)
+  - `includes/class-pl-event-page.php` (.ics headers + no-cache)
+  - `templates/card-event.php`, `templates/row-event.php`, `templates/event-page.php`, `templates/hero.php` (wordmark)
+  - `assets/js/pl-events.js` (calendar menus)
+- Theme: `inc/chrome.php` (wordmark), `assets/css/src/wp.css` → `pl.css`.
+- Staging: plugin + theme deployed. PL cache, Elementor CSS cache and LiteSpeed purged. Checked that staging serves the new markup (your card screenshot was taken before the previous deploy).

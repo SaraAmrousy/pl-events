@@ -62,7 +62,7 @@ function plt_contact_url( $topic = 'proposal' ) {
 }
 
 function plt_wordmark( $id_suffix = '' ) {
-	return '<img class="mk-i" src="' . esc_url( PLT_URL . 'assets/img/mark-ink.png' ) . '" alt="" width="27" height="38" style="height:38px;width:auto"><img class="mk-w" src="' . esc_url( PLT_URL . 'assets/img/mark-white.png' ) . '" alt="" width="27" height="38" style="height:38px;width:auto"><b>PL</b> <span>EVENTS</span>';
+	return '<img class="mk-i" src="' . esc_url( PLT_URL . 'assets/img/mark-ink.png' ) . '" alt="" width="27" height="38" style="height:38px;width:auto"><img class="mk-w" src="' . esc_url( PLT_URL . 'assets/img/mark-white.png' ) . '" alt="" width="27" height="38" style="height:38px;width:auto"><b class="wm-t">EVENTS</b>';
 }
 
 function plt_site_header() {
@@ -97,7 +97,7 @@ function plt_site_header() {
 <script>(function(){var h=document.getElementById('hdr'),t=h&&h.parentNode;if(h){h.classList.add('over');t.classList.add('fx');}})();</script>
 <?php endif; ?>
 <div class="mmenu" id="mmenu" hidden role="dialog" aria-modal="true" aria-label="Menu">
-	<div class="row" style="justify-content:space-between;margin-bottom:12px"><span class="wm"><img src="<?php echo esc_url( PLT_URL . 'assets/img/mark-ink.png' ); ?>" alt="" width="23" height="32" style="height:32px;width:auto"><b>PL</b> <span>EVENTS</span></span><button type="button" class="btn ic" data-act="menu-close" aria-label="Close menu" style="border:1.5px solid var(--cb)"><?php echo $x_icon; // phpcs:ignore WordPress.Security.EscapeOutput ?></button></div>
+	<div class="row" style="justify-content:space-between;margin-bottom:12px"><span class="wm"><img src="<?php echo esc_url( PLT_URL . 'assets/img/mark-ink.png' ); ?>" alt="" width="23" height="32" style="height:32px;width:auto"><b class="wm-t">EVENTS</b></span><button type="button" class="btn ic" data-act="menu-close" aria-label="Close menu" style="border:1.5px solid var(--cb)"><?php echo $x_icon; // phpcs:ignore WordPress.Security.EscapeOutput ?></button></div>
 	<?php echo $mnav; // phpcs:ignore WordPress.Security.EscapeOutput ?>
 	<a href="<?php echo esc_url( plt_contact_url( 'proposal' ) ); ?>" class="btn bp" style="margin-top:18px">Request a proposal</a>
 </div>

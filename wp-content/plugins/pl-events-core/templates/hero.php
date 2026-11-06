@@ -44,7 +44,7 @@ $moving  = $sr['video'] || count( $stills ) > 1;
 		<div class="shade" id="shade"></div>
 	</div>
 	<?php if ( $mark ) : ?>
-	<span id="apLogo" class="wm" aria-hidden="true" style="position:absolute;left:40px;top:24px;z-index:4;color:var(--ink);opacity:0"><img src="<?php echo esc_url( $mark ); ?>" alt="" style="height:38px;width:auto"><b>PL</b> <span>EVENTS</span></span>
+	<span id="apLogo" class="wm" aria-hidden="true" style="position:absolute;left:40px;top:24px;z-index:4;color:var(--ink);opacity:0"><img src="<?php echo esc_url( $mark ); ?>" alt="" style="height:38px;width:auto"><b class="wm-t">EVENTS</b></span>
 	<?php endif; ?>
 	<div class="wrap copy"><div id="heroFrame" style="position:relative;padding:56px 56px 60px;display:flex;flex-direction:column;gap:24px;max-width:1160px">
 		<div class="brk vf vfw" aria-hidden="true"></div>

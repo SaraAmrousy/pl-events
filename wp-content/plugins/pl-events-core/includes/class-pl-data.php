@@ -99,9 +99,34 @@ class PL_Data {
 			'edition_text'   => ( (string) $p['y'] === trim( (string) $e['edition'] ) ) ? '' : $e['edition'], // display only: "2025" for a 2025 event is not an edition
 			'ics_url'        => trailingslashit( $e['url'] ) . 'ics/',
 			'gcal_url'       => self::gcal_url( $e ),
+			'outlook_url'    => self::outlook_url( $e ),
+			'ics_name'       => sanitize_file_name( strtolower( $series ? sanitize_title( $e['series_short'] ) . '-' . $p['y'] : $e['id'] ) ) . '.ics',
+			'register_aria'  => 'Register now for ' . ( $series ? $e['series_short'] . ' ' . $p['y'] : $e['name'] ),
+			'short_label'    => $series ? $e['series_short'] . ' ' . $p['y'] : $e['name'],
 			'wa_url'         => 'https://wa.me/?text=' . rawurlencode( $e['name'] . ' · ' . PL_Dates::range( $e['start'], $e['end'] ) . ' · ' . $place . ' — ' . $e['url'] ),
 		);
 		return apply_filters( 'pl_event_data', array_merge( $e, $c ) );
+	}
+
+	/** Outlook.com / Microsoft 365 "add event" deeplink (all-day; end date is exclusive). */
+	private static function outlook_url( array $e ) {
+		$end = gmdate( 'Y-m-d', strtotime( $e['end'] . ' 00:00:00 UTC' ) + DAY_IN_SECONDS );
+		$loc = trim( $e['venue'] . ', ' . $e['city'] . ', ' . ( $e['country'] ? PL_Geo::name( $e['country'] ) : '' ), ', ' );
+		return 'https://outlook.live.com/calendar/0/action/compose?' . http_build_query(
+			array(
+				'path'     => '/calendar/action/compose',
+				'rru'      => 'addevent',
+				'allday'   => 'true',
+				'startdt'  => $e['start'],
+				'enddt'    => $end,
+				'subject'  => $e['name'],
+				'location' => $loc,
+				'body'     => ( $e['website'] ? $e['website'] . ' — ' : '' ) . 'organised by PL Events',
+			),
+			'',
+			'&',
+			PHP_QUERY_RFC3986
+		);
 	}
 
 	private static function gcal_url( array $e ) {

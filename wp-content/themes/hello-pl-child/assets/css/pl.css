@@ -643,3 +643,59 @@ html[data-motion] .pl .rail-nav { visibility: visible; } /* JS present */
 @media (prefers-reduced-motion: no-preference) { .pl .rail { scroll-behavior: smooth; } }
 @media (max-width: 1023px) { .pl .rail { grid-auto-columns: calc((100% - 28px - 24px) / 2.25); } }
 @media (max-width: 767px) { .pl .rail { grid-auto-columns: calc(100% - 28px - 44px); gap: 16px; } .pl .rail-btn { width: 40px; height: 40px; } }
+
+/* ===== Card clean-up (Thread 8, round 3) ====================================================
+   Card body: label · name · flag + "City, Country · Venue" (the date lives in the date box) ·
+   actions pinned to the bottom with a fixed gap above them. Every card has the same two action
+   rows (main buttons / calendar + WhatsApp), so past and upcoming cards line up. */
+.pl .card .cb { gap: 8px; }
+.pl .card .cm { display: flex; gap: 8px; align-items: flex-start; }
+.pl .card .ca { display: flex; flex-direction: column; align-items: stretch; gap: 10px; margin-top: auto; padding-top: 14px; }
+.pl .ca-main { display: flex; flex-wrap: wrap; gap: 8px; }
+.pl .ca-main .btn { flex: 1 1 auto; min-width: max-content; }
+.pl .ca-sub { display: flex; align-items: center; gap: 8px; min-height: 40px; }
+.pl .ca-sub .push { margin-left: auto; }
+
+/* WhatsApp: the brand mark — #25D366 circle, white glyph, 40px (same as the old calendar icon). */
+.pl .wa-btn { width: 40px; height: 40px; flex: none; border-radius: 999px; background: #25D366; display: inline-flex; align-items: center; justify-content: center; text-decoration: none; }
+.pl .wa-btn:hover { background: #1EBE5A; }
+.pl .wa-btn:focus-visible { outline: 3px solid var(--blue); outline-offset: 2px; }
+.pl .wa-text { gap: 10px; }
+.pl .wa-dot { width: 26px; height: 26px; border-radius: 999px; background: #25D366; display: inline-flex; align-items: center; justify-content: center; flex: none; }
+
+/* "Add to calendar" disclosure: opens upward on cards (the Home row clips anything below),
+   downward on the event page. Works without JS (<details>); JS adds Esc / click-outside / arrows. */
+.pl .calm { position: relative; }
+.pl .calm > summary { list-style: none; }
+.pl .calm > summary::-webkit-details-marker { display: none; }
+.pl .calbtn { display: inline-flex; align-items: center; gap: 6px; min-height: 40px; padding: 0 4px; font-size: 14px; font-weight: 700; color: var(--ink); cursor: pointer; border-radius: 8px; white-space: nowrap; user-select: none; }
+.pl .calbtn:hover { color: var(--blue); }
+.pl .calbtn:focus-visible { outline: 3px solid var(--blue); outline-offset: 2px; }
+.pl .calm .chev { transition: transform .15s; }
+.pl .calm[open] .chev { transform: rotate(180deg); }
+.pl .cal-menu { position: absolute; left: 0; bottom: calc(100% + 6px); z-index: 20; min-width: 220px; display: flex; flex-direction: column; padding: 6px;
+  background: var(--surface); border: 1.5px solid var(--line); border-radius: 10px; box-shadow: 0 8px 24px rgba(10,13,24,.14); }
+.pl .calm-down .cal-menu { bottom: auto; top: calc(100% + 6px); }
+.pl .cal-menu a { display: block; padding: 10px 12px; border-radius: 6px; font-size: 14px; font-weight: 700; color: var(--ink); text-decoration: none; white-space: nowrap; }
+.pl .cal-menu a .mut { font-weight: 500; font-size: 12px; }
+.pl .cal-menu a:hover, .pl .cal-menu a:focus-visible { background: var(--bsoft, #EEF1FA); color: var(--blue); outline: none; }
+.pl .calm-down > summary.calbtn.btn { color: var(--oi); padding: 0 22px; min-height: 48px; font-size: 15px; border-radius: 999px; } /* event page hero is dark */
+@media (prefers-reduced-motion: reduce) { .pl .calm .chev { transition: none; } }
+
+/* Event page actions: one wrapped row. */
+.pl .ev-acts { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+
+/* List rows: Register now · Website · calendar · WhatsApp in the last column. */
+.pl .erow.r-ev .r-ac { display: flex; gap: 6px 8px; align-items: center; justify-content: flex-end; flex-wrap: wrap; width: 232px; }
+.pl .erow.r-ev .ra-main { flex-basis: 100%; justify-content: flex-end; }
+.pl .erow.r-ev .ra-main { display: flex; gap: 8px; }
+@media (max-width: 1279px) { .pl .erow.r-ev .pl-web { display: none; } .pl .erow.r-ev .r-ac { width: auto; max-width: 200px; } }
+@media (max-width: 767px) { .pl .erow.r-ev .r-ac { width: auto; max-width: none; justify-content: flex-start; } .pl .erow.r-ev .ra-main { flex-basis: auto; } .pl .erow.r-ev .cal-menu { left: 0; } }
+
+/* Logo: monogram + "EVENTS" (no "PL" word), bold, optically centred on the mark. */
+.pl .wm .wm-t { font-weight: 800; letter-spacing: .06em; line-height: 1; transform: translateY(1px); }
+/* Cards take their own height (names run 1–5 lines): the gap above the buttons is the same 14px in
+   every card and no card carries empty space — instead of equal heights with uneven gaps. */
+.pl .rail, .pl .grid3 { align-items: start; }
+.pl .card .ca-main { gap: 6px; }
+.pl .card .ca-main .btn.sm { padding: 0 12px; min-height: 42px; font-size: 14px; }

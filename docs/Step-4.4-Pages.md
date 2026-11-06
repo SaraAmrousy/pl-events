@@ -1,6 +1,6 @@
 # Step 4.4 — Pages in Elementor: Step Summary (Thread 7, 5 Nov 2026)
 
-**Status: ✅ built and live on staging — DoD 2 of 3 met; 1 item needs Sara's phone.**
+**Status: ✅ DONE (6 Nov 2026) — all 3 DoD items met; phone check passed.**
 | DoD item | Result |
 |---|---|
 | Each page matches its prototype at 375 / 768 / 1280 | ✅ Checked on `saraamrousy.net/pl` page by page (full-page screenshots + page height + horizontal overflow). At **1280: Home, Events, About, Services, Contact = identical height to the prototype**; at **768: Home, Events, About, Services identical**; 375 within ±30 px (text wrap). **Overflow 0 on every page at every width.** Careers/Contact are shorter only because the forms come in 4.5. |
@@ -64,4 +64,4 @@ Open `https://saraamrousy.net/pl/` on **iPhone (Safari)** and an **Android phone
 - **Hero fix (6 Nov, Thread 8)** — the photo stopped at the buttons and grey showed below. Cause: Elementor's `.elementor img{height:auto}` beat `.still{height:100%}`. Now the media is `inset:0` + `object-fit:cover` + `height:100%`. The iris shape is measured from the hero's live `getBoundingClientRect()` (on resize + ResizeObserver) and goes back to full-bleed when it opens. The header turns solid before the viewfinder brackets reach the logo. Tested at 1190×575, 1280×600, 1440×700, 1920×1080, 375×667, 768×1024 × Full / Light / Reduced, plus resizing the window, also mid-opening. LCP image unchanged. Before/after screenshots sent to Sara.
 - **Image fit (6 Nov, Thread 8)** — every image now sits in a fixed frame (photos cover, logos contain), with server crops + srcset, a soft size note in wp-admin and safe SVG. Details + screenshots: `docs/Step-4.4-Image-Fit.md`.
 - **UI polish (6 Nov, Thread 8)** — selects, tabs, list thumbnails, card posters + date box, Home manual row (replaces 3.4a H3), iris CLS fix, decision A (15 → 13 congresses). Details + before/after: `docs/Step-4.4-Polish.md`.
-- **Sara's phone check (iPhone Safari + Android Chrome)** — result not received yet ("[هكتبها هنا]" left empty in the Thread 8 message). 4.4 closes when it arrives.
+- **Sara's phone check (iPhone Safari + Android Chrome)** — ✅ **passed (6 Nov 2026, Sara)**, including the Events filters in Safari. Done after the image-fit and polish rounds. 4.4 closed. Card clean-up + logo (round 3): `docs/Step-4.4-Polish.md`.

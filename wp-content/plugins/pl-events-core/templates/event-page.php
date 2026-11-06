@@ -11,19 +11,6 @@ $eds  = $e['series'] ? array_values( array_filter( $all, fn( $x ) => $x['series'
 usort( $eds, fn( $x, $y ) => strcmp( $y['start'], $x['start'] ) );
 $more = array_slice( array_values( array_filter( $all, fn( $x ) => $x['id'] !== $e['id'] && 'past' !== $x['status'] && array_intersect( (array) $x['specialties'], (array) $e['specialties'] ) ) ), 0, 3 );
 $ho   = PL_Data::head_office();
-$actions = array();
-if ( $e['can_register'] ) {
-	$actions['register'] = '<a href="' . esc_url( $e['registration_url'] ) . '" target="_blank" rel="noopener" class="btn bw pl-reg">' . esc_html( $e['register_label'] ) . '</a>';
-}
-if ( $e['website'] ) {
-	$actions['website'] = '<a href="' . esc_url( $e['website'] ) . '" target="_blank" rel="noopener" class="btn bso">Congress website</a>';
-}
-if ( 'past' !== $e['status'] ) {
-	$actions['calendar'] = '<a href="' . esc_url( $e['ics_url'] ) . '" class="btn bso pl-cal">Add to calendar</a>';
-	$actions['gcal']     = '<a href="' . esc_url( $e['gcal_url'] ) . '" target="_blank" rel="noopener" class="btn bso pl-cal">Add to Google Calendar</a>';
-}
-$actions['whatsapp'] = '<a href="' . esc_url( $e['wa_url'] ) . '" target="_blank" rel="noopener" class="btn bso">Share on WhatsApp</a>';
-$actions = apply_filters( 'pl_event_actions', $actions, $e, 'page' );
 $origin  = PL_Data::origin();
 ?>
 <div class="pl-event"<?php echo PL_Template::status_attrs( $e ); // phpcs:ignore WordPress.Security.EscapeOutput ?>>
@@ -39,7 +26,7 @@ $origin  = PL_Data::origin();
 			<?php if ( $e['delegates'] ) : ?><dt>Delegates</dt><dd><?php echo esc_html( number_format_i18n( $e['delegates'] ) ); ?></dd><?php endif; ?>
 		</dl>
 		<?php if ( $e['description'] ) : ?><p class="lead" style="color:var(--oim)"><?php echo esc_html( $e['description'] ); ?></p><?php endif; ?>
-		<div class="row"><?php echo implode( '', $actions ); // phpcs:ignore WordPress.Security.EscapeOutput ?></div>
+		<div class="row ev-acts"><?php echo PL_Template::actions( $e, 'page' ); // phpcs:ignore WordPress.Security.EscapeOutput -- escaped inside. ?></div>
 		<?php if ( ! $e['can_register'] && 'past' !== $e['status'] ) : ?><p class="mut" style="font-size:15px">Registration opens soon — the button appears here when it does.</p><?php endif; ?>
 		<?php if ( $e['more_links'] ) : ?>
 			<ul class="pl-more-links" style="margin:0;padding:0;list-style:none;display:flex;flex-wrap:wrap;gap:10px 22px">

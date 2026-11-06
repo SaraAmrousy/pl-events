@@ -78,8 +78,12 @@ class PL_Event_Page {
 		$body .= $fold( 'URL:' . ( $e['website'] ? $e['website'] : $e['url'] ) );
 		$body .= "END:VEVENT\r\nEND:VCALENDAR\r\n";
 		nocache_headers();
+		do_action( 'litespeed_control_set_nocache', 'pl-events: calendar file' ); // always fresh, never page-cached
 		header( 'Content-Type: text/calendar; charset=utf-8' );
-		header( 'Content-Disposition: attachment; filename="' . sanitize_file_name( $e['id'] ) . '.ics"' );
+		// inline + text/calendar: Safari (iOS/macOS) opens it in Calendar directly; other browsers save it under a clear name.
+		header( 'Content-Disposition: inline; filename="' . $e['ics_name'] . '"' );
+		header( 'X-Content-Type-Options: nosniff' );
+		header( 'X-Robots-Tag: noindex' );
 		echo $body; // phpcs:ignore WordPress.Security.EscapeOutput -- calendar format, escaped above.
 		exit;
 	}

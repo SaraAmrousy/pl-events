@@ -242,7 +242,45 @@
     steps.forEach(function (s) { io.observe(s); });
   }
 
+  /* 5 — "Add to calendar" menus. They are <details>, so they open without JS; this adds Esc,
+     click-outside, one-at-a-time and arrow keys. -------------------------------------------- */
+  function calMenus() {
+    function closeAll(except) { $$('details.calm[open]').forEach(function (d) { if (d !== except) d.open = false; }); }
+    document.addEventListener('toggle', function (ev) {
+      var d = ev.target; if (!d.matches || !d.matches('details.calm')) return;
+      if (d.open) { closeAll(d); var f = d.querySelector('.cal-menu a'); if (f && d.getAttribute('data-kb') === '1') f.focus(); }
+    }, true);
+    document.addEventListener('keydown', function (ev) {
+      var d = ev.target.closest && ev.target.closest('details.calm');
+      if (ev.key === 'Escape') {
+        var open = d && d.open ? d : document.querySelector('details.calm[open]');
+        if (open) { open.open = false; open.querySelector('summary').focus(); }
+        return;
+      }
+      if (!d) return;
+      if (ev.target.tagName === 'SUMMARY' && (ev.key === 'Enter' || ev.key === ' ' || ev.key === 'ArrowDown')) {
+        d.setAttribute('data-kb', '1');
+        if (ev.key === 'ArrowDown') { ev.preventDefault(); d.open = true; }
+        return;
+      }
+      if (ev.key === 'ArrowDown' || ev.key === 'ArrowUp') {
+        var links = $$('.cal-menu a', d), i = links.indexOf(document.activeElement); if (i < 0) return;
+        ev.preventDefault(); links[(i + (ev.key === 'ArrowDown' ? 1 : links.length - 1)) % links.length].focus();
+      }
+    });
+    document.addEventListener('pointerdown', function (ev) {
+      closeAll(ev.target.closest && ev.target.closest('details.calm'));
+      $$('details.calm').forEach(function (x) { x.removeAttribute('data-kb'); });
+    });
+    document.addEventListener('focusin', function (ev) { closeAll(ev.target.closest && ev.target.closest('details.calm')); });
+    document.addEventListener('click', function (ev) {
+      var a = ev.target.closest && ev.target.closest('details.calm .cal-menu a');
+      if (a) { var d = a.closest('details'); setTimeout(function () { d.open = false; }, 0); }
+    });
+  }
+
   function boot() {
+    calMenus();
     recheck();
     $$('[data-pl="upcoming"]').forEach(upcoming);
     $$('[data-pl="calendar"]').forEach(calendar);

@@ -18,8 +18,5 @@ $hidden = ! empty( $hidden );
 	</span>
 	<span class="d-only r-pl" style="display:flex;gap:8px;align-items:center;font-size:14px;font-weight:600"><?php echo PL_Template::flag( $e['country'] ); // phpcs:ignore WordPress.Security.EscapeOutput ?><?php echo esc_html( $e['place'] ); ?></span>
 	<span class="d-only r-bd"><span class="badge <?php echo esc_attr( $e['badge'][1] ); ?>"><i aria-hidden="true"></i><span class="bt"><?php echo esc_html( $e['badge'][0] ); ?></span></span></span>
-	<span class="r-ac" style="display:flex;gap:8px;align-items:center;justify-content:flex-end">
-		<?php if ( $e['can_register'] ) : ?><a href="<?php echo esc_url( $e['registration_url'] ); ?>" class="btn bp sm pl-reg" target="_blank" rel="noopener">Register</a><?php endif; ?>
-		<?php if ( $e['website'] ) : ?><a href="<?php echo esc_url( $e['website'] ); ?>" class="btn bs sm d-only" target="_blank" rel="noopener">Website</a><?php endif; ?>
-	</span>
+	<span class="r-ac"><?php echo PL_Template::actions( $e, 'row' ); // phpcs:ignore WordPress.Security.EscapeOutput -- escaped inside. ?></span>
 </div>
