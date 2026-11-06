@@ -91,7 +91,7 @@
      "widgetType": "shortcode",
      "isInner": false,
      "settings": {
-      "shortcode": "[pl_section class=\"ink cutt\" style=\"padding:120px 0 96px\" wrap_class=\"sh\"]\n<h2 class=\"h2 m-title\" style=\"max-width:720px\">Running a congress? See how we can <span class=\"em\">help.</span></h2><a href=\"[pl_url to=\"contact\" topic=\"proposal\"]\" class=\"btn bw\">Request a proposal</a>\n[/pl_section]"
+      "shortcode": "[pl_section class=\"ink cutt\" style=\"padding:120px 0 96px\" wrap_class=\"sh\"]\n<h2 class=\"h2 m-title\" style=\"max-width:720px\">Running a congress? See how we can <span class=\"em\">help.</span></h2><a href=\"[pl_url to='contact' topic='proposal']\" class=\"btn bw\">Request a proposal</a>\n[/pl_section]"
      },
      "elements": []
     }

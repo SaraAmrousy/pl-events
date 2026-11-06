@@ -25,7 +25,8 @@ add_action( 'wp_enqueue_scripts', static function () {
 	if ( plt_is_builder_request() ) {
 		return;
 	}
-	foreach ( array( 'hfe-widgets-style', 'hfe-elementor-icons', 'hfe-icons-list', 'hfe-social-icons', 'hfe-social-share-icons-brands', 'hfe-social-share-icons-fontawesome', 'hfe-nav-menu-icons', 'hello-elementor-header-footer', 'font-awesome', 'elementor-icons-fa-solid', 'elementor-icons-fa-brands', 'elementor-icons-shared-0', 'widget-icon-list', 'widget-social-icons' ) as $h ) {
+	foreach ( array( 'hfe-widgets-style', 'hfe-elementor-icons', 'hfe-icons-list', 'hfe-social-icons', 'hfe-social-share-icons-brands', 'hfe-social-share-icons-fontawesome', 'hfe-nav-menu-icons', 'hello-elementor-header-footer', 'font-awesome', 'elementor-icons-fa-solid', 'elementor-icons-fa-brands', 'elementor-icons-shared-0', 'widget-icon-list', 'widget-social-icons',
+		'wp-block-library', 'wp-block-library-theme', 'classic-theme-styles', 'global-styles' ) as $h ) { // no Gutenberg blocks on the front end (6.1 QA: render-blocking)
 		wp_dequeue_style( $h );
 	}
 }, 999 );

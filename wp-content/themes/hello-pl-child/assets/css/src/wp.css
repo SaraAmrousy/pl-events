@@ -307,3 +307,12 @@ html[data-motion] .pl .rail-nav { visibility: visible; } /* JS present */
 .pl .rail, .pl .grid3 { align-items: start; }
 .pl .card .ca-main { gap: 6px; }
 .pl .card .ca-main .btn.sm { padding: 0 12px; min-height: 42px; font-size: 14px; }
+
+/* ===== 6.1 QA fixes: tap targets ≥ 44px on phones (office phones/emails, event contacts, WhatsApp, calendar). */
+.pl .pl-office > a, .pl .evc-l a { display: inline-flex; align-items: center; min-height: 44px; align-self: flex-start; }
+.pl .pl-office { gap: 2px !important; }
+.pl .wa-btn { width: 44px; height: 44px; }
+.pl .calbtn { min-height: 44px; }
+/* Footer bottom row (Privacy + social): 44px tap targets (6.1 QA — "X" was 9×21px). */
+.pl .foot #ft > div:last-child a { display: inline-flex; align-items: center; justify-content: center; min-height: 44px; min-width: 44px; }
+.pl .foot #ft > div:last-child > span:last-child { gap: 6px 10px !important; }

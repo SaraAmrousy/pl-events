@@ -8,6 +8,8 @@ src/views.js) + the plugin's [pl_*] shortcodes. Layout only; all data comes from
 Run after changing a page here; then deploy the theme and re-run provisioning with force.
 """
 import hashlib, json, os
+# [pl_url] inside an attribute uses single quotes: href="[pl_url to='contact']". With double quotes
+# WordPress leaves the shortcode unprocessed (found in 6.1 QA: four 404 links).
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 OUT = os.path.join(ROOT, 'elementor')
@@ -27,7 +29,7 @@ def section(page, i, code):
                       "settings": {"shortcode": code.strip()}, "elements": []}],
     }
 
-CONTACT = '[pl_url to="contact" topic="proposal"]'
+CONTACT = "[pl_url to='contact' topic='proposal']"
 COL = 'display:flex;flex-direction:column;'
 
 PAGES = {
@@ -36,16 +38,16 @@ PAGES = {
   '[pl_upcoming layout="row" tabs="all,live,upcoming,past" default="all" limit="0"]',
   f'''[pl_section class="sec" style="border-top:1.5px solid var(--line);overflow:hidden;position:relative" wrap_style="display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:32px;align-items:center"]
 <div class="d-only" style="grid-column:span 5;margin-left:-120px" aria-hidden="true"><svg viewBox="0 0 520 330" width="520" height="330" style="overflow:visible"><text id="plOutline" x="0" y="320" fill="#FAFAF7" stroke="#0A0D18" stroke-width="4" style="font:800 420px Montserrat,sans-serif;letter-spacing:-.02em;paint-order:stroke fill">PL</text></svg></div>
-<div style="grid-column:span 7;{COL}gap:20px" class="nm">[pl_stats layout="line"][pl_logos type="society"]<a href="[pl_url to="about" anchor="story"]" class="btn bg" style="align-self:flex-start">Explore the record on the map →</a></div>
+<div style="grid-column:span 7;{COL}gap:20px" class="nm">[pl_stats layout="line"][pl_logos type="society"]<a href="[pl_url to='about' anchor='story']" class="btn bg" style="align-self:flex-start">Explore the record on the map →</a></div>
 [/pl_section]''',
   f'''[pl_section class="sand cutb" style="padding:96px 0 136px" wrap_style="{COL}gap:32px"]
 <div class="sh"><h2 class="h2 m-title">Behind the <span class="em">lens.</span></h2><p class="mut" style="font-size:17px;max-width:400px">One team runs the science, the sponsors, the stage and the travel.</p></div>
 [pl_services layout="numbered"]
-<a href="[pl_url to="services"]" class="btn bs" style="align-self:flex-start">All services</a>
+<a href="[pl_url to='services']" class="btn bs" style="align-self:flex-start">All services</a>
 [/pl_section]''',
   f'''[pl_section class="ink" id="cta" style="padding:112px 0 120px" wrap_class="ctag" wrap_style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0"]
 <div class="ctacol" style="{COL}gap:18px;padding:8px 0"><span class="lab mut">For scientific societies</span><h2 class="h2 m-title h2l">Planning a <span class="em">congress?</span></h2><p style="font-size:18px;line-height:1.55;color:var(--oim);max-width:46ch">Our Alexandria and Dubai teams plan the science, the sponsors, the stage and the travel — one team from programme to gala dinner.</p><div class="row"><a href="{CONTACT}" class="btn bw">Request a proposal</a></div></div>
-<div class="ctar" style="border-left:1.5px solid #2A3149;padding-left:56px"><div class="ctacol" style="{COL}gap:18px;padding:8px 0"><span class="lab mut">For sponsors &amp; exhibitors</span><h2 class="h2 m-title h2l">Put your brand <span class="em">in focus.</span></h2>[pl_stats layout="sponsor_line"]<div class="row"><a href="[pl_url to="contact" topic="sponsor"]" class="btn bso">Sponsor a congress</a><a href="[pl_url to="services" anchor="sponsorship"]" class="btn bg">See sponsorship</a></div></div></div>
+<div class="ctar" style="border-left:1.5px solid #2A3149;padding-left:56px"><div class="ctacol" style="{COL}gap:18px;padding:8px 0"><span class="lab mut">For sponsors &amp; exhibitors</span><h2 class="h2 m-title h2l">Put your brand <span class="em">in focus.</span></h2>[pl_stats layout="sponsor_line"]<div class="row"><a href="[pl_url to='contact' topic='sponsor']" class="btn bso">Sponsor a congress</a><a href="[pl_url to='services' anchor='sponsorship']" class="btn bg">See sponsorship</a></div></div></div>
 [/pl_section]''',
  ]},
  'events': {"title": "Events", "sections": [
@@ -77,7 +79,7 @@ PAGES = {
 [/pl_section]''',
   '[pl_section class="" style="padding:24px 0 72px"][pl_services layout="zigzag"][/pl_section]',
   f'''[pl_section class="ink sec" id="sponsorship" wrap_style="{COL}gap:24px"]
-<span class="lab mut">Sponsorship</span><h2 class="h2 m-title">Put your brand <span class="em">in focus.</span></h2><p class="lead" style="color:var(--oim)">[pl_stats layout="sponsor_line" tag="span"] Companies that have sponsored PL congresses:</p>[pl_logos type="sponsor"]<div class="row"><a href="[pl_url to="contact" topic="sponsor"]" class="btn bw">Sponsor a congress</a></div>
+<span class="lab mut">Sponsorship</span><h2 class="h2 m-title">Put your brand <span class="em">in focus.</span></h2><p class="lead" style="color:var(--oim)">[pl_stats layout="sponsor_line" tag="span"] Companies that have sponsored PL congresses:</p>[pl_logos type="sponsor"]<div class="row"><a href="[pl_url to='contact' topic='sponsor']" class="btn bw">Sponsor a congress</a></div>
 [/pl_section]''',
   f'''[pl_section class="sec" wrap_class="sh"]
 <h2 class="h2 m-title" style="max-width:720px">Planning a congress? Talk to our <span class="em">team.</span></h2><a href="{CONTACT}" class="btn bp">Request a proposal</a>

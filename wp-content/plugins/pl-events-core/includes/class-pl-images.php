@@ -33,6 +33,7 @@ class PL_Images {
 		add_action( 'after_setup_theme', array( __CLASS__, 'sizes' ) );
 		add_filter( 'image_size_names_choose', array( __CLASS__, 'size_names' ) );
 		add_filter( 'image_resize_dimensions', array( __CLASS__, 'keep_ratio' ), 10, 6 );
+		add_filter( 'wp_editor_set_quality', array( __CLASS__, 'quality' ) );
 		add_filter( 'upload_mimes', array( __CLASS__, 'mimes' ) );
 		add_filter( 'wp_check_filetype_and_ext', array( __CLASS__, 'svg_filetype' ), 10, 4 );
 		add_filter( 'wp_handle_upload_prefilter', array( __CLASS__, 'svg_check' ) );
@@ -90,6 +91,11 @@ class PL_Images {
 			return false;
 		}
 		return array( 0, 0, (int) round( ( $ow - $cw ) / 2 ), (int) round( ( $oh - $ch ) / 2 ), $nw, $nh, (int) round( $cw ), (int) round( $ch ) );
+	}
+
+	/** Our frame crops are photos shown at fixed sizes: quality 72 (WordPress default 82) — ~35% lighter, no visible loss (6.1 LCP). */
+	public static function quality( $q ) {
+		return min( (int) $q, 72 );
 	}
 
 	/** Lets editors pick the 4:3 / 21:9 crops in the Elementor Image widget's size list. */
@@ -160,7 +166,15 @@ class PL_Images {
 		}
 		static $cache = array();
 		if ( ! isset( $cache[ $src ] ) ) {
-			$cache[ $src ] = $src ? (int) attachment_url_to_postid( $src ) : 0;
+			$id = $src ? (int) attachment_url_to_postid( $src ) : 0;
+			if ( ! $id && $src && preg_match( '/-(\d+)x(\d+)(\.[a-z0-9]+)$/i', $src ) ) {
+				// a resized copy ("…-811x1024.webp", e.g. a featured image's "large" URL): find its original
+				$id = (int) attachment_url_to_postid( preg_replace( '/-(\d+)x(\d+)(\.[a-z0-9]+)$/i', '$3', $src ) );
+				if ( ! $id ) {
+					$id = (int) attachment_url_to_postid( preg_replace( '/-(\d+)x(\d+)(\.[a-z0-9]+)$/i', '-scaled$3', $src ) );
+				}
+			}
+			$cache[ $src ] = $id;
 		}
 		return $cache[ $src ];
 	}

@@ -140,8 +140,13 @@ $filter_fields = static function ( $suffix ) use ( $fdefs, $F ) {
 <section style="padding:44px 0 96px;min-height:520px" aria-labelledby="pl-results-h"><div class="wrap"><h2 class="sr" id="pl-results-h">Results</h2><div class="results swap" id="results" data-view="<?php echo esc_attr( $view ); ?>">
 	<div class="grid3 pl-view-grid"<?php echo 'grid' === $view ? '' : ' hidden'; ?>>
 		<?php
+		$first = 'grid' === $view; // the first visible card's poster is the mobile LCP: load it eagerly
 		foreach ( $events as $e ) {
-			echo PL_Template::render( 'card-event', array( 'e' => $e, 'hidden' => ! $match( $e ) ) ); // phpcs:ignore WordPress.Security.EscapeOutput
+			$show = $match( $e );
+			echo PL_Template::render( 'card-event', array( 'e' => $e, 'hidden' => ! $show, 'eager' => $first && $show && $e['poster'] ) ); // phpcs:ignore WordPress.Security.EscapeOutput
+			if ( $show ) {
+				$first = false;
+			}
 		}
 		?>
 	</div>

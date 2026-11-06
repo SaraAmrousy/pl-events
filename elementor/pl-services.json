@@ -136,7 +136,7 @@
      "widgetType": "shortcode",
      "isInner": false,
      "settings": {
-      "shortcode": "[pl_section class=\"ink sec\" id=\"sponsorship\" wrap_style=\"display:flex;flex-direction:column;gap:24px\"]\n<span class=\"lab mut\">Sponsorship</span><h2 class=\"h2 m-title\">Put your brand <span class=\"em\">in focus.</span></h2><p class=\"lead\" style=\"color:var(--oim)\">[pl_stats layout=\"sponsor_line\" tag=\"span\"] Companies that have sponsored PL congresses:</p>[pl_logos type=\"sponsor\"]<div class=\"row\"><a href=\"[pl_url to=\"contact\" topic=\"sponsor\"]\" class=\"btn bw\">Sponsor a congress</a></div>\n[/pl_section]"
+      "shortcode": "[pl_section class=\"ink sec\" id=\"sponsorship\" wrap_style=\"display:flex;flex-direction:column;gap:24px\"]\n<span class=\"lab mut\">Sponsorship</span><h2 class=\"h2 m-title\">Put your brand <span class=\"em\">in focus.</span></h2><p class=\"lead\" style=\"color:var(--oim)\">[pl_stats layout=\"sponsor_line\" tag=\"span\"] Companies that have sponsored PL congresses:</p>[pl_logos type=\"sponsor\"]<div class=\"row\"><a href=\"[pl_url to='contact' topic='sponsor']\" class=\"btn bw\">Sponsor a congress</a></div>\n[/pl_section]"
      },
      "elements": []
     }
@@ -181,7 +181,7 @@
      "widgetType": "shortcode",
      "isInner": false,
      "settings": {
-      "shortcode": "[pl_section class=\"sec\" wrap_class=\"sh\"]\n<h2 class=\"h2 m-title\" style=\"max-width:720px\">Planning a congress? Talk to our <span class=\"em\">team.</span></h2><a href=\"[pl_url to=\"contact\" topic=\"proposal\"]\" class=\"btn bp\">Request a proposal</a>\n[/pl_section]"
+      "shortcode": "[pl_section class=\"sec\" wrap_class=\"sh\"]\n<h2 class=\"h2 m-title\" style=\"max-width:720px\">Planning a congress? Talk to our <span class=\"em\">team.</span></h2><a href=\"[pl_url to='contact' topic='proposal']\" class=\"btn bp\">Request a proposal</a>\n[/pl_section]"
      },
      "elements": []
     }
