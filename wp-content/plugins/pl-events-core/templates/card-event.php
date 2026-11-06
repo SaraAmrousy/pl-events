@@ -22,8 +22,9 @@ $hidden = ! empty( $hidden );
 	<span class="badge <?php echo esc_attr( $e['badge'][1] ); ?>"><?php echo 'live' === $e['status'] ? '<span class="ldot" style="background:#fff" aria-hidden="true"></span>' : '<i aria-hidden="true"></i>'; ?><span class="bt"><?php echo esc_html( $e['badge'][0] ); ?></span></span>
 	<div class="cb">
 		<span class="lab mut"><?php echo esc_html( $e['spec_line'] ); ?><?php echo $e['sample'] ? ' ' . PL_Template::sample_tag() : ''; // phpcs:ignore WordPress.Security.EscapeOutput ?></span>
-		<h3 class="ct"><a href="<?php echo esc_url( $e['url'] ); ?>" style="text-decoration:none"><?php echo esc_html( $e['name'] ); ?></a></h3>
-		<span class="cm"><?php echo PL_Template::flag( $e['country'], false, ' style="margin-top:3px"' ); // phpcs:ignore WordPress.Security.EscapeOutput ?><span><?php echo esc_html( $e['place'] . ( $e['venue'] ? ' · ' . $e['venue'] : '' ) ); ?></span></span>
+		<?php $short = ( $e['series'] && $e['short_label'] !== $e['name'] ) ? $e['short_label'] : ''; // "MOCAT 2027": used only if the full name runs past 3 lines (pl-events.js) ?>
+		<h3 class="ct"<?php echo $short ? ' data-short="1"' : ''; ?>><a href="<?php echo esc_url( $e['url'] ); ?>" style="text-decoration:none"<?php echo $short ? ' data-full="' . esc_attr( $e['name'] ) . '"' : ''; ?>><span class="ct-full"><?php echo esc_html( $e['name'] ); ?></span><?php if ( $short ) : ?><span class="ct-short" hidden><?php echo esc_html( $short ); ?></span><?php endif; ?></a></h3>
+		<span class="cm"><?php echo PL_Template::flag( $e['country'], false, ' style="margin-top:3px"' ); // phpcs:ignore WordPress.Security.EscapeOutput ?><span><span class="cm-place"><?php echo esc_html( $e['place'] ); ?></span><?php if ( $e['venue'] ) : ?><span class="cm-venue"> · <?php echo esc_html( $e['venue'] ); ?></span><?php endif; ?></span></span>
 		<div class="ca"><?php echo PL_Template::actions( $e, 'card' ); // phpcs:ignore WordPress.Security.EscapeOutput -- escaped inside. ?></div>
 	</div>
 </article>

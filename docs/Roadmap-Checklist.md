@@ -4,7 +4,7 @@
 > **Threads:** one thread per group below (not per step). Open a new thread early if the current one gets long; the Step Summaries in the Project carry the context.
 > Last updated: 6 Nov 2026 (Thread 8)
 
-**Now:** end of Thread 9 (6 Nov 2026). ✅ 4.0–4.5 · ✅ 5.1 · ✅ 5.3 · ✅ 6.1 QA (no Blocker) · ✅ 6.2 Editor guide · ✍️ 6.3 launch checklist written → **Next: reveal to PL's owners → 5.2 data entry (PL) → Thread 10: 6.3 launch, step by step with Sara's approval.**
+**Now:** end of Thread 9 (6 Nov 2026). ✅ 4.0–4.5 · ✅ 5.1 · ✅ 5.3 · ✅ 6.1 + 6.1b QA (no Blocker) · ✅ 6.2 Editor guide · ✍️ 6.3 launch checklist written → **Next: reveal to PL's owners → 5.2 data entry (PL) → Thread 10: 6.3 launch, step by step with Sara's approval.** Open for Sara: PSI mobile LCP, calendar click test, 6.1b questions (wording, sticky bar on phones, Akismet/Hello Dolly, favicon).
 
 ---
 
@@ -25,7 +25,7 @@
 Open **claude.ai/code** → repo `SaraAmrousy/pl-events` (branch `main`) → environment `pl-events`.
 ```
 Thread 10 — Launch (6.3) — Claude Code.
-اقرا CLAUDE.md وبعدين docs/PL-Events-Project-Instructions.md و docs/Roadmap-Checklist.md و docs/Step-6.1-Independent-QA.md و docs/Step-6.3-Launch-Checklist.md و docs/Editor-Guide.md.
+اقرا CLAUDE.md وبعدين docs/PL-Events-Project-Instructions.md و docs/Roadmap-Checklist.md و docs/Step-6.1-Independent-QA.md و docs/Step-6.1b-Code-Review-Responsive.md و docs/Step-6.3-Launch-Checklist.md و docs/Editor-Guide.md.
 القرارات: L1 [مكان السيرفر] · L2 [طريقة نقل المحتوى] · L3 [ميعاد الإطلاق] · L4 [إيميل الـ HR] · L5 [Analytics].
 نتايج PageSpeed (mobile LCP): Home [..] · Events [..] · DEOSS 2027 [..]. Google/Outlook calendar: [شغالين / لأ].
 داتا PL (5.2): [خلصت / لسه].
@@ -73,6 +73,7 @@ Thread 10 — Launch (6.3) — Claude Code.
 
 ## Phase 6 — QA & Launch (المراجعة والإطلاق)
 - [x] **6.1 Independent QA** (المراجعة المستقلة) — ✅ 6 Nov 2026 · no Blocker open (B1 404 CTA links fixed; M2–M5 fixed); axe 0 violations, Lighthouse a11y 100, keyboard pass, editor test pass, CLS ≤ 0.015 · **open: PSI mobile LCP on staging (lab 2.0–3.2 s via sandbox proxy) + Google/Outlook click test (Sara)** · Summary: `docs/Step-6.1-Independent-QA.md` · `pl-content-qa`
+  - [x] **6.1b Code review + full-page/responsive test** — ✅ 6 Nov 2026 · equal-height cards (DS7, round 4) · 99 page×size combinations, 0 sideways scroll, 0 controls off-screen · fixed: focus hidden under sticky bars (WCAG 2.4.11), About explorer clipped on phones, explorer count vs decision A, 320px card/hero/tabs, chip label, sheet focus, favicon 404 (BP 100) · pl.css −34% gzip (pixel-identical) · axe 0, A11y 100 · Summary: `docs/Step-6.1b-Code-Review-Responsive.md`
 - [x] **6.2 Editor Handover** (تسليم الموظف) — ✅ 6 Nov 2026 · `docs/Editor-Guide.md` (English, wp-admin step by step: add/edit an event, registration states, counts-as-congress, other content, image sizes table, rules, troubleshooting) · walkthrough call with PL's editor at T+30 · `pl-content-qa`
 - [ ] **6.3 Launch Checklist** (الإطلاق) — ✍️ written 6 Nov 2026, **not executed** (plevents.org untouched) · `docs/Step-6.3-Launch-Checklist.md` · waiting for decisions L1–L5 (host, content move, window, HR email, analytics) + PL's 5.2 data + plevents.org cPanel token · `pl-events-data-wp` · Must include: move from the staging folder to plevents.org, **remove noindex** ("Discourage search engines" off), apply the 301 map, real server cron for WP-Cron + check the hourly status check + cache purge runs (2.2 D9) · 301: import `deploy/launch/redirects.csv` into Rank Math › Redirections, fill the 3 TBC slugs from the live `wp-sitemap.xml` (read only), then `python3 deploy/launch/check-redirects.py https://plevents.org` = 0 failed
 

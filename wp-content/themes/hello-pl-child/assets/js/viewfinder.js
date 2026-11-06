@@ -31,7 +31,7 @@
     rail.addEventListener('scroll', function () { if (!raf) raf = requestAnimationFrame(function () { raf = 0; pick(false); }); }, { passive: true });
     rail.addEventListener('focusin', function (ev) { var c = ev.target.closest('.card'); if (c) place(c, false); });
     document.addEventListener('pl:swap', function () { cur = null; requestAnimationFrame(function () { pick(true); }); });
-    window.addEventListener('resize', function () { pick(true); }, { passive: true });
+    var rz = 0; window.addEventListener('resize', function () { if (!rz) rz = requestAnimationFrame(function () { rz = 0; pick(true); }); }, { passive: true });
     pick(true);
   });
   window.PLM.add(function (C) {
@@ -61,7 +61,7 @@
     }
     results.addEventListener('focusin', function (ev) { var c = ev.target.closest('.card'); if (c) move(c); });
     document.addEventListener('pl:swap', function () { requestAnimationFrame(watch); });
-    window.addEventListener('resize', function () { if (current) move(current); }, { passive: true });
+    var rz2 = 0; window.addEventListener('resize', function () { if (current && !rz2) rz2 = requestAnimationFrame(function () { rz2 = 0; move(current); }); }, { passive: true });
     watch();
   });
 })();

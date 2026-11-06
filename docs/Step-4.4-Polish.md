@@ -91,7 +91,7 @@
 | d. Calendar | The old icon is gone. A text button **"Add to calendar ▾"** opens Google Calendar (`render?action=TEMPLATE`, new tab) · Apple Calendar (.ics) · Outlook (`outlook.live.com/calendar/0/action/compose…`, new tab). Upcoming/live only. It's a `<details>` element (works without JS); JS adds Esc (focus returns to the button), click-outside, one menu open at a time, and arrow keys. On cards it opens **upward**, because the Home row clips anything below. On the event page it opens downward. |
 | .ics | `Content-Type: text/calendar`, `Content-Disposition: inline; filename="deoss-2027.ics"` (series + year). `inline` lets Safari on iOS/macOS hand the file straight to Calendar; other browsers save it under a clear name. LiteSpeed no longer caches it. |
 | e. Meta line | Flag · "City, Country · Venue". The date is only in the date box. |
-| f. Bottom | Actions are always the last block of the card, 8px under the text, the same in every card. **Trade-off (decided):** names run 1 to 5 lines and venues 2 to 4, so a row can't have both equal-height cards and a constant gap. Cards now take their own height, with no empty space inside. Before, the gap above the buttons ranged from 8px to 150px. |
+| f. Bottom | ~~Superseded by round 4 (equal heights).~~ Actions are always the last block of the card, 8px under the text, the same in every card. **Trade-off (decided):** names run 1 to 5 lines and venues 2 to 4, so a row can't have both equal-height cards and a constant gap. Cards now take their own height, with no empty space inside. Before, the gap above the buttons ranged from 8px to 150px. |
 | g. Elsewhere | The event page and List view use the same renderer (`PL_Template::actions()`). The List row puts its actions on two lines in a 232px column, so the name column stays ≥ 265px at 1280. |
 
 ## Logo
@@ -124,3 +124,24 @@
   - `assets/js/pl-events.js` (calendar menus)
 - Theme: `inc/chrome.php` (wordmark), `assets/css/src/wp.css` → `pl.css`.
 - Staging: plugin + theme deployed. PL cache, Elementor CSS cache and LiteSpeed purged. Checked that staging serves the new markup (your card screenshot was taken before the previous deploy).
+
+
+---
+
+# Round 4 — Equal-height cards (6 Nov 2026, Sara's decision — DS7 restored)
+**Replaces round 3 (f).**
+- All cards in a row are the same height: Home row and Events grid (`stretch`, `height:100%`, flex column).
+- Actions are pinned to the bottom (`margin-top:auto`) and sit on the same y in neighbouring cards.
+
+**No big gaps from one long name:**
+- **Card titles max 3 lines.** If longer, the card shows the series short label + year ("MOCAT 2027", "PHLEBOEGYPT 2026", "El Safwa 2026").
+- The full name stays on the event page, in the List view, and in the link's aria-label, which starts with the visible text (WCAG 2.5.3). No "…".
+- "Short name" = the series' Short name, or the series name when empty (same as the Register buttons). No series → full name.
+- **Venue max 2 lines.** If longer, it's dropped from the card (kept on the event page).
+- Done by `pl-events.js` after layout and fonts, and on resize/tab change. Without JS the full name shows.
+
+**Measured** (1280/1024/768/375 × Home/Events × All/Upcoming/Past, sandbox + staging):
+- Δheight 0 px and Δbutton-y 0 px in every row; titles ≤ 3, meta ≤ 2.
+- At 1280 every full name fits; the short labels appear at 1024/768/375.
+
+Details and the rest of the review: `docs/Step-6.1b-Code-Review-Responsive.md`.

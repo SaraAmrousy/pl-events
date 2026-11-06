@@ -107,7 +107,8 @@ $country = isset( $stats['country_list'] ) && in_array( $country, $stats['countr
 						<div class="sidein pl-explore" data-cc="<?php echo esc_attr( $cc ); ?>" data-vb="<?php echo esc_attr( PL_Map::view_box( $lls, 330, $aspect ) ); ?>" data-vb-narrow="<?php echo esc_attr( PL_Map::view_box( $lls, 330, $narrow ) ); ?>" style="display:flex;flex-direction:column;gap:16px"<?php echo $country === $cc ? '' : ' hidden'; ?>>
 							<strong style="font-size:34px;line-height:1.1;letter-spacing:-.02em;display:flex;gap:12px;align-items:center"><?php echo $cc ? PL_Template::flag( $cc, true ) : ''; // phpcs:ignore WordPress.Security.EscapeOutput ?><?php echo esc_html( $name ); ?></strong>
 							<dl class="dl">
-								<dt>Congresses</dt><dd><?php echo count( $ex ); ?></dd>
+								<?php $ncg = count( array_filter( $ex, fn( $e ) => ! empty( $e['congress'] ) ) ); // same rule as the stats line (decision A) ?>
+								<dt>Congresses</dt><dd><?php echo (int) $ncg; ?><?php if ( count( $ex ) !== $ncg ) : ?> <span class="mut">(of <?php echo (int) count( $ex ); ?> <?php echo 1 === count( $ex ) ? 'event' : 'events'; ?>)</span><?php endif; ?></dd>
 								<dt>Cities</dt><dd><?php echo esc_html( implode( ', ', $uniq( array_filter( array_map( fn( $e ) => $e['city'], $ex ) ) ) ) ); ?></dd>
 								<dt>First with PL</dt><dd><?php echo esc_html( $ex[0]['name'] . ', ' . $ex[0]['month_short'] ); ?></dd>
 								<dt>Specialties</dt><dd><?php echo esc_html( implode( ', ', $specs ) ); ?></dd>

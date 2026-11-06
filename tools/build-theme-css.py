@@ -36,7 +36,37 @@ parts = [fonts, '/* ---- prototype base.css ---- */', fallback(open(os.path.join
          '/* ---- prototype proto.css ---- */', wp_scope(clean(open(os.path.join(src, 'proto.css')).read())),
          open(os.path.join(theme, 'assets/css/src/wp.css')).read()]
 css = '\n'.join(parts)
+
+# --- 6.1b: drop prototype-only components the site never renders (checked: their selectors match no
+# element on any page, width, motion context or UI state), then minify. Source stays readable in
+# reference/prototype/src + assets/css/src/wp.css.
+DEAD = [r'\.save\b', r'\.modal\b', r'#helpPanel', r'\.sp-tiles', r'\.sp-h\b', r'#shell\b', r'\.svcstack',
+        r'\.svc-(photos|steps|frame|ph|count|step)\b', r'^\.m\s', r'\.story(?![\w-])', r'^\.form(?![\w-])',
+        r'^\.form\s', r'^textarea\.inp', r'^\.note\b']
+def dead(selector_list):
+    sels = [x.strip() for x in selector_list.split(',') if x.strip()]
+    return sels and all(any(re.search(d, x) for d in DEAD) for x in sels)
+def prune(css):
+    css = re.sub(r'/\*[\s\S]*?\*/', '', css)
+    out, n = [], [0]
+    def rule(m):
+        if dead(m.group(1)):
+            n[0] += 1
+            return ''
+        return m.group(0)
+    css = re.sub(r'([^{}@;]+)\{([^{}]*)\}', rule, css)
+    css = re.sub(r'@media[^{]+\{\s*\}', '', css)  # media blocks left empty
+    return css, n[0]
+def minify(css):
+    css = re.sub(r'\s+', ' ', css)
+    css = re.sub(r'\s*([{};,>])\s*', r'\1', css)
+    css = re.sub(r':\s+', ':', css)  # safe: selectors keep their own spaces around descendant combinators
+    css = css.replace(';}', '}')
+    return css.strip() + '\n'
+css, dropped = prune(css)
+before_min = len(css)
+css = minify(css)
 assert '.pc{' not in css and 'pc-btn' not in css, 'prototype controls left in'
 assert ':is(main,.elementor,.pl-event) [style*="grid-template-columns:repeat(12"]' in css, 'main-scoped grid rule not widened'
 open(os.path.join(theme, 'assets/css/pl.css'), 'w').write(css)
-print('pl.css', len(css), 'bytes')
+print('pl.css', len(css), 'bytes (dropped', dropped, 'dead prototype rules; minified from', before_min, ')')

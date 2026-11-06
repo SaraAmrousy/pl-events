@@ -120,7 +120,7 @@
       var q = st.q.trim().toLowerCase();
       return !q || c.getAttribute('data-q').indexOf(q) >= 0;
     }
-    function optLabel(k, v) { var s = form.querySelector('select[data-f="' + k + '"]'); var o = s && s.querySelector('option[value="' + v.replace(/"/g, '') + '"]'); return o ? o.textContent : v; }
+    function optLabel(k, v) { var s = root.querySelector('select[data-f="' + k + '"]'); /* root, not form: on phones the fields live in the bottom sheet */ var o = s && s.querySelector('option[value="' + v.replace(/"/g, '') + '"]'); return o ? o.textContent : v; }
     function render() {
       var n = 0;
       items.forEach(function (c) { var m = match(c); c.hidden = !m; if (m && c.closest('.pl-view-grid')) n++; });
@@ -167,7 +167,7 @@
       opener = btn; var box = sheet.querySelector('.pl-sheet-fields');
       moved = $$('label.fld', frow); moved.forEach(function (l) { box.appendChild(l); });
       sheet.hidden = false; requestAnimationFrame(function () { sheet.classList.add('sheet-open'); }); document.documentElement.classList.add('pl-sheet-open');
-      var first = sheet.querySelector('select, button'); if (first) first.focus();
+      var first = sheet.querySelector('select, button'); if (first) requestAnimationFrame(function () { requestAnimationFrame(function () { first.focus(); }); }); // after the sheet is laid out
       document.addEventListener('keydown', esc);
     }
     function closeSheet() {
@@ -279,8 +279,40 @@
     });
   }
 
+  /* 6 — Equal-height cards (DS7): a card title is at most 3 lines. Past that, the card shows the
+     series short label ("MOCAT 2027"); the full name stays in the link's accessible name (it starts
+     with the visible text — WCAG 2.5.3), on the event page and in the list. Never an ellipsis.
+     The venue is dropped from the card when "City, Country · Venue" runs past 2 lines. -------- */
+  function lines(el) {
+    var cs = getComputedStyle(el), lh = parseFloat(cs.lineHeight);
+    if (!lh) lh = parseFloat(cs.fontSize) * 1.25;
+    return Math.round(el.getBoundingClientRect().height / lh);
+  }
+  function fitCards(root) {
+    $$('.card.pl-card', root).forEach(function (c) {
+      if (!c.offsetParent) return; // hidden (other tab / filtered out): fitted when shown
+      var ct = c.querySelector('.ct[data-short]');
+      if (ct) {
+        var a = ct.querySelector('a'), full = ct.querySelector('.ct-full'), sh = ct.querySelector('.ct-short');
+        full.hidden = false; sh.hidden = true; a.removeAttribute('aria-label');
+        if (lines(ct) > 3) { full.hidden = true; sh.hidden = false; a.setAttribute('aria-label', sh.textContent + ' — ' + a.getAttribute('data-full')); }
+      }
+      var meta = c.querySelector('.cm > span:last-child'), v = meta && meta.querySelector('.cm-venue');
+      if (v) { v.hidden = false; if (lines(meta) > 2) v.hidden = true; }
+    });
+  }
+  function cardFit() {
+    var raf = 0, w = window.innerWidth;
+    var run = function () { raf = 0; fitCards(document); };
+    run();
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(run);
+    window.addEventListener('resize', function () { if (window.innerWidth === w || raf) return; w = window.innerWidth; raf = requestAnimationFrame(run); }, { passive: true });
+    document.addEventListener('pl:swap', function () { requestAnimationFrame(run); });
+  }
+
   function boot() {
     calMenus();
+    cardFit();
     recheck();
     $$('[data-pl="upcoming"]').forEach(upcoming);
     $$('[data-pl="calendar"]').forEach(calendar);

@@ -79,7 +79,7 @@ class PL_Module_Events extends PL_Module {
 	/* ---------------------------------------------- D13: what blocks Publish */
 
 	public function validate() {
-		$in  = $_POST['acf'] ?? array(); // phpcs:ignore WordPress.Security.NonceVerification -- SCF verified its nonce.
+		$in  = isset( $_POST['acf'] ) && is_array( $_POST['acf'] ) ? map_deep( wp_unslash( $_POST['acf'] ), 'sanitize_text_field' ) : array(); // phpcs:ignore WordPress.Security.NonceVerification -- SCF verified its nonce; values are only compared.
 		$key = fn( $n ) => PL_Fields::field_key( 'event', $n );
 		if ( ! isset( $in[ $key( 'start' ) ] ) ) {
 			return; // not the event form.
@@ -138,7 +138,7 @@ class PL_Module_Events extends PL_Module {
 		if ( ! $screen || 'event' !== $screen->post_type || 'post' !== $screen->base ) {
 			return;
 		}
-		$id = (int) ( $_GET['post'] ?? 0 ); // phpcs:ignore WordPress.Security.NonceVerification
+		$id = isset( $_GET['post'] ) ? absint( $_GET['post'] ) : 0; // phpcs:ignore WordPress.Security.NonceVerification -- read-only screen notice
 		if ( ! $id ) {
 			return;
 		}

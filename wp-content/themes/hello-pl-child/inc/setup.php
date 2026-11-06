@@ -50,3 +50,13 @@ add_action( 'elementor/page_templates/header-footer/before_content', static func
 add_action( 'elementor/page_templates/header-footer/after_content', static function () {
 	echo '</main>';
 } );
+
+/* 6.1b: no site icon yet → browsers asked the domain root for /favicon.ico (404 on every page, Lighthouse
+   "errors in console"). An empty icon stops that request and changes nothing visible. When PL picks a
+   favicon, set it in Appearance › Customize › Site Identity (WordPress then prints its own icon tags). */
+add_action( 'wp_head', static function () {
+	if ( ! has_site_icon() ) {
+		echo '<link rel="icon" href="data:,">' . "\n";
+	}
+}, 2 );
+
