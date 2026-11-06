@@ -4,7 +4,7 @@
 > **Threads:** one thread per group below (not per step). Open a new thread early if the current one gets long; the Step Summaries in the Project carry the context.
 > Last updated: 6 Nov 2026 (Thread 8)
 
-**Now:** end of Thread 8 (6 Nov 2026). ✅ 4.5 Forms · ✅ 5.1 Final copy · ✅ 5.3 SEO (301 map ready for launch) · ✅ hero fix + image fit (every image fits its frame) · ⏳ 4.4: only Sara's phone-check result is missing · open decision: "Counts as a congress" for symposium + forum (A/B) → **Next: Thread 9 — Step 6.1 Independent QA** (5.2 data entry is PL's, after the reveal).
+**Now:** end of Thread 8 (6 Nov 2026). ✅ 4.5 Forms · ✅ 5.1 Final copy · ✅ 5.3 SEO (301 map ready for launch) · ✅ hero fix + image fit + UI polish (selects, tabs, list thumbnails, Home row) · ✅ decision A: only congresses + conferences count (15 → 13) · ⏳ 4.4: only Sara's phone-check result is missing → **Next: Thread 9 — Step 6.1 Independent QA** (5.2 data entry is PL's, after the reveal).
 
 ---
 
@@ -25,12 +25,10 @@
 Open **claude.ai/code** → repo `SaraAmrousy/pl-events` (branch `main`) → environment `pl-events`.
 ```
 Thread 9 — Phase 6 QA & launch (6.1–6.3) — Claude Code.
-اقرا CLAUDE.md وبعدين docs/PL-Events-Project-Instructions.md و docs/Roadmap-Checklist.md و docs/Step-4.4-Pages.md و docs/Step-4.4-Image-Fit.md و docs/Step-5.1-Final-Copy.md و docs/Step-5.3-SEO.md.
-الأول قفّل اللي فاضل:
-1. 4.4 — نتيجة فحص الموبايل: [اكتبي النتيجة هنا].
-2. قرار "Counts as a congress" للـ symposium والـ forum: [A يتقفل / B يفضل].
-بعدها 6.1 — Independent QA (skill pl-content-qa): a11y + performance (375 / 768 / 1280، Full / Light / Reduced) + editor test على saraamrousy.net/pl (منها: رفع صورة صغيرة → الملاحظة الصفرا، وSVG).
-ثم 6.2 — Editor handover (دليل للموظف بالإنجليزي، خطوة بخطوة من wp-admin، فيه مقاسات الصور).
+اقرا CLAUDE.md وبعدين docs/PL-Events-Project-Instructions.md و docs/Roadmap-Checklist.md و docs/Step-4.4-Pages.md و docs/Step-4.4-Image-Fit.md و docs/Step-4.4-Polish.md و docs/Step-5.1-Final-Copy.md و docs/Step-5.3-SEO.md.
+الأول قفّل 4.4 — نتيجة فحص الموبايل (iPhone Safari + Android Chrome، ومعاها الـ filters في Safari): [اكتبي النتيجة هنا].
+بعدها 6.1 — Independent QA (skill pl-content-qa): a11y + performance (375 / 768 / 1280، Full / Light / Reduced) + editor test على saraamrousy.net/pl (منها: رفع صورة صغيرة → الملاحظة الصفرا، وSVG، وصف الـ Home بالكيبورد).
+ثم 6.2 — Editor handover (دليل للموظف بالإنجليزي، خطوة بخطوة من wp-admin، فيه مقاسات الصور وEvent types / Counts as a congress).
 6.3 — Launch checklist: اكتبه بس (فيه deploy/launch/redirects.csv + check-redirects.py، والـ 3 slugs الـ TBC من wp-sitemap.xml وقت الإطلاق)، ومتلمسش plevents.org قبل ما أوافق على كل خطوة.
 الـ staging يفضل noindex، والإيميلات كلها بتروحلي أنا. متكتبش أي باسورد في الشات.
 ```
@@ -65,7 +63,7 @@ Thread 9 — Phase 6 QA & launch (6.1–6.3) — Claude Code.
 - [x] **4.1 pl-events-core Plugin** (البلجن) — ✅ 5 Nov 2026 · on staging + seeded (15 / 7 / 5 checked live); editor test passed in the sandbox · Summary: `docs/Step-4.1-Plugin.md` · `pl-events-data-wp` · SCF; follow "Built to grow" (2.2 §8); test page + CPT sharing the `events` slug; new pieces from 3.1/3.4a/3.4b (`[pl_live_ribbon]`, `[pl_next_event layout="strip"]`, `[pl_company field=…]`, `[pl_stats layout="line|sponsor_line"]`, calendar search/Type/Grid–List, tabs All · Live now · Upcoming · Past with `default` attribute, `[pl_story layout="sticky explore"]`, `[pl_services layout="zigzag"]`, event-page mini map). Seed from `claude/pl-data.json`. **No `[pl_help]` (3.4b P1), no saved-list module (3.4a H4).**
 - [x] **4.2 Child Theme & Global Styles** (الثيم والستايل العام) — ✅ 5 Nov 2026 · Summary: `docs/Step-4.2-Child-Theme.md` (prototype CSS built into the theme, self-hosted Montserrat, 5 motion modules, Elementor Globals, `[pl_hero]`) · `pl-events-data-wp` · Tokens + classes from the 3.2 Design System (+ 3.4a H7 button fix) + motion modules from 3.4b §5 (no ScrollTrigger pin; Lenis Home only; `@view-transition`); confirm Elementor Free custom Global Colors
 - [x] **4.3 Header & Footer** (الهيدر والفوتر) — ✅ 5 Nov 2026 · Summary: `docs/Step-4.3-Header-Footer.md` (UAE HFB templates with `[pl_site_header]` / `[pl_site_footer]`; sticky; keyboard-tested) · `pl-events-data-wp` · Header: Home · Events · Services · About · Careers · Contact + Request a proposal + Portfolio (3.4a H5–H6)
-- [ ] **4.4 Pages in Elementor** (بناء الصفحات) — ⏳ built + live; LiteSpeed Cache on (purge from pl-events-core, tested); hero fix ✅ 6 Nov (media fills the hero at every size, tested at 6 sizes × 3 motion contexts) · image fit ✅ 6 Nov (every image in a fixed frame: photos cover, logos contain, crops + srcset, soft size note in wp-admin, safe SVG — `docs/Step-4.4-Image-Fit.md`) · **open: Sara's iPhone/Android check result** · Summary: `docs/Step-4.4-Pages.md` · `pl-events-data-wp` · Pages exported as Elementor template JSON by Claude Code and imported (Elementor Free Templates › Import — confirm the JSON format on the installed version); tested locally, then on the staging folder (noindex); confirm Elementor Free background video (self-hosted MP4 + poster)
+- [ ] **4.4 Pages in Elementor** (بناء الصفحات) — ⏳ built + live; LiteSpeed Cache on (purge from pl-events-core, tested); hero fix ✅ 6 Nov (media fills the hero at every size, tested at 6 sizes × 3 motion contexts) · image fit ✅ 6 Nov (every image in a fixed frame: photos cover, logos contain, crops + srcset, soft size note in wp-admin, safe SVG — `docs/Step-4.4-Image-Fit.md`) · UI polish ✅ 6 Nov (own select chevron, centred tabs, list + editions thumbnails, no overlay on real posters, one-size date box, Home = manual horizontal row replacing 3.4a H3 grid, iris CLS 0.536 → 0.03; "Counts as a congress" = A, 15 → 13 — `docs/Step-4.4-Polish.md`) · **open: Sara's iPhone/Android check result (also glance at Events filters in Safari)** · Summary: `docs/Step-4.4-Pages.md` · `pl-events-data-wp` · Pages exported as Elementor template JSON by Claude Code and imported (Elementor Free Templates › Import — confirm the JSON format on the installed version); tested locally, then on the staging folder (noindex); confirm Elementor Free background video (self-hosted MP4 + poster)
 - [x] **4.5 Forms** (الفورمز) — ✅ 6 Nov 2026 · authenticated SMTP (WP Mail SMTP + mailbox pl-staging@), both forms delivered to Sara's inbox, CV attached; CV direct URLs blocked · Summary: `docs/Step-4.5-Forms.md` · Summary: `docs/Step-4.5-Forms.md` (Forminator Contact + Careers/CV, topic+office pre-fill confirmed in Free, routing by office, staging mail → Sara only with a hard safety net) · `pl-events-data-wp` · Confirm Forminator Free URL pre-fill for topic/office (2.1 P4)
 
 ## Phase 5 — Content & SEO (المحتوى والـ SEO)

@@ -601,13 +601,16 @@ html.pl-iris #iris { transform: scale(.25); }
 /* 2. List rows + event editions: a 16:9 poster thumbnail beside the date (real poster or the
    series' typographic poster in miniature). On phones: thumb | date over name | badge/actions
    (also fixes the editions rows that pushed the badge 43px off a 375px screen). */
-.pl .poster.mini { display: block; width: 120px; aspect-ratio: 16 / 9; border-radius: 6px; flex: none; }
+.pl .poster.mini { display: block; width: 112px; aspect-ratio: 16 / 9; border-radius: 6px; flex: none; }
 .pl .poster.mini .pw { left: 8px; right: 8px; top: auto; bottom: 7px; font-size: 15px; line-height: 1; letter-spacing: -.02em; }
 .pl .poster.mini .pw.long { font-size: 11px; }
 .pl .poster.mini::after { display: none; }
-.pl .erow.r-ev { grid-template-columns: 120px 200px minmax(0, 1fr) 180px 150px auto; }
+.pl .erow.r-ev { grid-template-columns: 112px max-content minmax(0, 1fr) 150px 140px auto; column-gap: 18px; }
+.pl .erow.r-ev .r-dt { white-space: nowrap; font-size: 15px !important; }
+.pl .erow.r-ev .r-pl { font-size: 13px !important; }
 .pl .erow.erow-ed { grid-template-columns: 120px 200px minmax(0, 1fr) auto; }
-@media (max-width: 1023px) and (min-width: 768px) { .pl .erow.r-ev { grid-template-columns: 120px 150px minmax(0, 1fr) auto; } .pl .erow.r-ev .r-pl, .pl .erow.r-ev .r-bd { display: none !important; } }
+@media (max-width: 1279px) and (min-width: 1024px) { .pl .erow.r-ev { grid-template-columns: 112px max-content minmax(0, 1fr) 140px auto; } .pl .erow.r-ev .r-pl { display: none !important; } .pl .erow.r-ev .r-nm .m-only { display: revert; } }
+@media (max-width: 1023px) and (min-width: 768px) { .pl .erow.r-ev { grid-template-columns: 96px max-content minmax(0, 1fr) auto; column-gap: 14px; } .pl .erow.r-ev .poster.mini { width: 96px; } .pl .erow.r-ev .r-pl, .pl .erow.r-ev .r-bd { display: none !important; } .pl .erow.r-ev .r-nm .m-only { display: revert; } }
 @media (max-width: 767px) {
   .pl .poster.mini { width: 72px; border-radius: 4px; }
   .pl .poster.mini .pw { font-size: 10px; left: 5px; right: 5px; bottom: 5px; }
@@ -616,7 +619,8 @@ html.pl-iris #iris { transform: scale(.25); }
   .pl .erow.r-ev .r-th, .pl .erow.erow-ed .r-th { grid-row: span 2; align-self: start; }
   .pl .erow.r-ev .r-dt, .pl .erow.erow-ed .r-dt { grid-column: 2; font-size: 14px !important; }
   .pl .erow.r-ev .r-nm { grid-column: 2; }
-  .pl .erow.r-ev .r-ac { grid-column: 3; grid-row: 1 / span 2; }
+  .pl .erow.r-ev { grid-template-columns: 72px minmax(0, 1fr); }
+  .pl .erow.r-ev .r-ac { grid-column: 2; justify-content: flex-start !important; margin-top: 6px; }
   .pl .erow.erow-ed > a { grid-column: 2; }
   .pl .erow.erow-ed > .badge { grid-column: 3; grid-row: 1 / span 2; }
 }

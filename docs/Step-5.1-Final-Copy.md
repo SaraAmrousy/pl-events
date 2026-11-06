@@ -45,5 +45,5 @@ Sources changed: `tools/build-elementor.py` (About, Privacy copy → rebuilt `/e
 - **No meta description on any page**: Rank Math is active, so the plugin's own fallback steps aside, but Rank Math has no descriptions/templates set yet. 5.3: Rank Math titles + descriptions (≤ 155 chars), Event + Organization schema. Site title still "PL Events (staging)".
 
 ## Critique
-1. "Congresses" in the stats line also counts conferences, a symposium and a forum (all event types are set to "Counts as a congress"). True to the 2.2 rule, but a strict reader could object — the admin can switch a type off in PL Website › Event types.
+1. ✅ *Resolved 6 Nov 2026 (decision A, `docs/Step-4.4-Polish.md`): only congresses + conferences count, 15 → 13.* "Congresses" in the stats line also counts conferences, a symposium and a forum (all event types are set to "Counts as a congress"). True to the 2.2 rule, but a strict reader could object — the admin can switch a type off in PL Website › Event types.
 2. The page copy lives in the Elementor shortcode widgets; future copy edits there are manual for Sara (by design, 4.4-1).
