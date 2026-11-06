@@ -4,7 +4,7 @@
 > **Threads:** one thread per group below (not per step). Open a new thread early if the current one gets long; the Step Summaries in the Project carry the context.
 > Last updated: 6 Nov 2026 (Thread 8)
 
-**Now:** Thread 9 (6 Nov 2026) — Phases 4 + 5 done (✅ 4.0–4.5, ✅ 5.1, ✅ 5.3; 5.2 is PL's data entry after the reveal) → **6.1 Independent QA** → 6.2 Editor handover → 6.3 Launch checklist (written only; plevents.org untouched).
+**Now:** end of Thread 9 (6 Nov 2026). ✅ 4.0–4.5 · ✅ 5.1 · ✅ 5.3 · ✅ 6.1 QA (no Blocker) · ✅ 6.2 Editor guide · ✍️ 6.3 launch checklist written → **Next: reveal to PL's owners → 5.2 data entry (PL) → Thread 10: 6.3 launch, step by step with Sara's approval.**
 
 ---
 
@@ -24,13 +24,13 @@
 ### Starter message for the next thread
 Open **claude.ai/code** → repo `SaraAmrousy/pl-events` (branch `main`) → environment `pl-events`.
 ```
-Thread 9 — Phase 6 QA & launch (6.1–6.3) — Claude Code.
-اقرا CLAUDE.md وبعدين docs/PL-Events-Project-Instructions.md و docs/Roadmap-Checklist.md و docs/Step-4.4-Pages.md و docs/Step-4.4-Image-Fit.md و docs/Step-4.4-Polish.md و docs/Step-5.1-Final-Copy.md و docs/Step-5.3-SEO.md.
-الأول قفّل 4.4 — نتيجة فحص الموبايل (iPhone Safari + Android Chrome، ومعاها الـ filters في Safari): [اكتبي النتيجة هنا].
-بعدها 6.1 — Independent QA (skill pl-content-qa): a11y + performance (375 / 768 / 1280، Full / Light / Reduced) + editor test على saraamrousy.net/pl (منها: رفع صورة صغيرة → الملاحظة الصفرا، وSVG، وصف الـ Home بالكيبورد).
-ثم 6.2 — Editor handover (دليل للموظف بالإنجليزي، خطوة بخطوة من wp-admin، فيه مقاسات الصور وEvent types / Counts as a congress).
-6.3 — Launch checklist: اكتبه بس (فيه deploy/launch/redirects.csv + check-redirects.py، والـ 3 slugs الـ TBC من wp-sitemap.xml وقت الإطلاق)، ومتلمسش plevents.org قبل ما أوافق على كل خطوة.
-الـ staging يفضل noindex، والإيميلات كلها بتروحلي أنا. متكتبش أي باسورد في الشات.
+Thread 10 — Launch (6.3) — Claude Code.
+اقرا CLAUDE.md وبعدين docs/PL-Events-Project-Instructions.md و docs/Roadmap-Checklist.md و docs/Step-6.1-Independent-QA.md و docs/Step-6.3-Launch-Checklist.md و docs/Editor-Guide.md.
+القرارات: L1 [مكان السيرفر] · L2 [طريقة نقل المحتوى] · L3 [ميعاد الإطلاق] · L4 [إيميل الـ HR] · L5 [Analytics].
+نتايج PageSpeed (mobile LCP): Home [..] · Events [..] · DEOSS 2027 [..]. Google/Outlook calendar: [شغالين / لأ].
+داتا PL (5.2): [خلصت / لسه].
+امشي في docs/Step-6.3-Launch-Checklist.md خطوة خطوة؛ أي خطوة عليها 🔒 (بتلمس plevents.org) اعرضها عليّا واستنى موافقتي الأول.
+الـ staging يفضل noindex والإيميلات بتاعته بتروحلي أنا. متكتبش أي باسورد في الشات.
 ```
 
 ---
@@ -72,9 +72,9 @@ Thread 9 — Phase 6 QA & launch (6.1–6.3) — Claude Code.
 - [x] **5.3 SEO Setup** (الـ SEO) — ✅ 6 Nov 2026 · live on staging: 7 page + 15 event titles/descriptions (unique, ≤ 155), Organization (2 offices) + Event schema, site name "PL Events", sitemap ready (not submitted, IndexNow off + blocked), noindex kept · 301 map `deploy/launch/redirects.csv` (27 rows: 15 × 301, 10 × 410, 2 keep; 3 old slugs from the live sitemap at launch) + checker, **applied only at launch** · Summary: `docs/Step-5.3-SEO.md` · `pl-content-qa`
 
 ## Phase 6 — QA & Launch (المراجعة والإطلاق)
-- [ ] **6.1 Independent QA** (المراجعة المستقلة) — `pl-content-qa`
-- [ ] **6.2 Editor Handover** (تسليم الموظف) — `pl-content-qa`
-- [ ] **6.3 Launch Checklist** (الإطلاق) — `pl-events-data-wp` · Must include: move from the staging folder to plevents.org, **remove noindex** ("Discourage search engines" off), apply the 301 map, real server cron for WP-Cron + check the hourly status check + cache purge runs (2.2 D9) · 301: import `deploy/launch/redirects.csv` into Rank Math › Redirections, fill the 3 TBC slugs from the live `wp-sitemap.xml` (read only), then `python3 deploy/launch/check-redirects.py https://plevents.org` = 0 failed
+- [x] **6.1 Independent QA** (المراجعة المستقلة) — ✅ 6 Nov 2026 · no Blocker open (B1 404 CTA links fixed; M2–M5 fixed); axe 0 violations, Lighthouse a11y 100, keyboard pass, editor test pass, CLS ≤ 0.015 · **open: PSI mobile LCP on staging (lab 2.0–3.2 s via sandbox proxy) + Google/Outlook click test (Sara)** · Summary: `docs/Step-6.1-Independent-QA.md` · `pl-content-qa`
+- [x] **6.2 Editor Handover** (تسليم الموظف) — ✅ 6 Nov 2026 · `docs/Editor-Guide.md` (English, wp-admin step by step: add/edit an event, registration states, counts-as-congress, other content, image sizes table, rules, troubleshooting) · walkthrough call with PL's editor at T+30 · `pl-content-qa`
+- [ ] **6.3 Launch Checklist** (الإطلاق) — ✍️ written 6 Nov 2026, **not executed** (plevents.org untouched) · `docs/Step-6.3-Launch-Checklist.md` · waiting for decisions L1–L5 (host, content move, window, HR email, analytics) + PL's 5.2 data + plevents.org cPanel token · `pl-events-data-wp` · Must include: move from the staging folder to plevents.org, **remove noindex** ("Discourage search engines" off), apply the 301 map, real server cron for WP-Cron + check the hourly status check + cache purge runs (2.2 D9) · 301: import `deploy/launch/redirects.csv` into Rank Math › Redirections, fill the 3 TBC slugs from the live `wp-sitemap.xml` (read only), then `python3 deploy/launch/check-redirects.py https://plevents.org` = 0 failed
 
 ## Phase 7 — After Launch (بعد الإطلاق, optional)
 - [ ] **7.1 Monthly Content Check** (مراجعة شهرية) · Also review the home meta description's region wording yearly
