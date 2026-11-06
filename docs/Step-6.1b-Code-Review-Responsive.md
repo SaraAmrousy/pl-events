@@ -116,8 +116,38 @@ Every fix was tested; nothing approved was redesigned. Where a fix changed somet
 - **Tools:** `tools/build-theme-css.py` (R14 prune + minify).
 - **Staging:** deployed with the safe swap; PL cache + Elementor CSS + LiteSpeed purged; R13 done in the database.
 
-## Questions for Sara
-1. R3 wording: "Congresses 13 (of 15 events)", OK?
-2. On phones the sticky header + filter bar take ~305 px of a 740 px screen while scrolling Events (approved design). Keep it, or let the filter bar scroll away on phones (with the Filters button staying reachable)?
-3. Delete the inactive Akismet + Hello Dolly on staging?
-4. A real favicon: use the PL monogram?
+## Questions for Sara → answered 6 Nov 2026 (round 2 below)
+
+
+---
+
+# Round 2 — Sara's answers (6 Nov 2026)
+| # | Decision | Done | Evidence |
+|---|---|---|---|
+| 1 | R3 wording: two separate numbers, each with its label, no brackets | About explorer `dl`: **Congresses 13 · Events 15** as two rows in the panel's existing style; every country the same (Saudi Arabia: Congresses 0 · Events 1) | Staging HTML + screenshot |
+| 2 | Phones (≤ 767 px): only one line stays fixed | New `#ebar-m`: **Filters** (count only when > 0, e.g. "Filters (2)") · **"N events"** · Grid/List (icons, aria-labels "Grid view"/"List view"). Tabs + search are part of the page and scroll away; the full filters stay in the bottom sheet. Without JS the Grid/List buttons still work (`form="ebar"`). `scroll-padding-top` follows the new bar. Tablet/desktop unchanged. | Sticky area at 320/375/414: **289 → 124 px** (header 65 + bar 59, target ≤ 130). R1: 0/16 focus stops hidden (375 and 1280). Bar 768 = 160 px, 1024/1280 = 183 px, still sticky, phone bar `display:none` there. |
+| 3 | Delete Akismet + Hello Dolly | Deleted on staging (both were inactive) | Plugin folder list |
+| 4 | Favicon: PL monogram, white on #2C4894, small radius | Monogram traced to a vector (potrace) → `assets/img/icon/favicon.svg` + PNG 32/180/192/512. The 512 is the **WordPress Site Icon** (`plt_provision_site_icon()`, using WordPress' own icon sizes), so WordPress prints 32/192 + apple-touch 180 + 270, all under `/pl`. SVG link added for browsers that use it. `data:,` (R11) removed. Nothing at the domain root. | Head tags on staging; `favicon.svg` 200 `image/svg+xml` |
+
+## Found and fixed while doing round 2
+| # | Sev. | Problem | Fix | Evidence |
+|---|---|---|---|---|
+| R16 | **Blocker** | **Links inside the Events results didn't open on click** (Grid and List): event titles, Register now, Website, WhatsApp. `#results` carries `data-view` (grid/list state), and the calendar's click handler matched it as the Grid/List button and cancelled the click. Older than this round; my earlier checks tested link *addresses*, not *clicks*. | The handler and the toggle update now only match `button[data-view]` | Real clicks on Events Grid, Events List and Home: title navigates ✓, Register now / Website / WhatsApp open a new tab ✓, Add to calendar opens ✓. axe found the same root cause (`aria-pressed` on `#results`) → 0 violations after the fix. |
+| R17 | Major | The deploy's safe swap left an old plugin copy (`pl-events-core.old-…`) when cPanel's delete failed silently, so wp-admin listed the plugin twice | Removed. `deploy.sh` now checks the delete, retries 3×, and warns loudly if it's still there | Next deploys: no `.old-` folder |
+
+## Still open — a question for Sara
+- **Tablet (768–1023 px) has no way to filter by specialty/country/year/type.** The filter row is hidden below 1024 (prototype rule), and the "Filters" button was phones-only (also prototype). Tabs and search work. You said tablet must not change, so I left it. **Recommendation:** show the phone bar's Filters button on tablet too (the bottom sheet already works up to 1023 px).
+
+## Files (round 2)
+- Plugin:
+  - `templates/story.php` (explorer rows)
+  - `templates/calendar.php` (phone bar)
+  - `assets/js/pl-events.js` (phone bar count/filters; R16)
+- Theme:
+  - `assets/css/src/wp.css` → `pl.css`
+  - `assets/js/core.js` (scroll-padding follows the phone bar)
+  - `inc/setup.php` (SVG icon link; `data:,` removed)
+  - `inc/provision.php` (`plt_provision_site_icon`)
+  - `assets/img/icon/*`
+- `deploy/deploy.sh` (verified old-copy delete).
+- Screenshot: `docs/img/6.1b-round2.jpg`.

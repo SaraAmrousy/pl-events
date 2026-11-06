@@ -51,12 +51,9 @@ add_action( 'elementor/page_templates/header-footer/after_content', static funct
 	echo '</main>';
 } );
 
-/* 6.1b: no site icon yet → browsers asked the domain root for /favicon.ico (404 on every page, Lighthouse
-   "errors in console"). An empty icon stops that request and changes nothing visible. When PL picks a
-   favicon, set it in Appearance › Customize › Site Identity (WordPress then prints its own icon tags). */
+/* Favicon (6.1b, Sara): PL monogram, white on #2C4894. The PNG sizes come from the WordPress Site Icon
+   (set by plt_provision_site_icon() → WordPress prints 32 / 180 / 192 / 270 itself, inside the site's
+   own folder — nothing at the domain root). Browsers that take SVG get the crisp vector too. */
 add_action( 'wp_head', static function () {
-	if ( ! has_site_icon() ) {
-		echo '<link rel="icon" href="data:,">' . "\n";
-	}
-}, 2 );
-
+	echo '<link rel="icon" href="' . esc_url( PLT_URL . 'assets/img/icon/favicon.svg' ) . '" type="image/svg+xml">' . "\n";
+}, 98 );

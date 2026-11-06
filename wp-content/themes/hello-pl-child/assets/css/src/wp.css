@@ -341,3 +341,18 @@ html[data-motion] .pl .rail-nav { visibility: visible; } /* JS present */
 .pl .split .row { flex-wrap: wrap; }
 /* 6.1b: at 320 "Download our portfolio (PDF, 4.7 MB)" was one unbreakable line wider than the screen. */
 @media (max-width: 360px) { .pl .btn { white-space: normal; text-align: center; } }
+
+/* ===== Events on phones (Sara, 6 Nov 2026): only one line stays fixed — Filters (n) · "N events" ·
+   Grid/List (~56px). Tabs + search are part of the page and scroll away; the full filters stay in the
+   bottom sheet. Tablet and desktop unchanged. */
+.pl .ebar-m { display: none; }
+@media (max-width: 767px) {
+  .pl .ebar { position: static; }
+  .pl .ebar [data-act="sheet"], .pl .ebar .row > [role="group"].tabs { display: none !important; }
+  .pl .ebar-m { display: flex; align-items: center; gap: 10px; position: sticky; top: var(--top, 64px); z-index: 30;
+    min-height: 56px; padding: 6px 20px; background: var(--paper); border-bottom: 1.5px solid var(--ink); }
+  .pl .ebar-m .btn { min-height: 44px; flex: none; white-space: nowrap; gap: 5px; }
+  .pl .ebar-m .pl-count-m { flex: 1 1 auto; font-weight: 800; font-size: 15px; white-space: nowrap; }
+  .pl .ebar-m .tabs { flex: none; padding: 2px; }
+  .pl .ebar-m .tabs .tab { width: 44px; height: 40px; padding: 0; font-size: 18px; }
+}

@@ -23,9 +23,9 @@
       html.style.setProperty('--top', h + 'px');
       /* 6.1b (WCAG 2.4.11): keyboard focus and anchors must not end up under the sticky header / Events
          filter bar — tell the browser how tall the sticky area is. */
-      var bar = document.querySelector('.ebar'), mh = document.getElementById('masthead');
+      var bar = [document.getElementById('ebar-m'), document.querySelector('.ebar')].filter(function (b) { return b && b.offsetParent && getComputedStyle(b).position === 'sticky'; })[0], mh = document.getElementById('masthead');
       var head = Math.max(h, mh && getComputedStyle(mh).position === 'sticky' ? mh.offsetHeight : 0);
-      html.style.scrollPaddingTop = (head + (bar && getComputedStyle(bar).position === 'sticky' ? bar.offsetHeight : 0) + 16) + 'px';
+      html.style.scrollPaddingTop = (head + (bar ? bar.offsetHeight : 0) + 16) + 'px';
     },
     refresh: function () { if (window.ScrollTrigger) window.ScrollTrigger.refresh(); }
   };

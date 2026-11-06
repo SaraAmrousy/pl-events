@@ -34,7 +34,12 @@ case "$kind" in
       cp_rename "$dest/$old" "$slug" || true
       die "extract failed — old $slug restored, zip left in $dest for a look"
     fi
-    cp_delete "$dest/$old" || true          # replace code only; data lives in the DB
+    for try in 1 2 3; do                    # remove the old copy; verify (a delete once failed silently)
+      cp_delete "$dest/$old" || true
+      cp_ls "$dest" 2>/dev/null | grep -qx "$old" || break
+      sleep $((try * 2))
+    done
+    if cp_ls "$dest" 2>/dev/null | grep -qx "$old"; then say "WARNING: old copy $dest/$old is still there — delete it by hand"; fi
     cp_delete "$dest/$slug.zip"
     if [ "$kind" = plugin ]; then
       main=$(grep -l "Plugin Name:" "$src"/*.php | head -1); main=$(basename "$main" .php)

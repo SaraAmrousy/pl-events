@@ -130,6 +130,20 @@ $filter_fields = static function ( $suffix ) use ( $fdefs, $F ) {
 		</div>
 	</div>
 </form>
+<?php // Phones (≤ 767px): one sticky line — Filters (n) · count · Grid/List. Tabs + search above it scroll away (Sara, 6 Nov 2026). ?>
+<div class="ebar-m" id="ebar-m" role="group" aria-label="Filters and view">
+	<button type="button" class="btn bs sm pl-js-only" data-act="sheet" hidden>Filters<span class="pl-fwrap"<?php echo $fcount ? '' : ' hidden'; ?>>(<span class="pl-fcount"><?php echo (int) $fcount; ?></span>)</span></button>
+	<span class="pl-count-m" aria-hidden="true"><?php echo esc_html( PL_Template::plural( count( $shown ), 'event' ) ); ?></span>
+	<?php if ( count( $views ) > 1 ) : ?>
+	<div role="group" aria-label="View" class="tabs">
+		<?php foreach ( array( 'grid' => array( '▦', 'Grid view' ), 'list' => array( '☰', 'List view' ) ) as $k => $v ) : ?>
+			<?php if ( in_array( $k, $views, true ) ) : ?>
+			<button type="submit" form="ebar" name="view" value="<?php echo esc_attr( $k ); ?>" aria-pressed="<?php echo $view === $k ? 'true' : 'false'; ?>" aria-label="<?php echo esc_attr( $v[1] ); ?>" class="tab<?php echo $view === $k ? ' on' : ''; ?>" data-view="<?php echo esc_attr( $k ); ?>"><span aria-hidden="true"><?php echo esc_html( $v[0] ); ?></span></button>
+			<?php endif; ?>
+		<?php endforeach; ?>
+	</div>
+	<?php endif; ?>
+</div>
 <?php if ( $hasLive ) : ?>
 <section class="ink" id="liveBand" style="padding:28px 0"><div class="wrap" style="display:flex;flex-direction:column;gap:16px">
 	<?php foreach ( $live as $e ) : ?>

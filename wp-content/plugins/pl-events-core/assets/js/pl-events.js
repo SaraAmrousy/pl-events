@@ -125,15 +125,19 @@
       var n = 0;
       items.forEach(function (c) { var m = match(c); c.hidden = !m; if (m && c.closest('.pl-view-grid')) n++; });
       grid.hidden = st.view !== 'grid'; list.hidden = st.view !== 'list';
-      root.querySelector('#count').textContent = n + ' ' + (n === 1 ? 'event' : 'events');
+      var countText = n + ' ' + (n === 1 ? 'event' : 'events');
+      root.querySelector('#count').textContent = countText;
+      $$('.pl-count-m', root).forEach(function (c) { c.textContent = countText; }); // phone bar
       $$('[data-tab]', form).forEach(function (t) { var on = t.getAttribute('data-tab') === st.tab; t.classList.toggle('on', on); t.setAttribute('aria-selected', on ? 'true' : 'false'); });
-      $$('[data-view]', form).forEach(function (t) { var on = t.getAttribute('data-view') === st.view; t.classList.toggle('on', on); t.setAttribute('aria-pressed', on ? 'true' : 'false'); });
+      $$('button[data-view]', root).forEach(function (t) { var on = t.getAttribute('data-view') === st.view; t.classList.toggle('on', on); t.setAttribute('aria-pressed', on ? 'true' : 'false'); });
       var chips = root.querySelector('#chips'); chips.innerHTML = '';
       var any = false;
       Object.keys(labels).forEach(function (k) { if (st.f[k]) { any = true; chips.appendChild(chip(k, labels[k] + ': ' + optLabel(k, st.f[k]))); } });
       if (st.q.trim()) { any = true; chips.appendChild(chip('q', '“' + st.q.trim() + '”')); }
       if (any) { var c = document.createElement('button'); c.type = 'button'; c.className = 'btn bg sm'; c.textContent = 'Clear all'; c.setAttribute('data-act', 'clear'); chips.appendChild(c); }
-      var fc = root.querySelector('.pl-fcount'); if (fc) fc.textContent = Object.keys(labels).filter(function (k) { return st.f[k]; }).length;
+      var nf = Object.keys(labels).filter(function (k) { return st.f[k]; }).length;
+      $$('.pl-fcount', root).forEach(function (fc) { fc.textContent = nf; });
+      $$('.pl-fwrap', root).forEach(function (w) { w.hidden = !nf; }); // phone bar: "Filters (2)", never "(0)"
       root.querySelector('.pl-empty-filtered').hidden = !(n === 0 && any);
       var et = root.querySelector('.pl-empty-tab'); et.hidden = !(n === 0 && !any);
       var tt = et.querySelector('.pl-empty-title'); if (tt) tt.textContent = st.tab === 'upcoming' ? 'No upcoming congresses announced yet.' : 'Nothing here yet.';
@@ -150,7 +154,9 @@
 
     form.addEventListener('submit', function (ev) { ev.preventDefault(); });
     root.addEventListener('click', function (ev) {
-      var t = ev.target.closest('[data-tab],[data-view],[data-unchip],[data-act]'); if (!t || !root.contains(t)) return;
+      // Controls only: #results also carries data-view (grid/list state), and matching it cancelled every link
+      // click inside the results (6.1b Blocker: card titles, Register now and Website did not open).
+      var t = ev.target.closest('[data-tab],button[data-view],[data-unchip],[data-act]'); if (!t || !root.contains(t)) return;
       if (t.hasAttribute('data-tab')) { ev.preventDefault(); st.tab = t.getAttribute('data-tab'); hTab.value = st.tab; render(); }
       else if (t.hasAttribute('data-view')) { ev.preventDefault(); st.view = t.getAttribute('data-view'); hView.value = st.view; render(); }
       else if (t.hasAttribute('data-unchip')) { ev.preventDefault(); var k = t.getAttribute('data-unchip'); if (k === 'q') { st.q = ''; if (qIn) qIn.value = ''; } else st.f[k] = ''; syncSelects(); render(); }

@@ -212,11 +212,42 @@ function plt_provision_seo( $force = false ) {
 	return $log;
 }
 
+/**
+ * Site Icon (favicon): the PL monogram tile from the theme (assets/img/icon/pl-icon-512.png) becomes the
+ * WordPress Site Icon, so WordPress prints the 32/180/192/270 icons. Only when no icon is set (or $force).
+ */
+function plt_provision_site_icon( $force = false ) {
+	if ( has_site_icon() && ! $force ) {
+		return array( 'site icon: exists — left as is' );
+	}
+	$src = PLT_DIR . 'assets/img/icon/pl-icon-512.png';
+	if ( ! is_readable( $src ) ) {
+		return array( 'site icon: source missing' );
+	}
+	require_once ABSPATH . 'wp-admin/includes/file.php';
+	require_once ABSPATH . 'wp-admin/includes/media.php';
+	require_once ABSPATH . 'wp-admin/includes/image.php';
+	require_once ABSPATH . 'wp-admin/includes/class-wp-site-icon.php';
+	$icon = new WP_Site_Icon(); // WordPress' own icon sizes (32 / 180 / 192 / 270), as the Customizer does
+	add_filter( 'intermediate_image_sizes_advanced', array( $icon, 'additional_sizes' ) );
+	$tmp = wp_tempnam( 'pl-icon-512.png' );
+	copy( $src, $tmp );
+	$id = media_handle_sideload( array( 'name' => 'pl-site-icon.png', 'tmp_name' => $tmp ), 0, 'PL Events site icon' );
+	if ( is_wp_error( $id ) ) {
+		return array( 'site icon: ERROR ' . $id->get_error_message() );
+	}
+	remove_filter( 'intermediate_image_sizes_advanced', array( $icon, 'additional_sizes' ) );
+	update_post_meta( $id, '_wp_attachment_context', 'site-icon' );
+	update_option( 'site_icon', $id );
+	return array( "site icon: set (#$id)" );
+}
+
 /** Everything: pages, header/footer, menus. */
 function plt_provision( $force = false ) {
 	$log = function_exists( 'plt_provision_pages' ) ? plt_provision_pages( $force ) : array();
 	$log = array_merge( $log, plt_provision_chrome( $force ) ); // header, footer, then menus (pages exist by now).
 	$log = array_merge( $log, plt_provision_seo( $force ) );
+	$log = array_merge( $log, plt_provision_site_icon() );
 	if ( function_exists( 'plt_provision_forms' ) ) {
 		$log = array_merge( $log, plt_provision_forms( $force ) );
 	}
