@@ -8,6 +8,10 @@
  * 375 / 768 / 1280 × Full / Reduced motion. Outside sites are never contacted: every request to another
  * host is answered by a local stub (so new tabs still open and their URL can be checked). Forms are only
  * submitted empty / with an invalid email (validation paths) — no real message or sign-up is ever sent.
+ * Round 4 adds: the sign-in address (/plevents/ opens the form, /wp-admin/ and /wp-login.php → 404) and the
+ * newsletter link pages (tampered confirm / unsubscribe links get a calm page). The full newsletter flow
+ * (sign up → one email → confirm → both providers → unsubscribe) runs only against the sandbox mocks:
+ *   PL_NL_MAILLOG=…/mail.jsonl PL_NL_MOCKLOG=…/log.jsonl node tools/click-sweep.js http://localhost:8080
  * Exit code 1 if any check fails. Needs Playwright (preinstalled in the build sandbox).
  */
 const { chromium } = require('playwright');
@@ -28,7 +32,7 @@ async function main() {
       const pg = await ctx.newPage();
       pg.setDefaultTimeout(10000);
       const T = { ctx, pg, w, label };
-      for (const suite of [home, events, eventPage, about, contactForms, footer]) {
+      for (const suite of [home, events, eventPage, about, contactForms, footer, access, nlLinks, nlFlow]) {
         try { await suite(T); } catch (e) { const m = e.message.split('\n'); rows.push([suite.name, '-', label, 'suite runs', 'crashed: ' + [m[0], ...m.filter((l) => /waiting for locator|intercepts pointer|not visible|not stable/.test(l)).slice(0, 2)].join(' / ').slice(0, 300), false]); }
       }
       await ctx.close();
@@ -172,6 +176,61 @@ async function footer(T) {
   rec(T, 'Newsletter › Choose topics', 'footer', 'opens', (await topics.evaluate((s) => s.parentElement.open)) ? 'opened' : 'closed', await topics.evaluate((s) => s.parentElement.open));
   await nl.locator('button[type=submit]').click(); await T.pg.waitForTimeout(300);
   const m = await nl.locator('.pl-nl-msg').innerText(); rec(T, 'Newsletter › Subscribe (empty)', 'footer', 'message, nothing sent', m.slice(0, 50), /doesn’t look complete/.test(m));
+}
+
+async function access(T) {
+  let r = await T.pg.goto(BASE + '/plevents', { waitUntil: 'domcontentloaded' });
+  rec(T, 'Sign-in address', '/plevents', 'sign-in form (200)', `${r.status()} ${T.pg.url().replace(BASE, '')}`, r.status() === 200 && (await T.pg.locator('#loginform').isVisible()));
+  const lost = await vis(T.pg.locator('#nav a', { hasText: 'Lost your password' })); const u = lost ? await navigates(T, lost) : null;
+  rec(T, 'Sign-in › Lost your password?', '/plevents/', 'opens the reset form at /plevents/', u || 'no', /^\/plevents\/\?action=lostpassword/.test(u || '') && (await T.pg.locator('#lostpasswordform').isVisible()));
+  for (const p of ['/wp-admin/', '/wp-login.php']) {
+    r = await T.pg.goto(BASE + p, { waitUntil: 'domcontentloaded' });
+    rec(T, 'Signed out', p, '404', String(r.status()), r.status() === 404);
+  }
+  const h = await vis(T.pg.locator('a', { hasText: 'Go to the PL Events homepage' })); const hu = h ? await navigates(T, h) : null;
+  rec(T, '404 › Go to the homepage', '/wp-login.php', 'opens /', hu || 'no', hu === '/');
+}
+
+async function nlLinks(T) {
+  await go(T, '/?pl_nl_act=confirm&r=1&x=9999999999&s=tampered');
+  let t = await T.pg.locator('main').innerText();
+  rec(T, 'Newsletter › tampered confirm link', '/?pl_nl_act=confirm', 'calm page, sign up again', t.split('\n')[0], /isn’t complete/.test(t) && /sign up again/i.test(t) && !/invalid|wrong/i.test(t));
+  await go(T, '/?pl_nl_act=unsubscribe&r=1&s=tampered');
+  t = await T.pg.locator('main').innerText();
+  const w = await vis(T.pg.locator('main a', { hasText: 'write to us' })); const u = w ? await navigates(T, w) : null;
+  rec(T, 'Newsletter › tampered unsubscribe link › write to us', '/?pl_nl_act=unsubscribe', 'calm page → Contact', u || 'no', /isn’t complete/.test(t) && /^\/contact\//.test(u || ''));
+}
+
+async function nlFlow(T) {
+  const ML = process.env.PL_NL_MAILLOG, PL = process.env.PL_NL_MOCKLOG;
+  if (!ML || !PL || /Reduced/.test(T.label)) return; // sandbox mocks only; once per size
+  const rd = (f) => (fs.existsSync(f) ? fs.readFileSync(f, 'utf8') : '');
+  const email = `sweep.${T.w}.${Date.now()}@example.org`;
+  await go(T, '/services/');
+  const nl = T.pg.locator('form.pl-nl-footer'); await nl.scrollIntoViewIfNeeded();
+  await nl.locator('input[type=email]').fill(email);
+  await nl.locator('button[type=submit]').click();
+  await T.pg.waitForFunction(() => /inbox/.test(document.querySelector('form.pl-nl-footer .pl-nl-msg')?.textContent || ''), null, { timeout: 8000 }).catch(() => {});
+  const m = await nl.locator('.pl-nl-msg').innerText();
+  rec(T, 'Newsletter › Subscribe (real, mock)', 'footer', '"check your inbox"', m.slice(0, 50), /check your inbox/.test(m));
+  const mails = rd(ML).trim().split('\n').filter(Boolean).map((l) => JSON.parse(l)).filter((x) => [].concat(x.to).includes(email));
+  rec(T, 'Newsletter › confirmation email', 'mail', 'exactly one', String(mails.length), mails.length === 1);
+  const link = (mails[0]?.message.match(/href="([^"]*pl_nl_act=confirm[^"]*)"/) || [])[1]?.replace(/&#038;|&amp;/g, '&');
+  await T.pg.goto(link, { waitUntil: 'domcontentloaded' });
+  const before = rd(PL);
+  const btn = await vis(T.pg.locator('main button', { hasText: 'Confirm my subscription' }));
+  if (btn) await Promise.all([T.pg.waitForNavigation(), btn.click()]);
+  const h1 = await T.pg.locator('main h1').innerText();
+  const calls = rd(PL).slice(before.length);
+  rec(T, 'Newsletter › Confirm my subscription', 'confirm page', 'subscribed in Mailchimp + Zoho', h1, /You’re subscribed/.test(h1) && /"m":"PUT".*mailchimp/.test(calls) && calls.includes('listsubscribe') && calls.includes(encodeURIComponent(email).replace('%40', '@')) !== null);
+  const un = await vis(T.pg.locator('main a', { hasText: 'Unsubscribe' }));
+  if (un) await navigates(T, un);
+  const b2 = await vis(T.pg.locator('main button', { hasText: 'Unsubscribe me' }));
+  const before2 = rd(PL);
+  if (b2) await Promise.all([T.pg.waitForNavigation(), b2.click()]);
+  const h2 = await T.pg.locator('main h1').innerText();
+  const c2 = rd(PL).slice(before2.length);
+  rec(T, 'Newsletter › Unsubscribe me', 'unsubscribe page', 'removed from both', h2, /You’re unsubscribed/.test(h2) && /PATCH/.test(c2) && c2.includes('listunsubscribe'));
 }
 
 main().catch((e) => { console.error(e); process.exit(2); });

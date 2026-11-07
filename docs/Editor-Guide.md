@@ -2,7 +2,7 @@
 
 For the PL staff member who keeps the website up to date. You don't need any technical skills: everything happens in **wp-admin** under **PL Website**, using forms. The site updates itself: counts, maps, "Next congress", past/upcoming status and the cache.
 
-*Step 6.2 — written 6 Nov 2026. Login address: `…/wp-admin` (on launch day: `https://plevents.org/wp-admin`). Your account has the **PL Editor** role.*
+*Step 6.2 — written 6 Nov 2026. Sign-in address: **`https://plevents.org/plevents/`** (staging: `https://saraamrousy.net/pl/plevents/`). Bookmark it: `/wp-admin` and `/wp-login.php` show "Page not found" until you're signed in, by design. Once signed in, wp-admin works as usual. After 5 wrong passwords, sign-in from your connection pauses for 15 minutes; use "Lost your password?" on the same page if needed. Your account has the **PL Editor** role.*
 
 ---
 
@@ -79,7 +79,11 @@ Order: every list has an **Order** number. Lower numbers come first.
 - **Careers form (with CV):** goes to HR, as set at launch.
 - CVs can't be opened from a public link. They're only in the email and in wp-admin (administrator).
 - *(On the staging site every email goes to Sara only. That switch is removed at launch.)*
-- **Newsletter sign-ups** (footer, event pages, the Contact box): the person gets a confirmation email from the newsletter service (Zoho or Mailchimp) and is added only after they confirm. Each sign-up is also kept in **PL Website › Newsletter sign-ups** (administrators only) with its date, page and the consent text, so you can answer "when did this person agree?". Campaigns are sent from Zoho/Mailchimp, using the tags (`specialty-…`, `country-…`, `series-…`); see `Step-4.6-Newsletter.md` §4.
+- **Newsletter sign-ups** (footer, event pages, the Contact box): the website sends the person **one** confirmation email. Only after they click **Confirm my subscription** are they added to both Zoho and Mailchimp, with their tags. Each sign-up is kept in **PL Website › Newsletter sign-ups** (administrators only) with its sign-up time, confirmation time, page and consent text, so you can answer "when did this person agree?".
+  - **Someone asks to be removed** by phone or email: hover their row there → **Unsubscribe from all lists** (it removes them from both Zoho and Mailchimp).
+  - **Unsubscribes made in Zoho or Mailchimp** are copied to the other account automatically.
+  - **Backup:** Export CSV, on the same screen.
+  - Campaigns are sent from Zoho/Mailchimp using the tags (`specialty-…`, `country-…`, `series-…`); see `Step-4.6-Newsletter.md` §4.
 
 ---
 

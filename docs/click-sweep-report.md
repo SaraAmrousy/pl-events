@@ -1,6 +1,6 @@
 # Click sweep — https://saraamrousy.net/pl
 
-2026-11-07T18:05:55.591Z · 330 checks · ✅ 330 · ❌ 0
+2026-11-07T18:54:53.590Z · 372 checks · ✅ 372 · ❌ 0
 
 | Element | Page | Size | Expected | What happened | |
 |---|---|---|---|---|---|
@@ -59,6 +59,13 @@
 | Footer › LinkedIn | /services/ | 375 Full | new tab | www.linkedin.com | ✅ |
 | Newsletter › Choose topics | footer | 375 Full | opens | opened | ✅ |
 | Newsletter › Subscribe (empty) | footer | 375 Full | message, nothing sent | That email address doesn’t look complete. Please c | ✅ |
+| Sign-in address | /plevents | 375 Full | sign-in form (200) | 200 /plevents/ | ✅ |
+| Sign-in › Lost your password? | /plevents/ | 375 Full | opens the reset form at /plevents/ | /plevents/?action=lostpassword | ✅ |
+| Signed out | /wp-admin/ | 375 Full | 404 | 404 | ✅ |
+| Signed out | /wp-login.php | 375 Full | 404 | 404 | ✅ |
+| 404 › Go to the homepage | /wp-login.php | 375 Full | opens / | / | ✅ |
+| Newsletter › tampered confirm link | /?pl_nl_act=confirm | 375 Full | calm page, sign up again | This link isn’t complete | ✅ |
+| Newsletter › tampered unsubscribe link › write to us | /?pl_nl_act=unsubscribe | 375 Full | calm page → Contact | /contact/?topic=other | ✅ |
 | Nav › Events (menu) | / | 375 Reduced | opens /events/ | /events/ | ✅ |
 | Request a proposal | / | 375 Reduced | /contact/?topic=proposal | /contact/?topic=proposal | ✅ |
 | Tab › Upcoming | / | 375 Reduced | only upcoming cards | upcoming,upcoming | ✅ |
@@ -114,6 +121,13 @@
 | Footer › LinkedIn | /services/ | 375 Reduced | new tab | www.linkedin.com | ✅ |
 | Newsletter › Choose topics | footer | 375 Reduced | opens | opened | ✅ |
 | Newsletter › Subscribe (empty) | footer | 375 Reduced | message, nothing sent | That email address doesn’t look complete. Please c | ✅ |
+| Sign-in address | /plevents | 375 Reduced | sign-in form (200) | 200 /plevents/ | ✅ |
+| Sign-in › Lost your password? | /plevents/ | 375 Reduced | opens the reset form at /plevents/ | /plevents/?action=lostpassword | ✅ |
+| Signed out | /wp-admin/ | 375 Reduced | 404 | 404 | ✅ |
+| Signed out | /wp-login.php | 375 Reduced | 404 | 404 | ✅ |
+| 404 › Go to the homepage | /wp-login.php | 375 Reduced | opens / | / | ✅ |
+| Newsletter › tampered confirm link | /?pl_nl_act=confirm | 375 Reduced | calm page, sign up again | This link isn’t complete | ✅ |
+| Newsletter › tampered unsubscribe link › write to us | /?pl_nl_act=unsubscribe | 375 Reduced | calm page → Contact | /contact/?topic=other | ✅ |
 | Nav › Events (menu) | / | 768 Full | opens /events/ | /events/ | ✅ |
 | Request a proposal | / | 768 Full | /contact/?topic=proposal | /contact/?topic=proposal | ✅ |
 | Tab › Upcoming | / | 768 Full | only upcoming cards | upcoming,upcoming | ✅ |
@@ -169,6 +183,13 @@
 | Footer › LinkedIn | /services/ | 768 Full | new tab | www.linkedin.com | ✅ |
 | Newsletter › Choose topics | footer | 768 Full | opens | opened | ✅ |
 | Newsletter › Subscribe (empty) | footer | 768 Full | message, nothing sent | That email address doesn’t look complete. Please c | ✅ |
+| Sign-in address | /plevents | 768 Full | sign-in form (200) | 200 /plevents/ | ✅ |
+| Sign-in › Lost your password? | /plevents/ | 768 Full | opens the reset form at /plevents/ | /plevents/?action=lostpassword | ✅ |
+| Signed out | /wp-admin/ | 768 Full | 404 | 404 | ✅ |
+| Signed out | /wp-login.php | 768 Full | 404 | 404 | ✅ |
+| 404 › Go to the homepage | /wp-login.php | 768 Full | opens / | / | ✅ |
+| Newsletter › tampered confirm link | /?pl_nl_act=confirm | 768 Full | calm page, sign up again | This link isn’t complete | ✅ |
+| Newsletter › tampered unsubscribe link › write to us | /?pl_nl_act=unsubscribe | 768 Full | calm page → Contact | /contact/?topic=other | ✅ |
 | Nav › Events (menu) | / | 768 Reduced | opens /events/ | /events/ | ✅ |
 | Request a proposal | / | 768 Reduced | /contact/?topic=proposal | /contact/?topic=proposal | ✅ |
 | Tab › Upcoming | / | 768 Reduced | only upcoming cards | upcoming,upcoming | ✅ |
@@ -224,6 +245,13 @@
 | Footer › LinkedIn | /services/ | 768 Reduced | new tab | www.linkedin.com | ✅ |
 | Newsletter › Choose topics | footer | 768 Reduced | opens | opened | ✅ |
 | Newsletter › Subscribe (empty) | footer | 768 Reduced | message, nothing sent | That email address doesn’t look complete. Please c | ✅ |
+| Sign-in address | /plevents | 768 Reduced | sign-in form (200) | 200 /plevents/ | ✅ |
+| Sign-in › Lost your password? | /plevents/ | 768 Reduced | opens the reset form at /plevents/ | /plevents/?action=lostpassword | ✅ |
+| Signed out | /wp-admin/ | 768 Reduced | 404 | 404 | ✅ |
+| Signed out | /wp-login.php | 768 Reduced | 404 | 404 | ✅ |
+| 404 › Go to the homepage | /wp-login.php | 768 Reduced | opens / | / | ✅ |
+| Newsletter › tampered confirm link | /?pl_nl_act=confirm | 768 Reduced | calm page, sign up again | This link isn’t complete | ✅ |
+| Newsletter › tampered unsubscribe link › write to us | /?pl_nl_act=unsubscribe | 768 Reduced | calm page → Contact | /contact/?topic=other | ✅ |
 | Nav › Events | / | 1280 Full | opens /events/ | /events/ | ✅ |
 | Request a proposal | / | 1280 Full | /contact/?topic=proposal | /contact/?topic=proposal | ✅ |
 | Tab › Upcoming | / | 1280 Full | only upcoming cards | upcoming,upcoming | ✅ |
@@ -279,6 +307,13 @@
 | Footer › LinkedIn | /services/ | 1280 Full | new tab | www.linkedin.com | ✅ |
 | Newsletter › Choose topics | footer | 1280 Full | opens | opened | ✅ |
 | Newsletter › Subscribe (empty) | footer | 1280 Full | message, nothing sent | That email address doesn’t look complete. Please c | ✅ |
+| Sign-in address | /plevents | 1280 Full | sign-in form (200) | 200 /plevents/ | ✅ |
+| Sign-in › Lost your password? | /plevents/ | 1280 Full | opens the reset form at /plevents/ | /plevents/?action=lostpassword | ✅ |
+| Signed out | /wp-admin/ | 1280 Full | 404 | 404 | ✅ |
+| Signed out | /wp-login.php | 1280 Full | 404 | 404 | ✅ |
+| 404 › Go to the homepage | /wp-login.php | 1280 Full | opens / | / | ✅ |
+| Newsletter › tampered confirm link | /?pl_nl_act=confirm | 1280 Full | calm page, sign up again | This link isn’t complete | ✅ |
+| Newsletter › tampered unsubscribe link › write to us | /?pl_nl_act=unsubscribe | 1280 Full | calm page → Contact | /contact/?topic=other | ✅ |
 | Nav › Events | / | 1280 Reduced | opens /events/ | /events/ | ✅ |
 | Request a proposal | / | 1280 Reduced | /contact/?topic=proposal | /contact/?topic=proposal | ✅ |
 | Tab › Upcoming | / | 1280 Reduced | only upcoming cards | upcoming,upcoming | ✅ |
@@ -334,3 +369,10 @@
 | Footer › LinkedIn | /services/ | 1280 Reduced | new tab | www.linkedin.com | ✅ |
 | Newsletter › Choose topics | footer | 1280 Reduced | opens | opened | ✅ |
 | Newsletter › Subscribe (empty) | footer | 1280 Reduced | message, nothing sent | That email address doesn’t look complete. Please c | ✅ |
+| Sign-in address | /plevents | 1280 Reduced | sign-in form (200) | 200 /plevents/ | ✅ |
+| Sign-in › Lost your password? | /plevents/ | 1280 Reduced | opens the reset form at /plevents/ | /plevents/?action=lostpassword | ✅ |
+| Signed out | /wp-admin/ | 1280 Reduced | 404 | 404 | ✅ |
+| Signed out | /wp-login.php | 1280 Reduced | 404 | 404 | ✅ |
+| 404 › Go to the homepage | /wp-login.php | 1280 Reduced | opens / | / | ✅ |
+| Newsletter › tampered confirm link | /?pl_nl_act=confirm | 1280 Reduced | calm page, sign up again | This link isn’t complete | ✅ |
+| Newsletter › tampered unsubscribe link › write to us | /?pl_nl_act=unsubscribe | 1280 Reduced | calm page → Contact | /contact/?topic=other | ✅ |

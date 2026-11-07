@@ -19,7 +19,7 @@ Skill: `pl-events-data-wp`. Sources:
 | L3 | Launch window | A quiet day, not during a congress | A weekday morning, Cairo time, with PL reachable. |
 | L4 | Who receives the forms | Contact → office emails (routing exists); Careers → HR address? | **PL to name the HR address.** |
 | L5 | Analytics | None / privacy-friendly (no cookie banner) / GA4 (needs cookie consent) | Privacy-friendly or none. GA4 means a consent banner and privacy text. |
-| L6 | **Newsletter** (Step 4.6) | Which account sends campaigns (Zoho / Mailchimp / both)? Which list/audience does the site add people to? Who owns the account (login + billing) and connects it on launch day? Existing tags/groups to map? | One provider, the one PL already sends from ("Both" = two confirmation emails). Answers from **PL**. |
+| L6 | **Newsletter** (Step 4.6 §7) | PL runs campaigns from **both** Zoho and Mailchimp → Destination **Both**. Open: do all sign-ups go to both, or are some campaigns tied to a specific list (tags → lists)? Which Mailchimp audience and which Zoho list (its signup form must be **off**, or a separate "Website sign-ups" list)? Who owns each account and connects it on launch day? Existing tags/groups to map? Is the Mailchimp audience GDPR-enabled? | Answers from **PL**. |
 
 ## 1. Content readiness (T-7 days) — from PL (5.2)
 - [ ] All events entered/checked by PL in wp-admin (5.2). **No "Sample" items left** (PL Website › Company counter = 0).
@@ -47,6 +47,8 @@ Skill: `pl-events-data-wp`. Sources:
 - [ ] 🔒 `deploy/deploy.sh plugin …` and `… theme …` against the live host (safe swap: verify → roll back on failure).
 - [ ] 🔒 Content: `wp pl export` on staging → `pl-data.json` + media → importer on live → check counts on PL Website › Overview (events / congresses / countries / cities match staging).
 - [ ] 🔒 `plt_provision()`: pages, header/footer, menus, forms, page SEO (`plt_provision_seo`).
+- [ ] 🔒 **Accounts:** PL's real accounts are created **on live, on launch day, with their own email addresses** (PL Editor for the editor; Administrator only for whoever PL names). Each person sets their own password through the "set your password" email. **Staging users are never copied** (not `sara`, not `PL@Admin`, not `claude-deploy`): content moves by export/import, users don't.
+- [ ] 🔒 **Sign-in address = staging:** `pl-events-core` serves sign-in at `https://plevents.org/plevents/`; `/wp-admin` and `/wp-login.php` → 404 when signed out; 5 wrong passwords → 15-minute pause per IP. Check after deploy: `/plevents/` 200, `/wp-admin/` 404 signed out, password-reset email link points to `/plevents/?action=rp…`. Tell PL the address (Editor Guide). No extra plugin needed. A different slug can be set with `define( 'PL_LOGIN_SLUG', '…' )` in wp-config.php.
 - [ ] 🔒 Settings:
   - Site title "PL Events";
   - permalinks `/%postname%/`;
@@ -57,7 +59,7 @@ Skill: `pl-events-data-wp`. Sources:
 ## 4. Mail
 - [ ] 🔒 A mailbox on PL's domain for the site (e.g. `website@plevents.org`), with SPF/DKIM on the domain. WP Mail SMTP by constants (password in a file outside the web root, like `~/pl-deploy/.env`), **never in wp-admin or the chat**.
 - [ ] **Remove the staging catch-all** (every email → Sara). It lives in the staging mu-plugin, which is not installed on live. Check: `plt_mail_override` is empty.
-- [ ] **Newsletter (4.6, L6):** remove Sara's test keys, connect PL's account in Settings › PL Newsletter, Test connection, choose Destination. SPF + DKIM for the provider on plevents.org (Mailchimp: Domains › Authenticate; Zoho: Sender domains). The staging mu-plugin (`PL_NL_TEST_ONLY` → tag `pl-staging-test`) is not on live. **Test:** one sign-up → confirmation email → tags in PL's account; delete the test contact. Steps: `docs/Step-4.6-Newsletter.md` §7.
+- [ ] **Newsletter (4.6, L6):** remove Sara's test keys; connect PL's Mailchimp audience + a Zoho list with the **signup form off**; Test connection; Destination **Both**; **connect both webhooks on live** (new secret on the live site) → both **Connected**. The confirmation email goes out through the site's mailbox (above), so SPF/DKIM/DMARC must be set first. Also authenticate plevents.org in both providers. The staging mu-plugin (`PL_NL_TEST_ONLY`) is not on live. **Test:** sign up → one email → confirm → in both lists with tags → unsubscribe in one → gone from the other; delete the test contact. Steps: `docs/Step-4.6-Newsletter.md` §7.
 - [ ] Forms: Contact routing by office; Careers → HR (L4); CV direct-URL block (`deploy/htaccess-cv.sh`). **Test:** one real message per form, received at the right address with the CV attached.
 
 ## 5. Switch on (launch)
@@ -102,7 +104,8 @@ Skill: `pl-events-data-wp`. Sources:
 | Item | Owner |
 |---|---|
 | L1–L6 decisions | Sara (+ PL for L1, L4, L6) |
-| Newsletter test accounts (Zoho + Mailchimp, free) + keys in wp-admin | Sara |
+| Newsletter test accounts (Zoho + Mailchimp, free) + keys + webhooks in wp-admin (4.6 §6) | Sara |
+| Passwords for `sara` and `PL@Admin` on staging (wp-admin › Users › Edit › Set new password) | Sara |
 | PL data (5.2), TBCs, logos + permission, PDF | PL |
 | PSI LCP numbers on staging; Google/Outlook click test | Sara |
 | plevents.org cPanel access (API token, as a network secret like staging) | PL → Sara |

@@ -181,3 +181,57 @@ Every fix was tested; nothing approved was redesigned. Where a fix changed somet
 - `tools/click-sweep.js`, `docs/click-sweep-report.md`
 - `deploy/mu/pl-staging.php` (`PL_NL_TEST_ONLY`).
 - Staging: plugin + theme + mu-plugin deployed with the safe swap (no `.old-` left); PL cache + Elementor CSS + LiteSpeed purged.
+
+---
+
+# Round 4 — 7 Nov 2026
+| # | Request | Done | Evidence |
+|---|---|---|---|
+| 1 | Newsletter: PL uses **both** Zoho and Mailchimp | Redesigned (`docs/Step-4.6-Newsletter.md`): **one** confirmation email from the site, a signed link valid 7 days → on confirm, added to **both** as subscribed with tags (Mailchimp + Email marketing permission; Zoho with no second confirmation, which works with a list whose signup form is off, per Zoho's docs) · consent record includes the confirmation time · unsubscribe sync by webhooks (Mailchimp unsubscribe/cleaned, Zoho unsubscribe/hard bounce; secret in the URL) + the site's own unsubscribe link + an admin row action · "Both" warning only while a webhook isn't connected · CSV export (admins) | `tools/nl-mock/nltest.py` **44/44** on mocks; click sweep on the sandbox with mocks **384/384** (sign up → one email → confirm → both → unsubscribe → both) |
+| 2 | Theme thumbnail | `hello-pl-child/screenshot.png` 1200×900: paper background, the PL monogram (vector, from the favicon trace) + **EVENTS** 800, "Hello PL Child — PL Events theme" in Montserrat, a #2C4894 rule and side band. Source: `tools/theme-screenshot.html` | Staging Appearance › Themes shows it (1200×900), checked by `tools/admin-check.js` |
+| 3 | Staging user `PL@Admin` | Created inside WordPress (`wp_insert_user`, which sends **no** "new user" email): Administrator, display name "PL Admin", email `pl-staging+pladmin@saraamrousy.net`, random 40-character password, never printed or saved anywhere. Your password unchanged. | Users on staging: `claude-deploy`, `PL@Admin`, `sara` |
+| 4 | Sign-in at `/plevents/` + rate limit | Own module `PL_Login` in pl-events-core (comparison below). `/wp-admin`, `/wp-login.php`, `/login`, `/admin` → **404** when signed out. 5 wrong passwords → 15-minute pause per IP, no CAPTCHA, a message that blames nobody | `tools/admin-check.js` on staging **17/17** + rate-limit run **11/11** (see the list below) |
+| 5 | Click sweep again | + the sign-in address, 404s, tampered newsletter links; newsletter flow on the mocks | Staging **372/372 ✅** (`docs/click-sweep-report.md`) · sandbox + mocks **384/384 ✅** (`docs/click-sweep-report-sandbox.md`) |
+
+## Login: WPS Hide Login vs our own code
+| | WPS Hide Login (free) | Own code in pl-events-core (chosen) |
+|---|---|---|
+| How | Serves WordPress' own `wp-login.php` at a new slug | **The same technique** (~150 lines, `includes/class-pl-login.php`) |
+| `/wp-admin` signed out | Redirects to a page you pick (a 302, then a 404) | A real **404** |
+| Rate limit | Not included → a second plugin (e.g. Limit Login Attempts) | In the same module: 5 wrong → 15 min per IP |
+| Updates / attack surface | One more third-party plugin to keep updated | Nothing extra; versioned in our repo; tested by our tools |
+| If it's switched off | Normal wp-login.php comes back | Same (fail-open; nobody gets locked out of the site) |
+| Live | Install + configure again | Comes with the plugin deploy; same slug (or `PL_LOGIN_SLUG`) |
+
+**Verdict:** our code. It's equally safe, since the method is the same and WordPress' own login code runs unchanged. It's simpler for PL: one plugin fewer, and the rate limit sits in the same place.
+
+**Tested on staging** (a temporary QA administrator, deleted afterwards):
+- **Sign-in and redirects:** sign in at `/plevents/` → dashboard; signed in, `/wp-admin/` works.
+- **Log out:** the logout link goes to `/plevents/?action=logout`, then `/plevents/?loggedout=true`; after that, `/wp-admin/` → 404.
+- **Password reset:** the email link is `/pl/plevents/?login=…&key=…&action=rp` (built without sending).
+- **REST API + application password:** 200, tested from the server itself, because the agent proxy rewrites Authorization headers from the sandbox.
+- **Elementor editor:** opens Home and the preview loads.
+- **Forminator:** a real Contact submission → `success: true` (the email went to Sara through the safety net; the entry was deleted).
+- **admin-ajax / wp-cron:** admin-ajax answers logged out; `wp-cron.php` 200, 0 cron events overdue.
+- **Deploy:** `deploy.sh` plugin + theme ran through the change (its health check now reads `/plevents/`).
+- **Rate limit:** the right password after 5 wrong ones → "Sign-in is paused for 15 minutes…", then cleared.
+- In the sandbox too: the reset email arrives with a `/plevents/` link; application password REST → 200.
+
+## Files (round 4)
+- **Plugin `pl-events-core`:**
+  - `includes/class-pl-login.php` (new)
+  - `class-pl-nl-links.php` (new), `class-pl-nl-hooks.php` (new)
+  - newsletter classes updated
+  - `class-pl-plugin.php`
+- **Theme `hello-pl-child`:** `screenshot.png`, `assets/css/src/wp.css` → `pl.css`.
+- **Deploy:** `deploy/lib.sh` (health check).
+- **Tools:**
+  - `tools/admin-check.js` (new)
+  - `tools/click-sweep.js`
+  - `tools/nl-mock/` (new)
+  - `tools/theme-screenshot.html`
+- **Docs:**
+  - `docs/Step-4.6-Newsletter.md` (rewritten)
+  - `docs/Step-6.3-Launch-Checklist.md` (L6, accounts, sign-in address)
+  - `docs/Editor-Guide.md` (sign-in address, newsletter)
+  - `docs/click-sweep-report*.md`

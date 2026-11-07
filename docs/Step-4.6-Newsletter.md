@@ -1,154 +1,218 @@
 # Step 4.6 — Newsletter (Zoho Campaigns + Mailchimp)
 
-**Date:** 7 Nov 2026 · **Status:** built, deployed to staging, tested against mock providers. **Waiting:** Sara's free test accounts (Zoho + Mailchimp) for the real connection test. No PL account is connected, and none will be until the reveal.
+**First built:** 7 Nov 2026 (round 3). **Redesigned:** 7 Nov 2026 (round 4), after the new information that PL runs campaigns from **both** Zoho and Mailchimp and will connect its current accounts.
 
-## 1. Decision: our own adapter, not Forminator's integration
-| Option | Why not / why |
+**Status:**
+- Built, deployed to staging, and tested against mock providers: 44/44 flow checks, plus the click sweep.
+- **Waiting:** Sara's free test accounts (Zoho + Mailchimp) for the real connection test.
+- No PL account is connected, and none will be until the reveal.
+
+## 1. Decisions
+| Decision | Why |
 |---|---|
-| Forminator's native integrations | Forminator Free has **Mailchimp but no Zoho Campaigns**. Our footer and event-page forms aren't Forminator forms (they're server-rendered shortcodes that need to stay light). Its integration has **no queue** (if Mailchimp is down, the sign-up is lost) and **no consent record**. |
-| **Our adapter in `pl-events-core` (chosen)** | One interface `PL_NL_Provider::subscribe( $email, $name, $tags, $consent_meta )` with two implementations, `PL_NL_Mailchimp` and `PL_NL_Zoho`. One local record per sign-up, a cron retry and a consent record. All three forms (footer, event page, Contact checkbox) go through the same code. Forminator is still used for the Contact form UI only: when the box is ticked, our hook sends the sign-up through the adapter. |
+| **Our own adapter, not Forminator's integration** | Forminator Free has Mailchimp but **no Zoho**, no queue, no consent record, and our footer and event forms aren't Forminator forms. The Contact form only uses Forminator for its UI; when the box is ticked, our hook does the rest. |
+| **Destination "Both" is the normal setting** | PL sends campaigns from both accounts, so every sign-up goes to both lists. |
+| **Double opt-in on the site, not at the providers** | One confirmation email from the site (through WP Mail SMTP). If Zoho and Mailchimp each did their own opt-in, people would get **two** confirmation emails and could confirm one list only. Only after the click is the person added to both lists as **subscribed**. |
+| **The link opens a page with one button; the change happens on that click** | Email security scanners (common at hospitals and universities) open every link in an email. If opening the link were enough, a scanner could confirm a subscription the person never agreed to. Same for unsubscribe links. If Sara prefers one click straight from the email, it's a one-line switch. |
+| **Unsubscribes are kept in sync** | Mailchimp and Zoho webhooks tell the site, and the site removes the person from the other list too. The site's own unsubscribe link removes them from both. |
+
+### Can Zoho take an already-confirmed contact? (checked in Zoho's docs)
+Yes, with one condition.
+- Zoho's developer docs ("Subscribe"): for a list with its **signup form enabled**, Zoho sends a confirmation email itself. For a list with the **signup form disabled**, the contact is added **without any confirmation**.
+- So the website must add people to a Zoho list whose signup form is **off**, e.g. a dedicated "Website sign-ups" list. PL can send campaigns to several lists at once, so this costs PL nothing.
+- If the website's list ever has its signup form on, Zoho answers "confirmation email sent". The site notices this and shows a warning in Settings › PL Newsletter.
+- This was checked in the docs. It still needs to be seen working once with Sara's test account (§6).
+
+**Mailchimp:** members are added with `status: subscribed`.
+- If the audience has GDPR fields, the **Email** marketing permission is switched on too (the other permissions, such as ads, stay off).
+- Someone who earlier unsubscribed in Mailchimp **can't** be re-subscribed through the API (Mailchimp's "Member In Compliance State" rule). For those rare people, the site falls back to Mailchimp's own re-confirmation email and notes it on the record.
 
 ## 2. The flow
-1. **Form.** The visitor fills the form (email, optional topics) and clicks **Subscribe**.
-   - JS posts to `POST /wp-json/pl/v1/subscribe`. Without JS, the form posts to `admin-post.php` and comes back with a message.
+1. **Form.** Footer, event page, or the Contact checkbox. The visitor clicks **Subscribe**.
    - Checks: same-origin, honeypot, valid email, at most 5 tries per hour per IP.
-2. **Local record first.** A private "Newsletter sign-up" post is saved (wp-admin › PL Website › Newsletter sign-ups, admins only) with:
+2. **Saved on the site** (PL Website › Newsletter sign-ups, admins only), with:
    - the email, name and tags;
-   - **consent_meta**: date (UTC), page URL, form, and the exact consent text shown;
-   - the destination(s) and a status per provider.
-3. **Provider, always double opt-in.**
-   - Mailchimp: the member is created as **`pending`**, so Mailchimp sends the confirmation email. Tags are added, and the consent record is saved as a member note.
-   - Zoho: `listsubscribe`, with the list's own double opt-in. Tags attach **after** the person confirms (Zoho only tags confirmed contacts), so the cron keeps retrying them.
-4. **Message to the visitor:** "Almost done — check your inbox and confirm your email. It can take a few minutes."
-   - When it fails, the message doesn't blame the visitor and offers a retry.
-   - If the provider is down or no key is set, the visitor sees the same success message: the sign-up is saved and sent later.
-5. **Queue.** When a provider is down, the key is missing, or no destination is chosen, the record stays **queued**.
-   - An hourly cron (`pl_nl_retry`) retries it, up to 8 tries.
-   - Errors that can't be fixed by retrying (for example "email rejected by the provider") are marked **failed** and not retried.
-6. **Duplicates.** The same email within 24 hours makes no new provider calls.
+   - the consent record: sign-up time (UTC), page, form, and the exact consent text shown;
+   - the status **awaiting confirmation**.
+3. **One confirmation email** from the site.
+   - Subject: "Confirm your subscription to PL Events updates".
+   - A short plain English text and a **Confirm my subscription** button, plus the link written out for email apps that hide buttons.
+   - The link is signed (HMAC-SHA256 with a key derived from the site's salts) and **expires after 7 days**.
+   - The same address can't trigger a second email within 24 hours.
+   - If the email can't be sent right now, it's retried by the hourly cron.
+4. **The person opens the link** → a page in the site's own header and footer → they click **Confirm my subscription** →
+   - the confirmation time is added to the consent record;
+   - they're added to **every destination** as subscribed, **with their tags** (Mailchimp: tags + a note holding the consent record; Zoho: the contact + tags);
+   - the page says "You're subscribed" and offers an **Unsubscribe** link.
+5. **Provider down / no key / no destination yet:** the confirmed sign-up stays **queued**, and the hourly cron (`pl_nl_retry`) retries it up to 8 times. Zoho tags are retried for 7 days.
+6. **Never confirmed:** deleted after 30 days. Without a confirmation there's no consent, so the address isn't kept.
+7. **Bad or expired link:** a calm page that doesn't blame anyone.
+   - Expired: "Confirmation links work for 7 days… sign up again and we'll send you a fresh link."
+   - Tampered or cut by an email app: "This link isn't complete… sign up again" (or, for unsubscribe links: "write to us").
+   - Nothing changes either way.
 
-### Forms
-| Where | What | Tags it sends |
+### Unsubscribe sync
+| Where the person leaves | What the site does |
+|---|---|
+| Mailchimp (unsubscribe link in a campaign, or an admin) | The Mailchimp webhook (`unsubscribe`, `cleaned`) → local record **unsubscribed**/**bounced** → **Zoho**: unsubscribed. |
+| Zoho (unsubscribe link, or a hard bounce) | The Zoho webhook → local record → **Mailchimp**: unsubscribed. Soft bounces are ignored. |
+| The site's unsubscribe link (page + **Unsubscribe me** button) | Removed from **both**. |
+| wp-admin › Newsletter sign-ups › **Unsubscribe from all lists** (when someone asks by phone or email) | Removed from **both**. |
+
+- **No loops:** a second notice for someone already unsubscribed changes nothing. Mailchimp's webhook ignores changes made by API.
+- **People PL added directly in Zoho or Mailchimp** (not through the website) are handled too: when they unsubscribe in one account, the site keeps a small record ("outside the website") and removes them from the other.
+- **If the other provider is down,** the unsubscribe is retried hourly until it goes through.
+
+### Webhook security
+- Neither provider signs its webhooks, so each webhook URL carries a 32-character random secret, compared in constant time.
+- A wrong or missing secret gets a plain 404.
+- "Make a new webhook secret" in the settings page replaces it, if the URL ever leaks.
+
+### Forms and tags
+| Where | What | Tags |
 |---|---|---|
 | Footer (every page) | Email + **Subscribe**; "Choose topics (optional)" opens specialty checkboxes + a country select | `specialty-*`, `country-*`, `source-footer` |
 | Event page | "Get updates on [series]" + email | `series-*`, `specialty-*`, `country-*` of that event, `source-event` |
-| Contact | Checkbox "Send me updates about upcoming PL congresses", **unchecked by default** | `source-contact` (only when ticked) |
+| Contact | Checkbox "Send me updates about upcoming PL congresses", **unchecked by default** | `source-contact` |
 
-Every form has:
-- a visible label;
-- a verb-first button;
-- a privacy line under it (the consent text + a Privacy policy link);
-- loading, success and error states, announced to screen readers (`aria-live`).
-
-On staging, every sign-up also gets the tag **`pl-staging-test`** (`PL_NL_TEST_ONLY`, set by the staging mu-plugin).
+- Every form has a visible label, a verb-first button, a privacy line, and loading, success and error states announced to screen readers.
+- On staging every sign-up also gets the tag `pl-staging-test`.
 
 ## 3. Settings → PL Newsletter (wp-admin, admins only)
-- **Destination:** None · Zoho · Mailchimp · Both.
-  - With **Both**, a warning shows: two lists means two confirmation emails and two places to unsubscribe.
-- **Mailchimp:** API key, Audience ID; the data center is read from the key (`…-us21`).
-- **Zoho:** data center (com / eu / in / com.au / jp / sa), Client ID, Client secret, one-time grant code, List key.
-- **Test connection** button per provider. It only reads the list name; it never adds a contact.
+- **Destination:** Not connected yet · Zoho · Mailchimp · **Both** (normal for PL).
+- **Warnings:**
+  - With Both, a warning shows **only while a webhook isn't connected**: "Unsubscribes aren't synced yet…"
+  - A second warning shows if Zoho ever sends its own confirmation (the list's signup form is on).
+- **Provider settings:**
+  - Zoho: data center, Client ID, Client secret, one-time grant code, List key.
+  - Mailchimp: API key, Audience ID; the data center is read from the key.
+  - **Test connection** per provider: it only reads the list name and adds nobody.
+- **Unsubscribe sync (webhooks):** status per provider, **Connected / Not set**.
+  - Mailchimp: **Connect Mailchimp webhook** adds it by API (checked against the audience).
+  - Zoho: the URL to paste in Zoho. It shows Connected after Zoho's first call.
+  - **Make a new webhook secret**.
+- **Backup:** **Export all sign-ups (CSV)**, admins only, also on the Newsletter sign-ups list.
+  - Columns: email, name, status, tags, form, page, consent text, sign-up / confirmation / left times, left via, Zoho and Mailchimp state.
+  - Cells starting with `= + - @` are made safe so they can't run as Excel formulas.
+- **Sign-ups list:** columns Email · Status (+ per-provider state) · Tags · Confirmed · Signed up; row action **Unsubscribe from all lists**.
 - **Security:**
-  - Keys are stored **encrypted** (AES-256-GCM; the key is derived from the site's `AUTH_KEY` + `SECURE_AUTH_KEY`).
-  - The option isn't autoloaded.
-  - Fields are **write-only**: the page shows "saved ••••", never the key. An empty field keeps the stored key, and a checkbox forgets it.
-  - The Zoho grant code is exchanged once for a refresh token and never stored.
-  - Keys are never written to logs or error messages.
+  - Keys are **encrypted** (AES-256-GCM) and not autoloaded.
+  - Fields are **write-only** ("saved ••••"; an empty field keeps the key).
+  - The Zoho grant code is exchanged once and never stored.
+  - No key is ever printed or logged.
 
 ## 4. How PL segments and sends a campaign
-**Tag scheme:**
+**Tags (the same in both accounts):**
 - `specialty-ophthalmology`, `specialty-dermatology`, …
 - `country-eg`, `country-sa`, …
 - `series-<short name>`
 - `source-footer` / `source-event` / `source-contact`
 
 **Mailchimp:**
-1. Audience › All contacts › filter by tag, or Audience › **Segments › Create segment** ("Tags contact is tagged `specialty-ophthalmology`" AND/OR `country-eg`).
+1. Audience › All contacts › filter by tag, or Audience › **Segments** › Create segment (for example, tagged `specialty-ophthalmology` AND `country-eg`).
 2. Campaigns › Create › Email.
 3. Choose the audience, then **Send to: a segment or tag**.
 4. Design the email, send a test, then send or schedule.
-- Only confirmed (subscribed) members receive campaigns.
 
 **Zoho Campaigns:**
-1. Contacts › **Tags** (filter contacts by tag), or Contacts › **Segments** › Create segment with "Tag is `specialty-ophthalmology`".
+1. Contacts › **Tags**, or Contacts › **Segments** › Create segment ("Tag is `specialty-ophthalmology`").
 2. Campaigns › Create campaign › Email.
-3. Recipients: the list + the segment.
+3. Recipients: the website list (+ PL's other lists if wanted) + the segment.
 4. Content, test email, then send or schedule.
-- Only confirmed contacts receive campaigns.
 
-**Consent record:**
-- Mailchimp: the note on the member + the site record.
-- Zoho: the site record only (Zoho has no notes API).
-- To answer "when did this person agree?", search the email in **PL Website › Newsletter sign-ups**.
+**Consent proof:**
+- The site record: sign-up time, **confirmation time**, page and text.
+- Mailchimp also has it as a note on the member.
+- Answer "when did this person agree?" from PL Website › Newsletter sign-ups, or from the CSV.
 
 ## 5. Staging rules
-- No PL account. Only Sara's own free accounts with a **test list**.
-- Every sign-up is tagged `pl-staging-test`, and wp-admin shows a staging banner on the settings page.
-- The mail safety net (every site email → Sara) stays on. Note that the providers' confirmation emails are sent by Zoho or Mailchimp, not by the site, so test only with addresses Sara owns.
-- Destination on staging today: **None**. Sign-ups are queued and sent once a destination is set.
+- No PL account; only Sara's free accounts with **test lists**.
+- Every sign-up is tagged `pl-staging-test`, and a staging banner shows on the settings page.
+- The mail safety net stays on: **every** site email, including confirmation emails, goes to Sara, with "STAGING — on the live site this goes to: …" at the top.
+- Destination on staging today: **None**. Confirmed sign-ups are queued and sent once a destination is set.
 
-## 6. What Sara needs to do (only in wp-admin on staging — never in the chat)
+## 6. What Sara needs to do (wp-admin on staging only — never paste a key in the chat)
 1. **Mailchimp (free):**
-   - Create an account and an Audience (the test list).
+   - Create an account and an Audience (test list).
    - Profile › Extras › **API keys** › Create a key.
    - Audience › Settings › **Audience ID**.
 2. **Zoho Campaigns (free):**
-   - Create an account and a mailing list, with **double opt-in on** in the list settings.
-   - Find the List key: list › Setup › List key.
+   - Create an account and a mailing list with its **signup form OFF**, then copy its **List key** (list › Setup).
    - At **api-console.zoho.com** › Add client › **Self Client**:
      - copy the Client ID + Client secret;
      - Generate Code, scope `ZohoCampaigns.contact.ALL,ZohoCampaigns.campaign.READ`, 10 minutes.
-   - Note the data center from the URL: `zoho.com` = com, `zoho.eu` = eu, …
-3. Go to **saraamrousy.net/pl/wp-admin › Settings › PL Newsletter**:
-   - paste the keys and Save (paste the Zoho grant code within its 10 minutes);
+   - Note the data center (zoho.com = com, zoho.eu = eu, …).
+3. Go to **saraamrousy.net/pl/plevents/** (the new sign-in address) › Settings › **PL Newsletter**:
+   - paste the keys and Save (the Zoho grant code within its 10 minutes);
    - click **Test connection** for each;
-   - choose a Destination.
-4. Subscribe with your own email from the footer, confirm the email, and check the tags in each account. Then tell me, and I'll check the records.
+   - choose Destination **Both**.
+4. **Webhooks:**
+   - Click **Connect Mailchimp webhook**; it should show Connected.
+   - In Zoho: Settings › Developer Space › Webhooks › **Contacts** › Create, then:
+     - paste the Zoho URL shown on the settings page;
+     - method POST;
+     - events **Unsubscribe** and **Bounce**;
+     - choose the test list.
+5. **Test:**
+   - Subscribe from the footer with your own email.
+   - Confirm from the email; you should be in **both** test lists with the tags.
+   - Unsubscribe from a Mailchimp campaign/test email; you should disappear from Zoho too, and Zoho's webhook shows Connected after its first call.
+   - Tell me when it's done, and I'll check the records. The first real Zoho webhook call also lets me confirm that Zoho's payload is read correctly; it's parsed defensively until then.
 
-## 7. Launch steps (add to 6.3)
+## 7. Launch steps (also in 6.3 §4)
 - [ ] L6 answered (below).
-- [ ] Remove Sara's test keys. Connect **PL's** account(s) in Settings › PL Newsletter (by PL or Sara in wp-admin), click Test connection, and choose the Destination.
-- [ ] The staging mu-plugin (`PL_NL_TEST_ONLY`, the `pl-staging-test` tag) is **not** installed on live.
-- [ ] **SPF + DKIM for the provider on plevents.org** (Mailchimp: Domains › Authenticate; Zoho: Sender domains › Authenticate). Otherwise confirmation emails and campaigns land in spam.
-- [ ] Sender name/email on the list: e.g. "PL Events" `news@plevents.org`, with a physical address in the footer (anti-spam law).
-- [ ] One real test sign-up → confirmation email → the tags show in PL's account. Then delete the test contact.
-- [ ] Privacy page mentions the newsletter provider(s) as processors.
+- [ ] Remove Sara's test keys.
+- [ ] Connect **PL's** accounts in Settings › PL Newsletter (PL or Sara, in wp-admin):
+  - Mailchimp: PL's audience.
+  - Zoho: a list with the **signup form off** (a "Website sign-ups" list if their main list uses Zoho signup forms).
+  - Click **Test connection**; Destination **Both**.
+- [ ] **Connect both webhooks** on live: the URLs contain the live site's own secret. Check that both show **Connected**.
+- [ ] The staging mu-plugin (`PL_NL_TEST_ONLY` → tag `pl-staging-test`, mail safety net) is **not** on live.
+- [ ] **Mail for confirmation emails:** the live site sends them through PL's own mailbox, so set up SPF + DKIM + DMARC for that mailbox on plevents.org. Also authenticate plevents.org in **both** providers (Mailchimp: Domains › Authenticate; Zoho: Sender domains), or campaigns go to spam.
+- [ ] Sender name and address in both providers ("PL Events", e.g. `news@plevents.org`), with PL's postal address in the campaign footer (required by anti-spam law).
+- [ ] One real test: sign up → **one** confirmation email → confirm → in **both** lists with tags → unsubscribe in one → gone from the other. Then delete the test contact in both.
+- [ ] Privacy page: name Zoho and Mailchimp as processors; say that sign-ups are confirmed by email, and that unconfirmed addresses are deleted after 30 days.
+- [ ] Export a first CSV backup after launch week.
 
 ### L6 — questions for PL
-1. Which account sends campaigns: Zoho, Mailchimp or both?
-2. Which list/audience should the website add people to?
-3. Who owns the account (login + billing), and who connects it on launch day?
-4. Do they already have tags/groups/segments we should map to (instead of, or alongside, `specialty-*` / `country-*`)?
+1. Do **all** website sign-ups go to both accounts, or are some campaigns tied to a specific list (e.g. one list per specialty or per congress series)? If so, we map tags → lists.
+2. Which Mailchimp audience, and which Zoho list? Does their Zoho list use Zoho signup forms (if yes, we need a separate "Website sign-ups" list with the signup form off)?
+3. Who owns each account (login + billing), and who connects them on launch day?
+4. Existing tags, groups or segments to map onto (instead of, or alongside, `specialty-*` / `country-*`)?
+5. Is the Mailchimp audience GDPR-enabled (marketing permissions)? It works either way; this is just to know what PL will see.
 
 ## 8. Files
-- **Plugin `pl-events-core`:**
-  - `includes/class-pl-nl-provider.php` (interface)
-  - `includes/class-pl-nl-mailchimp.php`
-  - `includes/class-pl-nl-zoho.php`
-  - `includes/class-pl-secret.php` (encryption)
-  - `includes/class-pl-newsletter.php` (records, queue, cron, REST, shortcode `[pl_newsletter context series specialties country title]`, Contact hook)
-  - `includes/class-pl-newsletter-admin.php` (settings page)
-  - `templates/newsletter-form.php`
-  - `templates/event-page.php` (event form)
-  - `assets/js/pl-events.js` (states)
-  - `includes/class-pl-plugin.php` (init)
-- **Theme `hello-pl-child`:**
-  - `inc/chrome.php` (footer form)
-  - `inc/forms.php` (Contact checkbox)
-  - `assets/css/src/wp.css` → `pl.css`
-- **Deploy:** `deploy/mu/pl-staging.php` (`PL_NL_TEST_ONLY`).
+- **Plugin `pl-events-core` (`includes/`):**
+  - `class-pl-newsletter.php` (records, subscribe → confirm → deliver, opt-out sync, cron, REST, shortcode, Contact hook)
+  - `class-pl-nl-links.php` (new: confirmation email, signed links, confirm/unsubscribe pages)
+  - `class-pl-nl-hooks.php` (new: webhooks)
+  - `class-pl-nl-provider.php` (interface + `unsubscribe()`)
+  - `class-pl-nl-mailchimp.php` (subscribed + marketing permissions + compliance fallback + webhook)
+  - `class-pl-nl-zoho.php` (listsubscribe without a second confirmation, unsubscribe, own-confirmation warning)
+  - `class-pl-newsletter-admin.php` (webhooks section, warnings, CSV, columns, row action)
+  - `class-pl-secret.php`
+- **Plugin templates / JS:** `templates/newsletter-form.php`, `templates/event-page.php`, `assets/js/pl-events.js`.
+- **Theme:** `inc/chrome.php`, `inc/forms.php`, `assets/css/src/wp.css` → `pl.css` (link pages).
+- **Tools:** `tools/nl-mock/` (sandbox mocks + `nltest.py`, 44 checks), `tools/click-sweep.js` (newsletter flow on the mocks).
 
-## 9. Tests (evidence in the thread)
-**Mock providers (sandbox):**
-- Mailchimp PUT pending + tags + note ✓; Zoho token + listsubscribe + tags ✓; Both ✓.
-- Provider down → queued → the cron delivers ✓; no destination → queued → sent once one is set ✓.
-- Honeypot not stored ✓; invalid email ✓; no Origin rejected ✓; duplicate within 24h makes no calls ✓; the 6th try in an hour is blocked ✓.
-- Key encrypted in the DB, not autoloaded, not in the HTML or debug.log ✓; an empty field keeps the key ✓.
-- Contact box: ticked → sign-up; unticked → none; unchecked by default ✓.
-- Bug found and fixed: private-post titles came back as "Private: email" → the raw title is read.
+## 9. Tests (7 Nov 2026, round 4)
+**Mocks, Destination Both — `tools/nl-mock/nltest.py` 44/44:**
+- One email only, and no provider call before confirmation.
+- Opening the link changes nothing; the button click confirms.
+- Mailchimp PUT `subscribed` + Email permission only + tags + note with the confirmation time.
+- Zoho listsubscribe + 3 tags.
+- Tampered link → calm page, no change. Expired (8 days) → "has expired… fresh link".
+- Mailchimp webhook → Zoho unsubscribed (no Mailchimp call). The same webhook again → no calls.
+- Zoho webhook (JSON) → Mailchimp unsubscribed. Zoho soft bounce ignored; hard bounce → bounced + Mailchimp unsubscribed.
+- Site unsubscribe link: opening it changes nothing; the click removes the person from both.
+- Webhook with a wrong secret → 404. Mailchimp's GET check → 200.
+- Provider down during an unsubscribe → queued → the cron finishes it.
+- Mailchimp "compliance state" → falls back to pending. Zoho's own confirmation → warning.
+- Mailchimp webhook created by API (events unsubscribe + cleaned, no API source) → Connected. Zoho → Connected after its first call.
+- The same address twice in 24 hours → one email.
 
-**Staging, 375 px, footer with topics:** REST `queued`, success message shown, the field cleared, the record correct (tags + consent page + `pl-staging-test`). The test record was deleted.
+**Click sweep, sandbox with mocks:** 384/384. At 375/768/1280, by real clicks: Subscribe → one email → Confirm my subscription → both providers → Unsubscribe me → removed from both.
 
-## Open
-- Sara's test accounts → the real connection test (section 6).
-- L6 (PL).
+**Staging:**
+- The settings page opens, no secrets in the fields, CSV export downloads (admin check 17/17).
+- Click sweep 372/372, including the tampered-link pages.

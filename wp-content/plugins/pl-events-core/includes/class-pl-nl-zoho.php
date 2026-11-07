@@ -1,9 +1,13 @@
 <?php
 /**
  * Zoho Campaigns API v1.1 (OAuth 2.0 "Self Client": client ID + secret + refresh token, made once from a
- * grant code). listsubscribe = double opt-in: Zoho sends its confirmation email from the list's settings.
- * Interests become Zoho tags; a contact only exists after confirming, so tags that fail are retried by cron.
+ * grant code). Called only after the person confirmed on the site. listsubscribe adds the contact at once
+ * when the list has its signup form OFF; with the signup form on, Zoho sends its own confirmation email
+ * (Zoho's developer docs, "Subscribe"). So the website uses a list with the signup form off; if Zoho still
+ * answers "confirmation email sent", the admin page shows a warning.
+ * Interests become Zoho tags; tags that fail are retried by cron.
  * Zoho has no notes API: the consent record is kept on the site (PL Website › Newsletter sign-ups).
+ * Unsubscribes/bounces made in Zoho reach the site by webhook (Settings › Developer Space › Webhooks › Contacts).
  *
  * @package pl-events-core
  */
@@ -112,6 +116,24 @@ class PL_NL_Zoho implements PL_NL_Provider {
 			$contact['Last Name']  = $parts[1] ?? '';
 		}
 		$r = $this->call( '/json/listsubscribe', array( 'resfmt' => 'JSON', 'listkey' => $this->list, 'contactinfo' => wp_json_encode( $contact ), 'source' => 'PL Events website' ) );
+		if ( is_wp_error( $r ) ) {
+			return $r;
+		}
+		if ( false !== stripos( (string) ( $r['message'] ?? '' ), 'confirm' ) ) { // signup form on: Zoho sent its own confirmation
+			update_option( 'pl_nl_zoho_doi', time(), false );
+			return 'Zoho sent its own confirmation email (this list has its signup form on).';
+		}
+		return true;
+	}
+
+	public function unsubscribe( $email ) {
+		if ( ! $this->configured() ) {
+			return new WP_Error( 'pl_nl_not_configured', 'Zoho Campaigns is not set up yet.', array( 'retry' => true ) );
+		}
+		$r = $this->call( '/json/listunsubscribe', array( 'resfmt' => 'JSON', 'listkey' => $this->list, 'contactinfo' => wp_json_encode( array( 'Contact Email' => $email ) ) ) );
+		if ( is_wp_error( $r ) && preg_match( '/not (found|exist|available)|invalid contact/i', $r->get_error_message() ) ) {
+			return true; // not on the list
+		}
 		return is_wp_error( $r ) ? $r : true;
 	}
 

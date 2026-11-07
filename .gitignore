@@ -2,3 +2,8 @@ deploy/.env
 .DS_Store
 node_modules/
 *.log
+tools/nl-mock/*.jsonl
+tools/nl-mock/mode
+tools/nl-mock/*.json
+tools/nl-mock/mc_compliance
+tools/nl-mock/zoho_doi

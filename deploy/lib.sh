@@ -82,9 +82,10 @@ env_set() { # KEY VALUE  (add or replace in deploy/.env)
 # Activation runs INSIDE WordPress through run_php (below), so deploys never depend on
 # HTTP auth to the site. (While a session's network secret still covers saraamrousy.net,
 # the proxy replaces every Authorization header sent to the site — REST/Basic can't work.)
-check_site() {
-  local code; code=$(curl -s -o /dev/null -w '%{http_code}' "$STAGING_URL/wp-login.php")
-  [ "$code" = 200 ] || die "Staging answered $code on wp-login.php."
+check_site() { # the sign-in page answers 200: /plevents/ (Round 4), or /wp-login.php before PL_Login is live
+  local code; code=$(curl -s -o /dev/null -w '%{http_code}' "$STAGING_URL/plevents/")
+  [ "$code" = 200 ] || code=$(curl -s -o /dev/null -w '%{http_code}' "$STAGING_URL/wp-login.php")
+  [ "$code" = 200 ] || die "Staging answered $code on its sign-in page."
 }
 check_gate() { check_site; } # old name
 

@@ -385,3 +385,8 @@ html[data-motion] .pl .rail-nav { visibility: visible; } /* JS present */
 /* 6.1b r3 (click sweep): in Full motion the reveal transforms give every row/card its own stacking context,
    so an open calendar menu slid UNDER the next row (Google/Apple/Outlook unclickable). Lift the open one. */
 .pl .erow:has(details.calm[open]), .pl .card:has(details.calm[open]), .pl .ev-acts:has(details.calm[open]) { position: relative; z-index: 25; }
+
+/* Newsletter confirm / unsubscribe pages (Step 4.6, round 4) */
+.pl .pl-nl-done{max-width:760px}
+.pl .pl-nl-done h1{margin:0 0 16px}
+.pl .pl-nl-done .mut{margin-top:16px}
