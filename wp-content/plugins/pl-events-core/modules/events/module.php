@@ -87,16 +87,16 @@ class PL_Module_Events extends PL_Module {
 		$start = (string) $in[ $key( 'start' ) ];
 		$end   = (string) ( $in[ $key( 'end' ) ] ?? '' );
 		if ( $start && $end && $end < $start ) {
-			acf_add_validation_error( 'acf[' . $key( 'end' ) . ']', 'The end date is before the start date.' );
+			acf_add_validation_error( 'acf[' . $key( 'end' ) . ']', 'The end date is before the start date. Pick an end date on or after the start (the same day for a one-day event).' );
 		}
-		$reg = (string) ( $in[ $key( 'registration_url' ) ] ?? '' );
-		if ( 'open' === ( $in[ $key( 'registration' ) ] ?? '' ) && ! self::is_web_link( $reg ) ) {
-			acf_add_validation_error( 'acf[' . $key( 'registration_url' ) . ']', 'Registration is "Open" — add the registration link first.' );
+		$reg = PL_Guardrails::normalize_url( (string) ( $in[ $key( 'registration_url' ) ] ?? '' ) );
+		if ( 'open' === ( $in[ $key( 'registration' ) ] ?? '' ) && ! PL_Guardrails::is_web_link( $reg ) ) {
+			acf_add_validation_error( 'acf[' . $key( 'registration_url' ) . ']', 'Registration is "Open", so the site needs the registration link. Paste it here, or set Registration to "Not open yet".' );
 		}
 		foreach ( array( 'website', 'registration_url' ) as $n ) {
-			$v = trim( (string) ( $in[ $key( $n ) ] ?? '' ) );
-			if ( '' !== $v && ! self::is_web_link( $v ) ) {
-				acf_add_validation_error( 'acf[' . $key( $n ) . ']', 'This must be a full web address starting with https:// (not "#").' );
+			$v = PL_Guardrails::normalize_url( (string) ( $in[ $key( $n ) ] ?? '' ) );
+			if ( '' !== $v && ! PL_Guardrails::is_web_link( $v ) ) {
+				acf_add_validation_error( 'acf[' . $key( $n ) . ']', 'This doesn’t look like a web address. Paste the full link from the browser’s address bar, e.g. https://www.example.org' );
 			}
 		}
 		$type   = $in[ $key( 'type' ) ] ?? '';
@@ -104,10 +104,10 @@ class PL_Module_Events extends PL_Module {
 		$online = $term && ! is_wp_error( $term ) && get_term_meta( $term->term_id, 'pl_online', true );
 		if ( ! $online ) {
 			if ( empty( $in[ $key( 'country' ) ] ) ) {
-				acf_add_validation_error( 'acf[' . $key( 'country' ) . ']', 'Choose the country (only online events can skip it).' );
+				acf_add_validation_error( 'acf[' . $key( 'country' ) . ']', 'Choose the country from the list. (Only online events can skip it.)' );
 			}
 			if ( '' === trim( (string) ( $in[ $key( 'city' ) ] ?? '' ) ) ) {
-				acf_add_validation_error( 'acf[' . $key( 'city' ) . ']', 'Type the city (only online events can skip it).' );
+				acf_add_validation_error( 'acf[' . $key( 'city' ) . ']', 'Type the city in English, e.g. Alexandria. (Only online events can skip it.)' );
 			}
 		}
 	}

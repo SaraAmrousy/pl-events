@@ -107,6 +107,8 @@ function plt_form_definitions() {
 			$head = $o['emails'][0] ?? '';
 		}
 	}
+	$cv_to = sanitize_email( (string) get_option( 'options_pl_careers_email', '' ) ); // PL Website › Company › "CVs go to"
+	$cv_to = is_email( $cv_to ) ? $cv_to : $head;
 	$routing = array();
 	foreach ( $offices as $id => $o ) {
 		if ( $o['email'] ) {
@@ -137,9 +139,9 @@ function plt_form_definitions() {
 			'settings'      => $settings( 'Send my CV', 'Thank you — your CV has reached our team. We’ll contact you when a role fits.' ),
 			'notifications' => array( array(
 				'slug'             => 'notification-pl-careers',
-				'label'            => 'To the head office',
+				'label'            => 'To "CVs go to" (PL Website › Company), else the head office',
 				'email-recipients' => 'default',
-				'recipients'       => $head,
+				'recipients'       => $cv_to,
 				'email-subject'    => 'Website CV: {name-1} — {text-1}',
 				'email-editor'     => 'A CV was sent through the PL Events website:<br/><br/>{all_fields}',
 				'replyto-email'    => '{email-1}',
@@ -188,6 +190,38 @@ function plt_provision_forms( $force = false ) {
 	$o = get_option( 'plt_mail_override' );
 	$log[] = $o ? "STAGING: all form emails go to $o (option plt_mail_override)" : 'form emails go to the real office addresses';
 	return $log;
+}
+
+/**
+ * Keep the form emails in step with the data, at once: saving an office (its first email), the Company
+ * page ("CVs go to"), or binning/restoring an office refreshes both forms' email settings. Only the
+ * notifications are rewritten; the form fields edited in Forminator are left alone.
+ */
+function plt_refresh_form_routing() {
+	if ( ! class_exists( 'Forminator_Form_Model' ) ) {
+		return;
+	}
+	$ids  = (array) get_option( 'plt_forms', array() );
+	$defs = plt_form_definitions();
+	foreach ( $defs as $key => $def ) {
+		$model = ! empty( $ids[ $key ] ) ? Forminator_Form_Model::model()->load( (int) $ids[ $key ] ) : null;
+		if ( $model ) {
+			$model->notifications = $def['notifications'];
+			$model->save();
+		}
+	}
+}
+add_action(
+	'acf/save_post',
+	static function ( $post_id ) {
+		if ( 'options' === $post_id || 'pl_office' === get_post_type( (int) $post_id ) ) {
+			plt_refresh_form_routing();
+		}
+	},
+	40
+);
+foreach ( array( 'trashed_post', 'untrashed_post', 'deleted_post' ) as $plt_hook ) {
+	add_action( $plt_hook, static fn( $id ) => 'pl_office' === get_post_type( $id ) && plt_refresh_form_routing() );
 }
 
 /* ------------------------------------------------------------- staging safety */

@@ -147,7 +147,7 @@ class PL_Importer {
 		if ( ! $m ) {
 			return;
 		}
-		$title = (string) ( $item['name'] ?? $item['group'] ?? $item['title'] ?? '' );
+		$title = (string) ( $item['name'] ?? $item['group'] ?? $item['title'] ?? $item['city'] ?? '' ); // offices have no name: the city is their name.
 		$key   = sanitize_title( (string) ( $item['id'] ?? $title ) );
 		if ( '' === $key ) {
 			return;

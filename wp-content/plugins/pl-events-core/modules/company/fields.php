@@ -24,6 +24,7 @@ return array(
 		'help' => 'Paste the link; the name is worked out from the address.',
 		'sub'  => array( array( 'name' => 'url', 'label' => 'Link', 'type' => 'url', 'required' => true ) ),
 	),
+	array( 'name' => 'careers_email', 'label' => 'CVs go to', 'type' => 'email', 'width' => 50, 'json' => false, 'help' => 'The email that receives the Careers form (with the CV). Empty = the head office’s first email. Contact messages go to the email of the office the visitor picks (PL Website › Offices).' ),
 	array( 'name' => 'show_sample_tags', 'label' => 'Show "Sample" tags', 'type' => 'switch', 'default' => 1, 'admin_only' => true, 'json' => false, 'help' => 'Sara only.' ),
 	array( 'name' => 'sample_left', 'label' => 'Sample items left', 'type' => 'message', 'admin_only' => true, 'message' => array( 'PL_Data', 'sample_message' ) ),
 );

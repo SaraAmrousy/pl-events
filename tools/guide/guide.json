@@ -1,0 +1,18 @@
+{
+ "hide_css": ".notice:not([class*=pl-]):not(.pl-guard-warn):not(.notice-success):not(#message), .e-notice, .rank-math-notice, #wp-mail-smtp-review-notice, .update-nag, #elementor-panel-saver-button-publish-label + * {display:none!important}",
+ "blur": [],
+ "chapters": [{"id":"c3","n":3,"kicker":"Events","title":"الإيفنتات"}],
+ "tasks": [{
+  "id":"event-add","chapter":"c3","title":"إضافة إيفنت جديد","why":"عشان الإيفنت يظهر في الكالندر والهوم والأرقام لوحده.",
+  "screenshots":[{"id":"event-add-1","page":"/wp-admin/post-new.php?post_type=event","callouts":[{"n":1,"sel":"#title","text":"x"},{"n":2,"sel":"[data-name=pl_type]","text":"y"},{"n":3,"sel":"#publish","text":"z"}]}],
+  "video":{"start":"/wp-admin/index.php","actions":[
+   {"click":"#toplevel_page_pl-website > a","cap":"[1] من القايمة اضغطوا **PL Website**.","nav":true},
+   {"click":"#toplevel_page_pl-website a[href='post-new.php?post_type=event']","cap":"[2] اضغطوا **＋ Add event**.","nav":true},
+   {"fill":"#title","text":"Test Congress 2027","cap":"[3] اكتبوا اسم الإيفنت الرسمي."},
+   {"select2":"[data-name=pl_type]","text":"Congress","cap":"[4] اختاروا **Type**."},
+   {"date":"pl_start","value":"2027-03-10","cap":"[5] اختاروا **Start date**."},
+   {"click":"#publish","cap":"[6] اضغطوا **Publish**.","nav":false},
+   {"wait":2500}
+  ]}
+ }]
+}
