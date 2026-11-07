@@ -17,7 +17,7 @@ Skill: `pl-events-data-wp`. Sources:
 | L1 | **Where does the new site run?** | (a) PL's current host (plevents.org's cPanel), (b) Sara's host, with the domain pointed there | (a), if PL gives us a cPanel API token for plevents.org (same method as staging). Needs **PL's** approval. |
 | L2 | **How does the content move?** | (a) Fresh WordPress on the live host + our plugin/theme + content **exported from staging** (`wp pl export` → the same JSON shape → importer), with media copied; (b) full-site copy (DB + files) with search-replace | **(a)**: the project rule is "content is never pushed as a database dump". It's also a clean install with no staging leftovers. |
 | L3 | Launch window | A quiet day, not during a congress | A weekday morning, Cairo time, with PL reachable. |
-| L4 | Who receives the forms | Contact → office emails (routing exists); Careers → HR address? | **PL to name the HR address.** |
+| L4 | Who receives the forms | Contact → the first email of the office the visitor picks (PL Website › Offices); Careers → **PL Website › Company › CVs go to** (empty = head office). Both follow the data at once since 6.2b. | **PL to name the HR address**, then type it in *CVs go to*: no code. |
 | L5 | Analytics | None / privacy-friendly (no cookie banner) / GA4 (needs cookie consent) | Privacy-friendly or none. GA4 means a consent banner and privacy text. |
 | L6 | **Newsletter** (Step 4.6 §7) | PL runs campaigns from **both** Zoho and Mailchimp → Destination **Both**. Open: do all sign-ups go to both, or are some campaigns tied to a specific list (tags → lists)? Which Mailchimp audience and which Zoho list (its signup form must be **off**, or a separate "Website sign-ups" list)? Who owns each account and connects it on launch day? Existing tags/groups to map? Is the Mailchimp audience GDPR-enabled? | Answers from **PL**. |
 
@@ -55,12 +55,14 @@ Skill: `pl-events-data-wp`. Sources:
   - timezone Africa/Cairo;
   - Rank Math as on staging (modules: sitemap, rich-snippet, seo-analysis; wizard skipped; Event rich snippet off; Organization = PL Events + logo);
   - Privacy page set.
+- [ ] 🔒 **No code editing in wp-admin** (6.2b): `define( 'DISALLOW_FILE_EDIT', true );` in the live `wp-config.php` (staging has it). Check: no **Theme File Editor** / **Plugin File Editor** in the menu, `/wp-admin/theme-editor.php` refuses. `tools/admin-check.js` tests it.
+- [ ] 🔒 **PL Help media** (6.2b): `deploy/deploy-help.sh` against the live host (it uploads `docs/guide/{shots,pairs,video}` to `wp-content/uploads/pl-help/` with its `.htaccess`). Check: PL Website › Help shows pictures + videos when signed in; `…/wp-content/uploads/pl-help/shots/event-add-1.png` answers **403** signed out; `admin-post.php?action=pl_help_media…` is not 200 signed out. Not in Media, not in the sitemap. If the live site looks different from staging later, re-record (`bash tools/guide/run.sh`) and run it again.
 
 ## 4. Mail
 - [ ] 🔒 A mailbox on PL's domain for the site (e.g. `website@plevents.org`), with SPF/DKIM on the domain. WP Mail SMTP by constants (password in a file outside the web root, like `~/pl-deploy/.env`), **never in wp-admin or the chat**.
 - [ ] **Remove the staging catch-all** (every email → Sara). It lives in the staging mu-plugin, which is not installed on live. Check: `plt_mail_override` is empty.
 - [ ] **Newsletter (4.6, L6):** remove Sara's test keys; connect PL's Mailchimp audience + a Zoho list with the **signup form off**; Test connection; Destination **Both**; **connect both webhooks on live** (new secret on the live site) → both **Connected**. The confirmation email goes out through the site's mailbox (above), so SPF/DKIM/DMARC must be set first. Also authenticate plevents.org in both providers. The staging mu-plugin (`PL_NL_TEST_ONLY`) is not on live. **Test:** sign up → one email → confirm → in both lists with tags → unsubscribe in one → gone from the other; delete the test contact. Steps: `docs/Step-4.6-Newsletter.md` §7.
-- [ ] Forms: Contact routing by office; Careers → HR (L4); CV direct-URL block (`deploy/htaccess-cv.sh`). **Test:** one real message per form, received at the right address with the CV attached.
+- [ ] Forms: Contact routing by office (first email of each office); Careers → **Company › CVs go to** (L4); CV direct-URL block (`deploy/htaccess-cv.sh`). **Test:** one real message per form, received at the right address with the CV attached.
 
 ## 5. Switch on (launch)
 - [ ] 🔒 Point the domain / swap the document root (L1). HTTPS valid on `plevents.org` and `www` (one canonical; the other 301s to it).

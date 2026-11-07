@@ -29,6 +29,9 @@ const row = (what, expected, got, ok) => { rows.push({ what, expected, got: Stri
   const up = evs.find(e => e.status === 'upcoming') || evs[0];
   const past = evs.find(e => e.status === 'past');
   const edit = id => BASE + '/wp-admin/post.php?post=' + id + '&action=edit';
+  // Like a person: wait until the form's scripts (SCF/ACF validation) are ready before clicking.
+  const origGoto = page.goto.bind(page);
+  page.goto = async (u, o) => { const r = await origGoto(u, o); await page.waitForLoadState('load'); await page.waitForFunction(() => !document.getElementById('post') || (window.acf && window.acf.validation && window.jQuery && jQuery('#post').data('acf') !== undefined), null, { timeout: 30000 }).catch(() => {}); await page.waitForTimeout(1500); return r; };
   const setDate = (name, ymd) => page.evaluate(([n, v]) => {
     const w = document.querySelector('[data-name="' + n + '"]');
     w.querySelector('input[type=hidden]').value = v;
@@ -38,8 +41,8 @@ const row = (what, expected, got, ok) => { rows.push({ what, expected, got: Stri
     await page.click('#publish');
     await page.waitForTimeout(400);
     await Promise.race([
-      page.waitForSelector('.acf-error-message, .acf-notice.-error', { state: 'visible', timeout: 15000 }),
-      page.waitForURL(/message=\d+/, { timeout: 15000 }),
+      page.waitForSelector('.acf-error-message, .acf-notice.-error', { state: 'visible', timeout: 45000 }),
+      page.waitForURL(/message=\d+/, { timeout: 45000 }),
     ]).catch(() => {});
     await page.waitForLoadState('domcontentloaded');
   };

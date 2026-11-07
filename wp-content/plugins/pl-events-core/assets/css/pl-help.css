@@ -96,18 +96,22 @@
 @media (max-width:782px){.plh-panel{top:46px}.wrap.plh{margin-right:10px;margin-left:10px}.plh-hero{padding:32px 22px 24px}.plh-title{font-size:30px}.plh-cheat-list{grid-template-columns:1fr}}
 @media (prefers-reduced-motion:reduce){.plh *,.plh-panel,.plh-card{transition:none!important;transform:none!important;animation:none!important}}
 [hidden].plh-task{display:none}
-/* print: only the cheat sheet, one A4 page */
+/* print: only the cheat sheet, one A4 page (pl-help.js copies it into #plh-print-root under <body>) */
+#plh-print-root{display:none}
 @media print{
-  @page{size:A4;margin:12mm}
-  body.plh-printing *{visibility:hidden}
-  body.plh-printing #plh-cheatsheet,body.plh-printing #plh-cheatsheet *{visibility:visible}
-  body.plh-printing #plh-cheatsheet{position:absolute;inset:0 0 auto 0;border:0;padding:0;font-size:12px}
-  body.plh-printing .plh-print{display:none}
-  body.plh-printing .plh-cheat-list{gap:6px 16px}
-  body.plh-printing .plh-cheat-list ol{font-size:11px;line-height:1.5}
-  body.plh-printing .plh-cheat h3{font-size:20px}
-  body.plh-printing #adminmenumain,body.plh-printing #wpadminbar,body.plh-printing #wpfooter{display:none}
-  body.plh-printing #wpcontent{margin:0;padding:0}
+  @page{size:A4;margin:11mm 12mm}
+  body.plh-printing{background:#fff!important;margin:0!important;padding:0!important;min-width:0!important}
+  body.plh-printing > *:not(#plh-print-root){display:none!important}
+  body.plh-printing #plh-print-root{display:block}
+  #plh-print-root .plh-cheat{border:0;padding:0;font-size:13px;line-height:1.55}
+  #plh-print-root .plh-print{display:none}
+  #plh-print-root .plh-cheat h3{font-size:24px}
+  #plh-print-root .plh-cheat-list{gap:10px 20px}
+  #plh-print-root .plh-cheat-list>li{padding-top:8px;break-inside:avoid}
+  #plh-print-root .plh-cheat-list h4{font-size:16px;margin:0 0 4px}
+  #plh-print-root .plh-cheat-list ol{font-size:12.5px;line-height:1.6}
+  #plh-print-root .plh-cheat-foot{margin-top:14px;font-size:13px}
+  #plh-print-root *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
 }
 /* icons in CSS (no emoji: WordPress would swap them for images from an outside CDN) */
 .plh-ico{display:inline-block;width:20px;height:20px;border-radius:50%;vertical-align:-4px;margin-inline-end:8px;color:#fff;font:800 13px/20px "PL Latin";text-align:center}

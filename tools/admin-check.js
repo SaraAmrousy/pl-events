@@ -77,6 +77,44 @@ const row = (what, expected, got, ok) => { rows.push({ what, expected, got, ok }
   const fs = require('fs'); const p = await dl.path(); const head = fs.readFileSync(p, 'utf8').replace(/^﻿/, '').split('\n')[0];
   row('Export CSV (admin)', 'CSV with header row', `${dl.suggestedFilename()} · ${head.slice(0, 40)}…`, /^pl-newsletter-signups-\d{4}-\d\d-\d\d\.csv$/.test(dl.suggestedFilename()) && head.startsWith('email,name,status,tags'));
 
+
+  /* ---- Step 6.2b: PL Help, "?" panel, media gate, guardrails (nothing is saved) ---- */
+  await page.goto(BASE + '/wp-admin/admin.php?page=pl-help', { waitUntil: 'load' });
+  const nCh = await page.locator('.plh-chapters .plh-card').count(), nTask = await page.locator('.plh-chapter .plh-task').count();
+  row('PL Website › Help opens (RTL)', '11 chapters, ≥ 45 tasks, dir=rtl', `${nCh} chapters, ${nTask} tasks, dir=${await page.locator('.wrap.plh').getAttribute('dir')}`, nCh === 11 && nTask >= 45 && (await page.locator('.wrap.plh').getAttribute('dir')) === 'rtl');
+  await page.fill('#plh-q', 'WhatsApp');
+  const vis = await page.locator('.plh-chapter .plh-task:not([hidden])').count();
+  row('Help search', '"WhatsApp" → a few tasks', `${vis} shown`, vis > 0 && vis < nTask);
+  await page.fill('#plh-q', '');
+  const imgs = await page.$$eval('.plh-fig img', (a) => a.map((i) => i.getAttribute('src')));
+  const vids = await page.$$eval('.plh video source', (a) => a.map((s) => s.getAttribute('src')));
+  let imgOk = 0; for (const u of imgs.slice(0, 60)) { const r = await page.request.get(u); if (r.ok() && /image\//.test(r.headers()['content-type'] || '')) imgOk++; }
+  row('Help pictures load (signed in)', `${Math.min(imgs.length, 60)}/${Math.min(imgs.length, 60)}`, `${imgOk}/${Math.min(imgs.length, 60)}`, imgs.length > 40 && imgOk === Math.min(imgs.length, 60));
+  const v0 = vids[0] ? await page.request.get(vids[0], { headers: { Range: 'bytes=0-1023' } }) : null;
+  row('Help video plays from the gate (Range)', '206 video/mp4, ≥ 30 videos', v0 ? `${v0.status()} ${v0.headers()['content-type']} · ${vids.length} videos` : 'no video', !!v0 && v0.status() === 206 && /video\/mp4/.test(v0.headers()['content-type'] || '') && vids.length >= 30);
+  const auto = await page.$$eval('.plh video', (a) => a.filter((v) => v.autoplay || v.preload !== 'none').length);
+  row('Videos never start by themselves', 'no autoplay, preload=none', `${auto} not compliant`, auto === 0);
+  row('Cheat sheet print button', 'Print / Save as PDF', (await page.locator('.plh-print').innerText().catch(() => '')).trim(), (await page.locator('.plh-print').count()) === 1);
+  const anon = await (await browser.newContext()).newPage();
+  for (const u of [vids[0] || imgs[0], BASE + '/wp-content/uploads/pl-help/' + (imgs[0] || '').split('f=')[1]?.split('&')[0].replace(/%2F/gi, '/')]) {
+    const r = await anon.goto(u).catch(() => null);
+    row('Signed out: help media hidden', '403/404 (never 200)', `${r ? r.status() : 'error'} ${u.replace(BASE, '').slice(0, 70)}`, !!r && r.status() !== 200);
+  }
+  await page.goto(BASE + '/wp-admin/post-new.php?post_type=event', { waitUntil: 'load' });
+  await page.click('#plh-fab');
+  const panelOpen = await page.locator('#plh-panel').isVisible(), first = (await page.locator('#plh-panel summary').first().innerText()).trim();
+  await page.keyboard.press('Escape');
+  const closed = await page.locator('#plh-panel').isHidden(), focusBack = await page.evaluate(() => document.activeElement && document.activeElement.id);
+  row('"?" on Add event opens its task in a side panel', 'panel + "إضافة إيفنت جديد"; Esc closes, focus back on ?', `${panelOpen} ${first} · closed ${closed} · focus ${focusBack}`, panelOpen && /إضافة إيفنت/.test(first) && closed && focusBack === 'plh-fab');
+  for (const [u, want] of [['/wp-admin/edit.php?post_type=pl_office', 'مكتب'], ['/wp-admin/edit.php?post_type=pl_nl_signup', 'النشرة'], ['/wp-admin/admin.php?page=forminator-entries', 'الرسايل'], ['/wp-admin/admin.php?page=pl-company', 'الهوم']]) {
+    await page.goto(BASE + u, { waitUntil: 'domcontentloaded' });
+    const t = (await page.locator('#plh-panel summary').allInnerTexts()).join(' / ');
+    row('"?" on ' + u.replace('/wp-admin/', ''), 'button + matching task', t.slice(0, 60), (await page.locator('#plh-fab').count()) === 1 && t.includes(want));
+  }
+  s = await status('/wp-admin/theme-editor.php');
+  const fe = await page.locator('#adminmenu a[href="theme-editor.php"], #adminmenu a[href="plugin-editor.php"]').count();
+  row('File editor off (DISALLOW_FILE_EDIT)', 'no Theme/Plugin File Editor in the menu', `${fe} menu links`, fe === 0);
+
   const home = await page.evaluate(async (b) => { const r = await fetch(b + '/wp-json/wp/v2/pages?slug=home&_fields=id'); return (await r.json())[0]?.id; }, BASE);
   await page.goto(BASE + `/wp-admin/post.php?post=${home}&action=elementor`, { waitUntil: 'domcontentloaded' });
   const ed = await page.waitForSelector('#elementor-preview-iframe', { timeout: 90000 }).then(() => true).catch(() => false);

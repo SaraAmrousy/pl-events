@@ -1229,10 +1229,10 @@
       "cap": "[2] اضغطوا **Add Image**."
      },
      {
-      "waitFor": ".media-modal .attachment"
+      "waitFor": ".media-modal li.attachment", "wait": 1500
      },
      {
-      "click": ".media-modal .attachments .attachment:first-child",
+      "click": ".media-modal li.attachment >> nth=0",
       "cap": "[3] اختاروا الصورة…"
      },
      {

@@ -183,9 +183,15 @@ async function access(T) {
   rec(T, 'Sign-in address', '/plevents', 'sign-in form (200)', `${r.status()} ${T.pg.url().replace(BASE, '')}`, r.status() === 200 && (await T.pg.locator('#loginform').isVisible()));
   const lost = await vis(T.pg.locator('#nav a', { hasText: 'Lost your password' })); const u = lost ? await navigates(T, lost) : null;
   rec(T, 'Sign-in › Lost your password?', '/plevents/', 'opens the reset form at /plevents/', u || 'no', /^\/plevents\/\?action=lostpassword/.test(u || '') && (await T.pg.locator('#lostpasswordform').isVisible()));
-  for (const p of ['/wp-admin/', '/wp-login.php']) {
+  for (const p of ['/wp-admin/', '/wp-login.php', '/wp-admin/admin.php?page=pl-help']) {
     r = await T.pg.goto(BASE + p, { waitUntil: 'domcontentloaded' });
     rec(T, 'Signed out', p, '404', String(r.status()), r.status() === 404);
+  }
+  // Step 6.2b: PL Help media is staff-only (gate + .htaccess); never reachable by a visitor.
+  for (const p of ['/wp-admin/admin-post.php?action=pl_help_media&f=shots%2Fevent-add-1.png', '/wp-content/uploads/pl-help/shots/event-add-1.png', '/wp-content/uploads/pl-help/video/event-add.mp4']) {
+    r = await T.pg.goto(BASE + p, { waitUntil: 'domcontentloaded' }).catch(() => null);
+    const st = r ? r.status() : 0;
+    rec(T, 'Signed out: PL Help media hidden', p.split('?')[0].replace('/wp-content/uploads', '…'), 'not 200', String(st), st !== 200 && st !== 206);
   }
   const h = await vis(T.pg.locator('a', { hasText: 'Go to the PL Events homepage' })); const hu = h ? await navigates(T, h) : null;
   rec(T, '404 › Go to the homepage', '/wp-login.php', 'opens /', hu || 'no', hu === '/');

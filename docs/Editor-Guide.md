@@ -1,5 +1,7 @@
 # PL Events website — Editor guide
 
+> **New (Step 6.2b, 8 Nov 2026): the full guide now lives inside the website.** Sign in → **PL Website › Help**: 11 chapters, 50 tasks in simple Egyptian Arabic, each with a short video, the steps and a screenshot with numbered callouts. On every screen that has a task, the blue **?** button (bottom right) opens that task in a side panel. The one-page **cheat sheet** prints from there (**Print / Save as PDF**). This English page stays as the short reference for Sara; the employee uses PL Help.
+
 For the PL staff member who keeps the website up to date. You don't need any technical skills: everything happens in **wp-admin** under **PL Website**, using forms. The site updates itself: counts, maps, "Next congress", past/upcoming status and the cache.
 
 *Step 6.2 — written 6 Nov 2026. Sign-in address: **`https://plevents.org/plevents/`** (staging: `https://saraamrousy.net/pl/plevents/`). Bookmark it: `/wp-admin` and `/wp-login.php` show "Page not found" until you're signed in, by design. Once signed in, wp-admin works as usual. After 5 wrong passwords, sign-in from your connection pauses for 15 minutes; use "Lost your password?" on the same page if needed. Your account has the **PL Editor** role.*
@@ -75,8 +77,9 @@ Order: every list has an **Order** number. Lower numbers come first.
 ---
 
 ## 4. Messages from the website
-- **Contact form:** goes to the office the visitor chose (Alexandria or Dubai).
-- **Careers form (with CV):** goes to HR, as set at launch.
+- **Contact form:** goes to the **first email** of the office the visitor chose (PL Website › Offices). Change that email and the form follows at once.
+- **Careers form (with CV):** goes to **PL Website › Company › CVs go to** (empty = the head office's first email). Changes take effect at once.
+- Don't change recipients inside Forminator's own settings: the site rewrites them from Offices and Company.
 - CVs can't be opened from a public link. They're only in the email and in wp-admin (administrator).
 - *(On the staging site every email goes to Sara only. That switch is removed at launch.)*
 - **Newsletter sign-ups** (footer, event pages, the Contact box): the website sends the person **one** confirmation email. Only after they click **Confirm my subscription** are they added to both Zoho and Mailchimp, with their tags. Each sign-up is kept in **PL Website › Newsletter sign-ups** (administrators only) with its sign-up time, confirmation time, page and consent text, so you can answer "when did this person agree?".
@@ -114,6 +117,13 @@ Every image sits in a fixed frame, so any size *fits*. Small images look soft, t
 5. No "Sample" items at launch. The administrator removes them (the counter on PL Website › Company shows how many are left).
 
 ---
+
+## 6b. Guardrails (since 6.2b)
+The forms stop the mistakes that would make the site wrong, and explain the fix in one line:
+- **Blocked:** Registration *Open* without a link · End date before Start date · a link that isn't a web address · switching off the only **Head office** · binning the head office while other offices exist.
+- **Yellow warning (still saves):** the event has ended but Registration is still *Open* · a phone number that looks too short/long for its country code · a small image · an `http://` link.
+- **Fixed for you:** `www.site.org` → `https://www.site.org` · spaces, dashes and a leading 0 in phone numbers · a code typed into the number (`+971 55…`) moves to **Country code** · making an office the head office switches the old one off · an office with no name takes its city.
+- wp-admin can't edit code files (`DISALLOW_FILE_EDIT`).
 
 ## 7. If something looks wrong
 | You see | Do this |

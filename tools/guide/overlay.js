@@ -22,18 +22,18 @@
 #__pl .cap.on{opacity:1}
 #__pl .cap b{font-family:"PL Latin","PL Arabic",sans-serif;font-weight:700;color:#BFD0FF;unicode-bidi:isolate;direction:ltr;display:inline-block}
 #__pl .cap .n{display:inline-block;min-width:34px;height:34px;line-height:34px;border-radius:50%;background:${BLUE};color:#fff;font:700 18px/34px "PL Latin";margin-inline-end:12px;vertical-align:2px}
-#__pl .card{position:fixed;inset:0;background:#FAFAF7;display:flex;flex-direction:column;align-items:center;justify-content:center;direction:rtl;text-align:center;opacity:0;transition:opacity .35s;padding:0 12%}
-#__pl .card.on{opacity:1}
-#__pl .card .k{font:700 15px/1 "PL Latin";letter-spacing:.12em;text-transform:uppercase;color:${BLUE};margin-bottom:22px;direction:ltr}
-#__pl .card h1{font:700 54px/1.3 "PL Arabic";color:#0A0D18;margin:0 0 18px}
-#__pl .card p{font:500 26px/1.7 "PL Arabic";color:#57534C;margin:0;max-width:30ch}
-#__pl .card .vf{position:absolute;inset:60px;border:0}
-#__pl .card .vf i{position:absolute;width:44px;height:44px;border-color:${BLUE};border-style:solid;border-width:0}
-#__pl .card .vf i:nth-child(1){top:0;left:0;border-top-width:4px;border-left-width:4px}
-#__pl .card .vf i:nth-child(2){top:0;right:0;border-top-width:4px;border-right-width:4px}
-#__pl .card .vf i:nth-child(3){bottom:0;left:0;border-bottom-width:4px;border-left-width:4px}
-#__pl .card .vf i:nth-child(4){bottom:0;right:0;border-bottom-width:4px;border-right-width:4px}
-#__pl .card .mark{position:absolute;bottom:84px;font:800 18px/1 "PL Latin";letter-spacing:.2em;color:#0A0D18;direction:ltr}
+#__pl .plcard{position:fixed;inset:0;max-width:none;margin:0;min-width:0;border:0;box-shadow:none;background:#FAFAF7;display:flex;flex-direction:column;align-items:center;justify-content:center;direction:rtl;text-align:center;opacity:0;transition:opacity .35s;padding:0 12%}
+#__pl .plcard.on{opacity:1}
+#__pl .plcard .k{font:700 15px/1 "PL Latin";letter-spacing:.12em;text-transform:uppercase;color:${BLUE};margin-bottom:22px;direction:ltr}
+#__pl .plcard h1{font:700 54px/1.3 "PL Arabic","PL Latin",sans-serif;color:#0A0D18;margin:0 0 18px;max-width:none}
+#__pl .plcard p{font:500 26px/1.7 "PL Arabic","PL Latin",sans-serif;color:#57534C;margin:0;max-width:30ch}
+#__pl .plcard .vf{position:absolute;inset:60px;border:0}
+#__pl .plcard .vf i{position:absolute;width:44px;height:44px;border-color:${BLUE};border-style:solid;border-width:0}
+#__pl .plcard .vf i:nth-child(1){top:0;left:0;border-top-width:4px;border-left-width:4px}
+#__pl .plcard .vf i:nth-child(2){top:0;right:0;border-top-width:4px;border-right-width:4px}
+#__pl .plcard .vf i:nth-child(3){bottom:0;left:0;border-bottom-width:4px;border-left-width:4px}
+#__pl .plcard .vf i:nth-child(4){bottom:0;right:0;border-bottom-width:4px;border-right-width:4px}
+#__pl .plcard .mark{position:absolute;bottom:84px;font:800 18px/1 "PL Latin";letter-spacing:.2em;color:#0A0D18;direction:ltr}
 #__pl .ring{position:fixed;border:3px solid ${BLUE};border-radius:10px;box-shadow:0 0 0 3px rgba(255,255,255,.9),0 0 0 9px rgba(44,72,148,.16)}
 #__pl .ring.pulse{animation:__plp 1.1s ease-out 2}
 @keyframes __plp{0%{box-shadow:0 0 0 3px rgba(255,255,255,.9),0 0 0 0 rgba(44,72,148,.45)}100%{box-shadow:0 0 0 3px rgba(255,255,255,.9),0 0 0 16px rgba(44,72,148,0)}}
@@ -67,13 +67,13 @@
   }
   function card(kicker, title, sub) {
     mount();
-    const c = document.createElement('div'); c.className = 'card';
+    const c = document.createElement('div'); c.className = "plcard";
     c.innerHTML = '<div class="vf"><i></i><i></i><i></i><i></i></div><div class="k"></div><h1></h1><p></p><div class="mark">PL EVENTS · HELP</div>';
     c.querySelector('.k').textContent = kicker; c.querySelector('h1').innerHTML = md(title); c.querySelector('p').innerHTML = md(sub || '');
     root.appendChild(c); requestAnimationFrame(() => requestAnimationFrame(() => c.classList.add('on')));
     return c;
   }
-  function uncard() { root && root.querySelectorAll('.card').forEach(c => { c.classList.remove('on'); setTimeout(() => c.remove(), 400); }); }
+  function uncard() { root && root.querySelectorAll(".plcard").forEach(c => { c.classList.remove('on'); setTimeout(() => c.remove(), 400); }); }
   function rect(el) { const r = el.getBoundingClientRect(); return { x: r.left, y: r.top, w: r.width, h: r.height }; }
   function ring(sel, pulse) {
     mount(); unring();

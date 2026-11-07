@@ -32,11 +32,19 @@
   document.addEventListener('click', function (e) {
     var b = e.target.closest && e.target.closest('.plh-print');
     if (!b) return;
-    document.body.classList.add('plh-printing');
+    printCheat();
     window.print();
-    setTimeout(function () { document.body.classList.remove('plh-printing'); }, 300);
   });
-  window.addEventListener('afterprint', function () { document.body.classList.remove('plh-printing'); });
+  function printCheat() { // a copy of the cheat sheet, alone under <body>, so the page holds nothing else
+    var src = document.getElementById('plh-cheatsheet'); if (!src) return;
+    var old = document.getElementById('plh-print-root'); if (old) old.remove();
+    var root = document.createElement('div'); root.id = 'plh-print-root'; root.className = 'plh'; root.setAttribute('dir', 'rtl'); root.setAttribute('lang', 'ar');
+    root.appendChild(src.cloneNode(true)); root.firstChild.id = 'plh-cheat-print';
+    document.body.appendChild(root); document.body.classList.add('plh-printing');
+  }
+  function endPrint() { document.body.classList.remove('plh-printing'); var r = document.getElementById('plh-print-root'); if (r) r.remove(); }
+  window.addEventListener('afterprint', endPrint);
+  window.PLHelpPrint = printCheat;
 
   /* "?" side panel: non-modal, Esc closes, focus moves in and back */
   var fab = document.getElementById('plh-fab'), panel = document.getElementById('plh-panel');

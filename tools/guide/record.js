@@ -101,7 +101,10 @@ async function run(page, actions, video, caps) {
   for (const a of actions || []) {
     const capNow = async (t) => {
       if (!video || !t) return;
-      await page.evaluate(x => window.__pl && window.__pl.cap(x), t);
+      for (let i = 0; i < 4; i++) { // after Publish WordPress redirects twice: wait for the page that stays
+        try { await page.waitForLoadState('domcontentloaded'); await page.evaluate(x => window.__pl && window.__pl.cap(x), t); break; }
+        catch (e) { if (!/context was destroyed|navigation/i.test(e.message) || i === 3) throw e; await sleep(800); }
+      }
       caps.push({ t: (Date.now() - t0) / 1000, text: t });
       await sleep(readMs(t));
     };
