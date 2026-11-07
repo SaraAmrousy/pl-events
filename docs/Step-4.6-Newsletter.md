@@ -3,7 +3,13 @@
 **First built:** 7 Nov 2026 (round 3). **Redesigned:** 7 Nov 2026 (round 4), after the new information that PL runs campaigns from **both** Zoho and Mailchimp and will connect its current accounts.
 
 **Status:**
-- **Round 5 (7 Nov):** the decision on button pages is final; the rate limit reads `REMOTE_ADDR` only; the real-account test (§6) is **not done yet**: on staging there are no keys, no destination, 0 records and no webhook calls so far.
+- **Round 5 (7 Nov):** the decision on button pages is final; the rate limit reads `REMOTE_ADDR` only.
+- **Real-account test (§6): did not reach staging.** It was reported done on 7 Nov, but checked the same day on `saraamrousy.net/pl`:
+  - the settings option `pl_newsletter` doesn't exist (nothing was ever saved): no keys, no destination;
+  - 0 sign-up records in any status;
+  - no webhook call from either provider;
+  - the newest `sara` session dates from 5 Nov, and `PL@Admin` has never signed in.
+  So nothing was checked yet, and the Zoho parser is **not** tightened: there's no real payload to tighten it on. Next: Sara repeats §6 on staging (see §6 step 0).
 - Built, deployed to staging, and tested against mock providers: 44/44 flow checks, plus the click sweep.
 - **Waiting:** Sara's free test accounts (Zoho + Mailchimp) for the real connection test.
 - No PL account is connected, and none will be until the reveal.
@@ -133,6 +139,7 @@ Yes, with one condition.
 - Destination on staging today: **None**. Confirmed sign-ups are queued and sent once a destination is set.
 
 ## 6. What Sara needs to do (wp-admin on staging only — never paste a key in the chat)
+0. **Check you're on the right site:** sign in at **`https://saraamrousy.net/pl/plevents/`** (the address changed in round 4; `/wp-admin` shows "Page not found" when signed out). After **Save settings**, the page must say **Saved.** and show "saved ••••" next to each key. If not, the keys didn't save.
 1. **Mailchimp (free):**
    - Create an account and an Audience (test list).
    - Profile › Extras › **API keys** › Create a key.
