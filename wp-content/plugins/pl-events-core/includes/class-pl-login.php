@@ -9,7 +9,8 @@
  *   box, password-protected pages) is rewritten to the new address, and WordPress' /login and /admin
  *   shortcuts are switched off so they can't reveal it.
  * - Rate limit: 5 wrong passwords from one IP → sign-in from that IP is paused for 15 minutes (counted from
- *   the last wrong try). Applies to the login form and XML-RPC. No CAPTCHA.
+ *   the last wrong try). Applies to the login form and XML-RPC. No CAPTCHA. The IP is REMOTE_ADDR only;
+ *   forwarding headers are ignored unless REMOTE_ADDR is a trusted proxy (PL_Client_IP, PL_TRUSTED_PROXIES).
  * - Fail-open by design: if this plugin is ever switched off, WordPress' normal /wp-login.php comes back,
  *   so nobody is locked out of the site.
  *
@@ -114,8 +115,7 @@ class PL_Login {
 	/* ------------------------------------------------------------------ rate limit */
 
 	private static function key() {
-		$ip = isset( $_SERVER['REMOTE_ADDR'] ) ? sanitize_text_field( wp_unslash( $_SERVER['REMOTE_ADDR'] ) ) : '';
-		return 'pl_login_f_' . md5( $ip );
+		return 'pl_login_f_' . md5( PL_Client_IP::get() ); // REMOTE_ADDR only, unless it's a trusted proxy (PL_TRUSTED_PROXIES)
 	}
 
 	public static function locked() {

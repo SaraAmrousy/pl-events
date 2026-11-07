@@ -3,6 +3,7 @@
 **First built:** 7 Nov 2026 (round 3). **Redesigned:** 7 Nov 2026 (round 4), after the new information that PL runs campaigns from **both** Zoho and Mailchimp and will connect its current accounts.
 
 **Status:**
+- **Round 5 (7 Nov):** the decision on button pages is final; the rate limit reads `REMOTE_ADDR` only; the real-account test (§6) is **not done yet**: on staging there are no keys, no destination, 0 records and no webhook calls so far.
 - Built, deployed to staging, and tested against mock providers: 44/44 flow checks, plus the click sweep.
 - **Waiting:** Sara's free test accounts (Zoho + Mailchimp) for the real connection test.
 - No PL account is connected, and none will be until the reveal.
@@ -13,7 +14,7 @@
 | **Our own adapter, not Forminator's integration** | Forminator Free has Mailchimp but **no Zoho**, no queue, no consent record, and our footer and event forms aren't Forminator forms. The Contact form only uses Forminator for its UI; when the box is ticked, our hook does the rest. |
 | **Destination "Both" is the normal setting** | PL sends campaigns from both accounts, so every sign-up goes to both lists. |
 | **Double opt-in on the site, not at the providers** | One confirmation email from the site (through WP Mail SMTP). If Zoho and Mailchimp each did their own opt-in, people would get **two** confirmation emails and could confirm one list only. Only after the click is the person added to both lists as **subscribed**. |
-| **The link opens a page with one button; the change happens on that click** | Email security scanners (common at hospitals and universities) open every link in an email. If opening the link were enough, a scanner could confirm a subscription the person never agreed to. Same for unsubscribe links. If Sara prefers one click straight from the email, it's a one-line switch. |
+| **The link opens a page with one button; the change happens on that click** — **decided by Sara, 7 Nov 2026: stays this way** for both confirm and unsubscribe (no one-click from the email) | Email security scanners (common at hospitals and universities) open every link in an email. If opening the link were enough, a scanner could confirm a subscription the person never agreed to. Same for unsubscribe links. |
 | **Unsubscribes are kept in sync** | Mailchimp and Zoho webhooks tell the site, and the site removes the person from the other list too. The site's own unsubscribe link removes them from both. |
 
 ### Can Zoho take an already-confirmed contact? (checked in Zoho's docs)
@@ -29,7 +30,7 @@ Yes, with one condition.
 
 ## 2. The flow
 1. **Form.** Footer, event page, or the Contact checkbox. The visitor clicks **Subscribe**.
-   - Checks: same-origin, honeypot, valid email, at most 5 tries per hour per IP.
+   - Checks: same-origin, honeypot, valid email, at most 5 tries per hour per IP (the IP comes from `REMOTE_ADDR` only, same rule as the login limit: see 6.1b round 5).
 2. **Saved on the site** (PL Website › Newsletter sign-ups, admins only), with:
    - the email, name and tags;
    - the consent record: sign-up time (UTC), page, form, and the exact consent text shown;
@@ -158,6 +159,14 @@ Yes, with one condition.
    - Confirm from the email; you should be in **both** test lists with the tags.
    - Unsubscribe from a Mailchimp campaign/test email; you should disappear from Zoho too, and Zoho's webhook shows Connected after its first call.
    - Tell me when it's done, and I'll check the records. The first real Zoho webhook call also lets me confirm that Zoho's payload is read correctly; it's parsed defensively until then.
+   - **Then the other direction:** unsubscribe from a Zoho test email (or Contacts › the contact › Unsubscribe) → you should disappear from Mailchimp too.
+
+### What I check after Sara's test (prepared 7 Nov 2026)
+- The record has a confirmed time and is `subscribed`, and both providers show `sent`.
+- The tags are present in **both** accounts, read back by API.
+- After the Mailchimp unsubscribe: the record is `unsubscribed via mailchimp` and the contact is unsubscribed in the Zoho list (read back).
+- **The real webhook shapes:** the site keeps the last 3 payloads per provider with emails masked (`a•••@domain`, in the non-autoloaded option `pl_nl_hooks`). I compare the Zoho payload with the parser and then **tighten it to the real field names** (today it accepts any field holding an email + an "unsub"/"bounce" marker).
+- The same check again for an unsubscribe made from the Zoho side.
 
 ## 7. Launch steps (also in 6.3 §4)
 - [ ] L6 answered (below).

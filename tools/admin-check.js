@@ -3,8 +3,9 @@
  * Admin / login check (Round 4). Real browser, real clicks.
  *   PL_QA_USER=… PL_QA_PASS=… node tools/admin-check.js [base] [--lock]
  * Credentials come from the environment only and are never printed. Use a temporary QA account
- * (delete it afterwards). --lock also tests the rate limit (5 wrong passwords → paused) — afterwards the
- * IP stays paused for 15 minutes unless the transient is cleared.
+ * (delete it afterwards). --lock also tests the rate limit (5 wrong passwords → paused), sending a
+ * different forged X-Forwarded-For / X-Real-IP / CF-Connecting-IP on every try — the site must count by
+ * REMOTE_ADDR only. Afterwards the IP stays paused for 15 minutes unless the transient is cleared.
  */
 const { chromium } = require('playwright');
 const BASE = (process.argv[2] || 'https://saraamrousy.net/pl').replace(/\/$/, '');
@@ -39,11 +40,16 @@ const row = (what, expected, got, ok) => { rows.push({ what, expected, got, ok }
   };
 
   if (LOCK) {
-    for (let i = 1; i <= 5; i++) await login('wrong-' + i + '-' + Date.now());
+    // Same machine, but every try claims to come from somewhere else: X-Forwarded-For / X-Real-IP /
+    // CF-Connecting-IP change each time. The site must count by REMOTE_ADDR only → paused after 5.
+    const fake = (i) => `198.51.100.${10 + i}`;
+    const spoof = async (i) => page.setExtraHTTPHeaders({ 'X-Forwarded-For': fake(i), 'X-Real-IP': fake(i + 50), 'CF-Connecting-IP': fake(i + 100), 'True-Client-IP': fake(i + 150), Forwarded: `for=${fake(i + 200)}` });
+    for (let i = 1; i <= 5; i++) { await spoof(i); await login('wrong-' + i + '-' + Date.now()); }
     const err1 = (await page.locator('#login_error').innerText().catch(() => '')).trim();
+    await spoof(6);
     await login(PASS);
     const err = (await page.locator('#login_error').innerText().catch(() => '')).trim();
-    row('Rate limit: right password after 5 wrong ones', 'paused 15 min, still on the form', err.slice(0, 70), /paused for 15 minutes/.test(err) && await page.locator('#wpadminbar').count() === 0);
+    row('Rate limit: right password after 5 wrong ones, each with a different X-Forwarded-For / X-Real-IP / CF-Connecting-IP', 'paused 15 min (headers ignored), still on the form', err.slice(0, 70), /paused for 15 minutes/.test(err) && await page.locator('#wpadminbar').count() === 0);
     row('Rate limit message blames nobody', 'no "incorrect"/"invalid" in the pause message', err.slice(0, 40), /paused/.test(err) && !/incorrect|invalid/i.test(err));
     row('Wrong password before the pause', 'normal WordPress message', err1.slice(0, 50), err1.length > 0);
     console.log('LOCKED — clear the transient before signing in.');

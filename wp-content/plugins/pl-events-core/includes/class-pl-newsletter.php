@@ -371,7 +371,7 @@ class PL_Newsletter {
 		if ( ! empty( $p['pl_hp'] ) ) {
 			return array( 'state' => 'ok' ); // honeypot filled: look successful, do nothing
 		}
-		$ip  = isset( $_SERVER['REMOTE_ADDR'] ) ? sanitize_text_field( wp_unslash( $_SERVER['REMOTE_ADDR'] ) ) : '';
+		$ip  = PL_Client_IP::get();
 		$key = 'pl_nl_rate_' . md5( $ip );
 		$n   = (int) get_transient( $key );
 		if ( $n >= (int) apply_filters( 'pl_nl_rate_limit', 5 ) ) {

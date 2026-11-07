@@ -99,7 +99,9 @@ class PL_NL_Hooks {
 		if ( 'GET' === $r->get_method() ) {
 			return rest_ensure_response( array( 'ok' => true ) ); // Mailchimp's URL check
 		}
-		$events = 'mailchimp' === $p ? self::mailchimp_events( $r->get_params() ) : self::zoho_events( $r->get_json_params() ? $r->get_json_params() : $r->get_body_params() );
+		$raw    = 'mailchimp' === $p ? $r->get_body_params() : ( $r->get_json_params() ? $r->get_json_params() : $r->get_body_params() );
+		$events = 'mailchimp' === $p ? self::mailchimp_events( $r->get_params() ) : self::zoho_events( $raw );
+		self::keep_sample( $p, $raw, count( $events ) );
 		foreach ( $events as $e ) {
 			PL_Newsletter::opt_out( $e[0], $p, $e[1] );
 		}
@@ -107,6 +109,29 @@ class PL_NL_Hooks {
 			error_log( '[pl-newsletter] Zoho webhook without an unsubscribe/bounce we could read. Fields: ' . implode( ',', array_keys( self::flat( (array) ( $r->get_json_params() ? $r->get_json_params() : $r->get_body_params() ) ) ) ) ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions -- field names only, no values.
 		}
 		return rest_ensure_response( array( 'ok' => true, 'handled' => count( $events ) ) );
+	}
+
+	/**
+	 * Keep the last 3 payloads per provider, emails masked (a•••@domain), so the real shape can be checked
+	 * against the parser (Step 4.6 connection test). Not autoloaded; never shown on the front end.
+	 */
+	private static function keep_sample( $p, $raw, $handled ) {
+		$mask = static function ( $v ) use ( &$mask ) {
+			if ( is_array( $v ) ) {
+				return array_map( $mask, $v );
+			}
+			return is_string( $v ) ? preg_replace_callback( '/([^\s@"<>,;:]+)@([A-Za-z0-9.-]+)/', static fn( $m ) => substr( $m[1], 0, 1 ) . '•••@' . $m[2], $v ) : $v;
+		};
+		$o                    = self::opt();
+		$list                 = (array) ( $o['samples'][ $p ] ?? array() );
+		array_unshift( $list, array( 'time' => gmdate( 'c' ), 'handled' => $handled, 'type' => (string) ( $_SERVER['CONTENT_TYPE'] ?? '' ), 'body' => $mask( (array) $raw ) ) ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput -- stored, masked, admin-only.
+		$o['samples'][ $p ]   = array_slice( $list, 0, 3 );
+		update_option( self::OPT, $o, false );
+	}
+
+	public static function samples( $p ) {
+		$o = self::opt();
+		return (array) ( $o['samples'][ $p ] ?? array() );
 	}
 
 	/** Mailchimp: form-encoded type=unsubscribe|cleaned & data[email]=… */

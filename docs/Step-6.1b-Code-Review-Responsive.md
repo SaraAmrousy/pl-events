@@ -235,3 +235,21 @@ Every fix was tested; nothing approved was redesigned. Where a fix changed somet
   - `docs/Step-6.3-Launch-Checklist.md` (L6, accounts, sign-in address)
   - `docs/Editor-Guide.md` (sign-in address, newsletter)
   - `docs/click-sweep-report*.md`
+
+---
+
+# Round 5 — 7 Nov 2026
+| # | Request | Done | Evidence |
+|---|---|---|---|
+| 1 | Confirm / unsubscribe button pages | **Decision: they stay** (no one-click from the email). Recorded in Step 4.6 §1 | — |
+| 2 | Where the rate-limit IP comes from | It was already `REMOTE_ADDR` only; now one shared service, `PL_Client_IP`, is used by both the login limit and the newsletter limit. `X-Forwarded-For` is read **only** when `REMOTE_ADDR` is a proxy listed in `PL_TRUSTED_PROXIES` (wp-config, IPs/CIDR, IPv4+IPv6); then it's read from the right, skipping our proxies, so forged left-hand entries are never taken. `X-Real-IP`, `CF-Connecting-IP`, `True-Client-IP` and `Forwarded` are **never** read. | Unit checks 13/13 in the sandbox (no proxies: all headers ignored; trusted proxy: right-most non-trusted hop; forged left entry ignored; untrusted `REMOTE_ADDR` → headers ignored; garbage hop → `REMOTE_ADDR`; IPv6 range; /8 edge). `tools/admin-check.js --lock` now changes `X-Forwarded-For` / `X-Real-IP` / `CF-Connecting-IP` / `True-Client-IP` / `Forwarded` on **every** try → still paused after 5: sandbox 11/11, **staging 11/11**, one lock key = one IP. Staging admin check 17/17. |
+| 3 | Real-account newsletter test | **Not run yet:** staging has no keys, no destination, 0 records and no webhook calls. Prepared: masked webhook samples (last 3 per provider) so the real Zoho shape can be checked and the parser tightened; checklist in Step 4.6 §6 | Mocks 44/44 after the change |
+
+**Staging finding:** `REMOTE_ADDR` on staging is the public client IP and **no** forwarding headers arrive, so there's no reverse proxy in front. `PL_TRUSTED_PROXIES` stays unset. On live: check the same thing on PL's host (6.3); set the constant only if the host sits behind a proxy or CDN.
+
+**Files:**
+- `includes/class-pl-client-ip.php` (new)
+- `class-pl-login.php`, `class-pl-newsletter.php` (use it)
+- `class-pl-nl-hooks.php` (masked samples)
+- `tools/admin-check.js`
+- docs
