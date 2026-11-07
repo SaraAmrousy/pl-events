@@ -85,6 +85,7 @@ $origin  = PL_Data::origin();
 		<?php if ( $e['email'] ) : ?><a href="<?php echo esc_url( 'mailto:' . $e['email'] ); ?>" style="font-weight:600"><?php echo esc_html( $e['email'] ); ?></a><?php endif; ?>
 		</div>
 	<?php else : ?><p class="mut">PL’s head office handles this event’s questions.</p><?php endif; ?>
+	<?php echo PL_Newsletter::shortcode( array( 'context' => 'event', 'series' => $e['series'] ? $e['series_short'] : '', 'specialties' => implode( ',', (array) $e['specialties'] ), 'country' => $e['country'] ) ); // phpcs:ignore WordPress.Security.EscapeOutput -- escaped in the template. ?>
 	</div>
 	<div style="grid-column:span 7" class="evc-r"><?php echo $ho ? PL_Template::render( 'office-block', array( 'o' => $ho ) ) : ''; // phpcs:ignore WordPress.Security.EscapeOutput ?></div>
 </div></section>

@@ -32,6 +32,7 @@ class PL_Plugin {
 		PL_Event_Page::init();
 		PL_SEO::init();
 		PL_Images::init();
+		PL_Newsletter::init();
 		PL_Importer::init();
 		do_action( 'pl_loaded' );
 	}

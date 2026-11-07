@@ -5,6 +5,10 @@
  */
 defined( 'ABSPATH' ) || exit;
 
+// Step 4.6: staging connects only Sara's test Zoho/Mailchimp accounts (banner in Settings › PL Newsletter;
+// every contact sent from staging is tagged pl-staging-test).
+defined( 'PL_NL_TEST_ONLY' ) || define( 'PL_NL_TEST_ONLY', true );
+
 // 1) "Discourage search engines" stays on, whatever is clicked.
 add_filter( 'pre_option_blog_public', fn() => '0' );
 // 2) noindex on every response WordPress serves (pages, feeds, REST).

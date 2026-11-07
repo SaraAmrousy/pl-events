@@ -316,7 +316,40 @@
     document.addEventListener('pl:swap', function () { requestAnimationFrame(run); });
   }
 
+  /* 7 — Newsletter sign-up (Step 4.6). Without JS the form posts and the page shows the result; with JS it
+     stays on the page: loading → success ("check your inbox") or a blame-free error with retry. ------------- */
+  var NL = {
+    ok: 'Almost done — check your inbox and confirm your email.',
+    queued: 'Almost done — check your inbox and confirm your email. It can take a few minutes.',
+    invalid: 'That email address doesn’t look complete. Please check it and try again.',
+    limited: 'Too many tries from this connection. Please try again in an hour.',
+    error: 'We couldn’t send that just now — nothing is wrong on your side. Please try again.'
+  };
+  function newsletter(form) {
+    var email = form.querySelector('input[type=email]'), btn = form.querySelector('button[type=submit]'), msg = form.querySelector('.pl-nl-msg');
+    var label = btn.textContent;
+    function say(state) {
+      msg.hidden = false; msg.setAttribute('data-state', state); msg.textContent = NL[state] || NL.error;
+      email.setAttribute('aria-invalid', state === 'invalid' ? 'true' : 'false');
+    }
+    form.addEventListener('submit', function (ev) {
+      ev.preventDefault();
+      if (!email.value.trim() || !email.checkValidity()) { say('invalid'); email.focus(); return; }
+      var fd = new FormData(form); fd.set('page', location.href.split('#')[0]);
+      btn.disabled = true; btn.textContent = 'Subscribing…'; form.setAttribute('aria-busy', 'true');
+      fetch(form.getAttribute('data-rest'), { method: 'POST', body: fd, credentials: 'same-origin' })
+        .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
+        .then(function (j) {
+          var st = j && j.state; say(st === 'ok' || st === 'queued' ? st : (st || 'error'));
+          if (st === 'ok' || st === 'queued') form.reset();
+        })
+        .catch(function () { say('error'); })
+        .then(function () { btn.disabled = false; btn.textContent = label; form.removeAttribute('aria-busy'); });
+    });
+  }
+
   function boot() {
+    $$('form[data-pl="newsletter"]').forEach(newsletter);
     calMenus();
     cardFit();
     recheck();

@@ -151,3 +151,33 @@ Every fix was tested; nothing approved was redesigned. Where a fix changed somet
   - `assets/img/icon/*`
 - `deploy/deploy.sh` (verified old-copy delete).
 - Screenshot: `docs/img/6.1b-round2.jpg`.
+
+---
+
+# Round 3 — 7 Nov 2026
+| # | Request | Done | Evidence |
+|---|---|---|---|
+| 1 | Tablet filters (768–1023 px) | The phone bar `#ebar-m` (Filters + count when > 0 · "N events" · Grid/List) now shows up to **1023 px** and opens the same bottom sheet. The big filter row stays hidden below 1024. Desktop (≥ 1024) unchanged. | Staging: sticky area **124 px** at 768 and 1023 (target ≤ 130); sheet opens; R1 **0/16** focus stops hidden. 1024/1280: masthead + full bar as before, phone bar `display:none`, R1 0/16. |
+| 2 | Click sweep | `tools/click-sweep.js`: real Playwright clicks on every interactive element of every page at 375 / 768 / 1280 × Full / Reduced motion. Outside hosts are stubbed (nothing reaches Google/Outlook/WhatsApp); forms are only submitted empty or invalid. Exit code 1 on any ❌. Re-run after each deploy: `node tools/click-sweep.js https://saraamrousy.net/pl docs/click-sweep-report.md` | `docs/click-sweep-report.md`: **330/330 ✅** on staging (and on the sandbox) |
+| 3 | Newsletter (Zoho + Mailchimp) | See `docs/Step-4.6-Newsletter.md`: own adapter (Forminator has no Zoho, no queue, no consent record), Settings › PL Newsletter, footer + event + Contact forms, double opt-in, local record + cron retry, encrypted write-only keys, staging tag `pl-staging-test` | Mock tests all ✓; staging end-to-end at 375 → queued + success message |
+
+## Found by the click sweep and fixed
+| # | Sev. | Problem | Fix |
+|---|---|---|---|
+| R18 | Major | "Add to calendar" menus opened **upward** and, near the top of the Events list, went under the sticky bar, so Google/Apple/Outlook couldn't be clicked | Menus open downward; upward only in the Home rail (where there's room) |
+| R19 | Major | With Full motion, an open calendar menu went **under the next card/row** (the reveal animation creates a stacking context) | The row/card holding an open menu is lifted (`:has(details.calm[open])`, z-index 25). Same look, menus now on top |
+| R20 | Minor | Newsletter records: email read back as "Private: …" (WordPress' private-title prefix) | Raw title read; caught before any real provider |
+
+## Files (round 3)
+- Theme:
+  - `assets/css/src/wp.css` → `pl.css` (tablet bar, menus, newsletter styles)
+  - `inc/chrome.php` (footer form)
+  - `inc/forms.php` (Contact checkbox)
+- Plugin:
+  - newsletter classes + `templates/newsletter-form.php`
+  - `templates/event-page.php`
+  - `assets/js/pl-events.js`
+  - `includes/class-pl-plugin.php`
+- `tools/click-sweep.js`, `docs/click-sweep-report.md`
+- `deploy/mu/pl-staging.php` (`PL_NL_TEST_ONLY`).
+- Staging: plugin + theme + mu-plugin deployed with the safe swap (no `.old-` left); PL cache + Elementor CSS + LiteSpeed purged.

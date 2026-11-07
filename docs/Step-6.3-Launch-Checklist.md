@@ -19,6 +19,7 @@ Skill: `pl-events-data-wp`. Sources:
 | L3 | Launch window | A quiet day, not during a congress | A weekday morning, Cairo time, with PL reachable. |
 | L4 | Who receives the forms | Contact → office emails (routing exists); Careers → HR address? | **PL to name the HR address.** |
 | L5 | Analytics | None / privacy-friendly (no cookie banner) / GA4 (needs cookie consent) | Privacy-friendly or none. GA4 means a consent banner and privacy text. |
+| L6 | **Newsletter** (Step 4.6) | Which account sends campaigns (Zoho / Mailchimp / both)? Which list/audience does the site add people to? Who owns the account (login + billing) and connects it on launch day? Existing tags/groups to map? | One provider, the one PL already sends from ("Both" = two confirmation emails). Answers from **PL**. |
 
 ## 1. Content readiness (T-7 days) — from PL (5.2)
 - [ ] All events entered/checked by PL in wp-admin (5.2). **No "Sample" items left** (PL Website › Company counter = 0).
@@ -56,6 +57,7 @@ Skill: `pl-events-data-wp`. Sources:
 ## 4. Mail
 - [ ] 🔒 A mailbox on PL's domain for the site (e.g. `website@plevents.org`), with SPF/DKIM on the domain. WP Mail SMTP by constants (password in a file outside the web root, like `~/pl-deploy/.env`), **never in wp-admin or the chat**.
 - [ ] **Remove the staging catch-all** (every email → Sara). It lives in the staging mu-plugin, which is not installed on live. Check: `plt_mail_override` is empty.
+- [ ] **Newsletter (4.6, L6):** remove Sara's test keys, connect PL's account in Settings › PL Newsletter, Test connection, choose Destination. SPF + DKIM for the provider on plevents.org (Mailchimp: Domains › Authenticate; Zoho: Sender domains). The staging mu-plugin (`PL_NL_TEST_ONLY` → tag `pl-staging-test`) is not on live. **Test:** one sign-up → confirmation email → tags in PL's account; delete the test contact. Steps: `docs/Step-4.6-Newsletter.md` §7.
 - [ ] Forms: Contact routing by office; Careers → HR (L4); CV direct-URL block (`deploy/htaccess-cv.sh`). **Test:** one real message per form, received at the right address with the CV attached.
 
 ## 5. Switch on (launch)
@@ -99,7 +101,8 @@ Skill: `pl-events-data-wp`. Sources:
 ## Still open (owners)
 | Item | Owner |
 |---|---|
-| L1–L5 decisions | Sara (+ PL for L1, L4) |
+| L1–L6 decisions | Sara (+ PL for L1, L4, L6) |
+| Newsletter test accounts (Zoho + Mailchimp, free) + keys in wp-admin | Sara |
 | PL data (5.2), TBCs, logos + permission, PDF | PL |
 | PSI LCP numbers on staging; Google/Outlook click test | Sara |
 | plevents.org cPanel access (API token, as a network secret like staging) | PL → Sara |

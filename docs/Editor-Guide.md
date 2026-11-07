@@ -79,6 +79,7 @@ Order: every list has an **Order** number. Lower numbers come first.
 - **Careers form (with CV):** goes to HR, as set at launch.
 - CVs can't be opened from a public link. They're only in the email and in wp-admin (administrator).
 - *(On the staging site every email goes to Sara only. That switch is removed at launch.)*
+- **Newsletter sign-ups** (footer, event pages, the Contact box): the person gets a confirmation email from the newsletter service (Zoho or Mailchimp) and is added only after they confirm. Each sign-up is also kept in **PL Website › Newsletter sign-ups** (administrators only) with its date, page and the consent text, so you can answer "when did this person agree?". Campaigns are sent from Zoho/Mailchimp, using the tags (`specialty-…`, `country-…`, `series-…`); see `Step-4.6-Newsletter.md` §4.
 
 ---
 

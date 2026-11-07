@@ -71,6 +71,8 @@ function plt_form_definitions() {
 				plt_ff( 'select-2', 'select', 'Office', array( 'cols' => '6', 'value_type' => 'single', 'options' => plt_ff_options( array_map( static fn( $o ) => $o['label'], $offices ) ), 'prefill' => 'office', 'description' => 'Pre-set from the page you came from; change it if you like.' ) ),
 			) ),
 			plt_ff_row( 'msg', array( plt_ff( 'textarea-1', 'textarea', 'Message', array( 'input_type' => 'paragraph', 'limit' => '', 'required' => 'true', 'required_message' => 'Please write a short message.' ) ) ) ),
+			// Step 4.6: optional, NOT ticked by default; only a ticked box adds the person (double opt-in) via PL_Newsletter.
+			plt_ff_row( 'updates', array( plt_ff( 'checkbox-1', 'checkbox', 'Updates (optional)', array( 'value_type' => 'checkbox', 'layout' => 'list', 'options' => array( array( 'label' => 'Send me updates about upcoming PL congresses', 'value' => 'updates', 'key' => 'updates', 'default' => false ) ), 'description' => 'You’ll confirm by email first, and can unsubscribe at any time.' ) ) ) ),
 		)
 	);
 
