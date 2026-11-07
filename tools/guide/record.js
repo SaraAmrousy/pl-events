@@ -21,6 +21,10 @@ const USER = process.env.PL_QA_USER, PASS = process.env.PL_QA_PASS;
 const DB = process.env.PL_GUIDE_DB, UPLOADS = process.env.PL_GUIDE_UPLOADS;
 if (!USER || !PASS || !DB || !UPLOADS) { console.error('Set PL_QA_USER, PL_QA_PASS, PL_GUIDE_DB, PL_GUIDE_UPLOADS (run.sh does).'); process.exit(2); }
 const FONT_BASE = BASE + '/wp-content/plugins/pl-events-core/assets/fonts/';
+// Fonts as data: URLs for pages we render ourselves (file:// and setContent can't load cross-origin fonts).
+const FONT_DIR = path.join(DIR, '..', '..', 'wp-content', 'plugins', 'pl-events-core', 'assets', 'fonts');
+const b64 = f => 'data:font/woff2;base64,' + fs.readFileSync(path.join(FONT_DIR, f)).toString('base64');
+const FONT_CSS = `@font-face{font-family:A;font-weight:400 600;src:url(${b64('plex-arabic-500.woff2')}) format("woff2")}@font-face{font-family:A;font-weight:700 900;src:url(${b64('plex-arabic-700.woff2')}) format("woff2")}@font-face{font-family:M;font-weight:400 800;src:url(${b64('montserrat-normal-latin.woff2')}) format("woff2")}`;
 const argv = process.argv.slice(2);
 const ONLY = (argv.find(a => a.startsWith('--only=')) || '').replace('--only=', '').split(',').filter(Boolean);
 const NO_VIDEO = argv.includes('--no-video'), NO_SHOTS = argv.includes('--no-shots');
@@ -49,6 +53,7 @@ function php(code) { // sandbox-only data setup (e.g. put a small image on an ev
 }
 // "@edit:event:deoss-atmo-2027" → /wp-admin/post.php?post=57&action=edit ; "@id:pl_office:alexandria" → 9
 function resolve(p) {
+  p = String(p).replace(/@form:([a-z]+)/g, (m, k) => php(`echo (int) ( (array) get_option( 'plt_forms' ) )['${k}'];`));
   return String(p).replace(/@(edit|id|view):([a-z_]+):([a-z0-9-]+)/g, (m, k, type, slug) => {
     const id = php(`$p = get_posts( array( 'post_type' => '${type}', 'name' => '${slug}', 'post_status' => 'any', 'numberposts' => 1, 'fields' => 'ids' ) ); echo $p ? $p[0] : 0;`);
     return k === 'edit' ? `/wp-admin/post.php?post=${id}&action=edit` : k === 'view' ? php(`echo wp_make_link_relative( get_permalink( ${id} ) );`) : id;
@@ -197,8 +202,9 @@ async function diagram(browser, d) {
   // Our own drawings (tools/guide/diagrams/<name>.html), rendered at 1440 wide, @2x for the deck.
   const ctx = await browser.newContext({ viewport: { width: d.width || 1440, height: d.height || 900 }, deviceScaleFactor: 2 });
   const page = await ctx.newPage();
-  await page.goto('file://' + path.join(DIR, 'diagrams', d.diagram + '.html') + '#' + encodeURIComponent(FONT_BASE));
-  await page.evaluate(() => document.fonts.ready); await sleep(300);
+  await page.goto('file://' + path.join(DIR, 'diagrams', d.diagram + '.html'));
+  await page.addStyleTag({ content: FONT_CSS });
+  await page.evaluate(() => document.fonts.ready); await sleep(400);
   const f = path.join(OUT, 'shots', d.id + '.png');
   await page.screenshot({ path: f, fullPage: true }); await ctx.close();
   return { file: 'shots/' + d.id + '.png', diagram: true, bytes: fs.statSync(f).size };
@@ -208,13 +214,12 @@ async function pairImage(browser, id, adminFile, siteFile, p) {
   // One picture: wp-admin on the right (RTL reading order), the site on the left, an arrow between.
   const img = f => 'data:image/png;base64,' + fs.readFileSync(path.join(OUT, f)).toString('base64');
   const html = `<!doctype html><html dir="rtl"><head><meta charset="utf-8"><style>
-@font-face{font-family:A;src:url(${FONT_BASE}plex-arabic-700.woff2)}@font-face{font-family:A5;src:url(${FONT_BASE}plex-arabic-500.woff2)}
-@font-face{font-family:M;src:url(${FONT_BASE}montserrat-normal-latin.woff2)}
-body{margin:0;background:#FAFAF7;font-family:A5,M;color:#0A0D18;width:1600px;padding:40px 48px;box-sizing:border-box}
-h1{font:700 34px/1.3 A,M;margin:0 0 6px}p{font:500 20px/1.6 A5,M;color:#57534C;margin:0 0 26px}
+${FONT_CSS}
+body{margin:0;background:#FAFAF7;font-family:A,M;color:#0A0D18;width:1600px;padding:40px 48px;box-sizing:border-box}
+h1{font:700 34px/1.3 A,M;margin:0 0 6px}p{font:500 20px/1.6 A,M;color:#57534C;margin:0 0 26px}
 .row{display:flex;gap:28px;align-items:center}.col{flex:1}.lab{font:700 14px/1 M;letter-spacing:.12em;text-transform:uppercase;color:#2C4894;margin:0 0 10px;direction:ltr;text-align:right}
 .col img{width:100%;border-radius:10px;border:1px solid #DAD6CC;display:block;box-shadow:0 8px 24px rgba(10,13,24,.08)}
-.ar{font:800 44px/1 M;color:#2C4894}.legend{display:flex;gap:28px;flex-wrap:wrap;margin-top:22px;font:500 19px/1.5 A5,M}
+.ar{font:800 44px/1 M;color:#2C4894}.legend{display:flex;gap:28px;flex-wrap:wrap;margin-top:22px;font:500 19px/1.5 A,M}
 .legend span{display:inline-flex;gap:10px;align-items:center}.legend i{font:700 15px/30px M;font-style:normal;width:30px;height:30px;border-radius:50%;background:#2C4894;color:#fff;text-align:center}
 b{font-family:M;font-weight:700;unicode-bidi:isolate}
 </style></head><body><h1>${p.title}</h1><p>${p.text || ''}</p><div class="row">

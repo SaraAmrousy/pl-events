@@ -27,12 +27,12 @@ echo substr( hash_final( $h ), 0, 16 );'; }
 
 say "save the data as it is now"
 cp "$DB" "$OUT/tmp/pristine.sqlite"
-find "$UP" -type f | sort > "$OUT/tmp/pristine-uploads.txt"
+find "$UP" -type f -not -path "*/uploads/pl-help/*" | sort > "$OUT/tmp/pristine-uploads.txt"
 BEFORE=$(fingerprint)
 cleanup() {
   say "put the data back exactly as it was"
   cp "$OUT/tmp/pristine.sqlite" "$DB"
-  find "$UP" -type f | sort | comm -13 "$OUT/tmp/pristine-uploads.txt" - | while read -r f; do rm -f "$f"; done
+  find "$UP" -type f -not -path "*/uploads/pl-help/*" | sort | comm -13 "$OUT/tmp/pristine-uploads.txt" - | while read -r f; do rm -f "$f"; done   # PL Help media (build.js) stays
   AFTER=$(fingerprint)
   if [ "$BEFORE" = "$AFTER" ]; then echo "✅ data restored (fingerprint $AFTER, same as before)"; else echo "❌ data differs after the run ($BEFORE → $AFTER)"; exit 1; fi
 }

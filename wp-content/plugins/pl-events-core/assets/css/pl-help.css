@@ -1,0 +1,117 @@
+/* PL Help (Step 6.2b) — Design System "PL Events": paper #FAFAF7 · sand #EFECE5 · ink #0A0D18 ·
+   blue #2C4894 (accent) · muted #57534C · live/danger #C62828. Montserrat for Latin, IBM Plex Sans
+   Arabic for Arabic (self-hosted). Radius 10 cards, 18 panel. Borders before shadows. */
+.plh{--paper:#FAFAF7;--sand:#EFECE5;--ink:#0A0D18;--navy:#142040;--blue:#2C4894;--mut:#57534C;--line:#DAD6CC;--red:#C62828;--ok:#1B7A4A;--soon:#8A5A00;
+  font-family:"PL Arabic","PL Latin",system-ui,sans-serif;color:var(--ink);font-size:16px;line-height:1.75;text-align:right}
+.plh *{box-sizing:border-box}
+.plh bdi,.plh strong bdi,.plh code{font-family:"PL Latin","PL Arabic",sans-serif}
+.plh strong{font-weight:700}
+.plh code{background:#EEF1F9;color:var(--navy);border-radius:6px;padding:1px 6px;font-size:.88em}
+.wrap.plh{margin:16px 0 0 20px;max-width:1080px;margin-inline-start:auto;margin-inline-end:auto;padding:0 8px 64px;background:transparent}
+/* hero */
+.plh-hero{position:relative;background:var(--paper);border:1.5px solid var(--line);border-radius:18px;padding:44px 48px 36px;margin:8px 0 28px}
+.plh-vf{position:absolute;inset:14px;pointer-events:none}.plh-vf i{position:absolute;width:26px;height:26px;border:0 solid var(--blue)}
+.plh-vf i:nth-child(1){top:0;left:0;border-top-width:2.5px;border-left-width:2.5px}.plh-vf i:nth-child(2){top:0;right:0;border-top-width:2.5px;border-right-width:2.5px}
+.plh-vf i:nth-child(3){bottom:0;left:0;border-bottom-width:2.5px;border-left-width:2.5px}.plh-vf i:nth-child(4){bottom:0;right:0;border-bottom-width:2.5px;border-right-width:2.5px}
+.plh-k{font:700 12px/1 "PL Latin",sans-serif;letter-spacing:.14em;color:var(--blue);margin:0 0 12px;text-align:right}
+.plh-title{font:700 40px/1.3 "PL Arabic","PL Latin",sans-serif;margin:0 0 10px;color:var(--ink);text-wrap:balance}
+.plh-title em{font-style:normal;color:var(--blue)}
+.plh-lead{font-size:18px;color:var(--mut);margin:0 0 22px;max-width:62ch}
+.plh-search label{display:block;font-weight:700;margin-bottom:6px}
+.plh-search input{width:100%;max-width:560px;min-height:48px;border:1.5px solid var(--line);border-radius:10px;padding:10px 16px;font:500 17px "PL Arabic","PL Latin",sans-serif;background:#fff;color:var(--ink)}
+.plh-search input:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(44,72,148,.25);outline:0}
+.plh-note{color:var(--mut);font-size:14px;margin:8px 0 0}
+/* chapter cards */
+.plh-chapters ol{list-style:none;margin:0 0 36px;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:14px}
+.plh-card{display:flex;flex-direction:column;gap:4px;height:100%;background:#fff;border:1.5px solid var(--line);border-radius:10px;padding:18px 18px 16px;text-decoration:none;color:var(--ink);transition:border-color .15s,transform .15s}
+.plh-card:hover,.plh-card:focus-visible{border-color:var(--blue);transform:translateY(-2px);color:var(--ink)}
+.plh-card:focus-visible{outline:3px solid var(--blue);outline-offset:2px}
+.plh-cn{font:800 13px/1 "PL Latin",sans-serif;color:var(--blue);letter-spacing:.08em;text-align:right}
+.plh-ct{font-weight:700;font-size:19px;line-height:1.4}
+.plh-cd{color:var(--mut);font-size:14px;line-height:1.6;flex:1}
+.plh-cc{font-size:13px;color:var(--blue);font-weight:700;margin-top:6px}
+.plh-card.is-danger{border-color:#E8B4B4}.plh-card.is-danger .plh-cn,.plh-card.is-danger .plh-cc{color:var(--red)}
+/* chapters + tasks */
+.plh-chapter{margin:0 0 34px;scroll-margin-top:48px}
+.plh-ch{font:700 26px/1.4 "PL Arabic","PL Latin",sans-serif;margin:0 0 12px;padding-bottom:8px;border-bottom:1.5px solid var(--line)}
+.plh-ch span{font:800 15px "PL Latin";color:var(--blue);margin-inline-end:6px}
+.plh-task{background:#fff;border:1.5px solid var(--line);border-radius:10px;margin:0 0 10px;scroll-margin-top:48px}
+.plh-task[open]{border-color:var(--blue)}
+.plh-task.is-danger{border-color:#E8B4B4;border-inline-start:5px solid var(--red)}
+.plh-task.is-danger[open]{border-color:var(--red)}
+.plh-task summary{cursor:pointer;list-style:none;display:flex;align-items:center;gap:10px;padding:14px 18px;min-height:52px;font-weight:700;font-size:17px}
+.plh-task summary::-webkit-details-marker{display:none}
+.plh-task summary::before{content:"";flex:0 0 10px;height:10px;border:solid var(--blue);border-width:0 0 2.5px 2.5px;transform:rotate(45deg);transition:transform .15s;margin-inline-end:4px}
+.plh-task[open] summary::before{transform:rotate(-45deg)}
+.plh-task summary:focus-visible{outline:3px solid var(--blue);outline-offset:-3px;border-radius:10px}
+.plh-st{flex:1}
+.plh-badge{font:700 12px/1 "PL Arabic","PL Latin";background:#EEF1F9;color:var(--navy);border-radius:99px;padding:6px 10px;white-space:nowrap}
+.plh-badge.is-danger{background:#FBEAEA;color:var(--red)}
+.plh-task-body{padding:2px 22px 22px}
+.plh-why{font-size:17px;margin:0 0 14px}.plh-lab{display:inline-block;background:var(--sand);border-radius:6px;padding:0 8px;font-weight:700}
+.plh-steps{margin:14px 0 16px;padding:0;counter-reset:s;list-style:none}
+.plh-steps>li{counter-increment:s;position:relative;padding:6px 44px 6px 0;margin:0 0 6px;font-size:16.5px;max-width:68ch}
+.plh-steps>li::before{content:counter(s);position:absolute;right:0;top:5px;width:30px;height:30px;border-radius:50%;background:var(--blue);color:#fff;font:700 15px/30px "PL Latin";text-align:center}
+.plh-tip,.plh-warn{border-radius:10px;padding:12px 16px;margin:10px 0;max-width:76ch}
+.plh-tip{background:#EEF1F9;border-inline-start:4px solid var(--blue)}
+.plh-warn{background:#FCF3DC;border-inline-start:4px solid var(--soon)}
+.plh-task.is-danger .plh-warn{background:#FBEAEA;border-inline-start-color:var(--red)}
+.plh-video{margin:6px 0 16px}
+.plh-video video{width:100%;max-width:760px;aspect-ratio:16/10;background:var(--ink);border-radius:10px;display:block}
+.plh-fig{margin:16px 0}.plh-fig img{width:100%;height:auto;border:1.5px solid var(--line);border-radius:10px;display:block;background:#fff}
+.plh-fig a:focus-visible{outline:3px solid var(--blue);outline-offset:3px;display:block;border-radius:10px}
+.plh-legend{list-style:none;margin:10px 0 0;padding:0;display:flex;flex-wrap:wrap;gap:8px 20px}
+.plh-legend li{display:flex;align-items:center;gap:8px;font-size:15px}
+.plh-n{flex:0 0 26px;height:26px;border-radius:50%;background:var(--blue);color:#fff;font:700 13px/26px "PL Latin";text-align:center}
+.plh-h{font-size:16px;margin:22px 0 4px}
+.plh-table{border-collapse:collapse;width:100%;margin:12px 0;font-size:15.5px;background:#fff}
+.plh-table th,.plh-table td{border:1px solid var(--line);padding:10px 12px;text-align:right;vertical-align:top}
+.plh-table th{background:var(--sand)}
+.plh-ph{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px;margin:14px 0}
+.plh-ph-box{border:2px dashed #B8B3A7;border-radius:10px;padding:18px 14px;color:var(--mut);font-size:14px;min-height:92px;display:flex;gap:6px;align-items:flex-start;background:var(--paper)}
+.plh-links{margin:10px 0 4px}ul.plh-links{margin:4px 0 0;padding-inline-start:18px}ul.plh-links a{color:var(--blue)}
+.plh-more{color:var(--blue);font-weight:700}
+/* cheat sheet */
+.plh-cheat{background:#fff;border:1.5px solid var(--line);border-radius:10px;padding:24px}
+.plh-cheat-head{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;margin-bottom:12px}
+.plh-cheat h3{font:700 24px/1.4 "PL Arabic";margin:0}
+.plh-cheat-list{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px 22px;counter-reset:c}
+.plh-cheat-list>li{counter-increment:c;border-top:1.5px solid var(--line);padding-top:8px}
+.plh-cheat-list h4{margin:0 0 4px;font-size:16px}.plh-cheat-list h4::before{content:counter(c) ". ";color:var(--blue);font-family:"PL Latin"}
+.plh-cheat-list ol{margin:0;padding-inline-start:18px;font-size:13.5px;line-height:1.6}
+.plh-cheat-foot{margin:14px 0 0;font-size:13.5px;color:var(--red);font-weight:700}
+.plh .button-primary.plh-print{background:var(--blue);border-color:var(--blue);min-height:44px;padding:0 18px;font:700 14px "PL Latin";border-radius:99px}
+/* "?" button + side panel */
+.plh-fab{position:fixed;bottom:24px;right:24px;z-index:100000;width:44px;height:44px;border-radius:50%;border:0;background:var(--blue,#2C4894);color:#fff;font:800 22px/44px "PL Latin",sans-serif;cursor:pointer;box-shadow:0 6px 18px rgba(10,13,24,.25)}
+.plh-fab:hover{background:#142040}.plh-fab:focus-visible{outline:3px solid #fff;box-shadow:0 0 0 6px #2C4894}
+.plh-panel{position:fixed;top:32px;bottom:0;right:0;z-index:100001;width:min(520px,100vw);background:var(--paper);border-left:1.5px solid var(--line);box-shadow:-12px 0 36px rgba(10,13,24,.18);display:flex;flex-direction:column;transform:translateX(0);transition:transform .3s cubic-bezier(.33,1,.68,1)}
+.plh-panel[hidden]{display:none}
+.plh-panel.is-entering{transform:translateX(100%)}
+.plh-panel-head{display:flex;align-items:center;justify-content:space-between;padding:14px 18px;border-bottom:1.5px solid var(--line);background:#fff}
+.plh-panel-head h2{margin:0;font:700 19px/1.4 "PL Arabic"}
+.plh-close{width:44px;height:44px;border:1.5px solid var(--line);border-radius:50%;background:#fff;font:400 26px/1 "PL Latin";cursor:pointer;color:var(--ink)}
+.plh-close:focus-visible{outline:3px solid var(--blue)}
+.plh-panel-body{overflow:auto;padding:16px 16px 40px}
+.plh-panel .plh-task-body{padding:2px 14px 16px}
+@media (max-width:782px){.plh-panel{top:46px}.wrap.plh{margin-right:10px;margin-left:10px}.plh-hero{padding:32px 22px 24px}.plh-title{font-size:30px}.plh-cheat-list{grid-template-columns:1fr}}
+@media (prefers-reduced-motion:reduce){.plh *,.plh-panel,.plh-card{transition:none!important;transform:none!important;animation:none!important}}
+[hidden].plh-task{display:none}
+/* print: only the cheat sheet, one A4 page */
+@media print{
+  @page{size:A4;margin:12mm}
+  body.plh-printing *{visibility:hidden}
+  body.plh-printing #plh-cheatsheet,body.plh-printing #plh-cheatsheet *{visibility:visible}
+  body.plh-printing #plh-cheatsheet{position:absolute;inset:0 0 auto 0;border:0;padding:0;font-size:12px}
+  body.plh-printing .plh-print{display:none}
+  body.plh-printing .plh-cheat-list{gap:6px 16px}
+  body.plh-printing .plh-cheat-list ol{font-size:11px;line-height:1.5}
+  body.plh-printing .plh-cheat h3{font-size:20px}
+  body.plh-printing #adminmenumain,body.plh-printing #wpadminbar,body.plh-printing #wpfooter{display:none}
+  body.plh-printing #wpcontent{margin:0;padding:0}
+}
+/* icons in CSS (no emoji: WordPress would swap them for images from an outside CDN) */
+.plh-ico{display:inline-block;width:20px;height:20px;border-radius:50%;vertical-align:-4px;margin-inline-end:8px;color:#fff;font:800 13px/20px "PL Latin";text-align:center}
+.plh-tip .plh-ico{background:var(--blue)}.plh-tip .plh-ico::before{content:"i"}
+.plh-warn .plh-ico{background:var(--soon)}.plh-warn .plh-ico::before{content:"!"}
+.plh-task.is-danger .plh-warn .plh-ico{background:var(--red)}
+.plh-ph-box .plh-ico{border-radius:4px;background:#B8B3A7;flex:0 0 20px}.plh-ph-box .plh-ico::before{content:"+"}

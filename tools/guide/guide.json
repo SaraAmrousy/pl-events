@@ -1,18 +1,3455 @@
 {
- "hide_css": ".notice:not([class*=pl-]):not(.pl-guard-warn):not(.notice-success):not(#message), .e-notice, .rank-math-notice, #wp-mail-smtp-review-notice, .update-nag, #elementor-panel-saver-button-publish-label + * {display:none!important}",
- "blur": [],
- "chapters": [{"id":"c3","n":3,"kicker":"Events","title":"الإيفنتات"}],
- "tasks": [{
-  "id":"event-add","chapter":"c3","title":"إضافة إيفنت جديد","why":"عشان الإيفنت يظهر في الكالندر والهوم والأرقام لوحده.",
-  "screenshots":[{"id":"event-add-1","page":"/wp-admin/post-new.php?post_type=event","callouts":[{"n":1,"sel":"#title","text":"x"},{"n":2,"sel":"[data-name=pl_type]","text":"y"},{"n":3,"sel":"#publish","text":"z"}]}],
-  "video":{"start":"/wp-admin/index.php","actions":[
-   {"click":"#toplevel_page_pl-website > a","cap":"[1] من القايمة اضغطوا **PL Website**.","nav":true},
-   {"click":"#toplevel_page_pl-website a[href='post-new.php?post_type=event']","cap":"[2] اضغطوا **＋ Add event**.","nav":true},
-   {"fill":"#title","text":"Test Congress 2027","cap":"[3] اكتبوا اسم الإيفنت الرسمي."},
-   {"select2":"[data-name=pl_type]","text":"Congress","cap":"[4] اختاروا **Type**."},
-   {"date":"pl_start","value":"2027-03-10","cap":"[5] اختاروا **Start date**."},
-   {"click":"#publish","cap":"[6] اضغطوا **Publish**.","nav":false},
-   {"wait":2500}
-  ]}
- }]
+ "version": 1,
+ "updated": "2026-11-08",
+ "title": "PL Help",
+ "lang": "ar-EG",
+ "site": {
+  "signin": "/plevents/",
+  "staging_signin": "https://saraamrousy.net/pl/plevents/"
+ },
+ "rules": "عامية مصرية، صيغة الجمع، أسماء الزراير بالإنجليزي بالظبط وbold، 3–5 خطوات، مفيش مصطلحات تقنية من غير شرح.",
+ "hide_css": "#wpbody .notice:not([class*=pl-]):not(.notice-success):not(#message):not(.updated), .e-notice, .rank-math-notice, .update-nag, #wp-mail-smtp-dash-widget-upgrade-footer, #e-dashboard-overview, #dashboard_primary, .elementor-message, #wpfooter, .sui-wrap .sui-notice-top { display:none !important }",
+ "blur": [
+  "#pass1",
+  "#pass1-text",
+  ".user-pass1-wrap input",
+  "#wp-admin-bar-my-account .ab-item img"
+ ],
+ "chapters": [
+  {
+   "id": "c0",
+   "n": 0,
+   "kicker": "Welcome",
+   "title": "أهلاً",
+   "intro": "الموقع بيشتغل لوحده من الداتا اللي بتدخلوها. هنا هتعرفوا الفكرة في دقيقة."
+  },
+  {
+   "id": "c1",
+   "n": 1,
+   "kicker": "Sign in",
+   "title": "الدخول",
+   "intro": "إزاي تدخلوا، ولو نسيتوا الباسورد، وليه الدخول بيقف شوية بعد 5 محاولات غلط."
+  },
+  {
+   "id": "c2",
+   "n": 2,
+   "kicker": "Tour",
+   "title": "جولة سريعة",
+   "intro": "فين كل حاجة في wp-admin، والأرقام اللي بتطمّنكم إن الموقع سليم."
+  },
+  {
+   "id": "c3",
+   "n": 3,
+   "kicker": "Events",
+   "title": "الإيفنتات",
+   "intro": "أهم شغل في الموقع: إضافة إيفنت، تعديله، التسجيل، الصور."
+  },
+  {
+   "id": "c4",
+   "n": 4,
+   "kicker": "Offices & contact",
+   "title": "المكاتب والتواصل",
+   "intro": "أرقام التليفون والواتساب، الإيميلات، العناوين ومواعيد العمل."
+  },
+  {
+   "id": "c5",
+   "n": 5,
+   "kicker": "More content",
+   "title": "باقي المحتوى",
+   "intro": "الجمعيات، الرعاة، العضويات، الوظايف، الخدمات وبيانات الشركة."
+  },
+  {
+   "id": "c6",
+   "n": 6,
+   "kicker": "Pages",
+   "title": "الصفحات",
+   "intro": "إيه اللي بيتعدّل من الداتا، وإيه اللي من Elementor، وإيه الممنوع تلمسوه."
+  },
+  {
+   "id": "c7",
+   "n": 7,
+   "kicker": "Forms",
+   "title": "الفورمز والرسايل",
+   "intro": "رسايل Contact والـ CVs بتروح فين، وإزاي تقروها وتصدّروها."
+  },
+  {
+   "id": "c8",
+   "n": 8,
+   "kicker": "Newsletter",
+   "title": "النشرة والحملات",
+   "intro": "المشتركين بييجوا منين، وإزاي تبعتوا حملة في Mailchimp أو Zoho وتقروا نتايجها."
+  },
+  {
+   "id": "c9",
+   "n": 9,
+   "kicker": "If something breaks",
+   "title": "لو حاجة باظت",
+   "intro": "شايفين كذا؟ اعملوا كذا. والممنوعات، وتكلموا مين."
+  },
+  {
+   "id": "c10",
+   "n": 10,
+   "kicker": "Cheat sheet",
+   "title": "ورقة الغش",
+   "intro": "أهم 10 مهام في صفحة واحدة تتطبع."
+  }
+ ],
+ "tasks": [
+  {
+   "id": "welcome",
+   "chapter": "c0",
+   "title": "الموقع بيشتغل إزاي",
+   "why": "عشان تعرفوا إن شغلكم هو الداتا بس، والصفحات بتتحدّث لوحدها.",
+   "steps": [
+    "بتدخلوا الداتا من **PL Website** (إيفنت، مكتب، وظيفة…).",
+    "بتضغطوا **Publish** أو **Update**.",
+    "الموقع بيحسب لوحده: الحالة (Past / Live / Upcoming)، الأرقام، الخريطة، و\"Next congress\".",
+    "الصفحات بتتحدّث في نفس اللحظة، من غير ما تفتحوا أي صفحة."
+   ],
+   "tip": "مفيش حاجة اسمها \"أحدّث الهوم\": أي تعديل في الإيفنت بيظهر في كل مكان لوحده.",
+   "warning": "ماتكتبوش أرقام أو حالة إيفنت بإيدكم في أي صفحة. الموقع بيحسبها، والكتابة باليد بتبقى غلط بعد يوم.",
+   "screenshots": [
+    {
+     "id": "welcome-diagram",
+     "diagram": "how-it-works",
+     "width": 1440,
+     "height": 810
+    }
+   ],
+   "role": "admin",
+   "danger": false,
+   "video": null
+  },
+  {
+   "id": "login",
+   "chapter": "c1",
+   "title": "الدخول للوحة التحكم",
+   "cheat": 3,
+   "why": "عشان تعدّلوا أي حاجة في الموقع لازم تدخلوا الأول من العنوان الخاص.",
+   "steps": [
+    "افتحوا عنوان الدخول: **plevents.org/plevents/** (احفظوه في الـ Bookmarks).",
+    "اكتبوا **Username** و **Password**.",
+    "اضغطوا **Log In**."
+   ],
+   "tip": "‏/wp-admin بيطلع \"Page not found\" وانتوا مش داخلين، وده مقصود للحماية. ادخلوا دايماً من /plevents/.",
+   "screens": [
+    "profile"
+   ],
+   "screenshots": [
+    {
+     "id": "login-1",
+     "page": "/plevents/",
+     "anon": true,
+     "callouts": [
+      {
+       "n": 1,
+       "sel": "#user_login",
+       "text": "اسم المستخدم"
+      },
+      {
+       "n": 2,
+       "sel": "#user_pass",
+       "text": "الباسورد"
+      },
+      {
+       "n": 3,
+       "sel": "#wp-submit",
+       "text": "Log In"
+      },
+      {
+       "n": 4,
+       "sel": "#nav a",
+       "text": "نسيت الباسورد"
+      }
+     ]
+    }
+   ],
+   "video": {
+    "anon": true,
+    "start": "/plevents/",
+    "actions": [
+     {
+      "cap": "[1] افتحوا عنوان الدخول **/plevents/** واحفظوه عندكم."
+     },
+     {
+      "fill": "#user_login",
+      "text": "pl-guide-qa",
+      "cap": "[2] اكتبوا **Username**."
+     },
+     {
+      "fill": "#user_pass",
+      "text": "guide-demo-password",
+      "cap": "[3] اكتبوا **Password**."
+     },
+     {
+      "ring": "#wp-submit",
+      "cap": "[4] واضغطوا **Log In**."
+     },
+     {
+      "cap": "لو كتبتوا كل حاجة صح، هتدخلوا على لوحة التحكم."
+     },
+     {
+      "ring": "#nav a",
+      "cap": "ولو نسيتوا الباسورد: **Lost your password?** تحت."
+     }
+    ]
+   },
+   "role": "admin",
+   "danger": false
+  },
+  {
+   "id": "lost-password",
+   "chapter": "c1",
+   "title": "نسيت الباسورد",
+   "why": "عشان ترجعوا تدخلوا لوحدكم من غير ما تستنوا حد.",
+   "steps": [
+    "في صفحة الدخول اضغطوا **Lost your password?**.",
+    "اكتبوا الـ Username أو الإيميل بتاعكم.",
+    "اضغطوا **Get New Password**.",
+    "افتحوا الإيميل اللي هيوصلكم واضغطوا اللينك، واختاروا باسورد جديد."
+   ],
+   "tip": "لو الإيميل ماوصلش في 5 دقايق، بصّوا في الـ Spam.",
+   "screenshots": [
+    {
+     "id": "lost-password-1",
+     "page": "/plevents/?action=lostpassword",
+     "anon": true,
+     "callouts": [
+      {
+       "n": 1,
+       "sel": "#user_login",
+       "text": "اسم المستخدم أو الإيميل"
+      },
+      {
+       "n": 2,
+       "sel": "#wp-submit",
+       "text": "Get New Password"
+      }
+     ]
+    }
+   ],
+   "video": {
+    "anon": true,
+    "start": "/plevents/",
+    "actions": [
+     {
+      "click": "#nav a",
+      "cap": "[1] في صفحة الدخول اضغطوا **Lost your password?**.",
+      "nav": true
+     },
+     {
+      "fill": "#user_login",
+      "text": "pl-guide-qa",
+      "cap": "[2] اكتبوا الـ **Username** أو الإيميل."
+     },
+     {
+      "click": "#wp-submit",
+      "cap": "[3] اضغطوا **Get New Password**.",
+      "nav": true
+     },
+     {
+      "cap": "[4] افتحوا الإيميل واضغطوا اللينك اللي فيه، واختاروا باسورد جديد."
+     },
+     {
+      "cap": "اللينك بيفضل شغال لفترة قصيرة بس. لو اتأخرتوا، اطلبوا لينك جديد."
+     }
+    ]
+   },
+   "role": "admin",
+   "danger": false
+  },
+  {
+   "id": "lockout",
+   "chapter": "c1",
+   "title": "الدخول وقف بعد 5 محاولات",
+   "why": "ده حماية: لو حد بيجرّب باسوردات كتير، الدخول بيقف 15 دقيقة.",
+   "steps": [
+    "لو ظهرت رسالة **Sign-in is paused for 15 minutes**، استنوا ربع ساعة.",
+    "جرّبوا تاني بالباسورد الصح.",
+    "لو مش فاكرينه، استخدموا **Lost your password?** (شغال حتى والدخول واقف)."
+   ],
+   "tip": "الوقفة بتحصل للجهاز/النت اللي اتكتب منه الغلط بس، مش للموقع كله.",
+   "warning": "ماتطلبوش من حد \"يفك الحماية\". الربع ساعة كفاية.",
+   "screenshots": [
+    {
+     "id": "lockout-1",
+     "page": "/plevents/",
+     "anon": true,
+     "do": [
+      {
+       "fill": "#user_login",
+       "text": "pl-guide-qa"
+      },
+      {
+       "fill": "#user_pass",
+       "text": "wrong-1"
+      },
+      {
+       "click": "#wp-submit",
+       "nav": true
+      },
+      {
+       "fill": "#user_login",
+       "text": "pl-guide-qa"
+      },
+      {
+       "fill": "#user_pass",
+       "text": "wrong-2"
+      },
+      {
+       "click": "#wp-submit",
+       "nav": true
+      },
+      {
+       "fill": "#user_login",
+       "text": "pl-guide-qa"
+      },
+      {
+       "fill": "#user_pass",
+       "text": "wrong-3"
+      },
+      {
+       "click": "#wp-submit",
+       "nav": true
+      },
+      {
+       "fill": "#user_login",
+       "text": "pl-guide-qa"
+      },
+      {
+       "fill": "#user_pass",
+       "text": "wrong-4"
+      },
+      {
+       "click": "#wp-submit",
+       "nav": true
+      },
+      {
+       "fill": "#user_login",
+       "text": "pl-guide-qa"
+      },
+      {
+       "fill": "#user_pass",
+       "text": "wrong-5"
+      },
+      {
+       "click": "#wp-submit",
+       "nav": true
+      },
+      {
+       "fill": "#user_login",
+       "text": "pl-guide-qa"
+      },
+      {
+       "fill": "#user_pass",
+       "text": "wrong-6"
+      },
+      {
+       "click": "#wp-submit",
+       "nav": true
+      }
+     ],
+     "callouts": [
+      {
+       "n": 1,
+       "sel": "#login_error",
+       "text": "رسالة الوقفة"
+      },
+      {
+       "n": 2,
+       "sel": "#nav a",
+       "text": "نسيت الباسورد"
+      }
+     ]
+    }
+   ],
+   "role": "admin",
+   "danger": false,
+   "video": null
+  },
+  {
+   "id": "change-password",
+   "chapter": "c1",
+   "title": "تغيير الباسورد",
+   "why": "غيّروا الباسورد أول مرة تدخلوا، وكل ما تحسوا إن حد عرفه.",
+   "steps": [
+    "فوق على اليمين اضغطوا اسمكم، أو من القايمة **Users › Profile**.",
+    "انزلوا لحد **Account Management** واضغطوا **Set New Password**.",
+    "سيبوا الباسورد القوي اللي طلع، أو اكتبوا واحد طويل.",
+    "انزلوا تحت واضغطوا **Update Profile**."
+   ],
+   "tip": "استخدموا Password manager (زي اللي في Chrome) عشان يحفظه.",
+   "screens": [
+    "profile"
+   ],
+   "screenshots": [
+    {
+     "id": "change-password-1",
+     "page": "/wp-admin/profile.php",
+     "scroll": "#password",
+     "callouts": [
+      {
+       "n": 1,
+       "sel": ".wp-generate-pw",
+       "text": "Set New Password"
+      }
+     ]
+    }
+   ],
+   "video": {
+    "start": "/wp-admin/profile.php",
+    "actions": [
+     {
+      "cap": "[1] افتحوا **Profile** (من اسمكم فوق، أو Users › Profile)."
+     },
+     {
+      "scroll": "#password"
+     },
+     {
+      "click": ".wp-generate-pw",
+      "cap": "[2] اضغطوا **Set New Password**."
+     },
+     {
+      "cap": "[3] هيطلع باسورد قوي. احفظوه في الـ Password manager."
+     },
+     {
+      "scroll": "#submit"
+     },
+     {
+      "ring": "#submit",
+      "cap": "[4] انزلوا تحت واضغطوا **Update Profile**."
+     },
+     {
+      "click": "#submit",
+      "nav": true
+     }
+    ]
+   },
+   "role": "admin",
+   "danger": false
+  },
+  {
+   "id": "tour-menu",
+   "chapter": "c2",
+   "title": "قايمة PL Website",
+   "why": "كل محتوى الموقع في مكان واحد: PL Website.",
+   "steps": [
+    "من القايمة الشمال اضغطوا **PL Website**.",
+    "**Events** = الإيفنتات، **Offices** = المكاتب، **Company** = بيانات الشركة.",
+    "**Careers**، **Societies**، **Sponsors**، **Services**، **Memberships & awards** = باقي المحتوى.",
+    "**Help** = الشرح ده نفسه، وفيه زرار **?** في كل شاشة."
+   ],
+   "tip": "لو تايهين في أي شاشة، دوّروا على زرار **?** فوق على اليمين.",
+   "screens": [
+    "toplevel_page_pl-website"
+   ],
+   "screenshots": [
+    {
+     "id": "tour-menu-1",
+     "page": "/wp-admin/admin.php?page=pl-website",
+     "callouts": [
+      {
+       "n": 1,
+       "sel": "#toplevel_page_pl-website > a",
+       "text": "PL Website"
+      },
+      {
+       "n": 2,
+       "sel": "#adminmenu a[href='edit.php?post_type=event']",
+       "text": "Events"
+      },
+      {
+       "n": 3,
+       "sel": "#adminmenu a[href='edit.php?post_type=pl_office']",
+       "text": "Offices"
+      },
+      {
+       "n": 4,
+       "sel": "#adminmenu a[href='admin.php?page=pl-company']",
+       "text": "Company"
+      }
+     ]
+    }
+   ],
+   "video": {
+    "start": "/wp-admin/admin.php?page=pl-website",
+    "actions": [
+     {
+      "ring": "#toplevel_page_pl-website > a",
+      "cap": "[1] كل محتوى الموقع تحت **PL Website**."
+     },
+     {
+      "ring": "#adminmenu a[href='post-new.php?post_type=event']",
+      "cap": "[2] **＋ Add event**: أسرع طريق لإيفنت جديد."
+     },
+     {
+      "ring": "#adminmenu a[href='edit.php?post_type=event']",
+      "cap": "[3] **Events**: كل الإيفنتات، القديمة والجاية."
+     },
+     {
+      "ring": "#adminmenu a[href='edit.php?post_type=pl_office']",
+      "cap": "[4] **Offices**: العناوين والتليفونات والإيميلات."
+     },
+     {
+      "ring": "#adminmenu a[href='edit.php?post_type=pl_job']",
+      "cap": "[5] **Careers**: الوظايف."
+     },
+     {
+      "ring": "#adminmenu a[href='admin.php?page=pl-company']",
+      "cap": "[6] **Company**: عنوان الهوم، الأرقام، الـ PDF والفيديو."
+     },
+     {
+      "ring": "#adminmenu a[href='edit.php?post_type=pl_nl_signup']",
+      "cap": "[7] **Newsletter sign-ups**: المشتركين في النشرة."
+     }
+    ]
+   },
+   "role": "admin",
+   "danger": false
+  },
+  {
+   "id": "tour-overview",
+   "chapter": "c2",
+   "title": "صفحة Overview والأرقام",
+   "why": "بصّة واحدة تقولكم الموقع شايف كام إيفنت وكام دولة، قبل وبعد أي تعديل.",
+   "steps": [
+    "اضغطوا **PL Website › Overview**.",
+    "تحت **On the site now** هتلاقوا الأرقام: events · congresses · countries · cities.",
+    "نفس الأرقام دي بتظهر على الهوم والـ About.",
+    "بعد ما تضيفوا إيفنت، ارجعوا هنا واتأكدوا إن الرقم زاد."
+   ],
+   "tip": "الأرقام دي محدش بيكتبها: الموقع بيحسبها من الإيفنتات اللي **Show on site** بتاعها شغال.",
+   "screens": [
+    "toplevel_page_pl-website"
+   ],
+   "pair": {
+    "id": "pair-overview",
+    "title": "نفس الأرقام في المكانين",
+    "text": "اللي في Overview هو بالظبط اللي بيظهر على الهوم.",
+    "legend": [
+     "الأرقام في **Overview**",
+     "نفس الأرقام على الهوم"
+    ],
+    "admin": {
+     "page": "/wp-admin/admin.php?page=pl-website",
+     "callouts": [
+      {
+       "n": 1,
+       "sel": "#wpbody-content p:has-text('congresses')",
+       "text": "الأرقام"
+      }
+     ]
+    },
+    "site": {
+     "page": "/",
+     "scroll": "[class*=stats]",
+     "callouts": [
+      {
+       "n": 1,
+       "sel": "[class*=stats]",
+       "text": "سطر الأرقام"
+      }
+     ]
+    }
+   },
+   "video": {
+    "start": "/wp-admin/admin.php?page=pl-website",
+    "actions": [
+     {
+      "ring": "#wpbody-content p:has-text('congresses')",
+      "cap": "[1] في **Overview** الأرقام اللي على الموقع دلوقتي."
+     },
+     {
+      "cap": "الموقع بيحسبها لوحده من الإيفنتات. محدش بيكتبها."
+     },
+     {
+      "go": "/",
+      "cap": "[2] افتحوا الهوم…"
+     },
+     {
+      "scroll": "[class*=stats]"
+     },
+     {
+      "ring": "[class*=stats]",
+      "cap": "[3] …هتلاقوا نفس الأرقام بالظبط."
+     },
+     {
+      "cap": "بعد أي إضافة، بصّوا على Overview واتأكدوا إن الرقم اتغيّر."
+     }
+    ]
+   },
+   "role": "admin",
+   "danger": false,
+   "screenshots": []
+  },
+  {
+   "id": "tour-help",
+   "chapter": "c2",
+   "title": "الشرح ده جوه الموقع (PL Help)",
+   "why": "عشان تلاقوا الشرح في نفس المكان اللي بتشتغلوا فيه.",
+   "steps": [
+    "اضغطوا **PL Website › Help**.",
+    "دوّروا بكلمة في خانة البحث، أو افتحوا فصل.",
+    "في أي شاشة فيها مهمة، اضغطوا زرار **?** فوق: الشرح بيفتح على الجنب من غير ما تسيبوا الشاشة."
+   ],
+   "tip": "الفيديوهات مابتشتغلش لوحدها. اضغطوا Play لما تكونوا جاهزين.",
+   "screens": [
+    "pl-website_page_pl-help"
+   ],
+   "screenshots": [
+    {
+     "id": "tour-help-1",
+     "page": "/wp-admin/admin.php?page=pl-help",
+     "callouts": [
+      {
+       "n": 1,
+       "sel": ".plh-search input",
+       "text": "البحث"
+      },
+      {
+       "n": 2,
+       "sel": ".plh-chapters",
+       "text": "الفصول"
+      }
+     ]
+    },
+    {
+     "id": "tour-help-2",
+     "page": "@edit:event:deoss-atmo-2027",
+     "do": [
+      {
+       "click": "#plh-fab"
+      },
+      {
+       "wait": 600
+      }
+     ],
+     "callouts": [
+      {
+       "n": 1,
+       "sel": "#plh-fab",
+       "text": "زرار ?"
+      },
+      {
+       "n": 2,
+       "sel": "#plh-panel",
+       "text": "الشرح على الجنب"
+      }
+     ]
+    }
+   ],
+   "video": {
+    "start": "/wp-admin/admin.php?page=pl-website",
+    "actions": [
+     {
+      "click": "#adminmenu a[href='admin.php?page=pl-help']",
+      "cap": "[1] اضغطوا **PL Website › Help**.",
+      "nav": true
+     },
+     {
+      "fill": ".plh-search input",
+      "text": "WhatsApp",
+      "cap": "[2] اكتبوا كلمة في البحث، مثلاً WhatsApp."
+     },
+     {
+      "wait": 1500
+     },
+     {
+      "go": "@edit:event:deoss-atmo-2027",
+      "cap": "[3] وفي أي شاشة، زي تعديل إيفنت…"
+     },
+     {
+      "click": "#plh-fab",
+      "cap": "[4] …اضغطوا زرار **?** فوق."
+     },
+     {
+      "wait": 1800,
+      "cap": "الشرح بيفتح على الجنب، وانتوا لسه في نفس الشاشة."
+     },
+     {
+      "press": "Escape",
+      "cap": "وعشان تقفلوه: **Esc** أو زرار الإغلاق."
+     }
+    ]
+   },
+   "role": "admin",
+   "danger": false
+  },
+  {
+   "id": "event-add",
+   "chapter": "c3",
+   "title": "إضافة إيفنت جديد",
+   "cheat": 1,
+   "why": "عشان الإيفنت يظهر في الكالندر والهوم والخريطة والأرقام، كله مرة واحدة.",
+   "steps": [
+    "اضغطوا **PL Website › ＋ Add event**.",
+    "اكتبوا الاسم الرسمي فوق، واختاروا **Type** و **Specialty** و **Series**.",
+    "اختاروا **Start date** و **End date**، وبعدين **Country** و **City**.",
+    "حطوا **Congress website** و **Registration link**، واختاروا حالة **Registration**.",
+    "اضغطوا **Publish**."
+   ],
+   "tip": "الحالة (Past / Live / Upcoming) بتتحسب لوحدها من التواريخ بتوقيت بلد الإيفنت. ماتدوّروش عليها.",
+   "warning": "لو اخترتوا **Registration = Open** من غير لينك، الموقع مش هيقبل الـ Publish لحد ما تحطوا اللينك.",
+   "screens": [
+    "event"
+   ],
+   "screenshots": [
+    {
+     "id": "event-add-1",
+     "page": "/wp-admin/post-new.php?post_type=event",
+     "callouts": [
+      {
+       "n": 1,
+       "sel": "#title",
+       "text": "الاسم الرسمي"
+      },
+      {
+       "n": 2,
+       "sel": "[data-name=pl_type]",
+       "text": "Type"
+      },
+      {
+       "n": 3,
+       "sel": "[data-name=pl_specialties]",
+       "text": "Specialty"
+      },
+      {
+       "n": 4,
+       "sel": "[data-name=pl_start]",
+       "text": "Start date"
+      },
+      {
+       "n": 5,
+       "sel": "[data-name=pl_country]",
+       "text": "Country"
+      },
+      {
+       "n": 6,
+       "sel": "#publish",
+       "text": "Publish"
+      }
+     ]
+    },
+    {
+     "id": "event-add-2",
+     "page": "/wp-admin/post-new.php?post_type=event",
+     "scroll": "[data-name=pl_website]",
+     "block": "start",
+     "callouts": [
+      {
+       "n": 1,
+       "sel": "[data-name=pl_website]",
+       "text": "Congress website"
+      },
+      {
+       "n": 2,
+       "sel": "[data-name=pl_registration_url]",
+       "text": "Registration link"
+      },
+      {
+       "n": 3,
+       "sel": "[data-name=pl_registration]",
+       "text": "Registration"
+      },
+      {
+       "n": 4,
+       "sel": "[data-name=pl_pin_home]",
+       "text": "Pin to Home"
+      }
+     ]
+    },
+    {
+     "id": "event-add-mobile",
+     "size": "mobile",
+     "page": "@view:event:deoss-atmo-2027",
+     "callouts": [
+      {
+       "n": 1,
+       "sel": "h1",
+       "text": "الاسم"
+      },
+      {
+       "n": 2,
+       "sel": "main a.btn:has-text('Register now')",
+       "text": "Register now"
+      }
+     ]
+    }
+   ],
+   "video": {
+    "start": "/wp-admin/admin.php?page=pl-website",
+    "actions": [
+     {
+      "click": "#adminmenu a[href='post-new.php?post_type=event']",
+      "cap": "[1] اضغطوا **＋ Add event**.",
+      "nav": true
+     },
+     {
+      "fill": "#title",
+      "text": "5th Example Congress (training)",
+      "cap": "[2] اكتبوا الاسم الرسمي زي ما الجمعية بتكتبه."
+     },
+     {
+      "select2": "[data-name=pl_type]",
+      "text": "Congress",
+      "cap": "[3] **Type**: اكتبوا أول حروف واختاروا."
+     },
+     {
+      "select2": "[data-name=pl_specialties]",
+      "text": "Ophth",
+      "cap": "[4] **Specialty**: واحدة أو أكتر."
+     },
+     {
+      "date": "pl_start",
+      "value": "2027-04-15",
+      "cap": "[5] **Start date** من الكالندر…"
+     },
+     {
+      "date": "pl_end",
+      "value": "2027-04-17",
+      "cap": "…و **End date** (نفس اليوم لو الإيفنت يوم واحد)."
+     },
+     {
+      "select2": "[data-name=pl_country]",
+      "text": "Egypt",
+      "cap": "[6] **Country** من القايمة…"
+     },
+     {
+      "fill": "[data-name=pl_city] input",
+      "text": "Alexandria",
+      "cap": "…و **City** بالإنجليزي."
+     },
+     {
+      "scroll": "[data-name=pl_website]"
+     },
+     {
+      "fill": "[data-name=pl_website] input",
+      "text": "www.example.org",
+      "cap": "[7] **Congress website**: الصقوا اللينك. لو نسيتوا https:// الموقع بيضيفه."
+     },
+     {
+      "click": "#publish",
+      "cap": "[8] اضغطوا **Publish**.",
+      "nav": true
+     },
+     {
+      "wait": 1200,
+      "cap": "خلاص! الإيفنت ظهر في الكالندر والهوم والأرقام لوحده."
+     }
+    ],
+    "done": "الإيفنت اتنشر. ✅"
+   },
+   "role": "admin",
+   "danger": false
+  },
+  {
+   "id": "event-edit",
+   "chapter": "c3",
+   "title": "تعديل إيفنت",
+   "cheat": 2,
+   "why": "لو حاجة اتغيّرت (تاريخ، مكان، لينك)، بتعدّلوها مرة واحدة وتتغيّر في كل الموقع.",
+   "steps": [
+    "اضغطوا **PL Website › Events**.",
+    "دوّروا باسم الإيفنت في **Search Events**، واضغطوا اسمه.",
+    "عدّلوا اللي محتاجينه.",
+    "اضغطوا **Update** (الزرار الأزرق على اليمين)."
+   ],
+   "tip": "عمود **Status** في القايمة بيقولكم Live / Upcoming / Past، وعمود **Show on site** بيقولكم لو مخفي.",
+   "screens": [
+    "edit-event",
+    "event"
+   ],
+   "screenshots": [
+    {
+     "id": "event-edit-1",
+     "page": "/wp-admin/edit.php?post_type=event",
+     "callouts": [
+      {
+       "n": 1,
+       "sel": "#post-search-input",
+       "text": "البحث"
+      },
+      {
+       "n": 2,
+       "sel": "#the-list tr:first-child .row-title",
+       "text": "اسم الإيفنت"
+      },
+      {
+       "n": 3,
+       "sel": "th#pl_status",
+       "text": "Status"
+      },
+      {
+       "n": 4,
+       "sel": "th#pl_show",
+       "text": "Show on site"
+      }
+     ]
+    }
+   ],
+   "video": {
+    "start": "/wp-admin/admin.php?page=pl-website",
+    "actions": [
+     {
+      "click": "#adminmenu a[href='edit.php?post_type=event']",
+      "cap": "[1] اضغطوا **Events**.",
+      "nav": true
+     },
+     {
+      "fill": "#post-search-input",
+      "text": "DEOSS",
+      "cap": "[2] اكتبوا اسم الإيفنت في البحث…"
+     },
+     {
+      "click": "#search-submit",
+      "nav": true
+     },
+     {
+      "click": "#the-list a.row-title:has-text('4th DEOSS')",
+      "cap": "[3] …واضغطوا اسمه.",
+      "nav": true
+     },
+     {
+      "scroll": "[data-name=pl_venue]"
+     },
+     {
+      "fill": "[data-name=pl_venue] input",
+      "text": "Mövenpick Hotel Gammarth",
+      "cap": "[4] عدّلوا اللي محتاجينه، مثلاً **Venue**."
+     },
+     {
+      "click": "#publish",
+      "cap": "[5] اضغطوا **Update**.",
+      "nav": true
+     },
+     {
+      "wait": 1000,
+      "cap": "التعديل ظهر على الموقع في نفس اللحظة."
+     }
+    ]
+   },
+   "role": "admin",
+   "danger": false
+  },
+  {
+   "id": "event-registration",
+   "chapter": "c3",
+   "title": "فتح وقفل التسجيل",
+   "cheat": 4,
+   "why": "زرار **Register now** يظهر بس وقت ما التسجيل فعلاً شغال، عشان محدش يدوس على لينك بايظ.",
+   "steps": [
+    "افتحوا الإيفنت من **Events**.",
+    "حطوا اللينك في **Registration link**.",
+    "اختاروا **Registration**: **Open** لما التسجيل يفتح، **Closed** لما يقفل.",
+    "اضغطوا **Update**."
+   ],
+   "tip": "Register now بيظهر لما الاتنين يبقوا موجودين: **Registration = Open** **و** فيه لينك.",
+   "warning": "لو الإيفنت خلص والتسجيل لسه Open، هيظهر لكم تحذير أصفر. اقفلوه (**Closed**).",
+   "screens": [
+    "event"
+   ],
+   "pair": {
+    "id": "pair-registration",
+    "title": "Registration = Open ← زرار Register now",
+    "text": "الخانتين دول في wp-admin هما اللي بيطلّعوا زرار Register now على الموقع.",
+    "legend": [
+     "**Registration link** = اللينك اللي الزرار بيفتحه",
+     "**Registration** = **Open** يطلّع الزرار"
+    ],
+    "admin": {
+     "page": "@edit:event:deoss-atmo-2027",
+     "scroll": "[data-name=pl_registration]",
+     "callouts": [
+      {
+       "n": 1,
+       "sel": "[data-name=pl_registration_url]",
+       "text": "Registration link"
+      },
+      {
+       "n": 2,
+       "sel": "[data-name=pl_registration]",
+       "text": "Registration"
+      }
+     ]
+    },
+    "site": {
+     "page": "@view:event:deoss-atmo-2027",
+     "callouts": [
+      {
+       "n": 1,
+       "sel": "main a.btn:has-text('Register now')",
+       "text": "Register now"
+      },
+      {
+       "n": 2,
+       "sel": "main :text-matches('Registration open','i')",
+       "text": "Registration open"
+      }
+     ]
+    }
+   },
+   "video": {
+    "start": "@edit:event:deoss-atmo-2027",
+    "actions": [
+     {
+      "cap": "[1] افتحوا الإيفنت من **Events**."
+     },
+     {
+      "scroll": "[data-name=pl_registration]"
+     },
+     {
+      "ring": "[data-name=pl_registration_url]",
+      "cap": "[2] **Registration link**: اللينك اللي الناس بتسجل منه."
+     },
+     {
+      "select": "[data-name=pl_registration] select",
+      "value": "closed",
+      "cap": "[3] التسجيل قفل؟ اختاروا **Closed**."
+     },
+     {
+      "click": "#publish",
+      "cap": "[4] اضغطوا **Update**.",
+      "nav": true
+     },
+     {
+      "go": "@view:event:deoss-atmo-2027",
+      "cap": "زرار Register now اختفى من صفحة الإيفنت."
+     },
+     {
+      "wait": 1500,
+      "cap": "ولما يفتح تاني: **Open** + لينك، والزرار يرجع."
+     }
+    ]
+   },
+   "role": "admin",
+   "danger": false,
+   "screenshots": []
+  },
+  {
+   "id": "event-hide",
+   "chapter": "c3",
+   "title": "إخفاء إيفنت (من غير ما تمسحوه)",
+   "cheat": 5,
+   "why": "الإيفنت المخفي بيختفي من كل الموقع ومن الأرقام، بس بيفضل محفوظ عندكم.",
+   "steps": [
+    "افتحوا الإيفنت.",
+    "انزلوا لآخر الفورم لحد **Show on site**.",
+    "اقفلوه (يبقى **No**).",
+    "اضغطوا **Update**."
+   ],
+   "tip": "الإخفاء أحسن من المسح دايماً: ترجعوه في ثانية لو احتجتوه.",
+   "warning": "ماتستخدموش **Move to Trash** إلا لو الإيفنت اتعمل بالغلط خالص.",
+   "screens": [
+    "event",
+    "edit-event"
+   ],
+   "screenshots": [
+    {
+     "id": "event-hide-1",
+     "page": "@edit:event:deoss-atmo-2027",
+     "scroll": "[data-name=pl_show_on_site]",
+     "callouts": [
+      {
+       "n": 1,
+       "sel": "[data-name=pl_show_on_site]",
+       "text": "Show on site"
+      }
+     ]
+    }
+   ],
+   "video": {
+    "start": "@edit:event:deoss-atmo-2027",
+    "actions": [
+     {
+      "cap": "[1] افتحوا الإيفنت اللي عايزين تخفوه."
+     },
+     {
+      "scroll": "[data-name=pl_show_on_site]"
+     },
+     {
+      "check": "[data-name=pl_show_on_site] .acf-switch",
+      "cap": "[2] اقفلوا **Show on site**."
+     },
+     {
+      "scroll": "#publish"
+     },
+     {
+      "click": "#publish",
+      "cap": "[3] اضغطوا **Update**.",
+      "nav": true
+     },
+     {
+      "go": "/wp-admin/edit.php?post_type=event",
+      "cap": "[4] في قايمة Events هتلاقوه مكتوب **Hidden**."
+     },
+     {
+      "ring": "#the-list td.column-pl_show strong",
+      "cap": "ولما تحبوا ترجعوه: افتحوه وشغّلوا Show on site تاني."
+     }
+    ]
+   },
+   "role": "admin",
+   "danger": false
+  },
+  {
+   "id": "event-pin",
+   "chapter": "c3",
+   "title": "تثبيت إيفنت في الهوم",
+   "why": "لو عايزين إيفنت معيّن يبقى في \"Next congress\" على الهوم بدل الأقرب.",
+   "steps": [
+    "افتحوا الإيفنت.",
+    "شغّلوا **Pin to Home** (يبقى **Yes**).",
+    "اضغطوا **Update**.",
+    "لما الإيفنت يعدّي، اقفلوها تاني."
+   ],
+   "tip": "في العادي سيبوها مقفولة: الهوم بيعرض لوحده Live ← Upcoming ← Past.",
+   "warning": "ماتثبّتوش أكتر من إيفنت. لو حصل، هيظهر تحذير أصفر والأقرب هو اللي هيبان.",
+   "screens": [
+    "event"
+   ],
+   "pair": {
+    "id": "pair-pin",
+    "title": "Pin to Home ← Next congress",
+    "text": "الإيفنت المثبّت هو اللي بيظهر في شريط Next congress على الهوم.",
+    "legend": [
+     "**Pin to Home** في الإيفنت",
+     "شريط **Next congress** على الهوم"
+    ],
+    "admin": {
+     "page": "@edit:event:deoss-atmo-2027",
+     "scroll": "[data-name=pl_pin_home]",
+     "callouts": [
+      {
+       "n": 1,
+       "sel": "[data-name=pl_pin_home]",
+       "text": "Pin to Home"
+      }
+     ]
+    },
+    "site": {
+     "page": "/",
+     "callouts": [
+      {
+       "n": 1,
+       "sel": ".nextc",
+       "text": "Next congress"
+      }
+     ]
+    }
+   },
+   "video": {
+    "start": "@edit:event:deoss-atmo-2027",
+    "actions": [
+     {
+      "scroll": "[data-name=pl_pin_home]",
+      "cap": "[1] افتحوا الإيفنت، وروحوا لـ **Pin to Home**."
+     },
+     {
+      "check": "[data-name=pl_pin_home] .acf-switch",
+      "cap": "[2] شغّلوها."
+     },
+     {
+      "click": "#publish",
+      "cap": "[3] اضغطوا **Update**.",
+      "nav": true
+     },
+     {
+      "go": "/",
+      "cap": "[4] على الهوم: الإيفنت ده بقى في **Next congress**."
+     },
+     {
+      "ring": ".nextc",
+      "cap": "لما الإيفنت يخلص، اقفلوا Pin to Home."
+     }
+    ]
+   },
+   "role": "admin",
+   "danger": false,
+   "screenshots": []
+  },
+  {
+   "id": "event-images",
+   "chapter": "c3",
+   "title": "صور الإيفنت ومقاساتها",
+   "why": "الصورة الكبيرة بتطلع حادة على الموبايل والكمبيوتر. الصغيرة بتطلع مغبّشة.",
+   "steps": [
+    "في الإيفنت انزلوا لـ **Poster / photo** واضغطوا **Add Image**.",
+    "اختاروا صورة من الـ Media أو ارفعوا جديدة، واضغطوا **Select**.",
+    "لو ظهرت ملاحظة صفرا، الصورة أصغر من المطلوب (على الأقل **1280 × 800**).",
+    "**Logo**: يفضّل SVG أو PNG شفاف.",
+    "اضغطوا **Update**."
+   ],
+   "tip": "خلّوا أهم حاجة في البوستر في النص: الأطراف ممكن تتقص.",
+   "warning": "الملاحظة الصفرا مابتمنعش النشر. انشروا عادي، وغيّروا الصورة لما توصلكم أكبر.",
+   "screens": [
+    "event",
+    "upload"
+   ],
+   "screenshots": [
+    {
+     "id": "event-images-1",
+     "page": "@edit:event:deoss-atmo-2027",
+     "do": [
+      {
+       "php": "update_post_meta( @id:event:deoss-atmo-2027, 'pl_poster', (int) get_option( 'pl_guide_small_image' ) ); update_post_meta( @id:event:deoss-atmo-2027, '_pl_poster', 'field_pl_event_poster' );"
+      },
+      {
+       "go": "@edit:event:deoss-atmo-2027"
+      }
+     ],
+     "scroll": "[data-name=pl_poster]",
+     "callouts": [
+      {
+       "n": 1,
+       "sel": "[data-name=pl_poster]",
+       "text": "Poster / photo"
+      },
+      {
+       "n": 2,
+       "sel": "[data-name=pl_poster] .pl-size-note, [data-name=pl_poster] [class*=note]",
+       "text": "الملاحظة الصفرا"
+      },
+      {
+       "n": 3,
+       "sel": "[data-name=pl_logo]",
+       "text": "Logo"
+      }
+     ]
+    }
+   ],
+   "video": {
+    "start": "@edit:event:deoss-atmo-2027",
+    "actions": [
+     {
+      "scroll": "[data-name=pl_poster]",
+      "cap": "[1] انزلوا لـ **Poster / photo**."
+     },
+     {
+      "click": "[data-name=pl_poster] a.acf-button, [data-name=pl_poster] [data-name=add]",
+      "cap": "[2] اضغطوا **Add Image**."
+     },
+     {
+      "waitFor": ".media-modal .attachment"
+     },
+     {
+      "click": ".media-modal .attachments .attachment:first-child",
+      "cap": "[3] اختاروا الصورة…"
+     },
+     {
+      "click": ".media-modal .media-button-select",
+      "cap": "…واضغطوا **Select**."
+     },
+     {
+      "wait": 1500,
+      "cap": "[4] الصورة دي صغيرة، فظهرت ملاحظة صفرا. ده تنبيه بس."
+     },
+     {
+      "cap": "ارفعوا صورة على الأقل 1280 × 800 لما تكون عندكم."
+     }
+    ]
+   },
+   "role": "admin",
+   "danger": false
+  },
+  {
+   "id": "event-taxonomy",
+   "chapter": "c3",
+   "title": "إضافة Specialty أو Series جديدة",
+   "why": "لو إيفنت تخصصه أو سلسلته مش موجودة في القايمة.",
+   "steps": [
+    "اضغطوا **PL Website › ↳ Specialties** (أو **↳ Series**).",
+    "اكتبوا الاسم في **Name**.",
+    "في Series: اكتبوا **Short name** (بيظهر على الزراير: \"Register now for DEOSS 2027\").",
+    "اضغطوا **Add new Specialty** (أو **Add new Series**)."
+   ],
+   "tip": "ممكن كمان تضيفوا Specialty من جوه الإيفنت نفسه بزرار **+** جنب الخانة.",
+   "warning": "اكتبوا الاسم بالظبط زي الجمعية ما بتكتبه، ومرة واحدة بس (من غير تكرار).",
+   "screens": [
+    "edit-pl_specialty",
+    "edit-pl_series"
+   ],
+   "screenshots": [
+    {
+     "id": "event-taxonomy-1",
+     "page": "/wp-admin/edit-tags.php?taxonomy=pl_series&post_type=event",
+     "callouts": [
+      {
+       "n": 1,
+       "sel": "#tag-name",
+       "text": "Name"
+      },
+      {
+       "n": 2,
+       "sel": "#addtag [data-name]",
+       "text": "Short name"
+      },
+      {
+       "n": 3,
+       "sel": "#submit",
+       "text": "Add new Series"
+      }
+     ]
+    }
+   ],
+   "video": {
+    "start": "/wp-admin/admin.php?page=pl-website",
+    "actions": [
+     {
+      "click": "#adminmenu a[href='edit-tags.php?taxonomy=pl_specialty&post_type=event']",
+      "cap": "[1] اضغطوا **↳ Specialties**.",
+      "nav": true
+     },
+     {
+      "fill": "#tag-name",
+      "text": "Dermatology",
+      "cap": "[2] اكتبوا الاسم."
+     },
+     {
+      "click": "#submit",
+      "cap": "[3] اضغطوا **Add new Specialty**."
+     },
+     {
+      "wait": 1200,
+      "cap": "ظهرت في القايمة، وهتلاقوها في الإيفنت على طول."
+     },
+     {
+      "click": "#adminmenu a[href='edit-tags.php?taxonomy=pl_series&post_type=event']",
+      "cap": "[4] نفس الكلام في **↳ Series**…",
+      "nav": true
+     },
+     {
+      "ring": "#addtag [data-name]",
+      "cap": "…ومعاها **Short name** اللي بيظهر على زرار التسجيل."
+     }
+    ]
+   },
+   "role": "admin",
+   "danger": false
+  },
+  {
+   "id": "event-congress-count",
+   "chapter": "c3",
+   "title": "\"يتحسب congress\" إزاي",
+   "why": "الرقم \"13 congresses\" على الهوم بيعدّ أنواع معيّنة بس، مش كل إيفنت.",
+   "steps": [
+    "اضغطوا **PL Website › ↳ Event types**.",
+    "افتحوا النوع (مثلاً **Symposium**).",
+    "لو **Counts as a congress = Yes** يبقى بيتعدّ في الرقم.",
+    "اضغطوا **Update** وبصّوا على الرقم في **Overview**."
+   ],
+   "tip": "النهارده بيتعدّ: **Congress** و **Conference** بس (قرار 6 نوفمبر 2026).",
+   "warning": "ده قرار بيغيّر رقم ظاهر للناس. ماتغيّروهوش من غير اتفاق مع الإدارة.",
+   "screens": [
+    "edit-pl_event_type"
+   ],
+   "screenshots": [
+    {
+     "id": "event-congress-count-1",
+     "page": "/wp-admin/term.php?taxonomy=pl_event_type&tag_ID=2",
+     "callouts": [
+      {
+       "n": 1,
+       "sel": "#name",
+       "text": "النوع"
+      },
+      {
+       "n": 2,
+       "sel": "[data-name=pl_congress]",
+       "text": "Counts as a congress"
+      }
+     ]
+    }
+   ],
+   "video": {
+    "start": "/wp-admin/admin.php?page=pl-website",
+    "actions": [
+     {
+      "ring": "#wpbody-content p:has-text('congresses')",
+      "cap": "[1] في **Overview**: الرقم ده = عدد الـ congresses."
+     },
+     {
+      "click": "#adminmenu a[href='edit-tags.php?taxonomy=pl_event_type&post_type=event']",
+      "cap": "[2] افتحوا **↳ Event types**.",
+      "nav": true
+     },
+     {
+      "click": "#the-list a.row-title:has-text('Congress')",
+      "cap": "[3] افتحوا النوع.",
+      "nav": true
+     },
+     {
+      "ring": "[data-name=pl_congress]",
+      "cap": "[4] **Counts as a congress** = Yes يعني بيتعدّ."
+     },
+     {
+      "cap": "النهارده: Congress و Conference بس. التغيير ده قرار إدارة."
+     }
+    ]
+   },
+   "role": "admin",
+   "danger": false
+  },
+  {
+   "id": "office-phone",
+   "chapter": "c4",
+   "title": "تعديل رقم تليفون أو واتساب لمكتب",
+   "cheat": 6,
+   "why": "الرقم ده بيظهر في Contact والفوتر والـ About، وزرار WhatsApp بيتعمل منه لوحده.",
+   "steps": [
+    "اضغطوا **PL Website › Offices** وافتحوا المكتب.",
+    "في **Phones**: اختاروا **Country code** (+20، +971…) واكتبوا الرقم في **Number**.",
+    "شغّلوا **On WhatsApp** لو الرقم عليه واتساب.",
+    "اضغطوا **Update**."
+   ],
+   "tip": "المسافات والشَرط والصفر اللي في الأول مش مشكلة: الموقع بيشيلهم لوحده، وبيوريكم تحت الخانة الرقم هيطلع إزاي.",
+   "warning": "لو كتبتوا الرقم بكود (+971…) والكود اللي مختار غيره، الموقع بيصلّح الكود لوحده ويقولكم.",
+   "screens": [
+    "pl_office",
+    "edit-pl_office"
+   ],
+   "pair": {
+    "id": "pair-office-phone",
+    "title": "الرقم في wp-admin ← زراير الاتصال على الموقع",
+    "text": "نفس الرقم بيطلع زرار اتصال وزرار WhatsApp.",
+    "legend": [
+     "**Number** + **Country code**",
+     "**On WhatsApp** = زرار WhatsApp"
+    ],
+    "admin": {
+     "page": "@edit:pl_office:alexandria",
+     "scroll": "[data-name=pl_phones]",
+     "callouts": [
+      {
+       "n": 1,
+       "sel": "[data-name=pl_phones] .acf-row:not(.acf-clone):first-of-type [data-name=number]",
+       "text": "Number"
+      },
+      {
+       "n": 2,
+       "sel": "[data-name=pl_phones] .acf-row:not(.acf-clone):first-of-type [data-name=whatsapp]",
+       "text": "On WhatsApp"
+      }
+     ]
+    },
+    "site": {
+     "page": "/contact/",
+     "scroll": ".pl-office",
+     "callouts": [
+      {
+       "n": 1,
+       "sel": ".pl-office a[href^='tel:']",
+       "text": "اتصال"
+      },
+      {
+       "n": 2,
+       "sel": ".pl-office a[href*='wa.me']",
+       "text": "WhatsApp"
+      }
+     ]
+    }
+   },
+   "video": {
+    "start": "/wp-admin/admin.php?page=pl-website",
+    "actions": [
+     {
+      "click": "#adminmenu a[href='edit.php?post_type=pl_office']",
+      "cap": "[1] اضغطوا **Offices**.",
+      "nav": true
+     },
+     {
+      "click": "#the-list a.row-title:has-text('Alexandria')",
+      "cap": "[2] افتحوا المكتب.",
+      "nav": true
+     },
+     {
+      "scroll": "[data-name=pl_phones]"
+     },
+     {
+      "fill": "[data-name=pl_phones] .acf-row:not(.acf-clone):first-of-type [data-name=number] input",
+      "text": "0102 555 9003",
+      "cap": "[3] اكتبوا الرقم في **Number**. المسافات والصفر مش مشكلة."
+     },
+     {
+      "ring": "[data-name=pl_phones] .acf-row:not(.acf-clone):first-of-type .pl-hint.ok",
+      "cap": "تحت الخانة: الرقم هيظهر على الموقع إزاي."
+     },
+     {
+      "ring": "[data-name=pl_phones] .acf-row:not(.acf-clone):first-of-type [data-name=whatsapp]",
+      "cap": "[4] **On WhatsApp** شغال = زرار واتساب على الموقع."
+     },
+     {
+      "click": "#publish",
+      "cap": "[5] اضغطوا **Update**.",
+      "nav": true
+     }
+    ]
+   },
+   "role": "admin",
+   "danger": false,
+   "screenshots": []
+  },
+  {
+   "id": "event-phone",
+   "chapter": "c4",
+   "title": "رقم تليفون أو واتساب لإيفنت",
+   "why": "للإيفنتات اللي ليها رقم محلي (مثلاً منظم في دبي أو تونس).",
+   "steps": [
+    "افتحوا الإيفنت.",
+    "في **Phones** اضغطوا **Add a phone**.",
+    "اختاروا **Country code** واكتبوا الرقم، وشغّلوا **On WhatsApp** لو عليه واتساب.",
+    "اضغطوا **Update**."
+   ],
+   "tip": "اكتبوا في **Label** مين صاحب الرقم، مثلاً: Local organiser.",
+   "screens": [
+    "event"
+   ],
+   "screenshots": [
+    {
+     "id": "event-phone-1",
+     "page": "@edit:event:deoss-atmo-2027",
+     "do": [
+      {
+       "scroll": "[data-name=pl_phones]"
+      },
+      {
+       "click": "[data-name=pl_phones] .acf-actions [data-event=add-row]"
+      },
+      {
+       "fill": "[data-name=pl_phones] .acf-row:not(.acf-clone) >> nth=-1 >> [data-name=number] input",
+       "text": "+216 71 000 000"
+      }
+     ],
+     "scroll": "[data-name=pl_phones]",
+     "callouts": [
+      {
+       "n": 1,
+       "sel": "[data-name=pl_phones] .acf-row:not(.acf-clone) >> nth=-1 >> [data-name=code]",
+       "text": "Country code"
+      },
+      {
+       "n": 2,
+       "sel": "[data-name=pl_phones] .acf-row:not(.acf-clone) >> nth=-1 >> [data-name=number]",
+       "text": "Number"
+      },
+      {
+       "n": 3,
+       "sel": "[data-name=pl_phones] .acf-row:not(.acf-clone) >> nth=-1 >> [data-name=whatsapp]",
+       "text": "On WhatsApp"
+      }
+     ]
+    }
+   ],
+   "video": {
+    "start": "@edit:event:deoss-atmo-2027",
+    "actions": [
+     {
+      "scroll": "[data-name=pl_phones]",
+      "cap": "[1] في الإيفنت، انزلوا لـ **Phones**."
+     },
+     {
+      "click": "[data-name=pl_phones] .acf-actions [data-event=add-row]",
+      "cap": "[2] اضغطوا **Add a phone**."
+     },
+     {
+      "fill": "[data-name=pl_phones] .acf-row:not(.acf-clone) >> nth=-1 >> [data-name=label] input",
+      "text": "Local organiser",
+      "cap": "[3] **Label**: مين صاحب الرقم."
+     },
+     {
+      "fill": "[data-name=pl_phones] .acf-row:not(.acf-clone) >> nth=-1 >> [data-name=number] input",
+      "text": "+216 71 000 000",
+      "cap": "[4] لو كتبتوا الرقم بكود الدولة…"
+     },
+     {
+      "ring": "[data-name=pl_phones] .acf-row:not(.acf-clone) >> nth=-1 >> [data-name=code]",
+      "cap": "…الموقع بيحط الكود في **Country code** لوحده."
+     },
+     {
+      "check": "[data-name=pl_phones] .acf-row:not(.acf-clone) >> nth=-1 >> [data-name=whatsapp] .acf-switch",
+      "cap": "[5] **On WhatsApp** لو عليه واتساب."
+     },
+     {
+      "click": "#publish",
+      "cap": "[6] اضغطوا **Update**.",
+      "nav": true
+     }
+    ]
+   },
+   "role": "admin",
+   "danger": false
+  },
+  {
+   "id": "office-email",
+   "chapter": "c4",
+   "title": "تعديل إيميل مكتب",
+   "why": "أول إيميل في المكتب هو اللي بتوصله رسايل فورم Contact للمكتب ده.",
+   "steps": [
+    "افتحوا المكتب من **PL Website › Offices**.",
+    "في **Emails** عدّلوا الإيميل، أو اضغطوا **Add an email** لإيميل زيادة.",
+    "اضغطوا **Update**."
+   ],
+   "tip": "عايزين الرسايل تروح لإيميل تاني؟ خلّوه **أول** إيميل في القايمة (اسحبوه بالرقم اللي على الشمال).",
+   "warning": "بعد التغيير، ابعتوا رسالة تجربة من صفحة Contact واتأكدوا إنها وصلت.",
+   "screens": [
+    "pl_office"
+   ],
+   "screenshots": [
+    {
+     "id": "office-email-1",
+     "page": "@edit:pl_office:alexandria",
+     "scroll": "[data-name=pl_emails]",
+     "callouts": [
+      {
+       "n": 1,
+       "sel": "[data-name=pl_emails] .acf-row:not(.acf-clone):first-of-type [data-name=email]",
+       "text": "أول إيميل = رسايل Contact"
+      },
+      {
+       "n": 2,
+       "sel": "[data-name=pl_emails] .acf-actions",
+       "text": "Add an email"
+      }
+     ]
+    }
+   ],
+   "video": {
+    "start": "@edit:pl_office:alexandria",
+    "actions": [
+     {
+      "scroll": "[data-name=pl_emails]",
+      "cap": "[1] في المكتب، روحوا لـ **Emails**."
+     },
+     {
+      "ring": "[data-name=pl_emails] .acf-row:not(.acf-clone):first-of-type [data-name=email]",
+      "cap": "[2] أول إيميل هو اللي بتوصله رسايل Contact."
+     },
+     {
+      "fill": "[data-name=pl_emails] .acf-row:not(.acf-clone):first-of-type [data-name=email] input",
+      "text": "events@example.org",
+      "cap": "[3] عدّلوه."
+     },
+     {
+      "click": "#publish",
+      "cap": "[4] اضغطوا **Update**. الفورم بيتبع الإيميل الجديد على طول.",
+      "nav": true
+     },
+     {
+      "cap": "وبعدين ابعتوا رسالة تجربة من صفحة Contact."
+     }
+    ]
+   },
+   "role": "admin",
+   "danger": false
+  },
+  {
+   "id": "office-address",
+   "chapter": "c4",
+   "title": "تعديل عنوان مكتب ولينك الخريطة",
+   "why": "العنوان ولينك Google Maps بيظهروا في Contact والـ About والفوتر.",
+   "steps": [
+    "افتحوا المكتب.",
+    "عدّلوا **Address**.",
+    "الصقوا لينك المكان من Google Maps في **Google Maps link**.",
+    "اضغطوا **Update**."
+   ],
+   "tip": "من Google Maps: افتحوا المكان ← **Share** ← **Copy link**.",
+   "screens": [
+    "pl_office"
+   ],
+   "screenshots": [
+    {
+     "id": "office-address-1",
+     "page": "@edit:pl_office:alexandria",
+     "scroll": "[data-name=pl_address]",
+     "callouts": [
+      {
+       "n": 1,
+       "sel": "[data-name=pl_address]",
+       "text": "Address"
+      },
+      {
+       "n": 2,
+       "sel": "[data-name=pl_maps_url]",
+       "text": "Google Maps link"
+      }
+     ],
+     "block": "start"
+    }
+   ],
+   "video": {
+    "start": "@edit:pl_office:alexandria",
+    "actions": [
+     {
+      "scroll": "[data-name=pl_address]",
+      "cap": "[1] في المكتب، روحوا لـ **Address**."
+     },
+     {
+      "ring": "[data-name=pl_address]",
+      "cap": "[2] عدّلوا العنوان زي ما هو مكتوب على المبنى."
+     },
+     {
+      "scroll": "[data-name=pl_maps_url]"
+     },
+     {
+      "fill": "[data-name=pl_maps_url] input",
+      "text": "maps.app.goo.gl/example",
+      "cap": "[3] الصقوا لينك **Google Maps**. الموقع بيضيف https:// لوحده."
+     },
+     {
+      "click": "#publish",
+      "cap": "[4] اضغطوا **Update**.",
+      "nav": true
+     }
+    ]
+   },
+   "role": "admin",
+   "danger": false
+  },
+  {
+   "id": "office-hours",
+   "chapter": "c4",
+   "title": "مواعيد العمل",
+   "why": "الزوار بيعرفوا يتصلوا إمتى. لو فاضية، مابتظهرش خالص.",
+   "steps": [
+    "افتحوا المكتب.",
+    "في **Opening hours** اضغطوا **Add a line**.",
+    "اكتبوا **Days** (مثلاً Sun–Thu) و **Hours** (مثلاً 9:00–17:00).",
+    "اضغطوا **Update**."
+   ],
+   "tip": "سطر لكل مجموعة أيام. يوم الجمعة مقفول؟ ماتكتبوهوش، أو اكتبوا سطر: Fri · Closed.",
+   "screens": [
+    "pl_office"
+   ],
+   "pair": {
+    "id": "pair-office-hours",
+    "title": "Opening hours ← صفحة Contact",
+    "text": "كل سطر بيظهر تحت المكتب في صفحة Contact.",
+    "legend": [
+     "**Days** + **Hours**",
+     "نفس السطر على الموقع"
+    ],
+    "admin": {
+     "page": "@edit:pl_office:alexandria",
+     "do": [
+      {
+       "php": "update_post_meta( @id:pl_office:alexandria, 'pl_hours', 1 ); update_post_meta( @id:pl_office:alexandria, 'pl_hours_0_days', 'Sun–Thu' ); update_post_meta( @id:pl_office:alexandria, 'pl_hours_0_time', '9:00–17:00' ); PL_Cache::bump();"
+      },
+      {
+       "go": "@edit:pl_office:alexandria"
+      }
+     ],
+     "scroll": "[data-name=pl_hours]",
+     "callouts": [
+      {
+       "n": 1,
+       "sel": "[data-name=pl_hours] .acf-row:not(.acf-clone)",
+       "text": "Days + Hours"
+      }
+     ]
+    },
+    "site": {
+     "page": "/contact/",
+     "do": [
+      {
+       "php": "update_post_meta( @id:pl_office:alexandria, 'pl_hours', 1 ); update_post_meta( @id:pl_office:alexandria, 'pl_hours_0_days', 'Sun–Thu' ); update_post_meta( @id:pl_office:alexandria, 'pl_hours_0_time', '9:00–17:00' ); PL_Cache::bump();"
+      },
+      {
+       "go": "/contact/"
+      }
+     ],
+     "scroll": ".pl-office",
+     "callouts": [
+      {
+       "n": 1,
+       "sel": ".pl-office :text('Sun–Thu')",
+       "text": "مواعيد العمل"
+      }
+     ]
+    }
+   },
+   "video": {
+    "start": "@edit:pl_office:alexandria",
+    "actions": [
+     {
+      "scroll": "[data-name=pl_hours]",
+      "cap": "[1] في المكتب، روحوا لـ **Opening hours**."
+     },
+     {
+      "click": "[data-name=pl_hours] .acf-actions [data-event=add-row]",
+      "cap": "[2] اضغطوا **Add a line**."
+     },
+     {
+      "fill": "[data-name=pl_hours] .acf-row:not(.acf-clone) >> nth=-1 >> [data-name=days] input",
+      "text": "Sun–Thu",
+      "cap": "[3] **Days**."
+     },
+     {
+      "fill": "[data-name=pl_hours] .acf-row:not(.acf-clone) >> nth=-1 >> [data-name=time] input",
+      "text": "9:00–17:00",
+      "cap": "**Hours**."
+     },
+     {
+      "click": "#publish",
+      "cap": "[4] اضغطوا **Update**.",
+      "nav": true
+     },
+     {
+      "go": "/contact/",
+      "cap": "المواعيد ظهرت تحت المكتب في Contact."
+     },
+     {
+      "scroll": ".pl-office"
+     }
+    ]
+   },
+   "role": "admin",
+   "danger": false,
+   "screenshots": []
+  },
+  {
+   "id": "office-head",
+   "chapter": "c4",
+   "title": "المكتب الرئيسي (Head office)",
+   "why": "الموقع لازم يبقى فيه مكتب رئيسي واحد بالظبط: منه بتبدأ خطوط الخريطة، وبيظهر الأول.",
+   "steps": [
+    "افتحوا المكتب اللي هيبقى الرئيسي.",
+    "شغّلوا **Head office**.",
+    "اضغطوا **Update**: المكتب القديم بيتقفل لوحده، وهتظهر لكم رسالة."
+   ],
+   "tip": "ماتقدروش تقفلوا Head office في المكتب الوحيد اللي عليه. انقلوه لمكتب تاني الأول.",
+   "screens": [
+    "pl_office",
+    "edit-pl_office"
+   ],
+   "screenshots": [
+    {
+     "id": "office-head-1",
+     "page": "@edit:pl_office:alexandria",
+     "callouts": [
+      {
+       "n": 1,
+       "sel": "[data-name=pl_head_office]",
+       "text": "Head office"
+      }
+     ]
+    }
+   ],
+   "role": "admin",
+   "danger": false,
+   "video": null
+  },
+  {
+   "id": "societies",
+   "chapter": "c5",
+   "title": "الجمعيات العلمية (Societies)",
+   "why": "لوجوهات الجمعيات بتظهر في الـ About والهوم كدليل ثقة.",
+   "steps": [
+    "اضغطوا **PL Website › Societies** وافتحوا الجمعية، أو **Add new**.",
+    "اكتبوا الاسم، وارفعوا **Logo**، وحطوا **Website**.",
+    "اضغطوا **Publish** أو **Update**."
+   ],
+   "tip": "من غير لوجو، الاسم بيظهر كتايل نص. شكله نضيف، بس اللوجو أحسن.",
+   "warning": "ارفعوا لوجوهات الجمعيات اللي معاكم إذن منها بس.",
+   "screens": [
+    "pl_society",
+    "edit-pl_society"
+   ],
+   "screenshots": [
+    {
+     "id": "societies-1",
+     "page": "@edit:pl_society:esoirs",
+     "callouts": [
+      {
+       "n": 1,
+       "sel": "#title",
+       "text": "الاسم"
+      },
+      {
+       "n": 2,
+       "sel": "[data-name=pl_logo]",
+       "text": "Logo"
+      },
+      {
+       "n": 3,
+       "sel": "[data-name=pl_url]",
+       "text": "Website"
+      }
+     ]
+    }
+   ],
+   "video": {
+    "start": "/wp-admin/admin.php?page=pl-website",
+    "actions": [
+     {
+      "click": "#adminmenu a[href='edit.php?post_type=pl_society']",
+      "cap": "[1] اضغطوا **Societies**.",
+      "nav": true
+     },
+     {
+      "click": "#the-list a.row-title:has-text('ESOIRS')",
+      "cap": "[2] افتحوا الجمعية.",
+      "nav": true
+     },
+     {
+      "ring": "[data-name=pl_logo]",
+      "cap": "[3] **Logo**: SVG أو PNG شفاف."
+     },
+     {
+      "fill": "[data-name=pl_url] input",
+      "text": "esoirs.org",
+      "cap": "[4] **Website**: من غير https:// كمان ينفع."
+     },
+     {
+      "click": "#publish",
+      "cap": "[5] اضغطوا **Update**.",
+      "nav": true
+     },
+     {
+      "ring": "[data-name=pl_url] input",
+      "cap": "الموقع ضاف https:// لوحده."
+     }
+    ]
+   },
+   "role": "admin",
+   "danger": false
+  },
+  {
+   "id": "sponsors",
+   "chapter": "c5",
+   "title": "الرعاة (Sponsors)",
+   "why": "لوجوهات الرعاة بتظهر للشركات اللي عايزة ترعى.",
+   "steps": [
+    "اضغطوا **PL Website › Sponsors** وافتحوا الراعي، أو **Add new**.",
+    "ارفعوا **Logo** وحطوا **Website**.",
+    "**Link the logo**: لو **Yes**، اللوجو بيفتح موقعهم.",
+    "اضغطوا **Publish** أو **Update**."
+   ],
+   "tip": "الترتيب: كل راعي ليه **Order**. الرقم الأصغر بيظهر الأول.",
+   "screens": [
+    "pl_sponsor",
+    "edit-pl_sponsor"
+   ],
+   "screenshots": [
+    {
+     "id": "sponsors-1",
+     "page": "@edit:pl_sponsor:alcon",
+     "callouts": [
+      {
+       "n": 1,
+       "sel": "[data-name=pl_logo]",
+       "text": "Logo"
+      },
+      {
+       "n": 2,
+       "sel": "[data-name=pl_url]",
+       "text": "Website"
+      },
+      {
+       "n": 3,
+       "sel": "[data-name=pl_link_logo]",
+       "text": "Link the logo"
+      },
+      {
+       "n": 4,
+       "sel": "#menu_order, #pageparentdiv",
+       "text": "Order"
+      }
+     ]
+    }
+   ],
+   "video": {
+    "start": "@edit:pl_sponsor:alcon",
+    "actions": [
+     {
+      "ring": "[data-name=pl_logo]",
+      "cap": "[1] **Logo** الراعي."
+     },
+     {
+      "ring": "[data-name=pl_url]",
+      "cap": "[2] **Website** بتاعه."
+     },
+     {
+      "check": "[data-name=pl_link_logo] .acf-switch",
+      "cap": "[3] **Link the logo**: اللوجو يفتح موقعهم."
+     },
+     {
+      "ring": "#pageparentdiv",
+      "cap": "[4] **Order**: الأصغر بيظهر الأول."
+     },
+     {
+      "click": "#publish",
+      "cap": "[5] اضغطوا **Update**.",
+      "nav": true
+     }
+    ]
+   },
+   "role": "admin",
+   "danger": false
+  },
+  {
+   "id": "memberships",
+   "chapter": "c5",
+   "title": "العضويات والجوايز",
+   "why": "العضوية بتبني ثقة، بس لازم يبقى ليها إثبات.",
+   "steps": [
+    "اضغطوا **PL Website › Memberships & awards › Add new**.",
+    "اكتبوا الاسم، واختاروا **Kind** و **Year**، وارفعوا **Logo**.",
+    "**Proof link** إجباري: صفحة عامة بتثبت العضوية.",
+    "اضغطوا **Publish**."
+   ],
+   "warning": "من غير Proof link الموقع مش هيقبل النشر. ماتضيفوش عضوية أو جايزة مالهاش إثبات أبداً.",
+   "screens": [
+    "pl_membership",
+    "edit-pl_membership"
+   ],
+   "screenshots": [
+    {
+     "id": "memberships-1",
+     "page": "/wp-admin/post-new.php?post_type=pl_membership",
+     "callouts": [
+      {
+       "n": 1,
+       "sel": "[data-name=pl_kind]",
+       "text": "Kind"
+      },
+      {
+       "n": 2,
+       "sel": "[data-name=pl_year]",
+       "text": "Year"
+      },
+      {
+       "n": 3,
+       "sel": "[data-name=pl_proof_url]",
+       "text": "Proof link"
+      }
+     ]
+    }
+   ],
+   "video": {
+    "start": "/wp-admin/post-new.php?post_type=pl_membership",
+    "actions": [
+     {
+      "fill": "#title",
+      "text": "Example association (training)",
+      "cap": "[1] اكتبوا اسم العضوية."
+     },
+     {
+      "ring": "[data-name=pl_kind]",
+      "cap": "[2] **Kind**: Membership ولا Award."
+     },
+     {
+      "click": "#publish",
+      "cap": "[3] جربنا ننشر من غير **Proof link**…"
+     },
+     {
+      "wait": 1800,
+      "cap": "…الموقع رفض. ده مقصود: مفيش عضوية من غير إثبات."
+     },
+     {
+      "ring": "[data-name=pl_proof_url]",
+      "cap": "[4] حطوا لينك صفحة عامة بتثبتها، وبعدين **Publish**."
+     }
+    ]
+   },
+   "role": "admin",
+   "danger": false
+  },
+  {
+   "id": "job-add",
+   "chapter": "c5",
+   "title": "إضافة وظيفة جديدة",
+   "cheat": 7,
+   "why": "الوظيفة بتظهر في صفحة Careers، وبتختفي لوحدها بعد آخر ميعاد.",
+   "steps": [
+    "اضغطوا **PL Website › Careers › Add new**.",
+    "اكتبوا اسم الوظيفة، و **Office**، واختاروا **Job type**.",
+    "اختاروا **Closing date** واكتبوا **Description**.",
+    "اضغطوا **Publish**."
+   ],
+   "tip": "الـ CVs بتوصل على الإيميل اللي في **PL Website › Company › CVs go to**.",
+   "screens": [
+    "pl_job",
+    "edit-pl_job"
+   ],
+   "screenshots": [
+    {
+     "id": "job-add-1",
+     "page": "/wp-admin/post-new.php?post_type=pl_job",
+     "callouts": [
+      {
+       "n": 1,
+       "sel": "#title",
+       "text": "اسم الوظيفة"
+      },
+      {
+       "n": 2,
+       "sel": "[data-name=pl_office]",
+       "text": "Office"
+      },
+      {
+       "n": 3,
+       "sel": "[data-name=pl_job_type]",
+       "text": "Job type"
+      },
+      {
+       "n": 4,
+       "sel": "[data-name=pl_closing]",
+       "text": "Closing date"
+      },
+      {
+       "n": 5,
+       "sel": "[data-name=pl_description]",
+       "text": "Description"
+      }
+     ]
+    }
+   ],
+   "video": {
+    "start": "/wp-admin/admin.php?page=pl-website",
+    "actions": [
+     {
+      "click": "#adminmenu a[href='edit.php?post_type=pl_job']",
+      "cap": "[1] اضغطوا **Careers**…",
+      "nav": true
+     },
+     {
+      "click": ".page-title-action",
+      "cap": "…وبعدين **Add new**.",
+      "nav": true
+     },
+     {
+      "fill": "#title",
+      "text": "Event Coordinator (training example)",
+      "cap": "[2] اسم الوظيفة."
+     },
+     {
+      "fill": "[data-name=pl_office] input",
+      "text": "Alexandria",
+      "cap": "[3] **Office**: المدينة، أو Remote."
+     },
+     {
+      "date": "pl_closing",
+      "value": "2027-01-31",
+      "cap": "[4] **Closing date**: بعدها الوظيفة بتستخبى لوحدها."
+     },
+     {
+      "fill": "[data-name=pl_description] textarea",
+      "text": "Plan and run congress logistics with the operations team.",
+      "cap": "[5] **Description**: سطرين واضحين."
+     },
+     {
+      "click": "#publish",
+      "cap": "[6] اضغطوا **Publish**.",
+      "nav": true
+     },
+     {
+      "go": "/careers/",
+      "cap": "الوظيفة ظهرت في صفحة Careers."
+     }
+    ]
+   },
+   "role": "admin",
+   "danger": false
+  },
+  {
+   "id": "job-close",
+   "chapter": "c5",
+   "title": "إقفال وظيفة",
+   "cheat": 8,
+   "why": "عشان محدش يقدّم على وظيفة اتملت.",
+   "steps": [
+    "الأسهل: **Closing date** بيقفلها لوحده.",
+    "عايزين تقفلوها النهارده؟ افتحوها واقفلوا **Show on site**.",
+    "اضغطوا **Update**."
+   ],
+   "tip": "ماتمسحوش الوظيفة: لو فتحت تاني، شغّلوا Show on site وغيّروا التاريخ.",
+   "screens": [
+    "pl_job",
+    "edit-pl_job"
+   ],
+   "screenshots": [
+    {
+     "id": "job-close-1",
+     "page": "/wp-admin/edit.php?post_type=pl_job",
+     "do": [
+      {
+       "php": "$id = wp_insert_post( array( 'post_type' => 'pl_job', 'post_status' => 'publish', 'post_title' => 'Event Coordinator (training example)' ) ); update_post_meta( $id, 'pl_closing', '20270131' ); update_post_meta( $id, 'pl_description', 'Training example.' ); update_post_meta( $id, 'pl_show_on_site', 1 );"
+      },
+      {
+       "go": "/wp-admin/edit.php?post_type=pl_job"
+      },
+      {
+       "click": "#the-list a.row-title",
+       "nav": true
+      }
+     ],
+     "scroll": "[data-name=pl_closing]",
+     "callouts": [
+      {
+       "n": 1,
+       "sel": "[data-name=pl_closing]",
+       "text": "Closing date"
+      },
+      {
+       "n": 2,
+       "sel": "[data-name=pl_show_on_site]",
+       "text": "Show on site"
+      }
+     ]
+    }
+   ],
+   "video": {
+    "start": "/wp-admin/admin.php?page=pl-website",
+    "actions": [
+     {
+      "php": "$id = wp_insert_post( array( 'post_type' => 'pl_job', 'post_status' => 'publish', 'post_title' => 'Event Coordinator (training example)' ) ); update_post_meta( $id, 'pl_closing', '20270131' ); update_post_meta( $id, 'pl_description', 'Training example.' ); update_post_meta( $id, 'pl_show_on_site', 1 );"
+     },
+     {
+      "click": "#adminmenu a[href='edit.php?post_type=pl_job']",
+      "cap": "[1] اضغطوا **Careers** وافتحوا الوظيفة.",
+      "nav": true
+     },
+     {
+      "click": "#the-list a.row-title",
+      "nav": true
+     },
+     {
+      "ring": "[data-name=pl_closing]",
+      "cap": "[2] **Closing date**: بعده الوظيفة بتستخبى لوحدها."
+     },
+     {
+      "scroll": "[data-name=pl_show_on_site]"
+     },
+     {
+      "check": "[data-name=pl_show_on_site] .acf-switch",
+      "cap": "[3] عايزين تقفلوها دلوقتي؟ اقفلوا **Show on site**."
+     },
+     {
+      "click": "#publish",
+      "cap": "[4] اضغطوا **Update**.",
+      "nav": true
+     },
+     {
+      "go": "/careers/",
+      "cap": "الوظيفة اختفت من Careers، وفاضلة محفوظة عندكم."
+     }
+    ]
+   },
+   "role": "admin",
+   "danger": false
+  },
+  {
+   "id": "services",
+   "chapter": "c5",
+   "title": "الخدمات (Services)",
+   "why": "مجموعات الخدمات بتظهر في صفحة Services والهوم.",
+   "steps": [
+    "اضغطوا **PL Website › Services** وافتحوا المجموعة.",
+    "عدّلوا **Short line** أو **Photo**.",
+    "في **Services in this group**: **Add a service** لسطر جديد، أو امسحوا سطر بعلامة الـ **−**.",
+    "اضغطوا **Update**."
+   ],
+   "warning": "إضافة أو مسح مجموعة كاملة للإدارة بس. انتوا بتعدّلوا جوه المجموعة.",
+   "screens": [
+    "pl_service",
+    "edit-pl_service"
+   ],
+   "screenshots": [
+    {
+     "id": "services-1",
+     "page": "@edit:pl_service:travel-hospitality",
+     "callouts": [
+      {
+       "n": 1,
+       "sel": "[data-name=pl_line]",
+       "text": "Short line"
+      },
+      {
+       "n": 2,
+       "sel": "[data-name=pl_image]",
+       "text": "Photo"
+      },
+      {
+       "n": 3,
+       "sel": "[data-name=pl_items]",
+       "text": "Services in this group"
+      }
+     ]
+    }
+   ],
+   "video": {
+    "start": "@edit:pl_service:travel-hospitality",
+    "actions": [
+     {
+      "ring": "[data-name=pl_line]",
+      "cap": "[1] **Short line**: جملة واحدة تحت العنوان."
+     },
+     {
+      "scroll": "[data-name=pl_items]"
+     },
+     {
+      "click": "[data-name=pl_items] .acf-actions [data-event=add-row]",
+      "cap": "[2] **Add a service** لسطر جديد."
+     },
+     {
+      "fill": "[data-name=pl_items] .acf-row:not(.acf-clone) >> nth=-1 >> input",
+      "text": "Airport meet & greet",
+      "cap": "[3] اكتبوا الخدمة."
+     },
+     {
+      "click": "#publish",
+      "cap": "[4] اضغطوا **Update**.",
+      "nav": true
+     },
+     {
+      "go": "/services/",
+      "cap": "ظهرت في صفحة Services."
+     }
+    ]
+   },
+   "role": "admin",
+   "danger": false
+  },
+  {
+   "id": "company-hero",
+   "chapter": "c5",
+   "title": "عنوان الهوم وأرقام الشركة",
+   "why": "الجملة الكبيرة على الهوم وأرقام الشركة بتتعدّل من مكان واحد.",
+   "steps": [
+    "اضغطوا **PL Website › Company**.",
+    "**Hero headline**: أول الجملة. **Hero headline — emphasis**: الكلمة المايلة.",
+    "في **Company figures**: **Add a figure** (قيمة + وصف، مثلاً 500+ · conferences).",
+    "اضغطوا **Save company settings**."
+   ],
+   "warning": "أرقام الشركة لازم تبقى حقيقية وPL موافقة عليها. ماتكتبوش رقم مش متأكدين منه.",
+   "screens": [
+    "pl-website_page_pl-company"
+   ],
+   "pair": {
+    "id": "pair-hero",
+    "title": "Company ← الهوم",
+    "text": "الخانتين دول هما الجملة الكبيرة على الهوم.",
+    "legend": [
+     "**Hero headline**",
+     "**Hero headline — emphasis**"
+    ],
+    "admin": {
+     "page": "/wp-admin/admin.php?page=pl-company",
+     "callouts": [
+      {
+       "n": 1,
+       "sel": "[data-name=pl_hero_text]",
+       "text": "Hero headline"
+      },
+      {
+       "n": 2,
+       "sel": "[data-name=pl_hero_em]",
+       "text": "emphasis"
+      }
+     ]
+    },
+    "site": {
+     "page": "/",
+     "callouts": [
+      {
+       "n": 1,
+       "sel": ".hero h1",
+       "text": "الجملة"
+      },
+      {
+       "n": 2,
+       "sel": ".hero h1 em, .hero h1 .em",
+       "text": "الكلمة المايلة"
+      }
+     ]
+    }
+   },
+   "video": {
+    "start": "/wp-admin/admin.php?page=pl-website",
+    "actions": [
+     {
+      "click": "#adminmenu a[href='admin.php?page=pl-company']",
+      "cap": "[1] اضغطوا **Company**.",
+      "nav": true
+     },
+     {
+      "ring": "[data-name=pl_hero_text]",
+      "cap": "[2] **Hero headline**: أول جملة الهوم."
+     },
+     {
+      "ring": "[data-name=pl_hero_em]",
+      "cap": "و **emphasis**: الكلمة المايلة."
+     },
+     {
+      "scroll": "[data-name=pl_figures]"
+     },
+     {
+      "ring": "[data-name=pl_figures]",
+      "cap": "[3] **Company figures**: أرقام PL زي ما هي بتقولها."
+     },
+     {
+      "scroll": "#publish"
+     },
+     {
+      "ring": "#publish",
+      "cap": "[4] **Save company settings**."
+     }
+    ]
+   },
+   "role": "admin",
+   "danger": false,
+   "screenshots": []
+  },
+  {
+   "id": "company-files",
+   "chapter": "c5",
+   "title": "الـ Portfolio PDF وفيديو الهوم",
+   "why": "زرار Portfolio في الهيدر بيفتح الـ PDF ده، والفيديو بيشتغل في أول الهوم.",
+   "steps": [
+    "اضغطوا **PL Website › Company**.",
+    "**Portfolio PDF**: **Add File** وارفعوا الـ PDF (أقل من 5 MB).",
+    "**Hero showreel (MP4)**: فيديو صامت أقل من 2.5 MB، ومعاه **Showreel poster**.",
+    "اضغطوا **Save company settings**."
+   ],
+   "tip": "الـ PDF الكبير بيتقل على الموبايل. اضغطوه قبل الرفع (مثلاً بـ \"Compress PDF\").",
+   "screens": [
+    "pl-website_page_pl-company"
+   ],
+   "screenshots": [
+    {
+     "id": "company-files-1",
+     "page": "/wp-admin/admin.php?page=pl-company",
+     "scroll": "[data-name=pl_portfolio_file]",
+     "callouts": [
+      {
+       "n": 1,
+       "sel": "[data-name=pl_portfolio_file]",
+       "text": "Portfolio PDF"
+      },
+      {
+       "n": 2,
+       "sel": "[data-name=pl_showreel_video]",
+       "text": "Hero showreel"
+      },
+      {
+       "n": 3,
+       "sel": "[data-name=pl_showreel_poster]",
+       "text": "Showreel poster"
+      }
+     ]
+    }
+   ],
+   "video": {
+    "start": "/wp-admin/admin.php?page=pl-company",
+    "actions": [
+     {
+      "scroll": "[data-name=pl_portfolio_file]",
+      "cap": "[1] في **Company** انزلوا لـ **Portfolio PDF**."
+     },
+     {
+      "ring": "[data-name=pl_portfolio_file]",
+      "cap": "[2] **Add File** وارفعوا الـ PDF. حجمه يبقى أقل من 5 MB."
+     },
+     {
+      "ring": "[data-name=pl_showreel_video]",
+      "cap": "[3] **Hero showreel**: MP4 صامت، أقل من 2.5 MB."
+     },
+     {
+      "ring": "[data-name=pl_showreel_poster]",
+      "cap": "[4] **Showreel poster**: صورة بتظهر الأول وعلى الموبايل."
+     },
+     {
+      "scroll": "#publish"
+     },
+     {
+      "ring": "#publish",
+      "cap": "[5] **Save company settings**."
+     }
+    ]
+   },
+   "role": "admin",
+   "danger": false
+  },
+  {
+   "id": "pages-where",
+   "chapter": "c6",
+   "title": "إيه بيتعدّل منين",
+   "why": "90% من الموقع داتا. الصفحات نفسها نادراً ما محتاجة تتلمس.",
+   "steps": [
+    "إيفنتات، مكاتب، وظايف، خدمات، رعاة، جمعيات، أرقام الشركة ← **PL Website**.",
+    "عنوان الهوم، الـ PDF، الفيديو، اللينكات الاجتماعية ← **PL Website › Company**.",
+    "جمل ثابتة في صفحة (زي عنوان صفحة Careers) ← **Pages** + Elementor (بحذر، المهمة الجاية).",
+    "شكل الصفحات وترتيب الأقسام ← سيبوه زي ما هو (اسألوا الإدارة)."
+   ],
+   "tip": "لو مش متأكدين حاجة بتتعدّل منين، دوّروا عليها الأول في **PL Website**.",
+   "screens": [
+    "edit-page"
+   ],
+   "screenshots": [
+    {
+     "id": "pages-where-diagram",
+     "diagram": "data-vs-pages",
+     "width": 1440,
+     "height": 810
+    }
+   ],
+   "role": "admin",
+   "danger": false,
+   "video": null
+  },
+  {
+   "id": "pages-edit-text",
+   "chapter": "c6",
+   "title": "تعديل جملة في صفحة (بأمان)",
+   "why": "لجملة ثابتة مش جاية من الداتا، زي سطر تحت عنوان صفحة Careers.",
+   "steps": [
+    "**Pages** ← على الصفحة اضغطوا **Edit with Elementor**.",
+    "اضغطوا على الجزء اللي فيه الجملة: هيفتح على الشمال مربع **Shortcode**.",
+    "غيّروا **الكلام بس** اللي بين `>` و `<`.",
+    "اضغطوا **Publish** فوق، وافتحوا الصفحة واتأكدوا."
+   ],
+   "warning": "ماتلمسوش أي حاجة جوه `[ ]` أو `< >` أو `\"…\"`. دي كود الشكل. لو حاجة باظت: **History › Revisions** في Elementor ورجّعوا النسخة اللي قبلها.",
+   "danger": false,
+   "screens": [
+    "edit-page"
+   ],
+   "screenshots": [
+    {
+     "id": "pages-edit-text-1",
+     "page": "/wp-admin/edit.php?post_type=page",
+     "callouts": [
+      {
+       "n": 1,
+       "sel": "#the-list tr:has-text('Careers') .row-title",
+       "text": "الصفحة"
+      }
+     ]
+    }
+   ],
+   "video": {
+    "start": "/wp-admin/edit.php?post_type=page",
+    "actions": [
+     {
+      "hover": "#the-list tr:has-text('Careers') .row-title",
+      "cap": "[1] في **Pages** قفوا على الصفحة…"
+     },
+     {
+      "ring": "#the-list tr:has-text('Careers') .row-actions",
+      "cap": "…هيظهر **Edit with Elementor**."
+     },
+     {
+      "cap": "[2] جوه Elementor اضغطوا على الجزء اللي فيه الجملة. هيفتح مربع **Shortcode**."
+     },
+     {
+      "cap": "[3] غيّروا الكلام بس اللي بين > و <. أي حاجة جوه [ ] أو < > ماتتلمسش."
+     },
+     {
+      "cap": "[4] اضغطوا **Publish** وافتحوا الصفحة واتأكدوا."
+     },
+     {
+      "cap": "لو حاجة باظت: History ← Revisions، ورجّعوا النسخة اللي قبلها."
+     }
+    ]
+   },
+   "role": "admin"
+  },
+  {
+   "id": "menus",
+   "chapter": "c6",
+   "title": "القوايم (Menus)",
+   "why": "القايمة اللي فوق (Home · Events · …) واللي في الفوتر.",
+   "steps": [
+    "اضغطوا **Appearance › Menus**.",
+    "اختاروا القايمة من **Select a menu to edit** واضغطوا **Select**.",
+    "عشان تغيّروا اسم لينك: افتحوا السهم جنبه وعدّلوا **Navigation Label**.",
+    "اضغطوا **Save Menu**."
+   ],
+   "warning": "ماتزوّدوش لينكات كتير في القايمة اللي فوق: الهيدر مصمم على 6 بالظبط.",
+   "screens": [
+    "nav-menus"
+   ],
+   "screenshots": [
+    {
+     "id": "menus-1",
+     "page": "/wp-admin/nav-menus.php",
+     "callouts": [
+      {
+       "n": 1,
+       "sel": "#select-menu-to-edit",
+       "text": "اختيار القايمة"
+      },
+      {
+       "n": 2,
+       "sel": "#menu-to-edit li:first-child .menu-item-bar",
+       "text": "لينك"
+      },
+      {
+       "n": 3,
+       "sel": "input.menu-save >> visible=true",
+       "text": "Save Menu"
+      }
+     ]
+    }
+   ],
+   "video": {
+    "start": "/wp-admin/nav-menus.php",
+    "actions": [
+     {
+      "ring": "#select-menu-to-edit",
+      "cap": "[1] اختاروا القايمة: **Main menu** فوق، **Footer menu** تحت."
+     },
+     {
+      "click": "#menu-to-edit li:first-child .item-edit",
+      "cap": "[2] افتحوا السهم جنب اللينك."
+     },
+     {
+      "ring": "#menu-to-edit li:first-child .edit-menu-item-title",
+      "cap": "[3] **Navigation Label**: الاسم اللي بيظهر."
+     },
+     {
+      "ring": "input.menu-save >> visible=true",
+      "cap": "[4] **Save Menu**."
+     }
+    ]
+   },
+   "role": "admin",
+   "danger": false
+  },
+  {
+   "id": "danger-zone",
+   "chapter": "c6",
+   "title": "المنطقة الممنوعة",
+   "danger": true,
+   "why": "الحاجات دي ممكن توقّع الموقع كله أو تبوّظ شكله. سيبوها للإدارة.",
+   "steps": [
+    "**Plugins**: ماتقفلوش (Deactivate) ولا تمسحوا ولا تضيفوا plugin.",
+    "**Appearance › Themes**: ماتغيّروش الثيم.",
+    "**Elementor › Templates** وأي **Header/Footer**: ماتعدّلوش التصميم.",
+    "**Settings** (General، Reading، Permalinks): ماتغيّروش حاجة.",
+    "**Users**: ماتدّوش حد Administrator من غير اتفاق."
+   ],
+   "warning": "لو ضغطتوا حاجة من دول بالغلط: ماتحاولوش تصلّحوها. صوّروا الشاشة وابعتوها فوراً.",
+   "screens": [
+    "plugins",
+    "themes",
+    "options-general",
+    "options-reading",
+    "options-permalink"
+   ],
+   "screenshots": [
+    {
+     "id": "danger-plugins",
+     "page": "/wp-admin/plugins.php",
+     "callouts": [
+      {
+       "n": 1,
+       "sel": "tr[data-slug=pl-events-core] .deactivate",
+       "text": "ماتضغطوش Deactivate"
+      },
+      {
+       "n": 2,
+       "sel": ".page-title-action",
+       "text": "ماتضيفوش plugin"
+      }
+     ]
+    },
+    {
+     "id": "danger-themes",
+     "page": "/wp-admin/themes.php",
+     "callouts": [
+      {
+       "n": 1,
+       "sel": ".theme.active",
+       "text": "الثيم الحالي: سيبوه"
+      }
+     ]
+    },
+    {
+     "id": "danger-settings",
+     "page": "/wp-admin/options-reading.php",
+     "callouts": [
+      {
+       "n": 1,
+       "sel": "#blog_public, .option-site-visibility",
+       "text": "ده بيخفي الموقع من جوجل"
+      }
+     ]
+    }
+   ],
+   "role": "admin",
+   "video": null
+  },
+  {
+   "id": "forms-where",
+   "chapter": "c7",
+   "title": "رسايل الفورمز بتروح فين",
+   "why": "عشان تعرفوا كل رسالة بتوصل لمين، وتغيّروه من مكان واحد.",
+   "steps": [
+    "فورم **Contact**: بيروح لأول إيميل في المكتب اللي الزائر اختاره (**PL Website › Offices**).",
+    "فورم **Careers** (مع الـ CV): بيروح للإيميل اللي في **PL Website › Company › CVs go to**، ولو فاضي يروح للمكتب الرئيسي.",
+    "كل رسالة كمان بتتحفظ في **Forminator › Submissions**.",
+    "الرد على الإيميل بيروح للزائر على طول (Reply)."
+   ],
+   "tip": "غيّرتوا إيميل؟ ابعتوا رسالة تجربة من الموقع واتأكدوا إنها وصلت.",
+   "warning": "ماتغيّروش الإيميلات من إعدادات Forminator نفسها: الموقع بيرجّعها من Offices و Company.",
+   "screens": [
+    "toplevel_page_forminator"
+   ],
+   "screenshots": [
+    {
+     "id": "forms-where-diagram",
+     "diagram": "forms-flow",
+     "width": 1440,
+     "height": 810
+    }
+   ],
+   "role": "admin",
+   "danger": false,
+   "video": null
+  },
+  {
+   "id": "forms-submissions",
+   "chapter": "c7",
+   "title": "قراية الرسايل (Submissions)",
+   "cheat": 9,
+   "why": "لو إيميل ضاع أو عايزين تدوّروا على رسالة قديمة.",
+   "steps": [
+    "اضغطوا **Forminator › Submissions**.",
+    "اختاروا الفورم (**PL — Contact** أو **PL — Careers (CV)**) واضغطوا **Show submissions**.",
+    "اضغطوا السهم على أي رسالة عشان تفتح كل التفاصيل."
+   ],
+   "screens": [
+    "forminator_page_forminator-entries"
+   ],
+   "screenshots": [
+    {
+     "id": "forms-submissions-1",
+     "page": "/wp-admin/admin.php?page=forminator-entries&form_type=forminator_forms&form_id=@form:contact",
+     "callouts": [
+      {
+       "n": 1,
+       "sel": ".sui-box:first-of-type select, .sui-box:first-of-type .sui-select",
+       "text": "اختيار الفورم"
+      },
+      {
+       "n": 2,
+       "sel": "text=other fields",
+       "text": "افتحوا الرسالة"
+      }
+     ]
+    }
+   ],
+   "video": {
+    "start": "/wp-admin/admin.php?page=forminator-entries",
+    "actions": [
+     {
+      "cap": "[1] من القايمة: **Forminator › Submissions**."
+     },
+     {
+      "go": "/wp-admin/admin.php?page=forminator-entries&form_type=forminator_forms&form_id=@form:contact",
+      "cap": "[2] اختاروا الفورم واضغطوا **Show submissions**."
+     },
+     {
+      "click": "text=other fields",
+      "cap": "[3] اضغطوا على الرسالة عشان تفتح."
+     },
+     {
+      "wait": 1800,
+      "cap": "كل اللي الزائر كتبه، والمكتب اللي اختاره."
+     }
+    ]
+   },
+   "role": "admin",
+   "danger": false
+  },
+  {
+   "id": "forms-cv",
+   "chapter": "c7",
+   "title": "فتح الـ CV",
+   "why": "الـ CV بييجي مع الإيميل، ومحفوظ كمان في Submissions.",
+   "steps": [
+    "**Forminator › Submissions** ← اختاروا **PL — Careers (CV)**.",
+    "افتحوا الرسالة.",
+    "اضغطوا اسم الملف عشان تنزّلوه."
+   ],
+   "warning": "الـ CVs بيانات شخصية: ماتبعتوهاش برّه الشركة، وامسحوا القديم حسب مدة الحفظ اللي PL تقررها.",
+   "screens": [
+    "forminator_page_forminator-entries"
+   ],
+   "screenshots": [
+    {
+     "id": "forms-cv-1",
+     "page": "/wp-admin/admin.php?page=forminator-entries&form_type=forminator_forms&form_id=@form:careers",
+     "do": [
+      {
+       "click": "text=other fields"
+      },
+      {
+       "wait": 800
+      }
+     ],
+     "callouts": [
+      {
+       "n": 1,
+       "sel": "a:has-text('.pdf')",
+       "text": "ملف الـ CV"
+      }
+     ]
+    }
+   ],
+   "video": {
+    "start": "/wp-admin/admin.php?page=forminator-entries&form_type=forminator_forms&form_id=@form:careers",
+    "actions": [
+     {
+      "cap": "[1] اختاروا فورم **PL — Careers (CV)**."
+     },
+     {
+      "click": "text=other fields",
+      "cap": "[2] افتحوا الرسالة."
+     },
+     {
+      "ring": "a:has-text('.pdf')",
+      "cap": "[3] اضغطوا اسم الملف عشان تنزّلوه."
+     },
+     {
+      "cap": "الـ CVs بيانات شخصية: تفضل جوه الشركة."
+     }
+    ]
+   },
+   "role": "admin",
+   "danger": false
+  },
+  {
+   "id": "forms-export",
+   "chapter": "c7",
+   "title": "تصدير الرسايل (Export CSV)",
+   "why": "نسخة Excel من كل الرسايل، للمتابعة أو كـ Backup.",
+   "steps": [
+    "**Forminator › Submissions** ← اختاروا الفورم.",
+    "اضغطوا **Export** فوق على اليمين.",
+    "اضغطوا **Download CSV** وافتحوه في Excel أو Google Sheets."
+   ],
+   "screens": [
+    "forminator_page_forminator-entries"
+   ],
+   "screenshots": [
+    {
+     "id": "forms-export-1",
+     "page": "/wp-admin/admin.php?page=forminator-entries&form_type=forminator_forms&form_id=@form:contact",
+     "callouts": [
+      {
+       "n": 1,
+       "sel": ":is(button,a):has-text('Export') >> visible=true",
+       "text": "Export"
+      }
+     ]
+    }
+   ],
+   "video": {
+    "start": "/wp-admin/admin.php?page=forminator-entries&form_type=forminator_forms&form_id=@form:contact",
+    "actions": [
+     {
+      "click": ":is(button,a):has-text('Export') >> visible=true",
+      "cap": "[1] اضغطوا **Export**."
+     },
+     {
+      "wait": 1500,
+      "cap": "[2] اضغطوا **Download CSV**."
+     },
+     {
+      "cap": "[3] افتحوه في Excel أو Google Sheets."
+     }
+    ]
+   },
+   "role": "admin",
+   "danger": false
+  },
+  {
+   "id": "forms-new",
+   "chapter": "c7",
+   "title": "عمل فورم جديد وحطه في صفحة",
+   "why": "لو احتجتوا فورم لحاجة جديدة (مثلاً تسجيل اهتمام بإيفنت).",
+   "steps": [
+    "**Forminator › Forms** ← **Add new** ← **Blank** واكتبوا الاسم.",
+    "ضيفوا الخانات، وفي **Email notifications** حطوا الإيميل اللي يوصله، واضغطوا **Publish**.",
+    "من قايمة **Forms** اضغطوا **Copy Shortcode**.",
+    "في Elementor ضيفوا ويدجت **Shortcode** في الصفحة والصقوه، وبعدين **Publish**."
+   ],
+   "tip": "جرّبوه بنفسكم قبل ما تعلنوه، واتأكدوا إن الإيميل وصل.",
+   "warning": "ماتعدّلوش فورمات **PL — Contact** و **PL — Careers (CV)**: ليهم تصميم وتوجيه إيميلات خاص.",
+   "screens": [
+    "toplevel_page_forminator",
+    "forminator_page_forminator-cform"
+   ],
+   "screenshots": [
+    {
+     "id": "forms-new-1",
+     "page": "/wp-admin/admin.php?page=forminator-cform",
+     "callouts": [
+      {
+       "n": 1,
+       "sel": ":is(button,a):has-text('Add new') >> visible=true",
+       "text": "Add new"
+      },
+      {
+       "n": 2,
+       "sel": ".sui-accordion-item:first-of-type, .forminator-module, [class*=module-item]",
+       "text": "الفورمات الموجودة"
+      }
+     ]
+    }
+   ],
+   "video": {
+    "start": "/wp-admin/admin.php?page=forminator-cform",
+    "actions": [
+     {
+      "ring": ":is(button,a):has-text('Add new') >> visible=true",
+      "cap": "[1] **Forminator › Forms** ← **Add new** ← **Blank**."
+     },
+     {
+      "cap": "[2] ضيفوا الخانات، وحطوا الإيميل في **Email notifications**، و **Publish**."
+     },
+     {
+      "cap": "[3] من قايمة الفورمات: **Copy Shortcode**."
+     },
+     {
+      "cap": "[4] في Elementor: ويدجت **Shortcode** ← الصقوه ← **Publish**."
+     },
+     {
+      "cap": "وجرّبوه بنفسكم قبل ما تعلنوه."
+     }
+    ]
+   },
+   "role": "admin",
+   "danger": false
+  },
+  {
+   "id": "forms-email",
+   "chapter": "c7",
+   "title": "تغيير الإيميل اللي بتوصله الرسايل",
+   "why": "مثلاً HR عايزة الـ CVs على إيميلها، أو مكتب غيّر إيميله.",
+   "steps": [
+    "الـ CVs: **PL Website › Company** ← خانة **CVs go to** ← اكتبوا الإيميل ← **Save company settings**.",
+    "رسايل Contact: **PL Website › Offices** ← المكتب ← أول إيميل في **Emails** ← **Update**.",
+    "ابعتوا رسالة تجربة من الموقع."
+   ],
+   "tip": "التغيير بيشتغل على طول، من غير ما حد يعمل حاجة تانية.",
+   "screens": [
+    "pl-website_page_pl-company"
+   ],
+   "screenshots": [
+    {
+     "id": "forms-email-1",
+     "page": "/wp-admin/admin.php?page=pl-company",
+     "scroll": "[data-name=pl_careers_email]",
+     "callouts": [
+      {
+       "n": 1,
+       "sel": "[data-name=pl_careers_email]",
+       "text": "CVs go to"
+      }
+     ]
+    }
+   ],
+   "video": {
+    "start": "/wp-admin/admin.php?page=pl-company",
+    "actions": [
+     {
+      "scroll": "[data-name=pl_careers_email]",
+      "cap": "[1] في **Company** روحوا لـ **CVs go to**."
+     },
+     {
+      "fill": "[data-name=pl_careers_email] input",
+      "text": "hr@example.org",
+      "cap": "[2] اكتبوا إيميل الـ HR."
+     },
+     {
+      "scroll": "#publish"
+     },
+     {
+      "click": "#publish",
+      "cap": "[3] **Save company settings**.",
+      "nav": true
+     },
+     {
+      "cap": "[4] ولرسايل Contact: أول إيميل في كل مكتب (PL Website › Offices)."
+     }
+    ]
+   },
+   "role": "admin",
+   "danger": false
+  },
+  {
+   "id": "nl-sources",
+   "chapter": "c8",
+   "title": "المشتركين بييجوا منين",
+   "why": "عشان تعرفوا كل مشترك جه منين ووافق إمتى.",
+   "steps": [
+    "فورم **Subscribe** في الفوتر (في كل صفحة).",
+    "فورم \"Get updates\" في صفحة كل إيفنت.",
+    "الخانة اللي في فورم **Contact**.",
+    "كل واحد بيوصله إيميل تأكيد واحد. لما يضغط **Confirm my subscription** بيتضاف في Zoho و Mailchimp مع الـ tags."
+   ],
+   "tip": "الـ tags بتقول الشخص مهتم بإيه: `specialty-…` و `country-…` و `series-…`، وجه منين: `source-…`.",
+   "screens": [
+    "edit-pl_nl_signup"
+   ],
+   "pair": {
+    "id": "pair-newsletter",
+    "title": "فورم الفوتر ← Newsletter sign-ups",
+    "text": "كل اشتراك من الموقع بيتسجّل في wp-admin بالـ tags بتاعته.",
+    "legend": [
+     "فورم **Subscribe** على الموقع",
+     "السطر في **Newsletter sign-ups**"
+    ],
+    "site": {
+     "page": "/",
+     "scroll": "#pl-nl",
+     "callouts": [
+      {
+       "n": 1,
+       "sel": "#pl-nl",
+       "text": "Subscribe"
+      }
+     ]
+    },
+    "admin": {
+     "page": "/wp-admin/edit.php?post_type=pl_nl_signup",
+     "callouts": [
+      {
+       "n": 1,
+       "sel": "#the-list tr:first-child",
+       "text": "المشترك"
+      }
+     ]
+    }
+   },
+   "video": {
+    "start": "/",
+    "actions": [
+     {
+      "scroll": "#pl-nl",
+      "cap": "[1] فورم **Subscribe** في الفوتر، في كل صفحة."
+     },
+     {
+      "ring": "#pl-nl",
+      "cap": "الزائر بيكتب إيميله ويختار اهتماماته لو حب."
+     },
+     {
+      "cap": "[2] بيوصله إيميل تأكيد واحد. من غير الضغطة دي مابيتضافش."
+     },
+     {
+      "go": "/wp-admin/edit.php?post_type=pl_nl_signup",
+      "cap": "[3] كل اشتراك بيتسجّل هنا: **Newsletter sign-ups**."
+     },
+     {
+      "ring": "#the-list tr:first-child .column-pl_tags",
+      "cap": "الـ tags: الاهتمامات ومصدر الاشتراك."
+     }
+    ]
+   },
+   "role": "admin",
+   "danger": false,
+   "screenshots": []
+  },
+  {
+   "id": "nl-list",
+   "chapter": "c8",
+   "title": "قايمة Newsletter sign-ups",
+   "why": "هنا الإثبات: مين اشترك، إمتى، ووافق إمتى.",
+   "steps": [
+    "اضغطوا **PL Website › Newsletter sign-ups**.",
+    "**Status**: subscribed = تمام، awaiting confirmation = لسه ماضغطش لينك التأكيد.",
+    "**Confirmed (UTC)**: وقت الموافقة. ده اللي بتردّوا بيه لو حد سأل \"أنا وافقت إمتى؟\"."
+   ],
+   "tip": "اللي ماأكّدش في 30 يوم بيتمسح لوحده.",
+   "screens": [
+    "edit-pl_nl_signup"
+   ],
+   "screenshots": [
+    {
+     "id": "nl-list-1",
+     "page": "/wp-admin/edit.php?post_type=pl_nl_signup",
+     "callouts": [
+      {
+       "n": 1,
+       "sel": "th#pl_status",
+       "text": "Status"
+      },
+      {
+       "n": 2,
+       "sel": "th#pl_tags",
+       "text": "Tags"
+      },
+      {
+       "n": 3,
+       "sel": "th#pl_conf",
+       "text": "Confirmed"
+      }
+     ]
+    }
+   ],
+   "video": {
+    "start": "/wp-admin/admin.php?page=pl-website",
+    "actions": [
+     {
+      "click": "#adminmenu a[href='edit.php?post_type=pl_nl_signup']",
+      "cap": "[1] اضغطوا **Newsletter sign-ups**.",
+      "nav": true
+     },
+     {
+      "ring": "th#pl_status",
+      "cap": "[2] **Status**: subscribed = مشترك."
+     },
+     {
+      "ring": "#the-list tr:has-text('awaiting')",
+      "cap": "awaiting confirmation = لسه ماأكّدش."
+     },
+     {
+      "ring": "th#pl_conf",
+      "cap": "[3] **Confirmed**: وقت الموافقة بالظبط."
+     }
+    ]
+   },
+   "role": "admin",
+   "danger": false
+  },
+  {
+   "id": "nl-remove",
+   "chapter": "c8",
+   "title": "شيل حد من النشرة",
+   "cheat": 10,
+   "why": "لو حد طلب بالتليفون أو الإيميل يتشال، بتشيلوه من Zoho و Mailchimp مرة واحدة.",
+   "steps": [
+    "**PL Website › Newsletter sign-ups**.",
+    "قفوا على السطر بتاع الشخص.",
+    "اضغطوا **Unsubscribe from all lists**."
+   ],
+   "tip": "اللي بيعمل Unsubscribe من إيميل Mailchimp أو Zoho بيتشال من التاني لوحده.",
+   "screens": [
+    "edit-pl_nl_signup"
+   ],
+   "screenshots": [
+    {
+     "id": "nl-remove-1",
+     "page": "/wp-admin/edit.php?post_type=pl_nl_signup",
+     "do": [
+      {
+       "hover": "#the-list tr:first-child"
+      }
+     ],
+     "callouts": [
+      {
+       "n": 1,
+       "sel": "#the-list tr:first-child .pl_un a",
+       "text": "Unsubscribe from all lists"
+      }
+     ]
+    }
+   ],
+   "video": {
+    "start": "/wp-admin/edit.php?post_type=pl_nl_signup",
+    "actions": [
+     {
+      "hover": "#the-list tr:first-child .row-title",
+      "cap": "[1] قفوا على سطر الشخص."
+     },
+     {
+      "click": "#the-list tr:first-child .pl_un a",
+      "cap": "[2] اضغطوا **Unsubscribe from all lists**.",
+      "nav": true
+     },
+     {
+      "wait": 1200,
+      "cap": "[3] اتشال من Zoho و Mailchimp مع بعض."
+     }
+    ]
+   },
+   "role": "admin",
+   "danger": false
+  },
+  {
+   "id": "nl-export",
+   "chapter": "c8",
+   "title": "Export CSV للمشتركين",
+   "why": "نسخة احتياطية من كل المشتركين وموافقاتهم.",
+   "steps": [
+    "**PL Website › Newsletter sign-ups**.",
+    "اضغطوا **Export CSV (backup)**.",
+    "احفظوا الملف في مكان آمن."
+   ],
+   "warning": "الملف فيه إيميلات الناس: ماتبعتوهوش برّه الشركة.",
+   "screens": [
+    "edit-pl_nl_signup"
+   ],
+   "screenshots": [
+    {
+     "id": "nl-export-1",
+     "page": "/wp-admin/edit.php?post_type=pl_nl_signup",
+     "callouts": [
+      {
+       "n": 1,
+       "sel": ":is(a,button,input):has-text('Export CSV'), input[value*='Export CSV']",
+       "text": "Export CSV"
+      }
+     ]
+    }
+   ],
+   "video": {
+    "start": "/wp-admin/edit.php?post_type=pl_nl_signup",
+    "actions": [
+     {
+      "ring": ":is(a,button):has-text('Export CSV')",
+      "cap": "[1] اضغطوا **Export CSV (backup)**."
+     },
+     {
+      "cap": "[2] الملف بينزل على طول. احفظوه في مكان آمن."
+     }
+    ]
+   },
+   "role": "admin",
+   "danger": false
+  },
+  {
+   "id": "nl-mailchimp",
+   "chapter": "c8",
+   "title": "حملة في Mailchimp بالـ tags",
+   "why": "تبعتوا لكل المهتمين بتخصص أو دولة معيّنة بس.",
+   "steps": [
+    "**Audience › All contacts**: فلتروا بالـ tag (مثلاً `specialty-ophthalmology`)، أو **Segments › Create segment**.",
+    "**Campaigns › Create › Email**.",
+    "في **To**: اختاروا الـ Audience، وفي **Send to** اختاروا الـ segment أو الـ tag.",
+    "صمّموا الإيميل، ابعتوا **Send a test** لنفسكم، وبعدين **Send** أو **Schedule**."
+   ],
+   "tip": "ابدأوا بـ tag واحد بسيط. ممكن تجمعوا أكتر من tag في Segment.",
+   "warning": "مفيش حساب Mailchimp متوصّل لسه، فالخطوات دي من الشرح الرسمي. حطوا screenshot من حسابكم مكان كل placeholder.",
+   "links": [
+    {
+     "label": "Mailchimp: Getting Started with Tags",
+     "url": "https://mailchimp.com/help/getting-started-tags/"
+    },
+    {
+     "label": "Mailchimp: Send to Tags",
+     "url": "https://mailchimp.com/help/send-tags/"
+    },
+    {
+     "label": "Mailchimp: Create and Send to a Segment",
+     "url": "https://mailchimp.com/help/create-and-send-to-a-segment/"
+    },
+    {
+     "label": "Mailchimp: Create a Regular Email",
+     "url": "https://mailchimp.com/help/create-and-send-regular-email/"
+    }
+   ],
+   "placeholders": [
+    "حطوا هنا screenshot من حسابكم: Audience › All contacts مع فلتر الـ tag",
+    "حطوا هنا screenshot من حسابكم: Campaigns › Create › Email",
+    "حطوا هنا screenshot من حسابكم: خانة To / Send to",
+    "حطوا هنا screenshot من حسابكم: Send a test"
+   ],
+   "screenshots": [
+    {
+     "id": "nl-mailchimp-diagram",
+     "diagram": "nl-mailchimp",
+     "width": 1440,
+     "height": 810
+    }
+   ],
+   "role": "admin",
+   "danger": false,
+   "video": null
+  },
+  {
+   "id": "nl-zoho",
+   "chapter": "c8",
+   "title": "حملة في Zoho Campaigns بالـ tags",
+   "why": "نفس الفكرة: تبعتوا للمهتمين بس، من Zoho.",
+   "steps": [
+    "**Contacts › Contact Tags**: اتأكدوا إن الـ tag موجود (نفس أسماء Mailchimp).",
+    "**Contacts › Segments › Create**: شرط \"Tag is\" (مثلاً `country-eg`).",
+    "**Campaigns › Create campaign › Email**.",
+    "في **Recipients**: اختاروا قايمة الموقع + الـ segment، وابعتوا Test، وبعدين **Send** أو **Schedule**."
+   ],
+   "warning": "مفيش حساب Zoho متوصّل لسه. حطوا screenshot من حسابكم مكان كل placeholder.",
+   "links": [
+    {
+     "label": "Zoho Campaigns: Contact management (tags + segments)",
+     "url": "https://help.zoho.com/portal/en/kb/campaigns/faqs/contact-management"
+    },
+    {
+     "label": "Zoho Campaigns: Create your first email campaign",
+     "url": "https://help.zoho.com/portal/en/kb/campaigns/getting-started-guide/articles/creating-your-first-email-campaign"
+    },
+    {
+     "label": "Zoho Campaigns: Send and schedule email campaigns",
+     "url": "https://help.zoho.com/portal/en/kb/campaigns-3-0/user-guide/email-campaigns/articles/v3-send-and-schedule-email-campaigns"
+    }
+   ],
+   "placeholders": [
+    "حطوا هنا screenshot من حسابكم: Contacts › Contact Tags",
+    "حطوا هنا screenshot من حسابكم: Segment بشرط Tag is",
+    "حطوا هنا screenshot من حسابكم: Campaigns › Create campaign",
+    "حطوا هنا screenshot من حسابكم: Recipients"
+   ],
+   "screenshots": [
+    {
+     "id": "nl-zoho-diagram",
+     "diagram": "nl-zoho",
+     "width": 1440,
+     "height": 810
+    }
+   ],
+   "role": "admin",
+   "danger": false,
+   "video": null
+  },
+  {
+   "id": "nl-results",
+   "chapter": "c8",
+   "title": "قراية النتايج",
+   "why": "عشان تعرفوا الحملة نجحت ولا لأ، وتحسّنوا اللي بعدها.",
+   "steps": [
+    "**Opens**: كام واحد فتح الإيميل.",
+    "**Clicks**: كام واحد ضغط لينك. ده أهم رقم.",
+    "**Unsubscribes**: كام واحد طلب يتشال (وبيتشال من الحسابين لوحده).",
+    "**Bounces**: إيميلات ماوصلتش. Hard = العنوان غلط/مقفول، Soft = مشكلة مؤقتة."
+   ],
+   "tip": "قارنوا كل حملة بالحملات اللي قبلها عندكم، مش بأرقام من النت. أجهزة الحماية في المستشفيات ساعات بتفتح الإيميل لوحدها، فالـ Opens ممكن تبقى أعلى من الحقيقة.",
+   "links": [
+    {
+     "label": "Mailchimp: About Email Reports",
+     "url": "https://mailchimp.com/help/about-email-campaign-reports/"
+    },
+    {
+     "label": "Zoho Campaigns: An introduction to Reports",
+     "url": "https://help.zoho.com/portal/en/kb/campaigns/user-guide/analytics/articles/an-introduction-to-reports"
+    }
+   ],
+   "placeholders": [
+    "حطوا هنا screenshot من حسابكم: تقرير حملة في Mailchimp",
+    "حطوا هنا screenshot من حسابكم: تقرير حملة في Zoho"
+   ],
+   "screenshots": [
+    {
+     "id": "nl-results-diagram",
+     "diagram": "nl-results",
+     "width": 1440,
+     "height": 810
+    }
+   ],
+   "role": "admin",
+   "danger": false,
+   "video": null
+  },
+  {
+   "id": "trouble",
+   "chapter": "c9",
+   "title": "شايفين كذا؟ اعملوا كذا",
+   "why": "أغلب المشاكل ليها حل في دقيقة.",
+   "steps": [
+    "دوّروا على اللي شايفينه في الجدول.",
+    "جرّبوا الحل.",
+    "مانفعش؟ صوّروا الشاشة وابعتوها مع لينك الصفحة."
+   ],
+   "table": [
+    [
+     "التعديل مش ظاهر على الموقع",
+     "استنوا دقيقة واعملوا Refresh. لسه؟ اتأكدوا إنكم ضغطتوا **Update** وإن **Show on site** شغال."
+    ],
+    [
+     "الإيفنت حالته غلط (Past بدل Upcoming)",
+     "راجعوا **Start date** و **End date** و **Country** (الحالة بتتحسب بتوقيت البلد)."
+    ],
+    [
+     "زرار Register now مش ظاهر",
+     "لازم **Registration = Open** **و** فيه **Registration link**."
+    ],
+    [
+     "مكتوب \"Validation failed\" ومش راضي ينشر",
+     "انزلوا للخانة اللي عليها خط أحمر: تحتها مكتوب تعملوا إيه بالظبط."
+    ],
+    [
+     "ملاحظة صفرا تحت صورة",
+     "الصورة صغيرة. انشروا عادي، وغيّروها بأكبر لما تبقى معاكم."
+    ],
+    [
+     "تحذير أصفر عن رقم تليفون",
+     "الرقم شكله ناقص أو زيادة، أو الكود غلط. صلّحوه أو اختاروا **Country code** الصح."
+    ],
+    [
+     "/wp-admin بيقول Page not found",
+     "ادخلوا من **/plevents/**. ده مقصود."
+    ],
+    [
+     "الدخول واقف 15 دقيقة",
+     "استنوا ربع ساعة، أو **Lost your password?**."
+    ],
+    [
+     "رسايل Contact مش واصلة",
+     "راجعوا أول إيميل في المكتب (**Offices**)، والـ Spam، وشوفوا الرسالة في **Forminator › Submissions**."
+    ],
+    [
+     "مدينة جديدة مش على الخريطة صح",
+     "اكتبوا اسم المدينة بالإنجليزي صح (زي Alexandria). لو مش في القايمة، الدبوس بيقف في نص البلد، وده عادي."
+    ]
+   ],
+   "screens": [],
+   "role": "admin",
+   "danger": false,
+   "screenshots": [],
+   "video": null
+  },
+  {
+   "id": "dont",
+   "chapter": "c9",
+   "title": "الممنوعات",
+   "danger": true,
+   "why": "الحاجات دي بتبوّظ الموقع أو ثقة الناس فيه.",
+   "steps": [
+    "ماتخترعوش داتا: اللي مش معروف سيبوه فاضي.",
+    "ماتمسحوش إيفنتات قديمة: اخفوها (**Show on site**).",
+    "ماتلمسوش **Plugins** و **Themes** و **Settings** والتصميم في Elementor.",
+    "ماتغيّروش الإيميلات من جوه Forminator.",
+    "ماتشاركوش الباسورد، ولا تدّوا حد صلاحية Administrator."
+   ],
+   "warning": "أي حاجة مش متأكدين منها: اسألوا الأول، اعملوا بعدين.",
+   "screens": [],
+   "role": "admin",
+   "screenshots": [],
+   "video": null
+  },
+  {
+   "id": "who",
+   "chapter": "c9",
+   "title": "تكلموا مين",
+   "why": "عشان المشكلة تتحل بسرعة.",
+   "steps": [
+    "مشكلة في المحتوى (تاريخ، لينك، صورة): صلّحوها بنفسكم من الشرح ده.",
+    "حاجة في الشكل أو صفحة باظت أو رسالة غريبة: كلّموا سارة (المصممة والمطورة) وابعتوا screenshot + لينك الصفحة.",
+    "مشكلة في الدخول لكل الناس أو الموقع واقع: كلّموا الاستضافة + سارة فوراً."
+   ],
+   "tip": "وسيلة التواصل مع سارة وقت الإطلاق: TBC (هتتحدد في التسليم).",
+   "screens": [],
+   "role": "admin",
+   "danger": false,
+   "screenshots": [],
+   "video": null
+  },
+  {
+   "id": "cheatsheet",
+   "chapter": "c10",
+   "title": "ورقة الغش: أهم 10 مهام",
+   "why": "اطبعوها وحطوها جنب الكمبيوتر.",
+   "steps": [
+    "اضغطوا **Print / Save as PDF** في صفحة Help.",
+    "اختاروا **Save as PDF** أو الطابعة."
+   ],
+   "role": "admin",
+   "danger": false,
+   "screenshots": [],
+   "video": null,
+   "screens": [],
+   "cheatsheet": true
+  }
+ ]
 }
