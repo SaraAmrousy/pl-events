@@ -49,7 +49,21 @@ __STATUS__
 **Re-generate after any change on the site:** start the sandbox (`bash deploy/sandbox/setup.sh`, then the server), then `bash tools/guide/run.sh`, then `deploy/deploy.sh plugin wp-content/plugins/pl-events-core` + `deploy/deploy-help.sh`.
 
 ## 3. Tasks (50 + cheat sheet)
-__TASKS__
+| # | Chapter | Tasks (✱ = in the cheat sheet, ▶ = video, ⇄ = pairing shot, ⚠ = danger) |
+|---|---|---|
+| 0 | Welcome (أهلاً) | الموقع بيشتغل إزاي |
+| 1 | Sign in (الدخول) | الدخول للوحة التحكم ✱ ▶ · نسيت الباسورد ▶ · الدخول وقف بعد 5 محاولات · تغيير الباسورد ▶ |
+| 2 | Tour (جولة سريعة) | قايمة PL Website ▶ · صفحة Overview والأرقام ▶ ⇄ · الشرح ده جوه الموقع (PL Help) ▶ |
+| 3 | Events (الإيفنتات) | إضافة إيفنت جديد ✱ ▶ · تعديل إيفنت ✱ ▶ · فتح وقفل التسجيل ✱ ▶ ⇄ · إخفاء إيفنت (من غير ما تمسحوه) ✱ ▶ · تثبيت إيفنت في الهوم ▶ ⇄ · صور الإيفنت ومقاساتها ▶ · إضافة Specialty أو Series جديدة ▶ · "يتحسب congress" إزاي ▶ |
+| 4 | Offices & contact (المكاتب والتواصل) | تعديل رقم تليفون أو واتساب لمكتب ✱ ▶ ⇄ · رقم تليفون أو واتساب لإيفنت ▶ · تعديل إيميل مكتب ▶ · تعديل عنوان مكتب ولينك الخريطة ▶ · مواعيد العمل ▶ ⇄ · المكتب الرئيسي (Head office) |
+| 5 | More content (باقي المحتوى) | الجمعيات العلمية (Societies) ▶ · الرعاة (Sponsors) ▶ · العضويات والجوايز ▶ · إضافة وظيفة جديدة ✱ ▶ · إقفال وظيفة ✱ ▶ · الخدمات (Services) ▶ · عنوان الهوم وأرقام الشركة ▶ ⇄ · الـ Portfolio PDF وفيديو الهوم ▶ |
+| 6 | Pages (الصفحات) | إيه بيتعدّل منين · تعديل جملة في صفحة (بأمان) ▶ · القوايم (Menus) ▶ · المنطقة الممنوعة ⚠ |
+| 7 | Forms (الفورمز والرسايل) | رسايل الفورمز بتروح فين · قراية الرسايل (Submissions) ✱ ▶ · فتح الـ CV ▶ · تصدير الرسايل (Export CSV) ▶ · عمل فورم جديد وحطه في صفحة ▶ · تغيير الإيميل اللي بتوصله الرسايل ▶ |
+| 8 | Newsletter (النشرة والحملات) | المشتركين بييجوا منين ▶ ⇄ · قايمة Newsletter sign-ups ▶ · شيل حد من النشرة ✱ ▶ · Export CSV للمشتركين ▶ · حملة في Mailchimp بالـ tags · حملة في Zoho Campaigns بالـ tags · قراية النتايج |
+| 9 | If something breaks (لو حاجة باظت) | شايفين كذا؟ اعملوا كذا · الممنوعات ⚠ · تكلموا مين |
+| 10 | Cheat sheet (ورقة الغش) | ورقة الغش: أهم 10 مهام |
+
+**Added beyond the minimum:** sign-in lockout explained, the head-office rule, event phone (as well as office phone), Pin to Home, the "where is it edited" map, "Validation failed" and phone warnings in the trouble table, PL Help itself (chapter 2).
 
 **Mailchimp / Zoho (no accounts):** steps + our own drawing + official links + a "حطوا هنا screenshot من حسابكم" box for each step. Links checked by web search on 8 Nov 2026 (the sandbox can't open mailchimp.com or zoho.com; both domains were blocked for the fetch tool too, so they were confirmed as indexed official pages, not opened): Mailchimp *Getting Started with Tags*, *Send to Tags*, *Create and Send to a Segment*, *Create a Regular Email*, *About Email Reports*; Zoho *Contact Management FAQ* (tags + segments), *Create your first email campaign*, *Send and schedule email campaigns*, *An introduction to Reports*. **Sara: open each once from PL Help.**
 

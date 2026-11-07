@@ -1229,7 +1229,8 @@
       "cap": "[2] اضغطوا **Add Image**."
      },
      {
-      "waitFor": ".media-modal li.attachment", "wait": 1500
+      "waitFor": ".media-modal li.attachment",
+      "wait": 1500
      },
      {
       "click": ".media-modal li.attachment >> nth=0",
@@ -1980,6 +1981,9 @@
       "click": "#publish",
       "cap": "[5] اضغطوا **Update**.",
       "nav": true
+     },
+     {
+      "cap": "راعي جديد؟ **Add new** فوق، ونفس الخانات."
      }
     ]
    },
@@ -2393,6 +2397,9 @@
      {
       "ring": "#publish",
       "cap": "[4] **Save company settings**."
+     },
+     {
+      "cap": "الأرقام دي بتظهر ثابتة ومكتوب جنبها Company figures. مابتتعدّش بحركة."
      }
     ]
    },
@@ -2609,6 +2616,9 @@
      {
       "ring": "input.menu-save >> visible=true",
       "cap": "[4] **Save Menu**."
+     },
+     {
+      "cap": "لينك جديد؟ من **Pages** على الشمال: علّموا على الصفحة واضغطوا **Add to Menu**، وبعدين **Save Menu**."
      }
     ]
    },
@@ -2756,6 +2766,9 @@
      {
       "wait": 1800,
       "cap": "كل اللي الزائر كتبه، والمكتب اللي اختاره."
+     },
+     {
+      "cap": "الرسالة كمان وصلت على إيميل المكتب. هنا نسخة محفوظة لو الإيميل ضاع."
      }
     ]
    },
@@ -2813,6 +2826,9 @@
      },
      {
       "cap": "الـ CVs بيانات شخصية: تفضل جوه الشركة."
+     },
+     {
+      "cap": "الـ CV كمان بيوصل مرفق في الإيميل اللي في **Company › CVs go to**."
      }
     ]
    },
@@ -2839,7 +2855,7 @@
      "callouts": [
       {
        "n": 1,
-       "sel": ":is(button,a):has-text('Export') >> visible=true",
+       "sel": "a.wpmudev-open-modal:has-text('Export')",
        "text": "Export"
       }
      ]
@@ -2849,8 +2865,11 @@
     "start": "/wp-admin/admin.php?page=forminator-entries&form_type=forminator_forms&form_id=@form:contact",
     "actions": [
      {
-      "click": ":is(button,a):has-text('Export') >> visible=true",
+      "click": "a.wpmudev-open-modal:has-text('Export')",
       "cap": "[1] اضغطوا **Export**."
+     },
+     {
+      "wait": 1200
      },
      {
       "wait": 1500,
@@ -2858,6 +2877,9 @@
      },
      {
       "cap": "[3] افتحوه في Excel أو Google Sheets."
+     },
+     {
+      "cap": "الملف فيه بيانات الناس: يفضل جوه الشركة."
      }
     ]
    },
@@ -3108,6 +3130,9 @@
      {
       "ring": "th#pl_conf",
       "cap": "[3] **Confirmed**: وقت الموافقة بالظبط."
+     },
+     {
+      "cap": "اللي ماأكّدش في 30 يوم بيتمسح لوحده: من غير تأكيد مفيش موافقة."
      }
     ]
    },
@@ -3162,6 +3187,9 @@
      {
       "wait": 1200,
       "cap": "[3] اتشال من Zoho و Mailchimp مع بعض."
+     },
+     {
+      "cap": "واللي بيعمل Unsubscribe من إيميل Mailchimp أو Zoho، بيتشال من التاني لوحده."
      }
     ]
    },
@@ -3204,6 +3232,12 @@
      },
      {
       "cap": "[2] الملف بينزل على طول. احفظوه في مكان آمن."
+     },
+     {
+      "cap": "اعملوا Export كل شهر واحفظوه، كنسخة احتياطية."
+     },
+     {
+      "cap": "ولو حد سأل \"أنا وافقت إمتى؟\": عمود Confirmed في الملف."
      }
     ]
    },
