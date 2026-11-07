@@ -1,7 +1,7 @@
 {
  "version": 1,
  "updated": "2026-11-08",
- "built": "202611072258",
+ "built": "202611072330",
  "title": "PL Help",
  "lang": "ar-EG",
  "chapters": [
@@ -152,7 +152,9 @@
       }
      ]
     }
-   ]
+   ],
+   "video": true,
+   "video_seconds": 31
   },
   {
    "id": "lost-password",
@@ -186,7 +188,9 @@
       }
      ]
     }
-   ]
+   ],
+   "video": true,
+   "video_seconds": 33
   },
   {
    "id": "lockout",
@@ -252,7 +256,9 @@
       }
      ]
     }
-   ]
+   ],
+   "video": true,
+   "video_seconds": 31
   },
   {
    "id": "tour-menu",
@@ -296,7 +302,9 @@
       }
      ]
     }
-   ]
+   ],
+   "video": true,
+   "video_seconds": 32
   },
   {
    "id": "tour-overview",
@@ -324,7 +332,9 @@
      "الأرقام في **Overview**",
      "نفس الأرقام على الهوم"
     ]
-   }
+   },
+   "video": true,
+   "video_seconds": 29
   },
   {
    "id": "tour-help",
@@ -358,8 +368,26 @@
        "text": "الفصول"
       }
      ]
+    },
+    {
+     "id": "tour-help-2",
+     "file": "shots/tour-help-2.png",
+     "diagram": false,
+     "alt": "الشرح ده جوه الموقع (PL Help)",
+     "callouts": [
+      {
+       "n": 1,
+       "text": "زرار ?"
+      },
+      {
+       "n": 2,
+       "text": "الشرح على الجنب"
+      }
+     ]
     }
-   ]
+   ],
+   "video": true,
+   "video_seconds": 40
   },
   {
    "id": "event-add",
@@ -379,7 +407,7 @@
     "event"
    ],
    "tip": "الحالة (Past / Live / Upcoming) بتتحسب لوحدها من التواريخ بتوقيت بلد الإيفنت. ماتدوّروش عليها.",
-   "warning": "لو اخترتوا Registration = **Open** من غير لينك، الموقع مش هيقبل الـ Publish لحد ما تحطوا اللينك.",
+   "warning": "لو اخترتوا **Registration = Open** من غير لينك، الموقع مش هيقبل الـ Publish لحد ما تحطوا اللينك.",
    "cheat": 1,
    "screenshots": [
     {
@@ -502,7 +530,9 @@
       }
      ]
     }
-   ]
+   ],
+   "video": true,
+   "video_seconds": 47
   },
   {
    "id": "event-registration",
@@ -520,7 +550,7 @@
    "screens": [
     "event"
    ],
-   "tip": "Register now بيظهر لما الاتنين يبقوا موجودين: Registration = **Open** **و** فيه لينك.",
+   "tip": "Register now بيظهر لما الاتنين يبقوا موجودين: **Registration = Open** **و** فيه لينك.",
    "warning": "لو الإيفنت خلص والتسجيل لسه Open، هيظهر لكم تحذير أصفر. اقفلوه (**Closed**).",
    "cheat": 4,
    "screenshots": [],
@@ -532,7 +562,9 @@
      "**Registration link** = اللينك اللي الزرار بيفتحه",
      "**Registration** = **Open** يطلّع الزرار"
     ]
-   }
+   },
+   "video": true,
+   "video_seconds": 42
   },
   {
    "id": "event-hide",
@@ -567,7 +599,9 @@
       }
      ]
     }
-   ]
+   ],
+   "video": true,
+   "video_seconds": 36
   },
   {
    "id": "event-pin",
@@ -596,7 +630,9 @@
      "**Pin to Home** في الإيفنت",
      "شريط **Next congress** على الهوم"
     ]
-   }
+   },
+   "video": true,
+   "video_seconds": 36
   },
   {
    "id": "event-images",
@@ -681,7 +717,9 @@
       }
      ]
     }
-   ]
+   ],
+   "video": true,
+   "video_seconds": 36
   },
   {
    "id": "event-congress-count",
@@ -691,7 +729,7 @@
    "steps": [
     "اضغطوا **PL Website › ↳ Event types**.",
     "افتحوا النوع (مثلاً **Symposium**).",
-    "**Counts as a congress** = **Yes** يعني بيتعدّ في الرقم.",
+    "لو **Counts as a congress = Yes** يبقى بيتعدّ في الرقم.",
     "اضغطوا **Update** وبصّوا على الرقم في **Overview**."
    ],
    "role": "admin",
@@ -718,7 +756,9 @@
       }
      ]
     }
-   ]
+   ],
+   "video": true,
+   "video_seconds": 31
   },
   {
    "id": "office-phone",
@@ -749,7 +789,9 @@
      "**Number** + **Country code**",
      "**On WhatsApp** = زرار WhatsApp"
     ]
-   }
+   },
+   "video": true,
+   "video_seconds": 43
   },
   {
    "id": "event-phone",
@@ -768,7 +810,30 @@
     "event"
    ],
    "tip": "اكتبوا في **Label** مين صاحب الرقم، مثلاً: Local organiser.",
-   "screenshots": []
+   "screenshots": [
+    {
+     "id": "event-phone-1",
+     "file": "shots/event-phone-1.png",
+     "diagram": false,
+     "alt": "رقم تليفون أو واتساب لإيفنت",
+     "callouts": [
+      {
+       "n": 1,
+       "text": "Country code"
+      },
+      {
+       "n": 2,
+       "text": "Number"
+      },
+      {
+       "n": 3,
+       "text": "On WhatsApp"
+      }
+     ]
+    }
+   ],
+   "video": true,
+   "video_seconds": 44
   },
   {
    "id": "office-email",
@@ -804,7 +869,9 @@
       }
      ]
     }
-   ]
+   ],
+   "video": true,
+   "video_seconds": 36
   },
   {
    "id": "office-address",
@@ -840,7 +907,9 @@
       }
      ]
     }
-   ]
+   ],
+   "video": true,
+   "video_seconds": 33
   },
   {
    "id": "office-hours",
@@ -868,7 +937,9 @@
      "**Days** + **Hours**",
      "نفس السطر على الموقع"
     ]
-   }
+   },
+   "video": true,
+   "video_seconds": 39
   },
   {
    "id": "office-head",
@@ -941,7 +1012,9 @@
       }
      ]
     }
-   ]
+   ],
+   "video": true,
+   "video_seconds": 36
   },
   {
    "id": "sponsors",
@@ -951,7 +1024,7 @@
    "steps": [
     "اضغطوا **PL Website › Sponsors** وافتحوا الراعي، أو **Add new**.",
     "ارفعوا **Logo** وحطوا **Website**.",
-    "**Link the logo**: Yes = اللوجو بيفتح موقعهم.",
+    "**Link the logo**: لو **Yes**، اللوجو بيفتح موقعهم.",
     "اضغطوا **Publish** أو **Update**."
    ],
    "role": "admin",
@@ -986,7 +1059,9 @@
       }
      ]
     }
-   ]
+   ],
+   "video": true,
+   "video_seconds": 28
   },
   {
    "id": "memberships",
@@ -1027,7 +1102,9 @@
       }
      ]
     }
-   ]
+   ],
+   "video": true,
+   "video_seconds": 32
   },
   {
    "id": "job-add",
@@ -1114,7 +1191,9 @@
       }
      ]
     }
-   ]
+   ],
+   "video": true,
+   "video_seconds": 42
   },
   {
    "id": "services",
@@ -1155,7 +1234,9 @@
       }
      ]
     }
-   ]
+   ],
+   "video": true,
+   "video_seconds": 35
   },
   {
    "id": "company-hero",
@@ -1164,7 +1245,7 @@
    "why": "الجملة الكبيرة على الهوم وأرقام الشركة بتتعدّل من مكان واحد.",
    "steps": [
     "اضغطوا **PL Website › Company**.",
-    "**Hero headline** = أول الجملة، **Hero headline — emphasis** = الكلمة المايلة.",
+    "**Hero headline**: أول الجملة. **Hero headline — emphasis**: الكلمة المايلة.",
     "في **Company figures**: **Add a figure** (قيمة + وصف، مثلاً 500+ · conferences).",
     "اضغطوا **Save company settings**."
    ],
@@ -1183,7 +1264,9 @@
      "**Hero headline**",
      "**Hero headline — emphasis**"
     ]
-   }
+   },
+   "video": true,
+   "video_seconds": 28
   },
   {
    "id": "company-files",
@@ -1223,7 +1306,9 @@
       }
      ]
     }
-   ]
+   ],
+   "video": true,
+   "video_seconds": 30
   },
   {
    "id": "pages-where",
@@ -1282,7 +1367,9 @@
       }
      ]
     }
-   ]
+   ],
+   "video": true,
+   "video_seconds": 34
   },
   {
    "id": "menus",
@@ -1322,12 +1409,14 @@
       }
      ]
     }
-   ]
+   ],
+   "video": true,
+   "video_seconds": 22
   },
   {
    "id": "danger-zone",
    "chapter": "c6",
-   "title": "⚠️ المنطقة الممنوعة",
+   "title": "المنطقة الممنوعة",
    "why": "الحاجات دي ممكن توقّع الموقع كله أو تبوّظ شكله. سيبوها للإدارة.",
    "steps": [
     "**Plugins**: ماتقفلوش (Deactivate) ولا تمسحوا ولا تضيفوا plugin.",
@@ -1351,7 +1440,7 @@
      "id": "danger-plugins",
      "file": "shots/danger-plugins.png",
      "diagram": false,
-     "alt": "⚠️ المنطقة الممنوعة",
+     "alt": "المنطقة الممنوعة",
      "callouts": [
       {
        "n": 1,
@@ -1367,7 +1456,7 @@
      "id": "danger-themes",
      "file": "shots/danger-themes.png",
      "diagram": false,
-     "alt": "⚠️ المنطقة الممنوعة",
+     "alt": "المنطقة الممنوعة",
      "callouts": [
       {
        "n": 1,
@@ -1379,7 +1468,7 @@
      "id": "danger-settings",
      "file": "shots/danger-settings.png",
      "diagram": false,
-     "alt": "⚠️ المنطقة الممنوعة",
+     "alt": "المنطقة الممنوعة",
      "callouts": [
       {
        "n": 1,
@@ -1450,7 +1539,9 @@
       }
      ]
     }
-   ]
+   ],
+   "video": true,
+   "video_seconds": 28
   },
   {
    "id": "forms-cv",
@@ -1481,7 +1572,9 @@
       }
      ]
     }
-   ]
+   ],
+   "video": true,
+   "video_seconds": 22
   },
   {
    "id": "forms-export",
@@ -1549,7 +1642,9 @@
       }
      ]
     }
-   ]
+   ],
+   "video": true,
+   "video_seconds": 27
   },
   {
    "id": "forms-email",
@@ -1580,7 +1675,9 @@
       }
      ]
     }
-   ]
+   ],
+   "video": true,
+   "video_seconds": 32
   },
   {
    "id": "nl-sources",
@@ -1608,7 +1705,9 @@
      "فورم **Subscribe** على الموقع",
      "السطر في **Newsletter sign-ups**"
     ]
-   }
+   },
+   "video": true,
+   "video_seconds": 28
   },
   {
    "id": "nl-list",
@@ -1647,7 +1746,9 @@
       }
      ]
     }
-   ]
+   ],
+   "video": true,
+   "video_seconds": 23
   },
   {
    "id": "nl-remove",
@@ -1679,7 +1780,9 @@
       }
      ]
     }
-   ]
+   ],
+   "video": true,
+   "video_seconds": 24
   },
   {
    "id": "nl-export",
@@ -1710,7 +1813,9 @@
       }
      ]
     }
-   ]
+   ],
+   "video": true,
+   "video_seconds": 14
   },
   {
    "id": "nl-mailchimp",
@@ -1870,7 +1975,7 @@
     ],
     [
      "زرار Register now مش ظاهر",
-     "لازم Registration = **Open** **و** فيه **Registration link**."
+     "لازم **Registration = Open** **و** فيه **Registration link**."
     ],
     [
      "مكتوب \"Validation failed\" ومش راضي ينشر",
@@ -1991,12 +2096,12 @@
       "sel": "#publish"
      }
     ],
-    "bytes": 185949
+    "bytes": 188101
    },
    "welcome-diagram": {
     "file": "shots/welcome-diagram.png",
     "diagram": true,
-    "bytes": 206251
+    "bytes": 230008
    },
    "login-1": {
     "file": "shots/login-1.png",
@@ -2073,7 +2178,7 @@
       "sel": ".wp-generate-pw"
      }
     ],
-    "bytes": 122606
+    "bytes": 125748
    },
    "tour-menu-1": {
     "file": "shots/tour-menu-1.png",
@@ -2101,7 +2206,7 @@
       "sel": "#adminmenu a[href='admin.php?page=pl-company']"
      }
     ],
-    "bytes": 136318
+    "bytes": 138701
    },
    "tour-help-1": {
     "file": "shots/tour-help-1.png",
@@ -2110,16 +2215,16 @@
     "callouts": [
      {
       "n": 1,
-      "ok": false,
+      "ok": true,
       "sel": ".plh-search input"
      },
      {
       "n": 2,
-      "ok": false,
+      "ok": true,
       "sel": ".plh-chapters"
      }
     ],
-    "bytes": 10633
+    "bytes": 180769
    },
    "event-add-2": {
     "file": "shots/event-add-2.png",
@@ -2147,7 +2252,7 @@
       "sel": "[data-name=pl_pin_home]"
      }
     ],
-    "bytes": 143401
+    "bytes": 146579
    },
    "event-add-mobile": {
     "file": "shots/event-add-mobile.png",
@@ -2193,7 +2298,7 @@
       "sel": "th#pl_show"
      }
     ],
-    "bytes": 187021
+    "bytes": 189754
    },
    "event-hide-1": {
     "file": "shots/event-hide-1.png",
@@ -2204,14 +2309,9 @@
       "n": 1,
       "ok": true,
       "sel": "[data-name=pl_show_on_site]"
-     },
-     {
-      "n": 2,
-      "ok": false,
-      "sel": "#publish"
      }
     ],
-    "bytes": 118162
+    "bytes": 119009
    },
    "event-images-1": {
     "file": "shots/event-images-1.png",
@@ -2234,7 +2334,7 @@
       "sel": "[data-name=pl_logo]"
      }
     ],
-    "bytes": 136061
+    "bytes": 139105
    },
    "event-taxonomy-1": {
     "file": "shots/event-taxonomy-1.png",
@@ -2257,7 +2357,7 @@
       "sel": "#submit"
      }
     ],
-    "bytes": 150068
+    "bytes": 152501
    },
    "event-congress-count-1": {
     "file": "shots/event-congress-count-1.png",
@@ -2275,7 +2375,7 @@
       "sel": "[data-name=pl_congress]"
      }
     ],
-    "bytes": 126419
+    "bytes": 128790
    },
    "office-email-1": {
     "file": "shots/office-email-1.png",
@@ -2293,7 +2393,7 @@
       "sel": "[data-name=pl_emails] .acf-actions"
      }
     ],
-    "bytes": 121720
+    "bytes": 124836
    },
    "office-address-1": {
     "file": "shots/office-address-1.png",
@@ -2307,11 +2407,11 @@
      },
      {
       "n": 2,
-      "ok": false,
+      "ok": true,
       "sel": "[data-name=pl_maps_url]"
      }
     ],
-    "bytes": 147429
+    "bytes": 129028
    },
    "office-head-1": {
     "file": "shots/office-head-1.png",
@@ -2324,7 +2424,7 @@
       "sel": "[data-name=pl_head_office]"
      }
     ],
-    "bytes": 144932
+    "bytes": 147236
    },
    "societies-1": {
     "file": "shots/societies-1.png",
@@ -2347,7 +2447,7 @@
       "sel": "[data-name=pl_url]"
      }
     ],
-    "bytes": 124726
+    "bytes": 127262
    },
    "sponsors-1": {
     "file": "shots/sponsors-1.png",
@@ -2375,7 +2475,7 @@
       "sel": "#menu_order, #pageparentdiv"
      }
     ],
-    "bytes": 128844
+    "bytes": 131328
    },
    "memberships-1": {
     "file": "shots/memberships-1.png",
@@ -2398,7 +2498,7 @@
       "sel": "[data-name=pl_proof_url]"
      }
     ],
-    "bytes": 131011
+    "bytes": 133429
    },
    "job-add-1": {
     "file": "shots/job-add-1.png",
@@ -2431,7 +2531,7 @@
       "sel": "[data-name=pl_description]"
      }
     ],
-    "bytes": 127006
+    "bytes": 129339
    },
    "job-close-1": {
     "file": "shots/job-close-1.png",
@@ -2449,7 +2549,7 @@
       "sel": "[data-name=pl_show_on_site]"
      }
     ],
-    "bytes": 130218
+    "bytes": 132349
    },
    "services-1": {
     "file": "shots/services-1.png",
@@ -2472,7 +2572,7 @@
       "sel": "[data-name=pl_items]"
      }
     ],
-    "bytes": 270502
+    "bytes": 273014
    },
    "company-files-1": {
     "file": "shots/company-files-1.png",
@@ -2495,12 +2595,12 @@
       "sel": "[data-name=pl_showreel_poster]"
      }
     ],
-    "bytes": 334392
+    "bytes": 336681
    },
    "pages-where-diagram": {
     "file": "shots/pages-where-diagram.png",
     "diagram": true,
-    "bytes": 169985
+    "bytes": 195580
    },
    "pages-edit-text-1": {
     "file": "shots/pages-edit-text-1.png",
@@ -2513,7 +2613,7 @@
       "sel": "#the-list tr:has-text('Careers') .row-title"
      }
     ],
-    "bytes": 140484
+    "bytes": 143456
    },
    "menus-1": {
     "file": "shots/menus-1.png",
@@ -2532,11 +2632,11 @@
      },
      {
       "n": 3,
-      "ok": false,
-      "sel": "#save_menu_header"
+      "ok": true,
+      "sel": "input.menu-save >> visible=true"
      }
     ],
-    "bytes": 148688
+    "bytes": 155985
    },
    "danger-plugins": {
     "file": "shots/danger-plugins.png",
@@ -2554,7 +2654,7 @@
       "sel": ".page-title-action"
      }
     ],
-    "bytes": 220417
+    "bytes": 223586
    },
    "danger-themes": {
     "file": "shots/danger-themes.png",
@@ -2567,7 +2667,7 @@
       "sel": ".theme.active"
      }
     ],
-    "bytes": 161951
+    "bytes": 165136
    },
    "danger-settings": {
     "file": "shots/danger-settings.png",
@@ -2580,12 +2680,12 @@
       "sel": "#blog_public, .option-site-visibility"
      }
     ],
-    "bytes": 118819
+    "bytes": 121990
    },
    "forms-where-diagram": {
     "file": "shots/forms-where-diagram.png",
     "diagram": true,
-    "bytes": 160575
+    "bytes": 178785
    },
    "forms-submissions-1": {
     "file": "shots/forms-submissions-1.png",
@@ -2603,7 +2703,7 @@
       "sel": "text=other fields"
      }
     ],
-    "bytes": 100751
+    "bytes": 103695
    },
    "forms-cv-1": {
     "file": "shots/forms-cv-1.png",
@@ -2616,7 +2716,7 @@
       "sel": "a:has-text('.pdf')"
      }
     ],
-    "bytes": 120625
+    "bytes": 124031
    },
    "forms-export-1": {
     "file": "shots/forms-export-1.png",
@@ -2626,10 +2726,10 @@
      {
       "n": 1,
       "ok": false,
-      "sel": "button:has-text('Export'), a:has-text('Export')"
+      "sel": ":is(button,a):has-text('Export') >> visible=true"
      }
     ],
-    "bytes": 95301
+    "bytes": 98294
    },
    "forms-new-1": {
     "file": "shots/forms-new-1.png",
@@ -2638,8 +2738,8 @@
     "callouts": [
      {
       "n": 1,
-      "ok": false,
-      "sel": "button:has-text('Add new'), a:has-text('Add new')"
+      "ok": true,
+      "sel": ":is(button,a):has-text('Add new') >> visible=true"
      },
      {
       "n": 2,
@@ -2647,7 +2747,7 @@
       "sel": ".sui-accordion-item:first-of-type, .forminator-module, [class*=module-item]"
      }
     ],
-    "bytes": 111912
+    "bytes": 119019
    },
    "forms-email-1": {
     "file": "shots/forms-email-1.png",
@@ -2660,7 +2760,7 @@
       "sel": "[data-name=pl_careers_email]"
      }
     ],
-    "bytes": 118193
+    "bytes": 121271
    },
    "nl-list-1": {
     "file": "shots/nl-list-1.png",
@@ -2683,7 +2783,7 @@
       "sel": "th#pl_conf"
      }
     ],
-    "bytes": 169384
+    "bytes": 170980
    },
    "nl-remove-1": {
     "file": "shots/nl-remove-1.png",
@@ -2696,7 +2796,7 @@
       "sel": "#the-list tr:first-child .pl_un a"
      }
     ],
-    "bytes": 166647
+    "bytes": 168295
    },
    "nl-export-1": {
     "file": "shots/nl-export-1.png",
@@ -2709,22 +2809,63 @@
       "sel": ":is(a,button,input):has-text('Export CSV'), input[value*='Export CSV']"
      }
     ],
-    "bytes": 166255
+    "bytes": 167892
    },
    "nl-mailchimp-diagram": {
     "file": "shots/nl-mailchimp-diagram.png",
     "diagram": true,
-    "bytes": 181021
+    "bytes": 209489
    },
    "nl-zoho-diagram": {
     "file": "shots/nl-zoho-diagram.png",
     "diagram": true,
-    "bytes": 161670
+    "bytes": 191819
    },
    "nl-results-diagram": {
     "file": "shots/nl-results-diagram.png",
     "diagram": true,
-    "bytes": 181196
+    "bytes": 204902
+   },
+   "tour-help-2": {
+    "file": "shots/tour-help-2.png",
+    "w": 1440,
+    "h": 900,
+    "callouts": [
+     {
+      "n": 1,
+      "ok": true,
+      "sel": "#plh-fab"
+     },
+     {
+      "n": 2,
+      "ok": true,
+      "sel": "#plh-panel"
+     }
+    ],
+    "bytes": 278851
+   },
+   "event-phone-1": {
+    "file": "shots/event-phone-1.png",
+    "w": 1440,
+    "h": 900,
+    "callouts": [
+     {
+      "n": 1,
+      "ok": true,
+      "sel": "[data-name=pl_phones] .acf-row:not(.acf-clone) >> nth=-1 >> [data-name=code]"
+     },
+     {
+      "n": 2,
+      "ok": true,
+      "sel": "[data-name=pl_phones] .acf-row:not(.acf-clone) >> nth=-1 >> [data-name=number]"
+     },
+     {
+      "n": 3,
+      "ok": true,
+      "sel": "[data-name=pl_phones] .acf-row:not(.acf-clone) >> nth=-1 >> [data-name=whatsapp]"
+     }
+    ],
+    "bytes": 139343
    }
   },
   "pairs": {
@@ -2740,7 +2881,7 @@
        "sel": "#wpbody-content p:has-text('congresses')"
       }
      ],
-     "bytes": 127477
+     "bytes": 130125
     },
     "site": {
      "file": "shots/pair-overview-site.png",
@@ -2757,7 +2898,7 @@
     },
     "image": {
      "file": "pairs/pair-overview.png",
-     "bytes": 160036
+     "bytes": 163167
     }
    },
    "pair-registration": {
@@ -2777,7 +2918,7 @@
        "sel": "[data-name=pl_registration]"
       }
      ],
-     "bytes": 161587
+     "bytes": 164819
     },
     "site": {
      "file": "shots/pair-registration-site.png",
@@ -2799,7 +2940,7 @@
     },
     "image": {
      "file": "pairs/pair-registration.png",
-     "bytes": 216489
+     "bytes": 222632
     }
    },
    "pair-pin": {
@@ -2814,7 +2955,7 @@
        "sel": "[data-name=pl_pin_home]"
       }
      ],
-     "bytes": 156965
+     "bytes": 160155
     },
     "site": {
      "file": "shots/pair-pin-site.png",
@@ -2831,7 +2972,7 @@
     },
     "image": {
      "file": "pairs/pair-pin.png",
-     "bytes": 450411
+     "bytes": 453681
     }
    },
    "pair-office-phone": {
@@ -2851,7 +2992,7 @@
        "sel": "[data-name=pl_phones] .acf-row:not(.acf-clone):first-of-type [data-name=whatsapp]"
       }
      ],
-     "bytes": 138293
+     "bytes": 140811
     },
     "site": {
      "file": "shots/pair-office-phone-site.png",
@@ -2873,7 +3014,7 @@
     },
     "image": {
      "file": "pairs/pair-office-phone.png",
-     "bytes": 184601
+     "bytes": 188233
     }
    },
    "pair-office-hours": {
@@ -2888,7 +3029,7 @@
        "sel": "[data-name=pl_hours] .acf-row:not(.acf-clone)"
       }
      ],
-     "bytes": 105389
+     "bytes": 108445
     },
     "site": {
      "file": "shots/pair-office-hours-site.png",
@@ -2905,7 +3046,7 @@
     },
     "image": {
      "file": "pairs/pair-office-hours.png",
-     "bytes": 159441
+     "bytes": 163922
     }
    },
    "pair-hero": {
@@ -2925,7 +3066,7 @@
        "sel": "[data-name=pl_hero_em]"
       }
      ],
-     "bytes": 144115
+     "bytes": 146323
     },
     "site": {
      "file": "shots/pair-hero-site.png",
@@ -2947,7 +3088,7 @@
     },
     "image": {
      "file": "pairs/pair-hero.png",
-     "bytes": 432849
+     "bytes": 435601
     }
    },
    "pair-newsletter": {
@@ -2962,7 +3103,7 @@
        "sel": "#the-list tr:first-child"
       }
      ],
-     "bytes": 165468
+     "bytes": 166994
     },
     "site": {
      "file": "shots/pair-newsletter-site.png",
@@ -2979,7 +3120,7 @@
     },
     "image": {
      "file": "pairs/pair-newsletter.png",
-     "bytes": 185818
+     "bytes": 188988
     }
    }
   },
@@ -2990,19 +3131,258 @@
     "vtt": "video/event-add.vtt",
     "seconds": 46,
     "bytes": 595570
+   },
+   "login": {
+    "file": "video/login.mp4",
+    "poster": "video/login.jpg",
+    "vtt": "video/login.vtt",
+    "seconds": 31,
+    "bytes": 147661
+   },
+   "lost-password": {
+    "file": "video/lost-password.mp4",
+    "poster": "video/lost-password.jpg",
+    "vtt": "video/lost-password.vtt",
+    "seconds": 33,
+    "bytes": 167775
+   },
+   "change-password": {
+    "file": "video/change-password.mp4",
+    "poster": "video/change-password.jpg",
+    "vtt": "video/change-password.vtt",
+    "seconds": 31,
+    "bytes": 540399
+   },
+   "tour-menu": {
+    "file": "video/tour-menu.mp4",
+    "poster": "video/tour-menu.jpg",
+    "vtt": "video/tour-menu.vtt",
+    "seconds": 32,
+    "bytes": 340470
+   },
+   "tour-overview": {
+    "file": "video/tour-overview.mp4",
+    "poster": "video/tour-overview.jpg",
+    "vtt": "video/tour-overview.vtt",
+    "seconds": 29,
+    "bytes": 491996
+   },
+   "tour-help": {
+    "file": "video/tour-help.mp4",
+    "poster": "video/tour-help.jpg",
+    "vtt": "video/tour-help.vtt",
+    "seconds": 40,
+    "bytes": 612827
+   },
+   "event-edit": {
+    "file": "video/event-edit.mp4",
+    "poster": "video/event-edit.jpg",
+    "vtt": "video/event-edit.vtt",
+    "seconds": 47,
+    "bytes": 644532
+   },
+   "event-registration": {
+    "file": "video/event-registration.mp4",
+    "poster": "video/event-registration.jpg",
+    "vtt": "video/event-registration.vtt",
+    "seconds": 42,
+    "bytes": 563257
+   },
+   "event-hide": {
+    "file": "video/event-hide.mp4",
+    "poster": "video/event-hide.jpg",
+    "vtt": "video/event-hide.vtt",
+    "seconds": 36,
+    "bytes": 772515
+   },
+   "event-pin": {
+    "file": "video/event-pin.mp4",
+    "poster": "video/event-pin.jpg",
+    "vtt": "video/event-pin.vtt",
+    "seconds": 36,
+    "bytes": 543452
+   },
+   "event-taxonomy": {
+    "file": "video/event-taxonomy.mp4",
+    "poster": "video/event-taxonomy.jpg",
+    "vtt": "video/event-taxonomy.vtt",
+    "seconds": 36,
+    "bytes": 459467
+   },
+   "event-congress-count": {
+    "file": "video/event-congress-count.mp4",
+    "poster": "video/event-congress-count.jpg",
+    "vtt": "video/event-congress-count.vtt",
+    "seconds": 31,
+    "bytes": 439805
+   },
+   "office-phone": {
+    "file": "video/office-phone.mp4",
+    "poster": "video/office-phone.jpg",
+    "vtt": "video/office-phone.vtt",
+    "seconds": 43,
+    "bytes": 554019
+   },
+   "event-phone": {
+    "file": "video/event-phone.mp4",
+    "poster": "video/event-phone.jpg",
+    "vtt": "video/event-phone.vtt",
+    "seconds": 44,
+    "bytes": 644899
+   },
+   "office-email": {
+    "file": "video/office-email.mp4",
+    "poster": "video/office-email.jpg",
+    "vtt": "video/office-email.vtt",
+    "seconds": 36,
+    "bytes": 464902
+   },
+   "office-address": {
+    "file": "video/office-address.mp4",
+    "poster": "video/office-address.jpg",
+    "vtt": "video/office-address.vtt",
+    "seconds": 33,
+    "bytes": 471654
+   },
+   "office-hours": {
+    "file": "video/office-hours.mp4",
+    "poster": "video/office-hours.jpg",
+    "vtt": "video/office-hours.vtt",
+    "seconds": 39,
+    "bytes": 507800
+   },
+   "societies": {
+    "file": "video/societies.mp4",
+    "poster": "video/societies.jpg",
+    "vtt": "video/societies.vtt",
+    "seconds": 36,
+    "bytes": 454527
+   },
+   "sponsors": {
+    "file": "video/sponsors.mp4",
+    "poster": "video/sponsors.jpg",
+    "vtt": "video/sponsors.vtt",
+    "seconds": 28,
+    "bytes": 348783
+   },
+   "memberships": {
+    "file": "video/memberships.mp4",
+    "poster": "video/memberships.jpg",
+    "vtt": "video/memberships.vtt",
+    "seconds": 32,
+    "bytes": 343676
+   },
+   "job-close": {
+    "file": "video/job-close.mp4",
+    "poster": "video/job-close.jpg",
+    "vtt": "video/job-close.vtt",
+    "seconds": 42,
+    "bytes": 498104
+   },
+   "services": {
+    "file": "video/services.mp4",
+    "poster": "video/services.jpg",
+    "vtt": "video/services.vtt",
+    "seconds": 35,
+    "bytes": 546891
+   },
+   "company-hero": {
+    "file": "video/company-hero.mp4",
+    "poster": "video/company-hero.jpg",
+    "vtt": "video/company-hero.vtt",
+    "seconds": 28,
+    "bytes": 407461
+   },
+   "company-files": {
+    "file": "video/company-files.mp4",
+    "poster": "video/company-files.jpg",
+    "vtt": "video/company-files.vtt",
+    "seconds": 30,
+    "bytes": 464380
+   },
+   "pages-edit-text": {
+    "file": "video/pages-edit-text.mp4",
+    "poster": "video/pages-edit-text.jpg",
+    "vtt": "video/pages-edit-text.vtt",
+    "seconds": 34,
+    "bytes": 383792
+   },
+   "menus": {
+    "file": "video/menus.mp4",
+    "poster": "video/menus.jpg",
+    "vtt": "video/menus.vtt",
+    "seconds": 22,
+    "bytes": 277645
+   },
+   "forms-submissions": {
+    "file": "video/forms-submissions.mp4",
+    "poster": "video/forms-submissions.jpg",
+    "vtt": "video/forms-submissions.vtt",
+    "seconds": 28,
+    "bytes": 350713
+   },
+   "forms-cv": {
+    "file": "video/forms-cv.mp4",
+    "poster": "video/forms-cv.jpg",
+    "vtt": "video/forms-cv.vtt",
+    "seconds": 22,
+    "bytes": 244209
+   },
+   "forms-new": {
+    "file": "video/forms-new.mp4",
+    "poster": "video/forms-new.jpg",
+    "vtt": "video/forms-new.vtt",
+    "seconds": 27,
+    "bytes": 281055
+   },
+   "forms-email": {
+    "file": "video/forms-email.mp4",
+    "poster": "video/forms-email.jpg",
+    "vtt": "video/forms-email.vtt",
+    "seconds": 32,
+    "bytes": 633337
+   },
+   "nl-sources": {
+    "file": "video/nl-sources.mp4",
+    "poster": "video/nl-sources.jpg",
+    "vtt": "video/nl-sources.vtt",
+    "seconds": 28,
+    "bytes": 573578
+   },
+   "nl-list": {
+    "file": "video/nl-list.mp4",
+    "poster": "video/nl-list.jpg",
+    "vtt": "video/nl-list.vtt",
+    "seconds": 23,
+    "bytes": 319683
+   },
+   "nl-remove": {
+    "file": "video/nl-remove.mp4",
+    "poster": "video/nl-remove.jpg",
+    "vtt": "video/nl-remove.vtt",
+    "seconds": 24,
+    "bytes": 295411
+   },
+   "nl-export": {
+    "file": "video/nl-export.mp4",
+    "poster": "video/nl-export.jpg",
+    "vtt": "video/nl-export.vtt",
+    "seconds": 14,
+    "bytes": 259123
    }
   },
-  "generated": "2026-11-07T22:54:24.588Z",
+  "generated": "2026-11-07T23:30:13.674Z",
   "problems": [
-   "shots/tour-help-1.png: callout 1 (.plh-search input) not found",
-   "shots/tour-help-1.png: callout 2 (.plh-chapters) not found",
-   "tour-help: {\"click\":\"#plh-fab\"} → locator.boundingBox: Timeout 30000ms exceeded.",
-   "shots/event-hide-1.png: callout 2 (#publish) off-screen",
-   "event-phone: {\"fill\":\"[data-name=pl_phones] .acf-row:not(.acf-clone):last-of-type [data-name=number] input\",\"text\":\"+216 71 000 000\"} → locator.boundingBox: Timeout 30000ms exceeded.",
-   "shots/office-address-1.png: callout 2 ([data-name=pl_maps_url]) off-screen",
-   "shots/menus-1.png: callout 3 (#save_menu_header) not found",
-   "shots/forms-export-1.png: callout 1 (button:has-text('Export'), a:has-text('Export')) off-screen",
-   "shots/forms-new-1.png: callout 1 (button:has-text('Add new'), a:has-text('Add new')) not found"
+   "event-add: {\"wait\":1200,\"cap\":\"خلاص! الإيفنت ظهر في الكالندر والهوم والأرقام لوحده.\"} → page.evaluate: Execution context was destroyed, most likely because of a navigation",
+   "event-images: {\"click\":\".media-modal .attachments .attachment:first-child\",\"cap\":\"[3] اختاروا الصورة…\"} → locator.boundingBox: Timeout 30000ms exceeded.",
+   "job-add: {\"go\":\"/careers/\",\"cap\":\"الوظيفة ظهرت في صفحة Careers.\"} → page.evaluate: Execution context was destroyed, most likely because of a navigation",
+   "menus.mp4: 22 s (target 30–60)",
+   "forms-cv.mp4: 22 s (target 30–60)",
+   "shots/forms-export-1.png: callout 1 (:is(button,a):has-text('Export') >> visible=true) off-screen",
+   "forms-export: {\"click\":\":is(button,a):has-text('Export') >> visible=true\",\"cap\":\"[1] اضغطوا **Export**.\"} → locator.click: Timeout 30000ms exceeded.",
+   "nl-list.mp4: 23 s (target 30–60)",
+   "nl-remove.mp4: 24 s (target 30–60)",
+   "nl-export.mp4: 14 s (target 30–60)"
   ]
  }
 }
