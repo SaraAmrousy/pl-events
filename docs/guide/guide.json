@@ -1,7 +1,7 @@
 {
  "version": 1,
  "updated": "2026-11-08",
- "built": "202611081313",
+ "built": "202611081354",
  "title": "PL Help",
  "lang": "ar-EG",
  "chapters": [
@@ -532,7 +532,7 @@
     }
    ],
    "video": true,
-   "video_seconds": 64
+   "video_seconds": 42
   },
   {
    "id": "event-registration",
@@ -1303,7 +1303,7 @@
     }
    ],
    "video": true,
-   "video_seconds": 63
+   "video_seconds": 50
   },
   {
    "id": "job-close",
@@ -1838,7 +1838,7 @@
     }
    ],
    "video": true,
-   "video_seconds": 27
+   "video_seconds": 32
   },
   {
    "id": "forms-new",
@@ -2049,7 +2049,7 @@
     }
    ],
    "video": true,
-   "video_seconds": 28
+   "video_seconds": 33
   },
   {
    "id": "nl-mailchimp",
@@ -2549,7 +2549,7 @@
       "sel": "th#pl_show"
      }
     ],
-    "bytes": 186386
+    "bytes": 189874
    },
    "event-hide-1": {
     "file": "shots/event-hide-1.png",
@@ -2980,7 +2980,7 @@
       "sel": "a.wpmudev-open-modal:has-text('Export')"
      }
     ],
-    "bytes": 100715
+    "bytes": 100744
    },
    "forms-new-1": {
     "file": "shots/forms-new-1.png",
@@ -3047,7 +3047,7 @@
       "sel": "#the-list tr:first-child .pl_un a"
      }
     ],
-    "bytes": 169498
+    "bytes": 169895
    },
    "nl-export-1": {
     "file": "shots/nl-export-1.png",
@@ -3060,7 +3060,7 @@
       "sel": ":is(a,button,input):has-text('Export CSV'), input[value*='Export CSV']"
      }
     ],
-    "bytes": 168946
+    "bytes": 169344
    },
    "nl-mailchimp-diagram": {
     "file": "shots/nl-mailchimp-diagram.png",
@@ -3674,8 +3674,8 @@
     "file": "video/event-edit.mp4",
     "poster": "video/event-edit.jpg",
     "vtt": "video/event-edit.vtt",
-    "seconds": 64,
-    "bytes": 684047
+    "seconds": 42,
+    "bytes": 567323
    },
    "event-registration": {
     "file": "video/event-registration.mp4",
@@ -3857,28 +3857,28 @@
     "poster": "video/nl-remove.jpg",
     "vtt": "video/nl-remove.vtt",
     "seconds": 28,
-    "bytes": 325071
+    "bytes": 321243
    },
    "nl-export": {
     "file": "video/nl-export.mp4",
     "poster": "video/nl-export.jpg",
     "vtt": "video/nl-export.vtt",
-    "seconds": 28,
-    "bytes": 347516
+    "seconds": 33,
+    "bytes": 368802
    },
    "job-add": {
     "file": "video/job-add.mp4",
     "poster": "video/job-add.jpg",
     "vtt": "video/job-add.vtt",
-    "seconds": 63,
-    "bytes": 554448
+    "seconds": 50,
+    "bytes": 506064
    },
    "forms-export": {
     "file": "video/forms-export.mp4",
     "poster": "video/forms-export.jpg",
     "vtt": "video/forms-export.vtt",
-    "seconds": 27,
-    "bytes": 218372
+    "seconds": 32,
+    "bytes": 252112
    },
    "event-images": {
     "file": "video/event-images.mp4",
@@ -3916,13 +3916,7 @@
     "bytes": 905569
    }
   },
-  "generated": "2026-11-08T13:13:08.960Z",
-  "problems": [
-   "event-edit.mp4: 64 s (target 30–60)",
-   "job-add.mp4: 63 s (target 30–60)",
-   "forms-export.mp4: 27 s (target 30–60)",
-   "nl-remove: page.goto: net::ERR_TOO_MANY_REDIRECTS at http://localhost:8080/plevents/\nCall log:\n\u001b[2m  - navigating to \"http://localhost:8080/plevents/\", waiting until \"load\"\u001b[22m\n",
-   "nl-export.mp4: 28 s (target 30–60)"
-  ]
+  "generated": "2026-11-08T13:37:39.348Z",
+  "problems": []
  }
 }

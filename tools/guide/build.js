@@ -34,7 +34,9 @@ fs.mkdirSync(PLUGIN, { recursive: true });
 fs.writeFileSync(path.join(PLUGIN, 'guide.json'), JSON.stringify(clean));
 
 // docs/guide export
-const copyDir = (src, dst, re) => { fs.mkdirSync(dst, { recursive: true }); for (const f of fs.readdirSync(src)) if (!re || re.test(f)) fs.copyFileSync(path.join(src, f), path.join(dst, f)); };
+// Only files of tasks that still exist (a removed task's video must not linger in the export or on the site).
+const LIVE = new Set([...clean.tasks.map(t => t.id), ...clean.tasks.flatMap(t => t.screenshots.map(s => s.id)), ...g.tasks.filter(t => t.pair).flatMap(t => [t.pair.id, t.pair.id + '-admin', t.pair.id + '-site'])]);
+const copyDir = (src, dst, re) => { fs.mkdirSync(dst, { recursive: true }); for (const f of fs.readdirSync(src)) if ((!re || re.test(f)) && LIVE.has(f.replace(/\.[a-z0-9]+$/, ''))) fs.copyFileSync(path.join(src, f), path.join(dst, f)); };
 for (const d of ['shots', 'pairs', 'video', 'gif']) { fs.rmSync(path.join(DOCS, d), { recursive: true, force: true }); }
 copyDir(path.join(OUT, 'shots'), path.join(DOCS, 'shots'), /\.png$/);
 copyDir(path.join(OUT, 'pairs'), path.join(DOCS, 'pairs'), /\.png$/);

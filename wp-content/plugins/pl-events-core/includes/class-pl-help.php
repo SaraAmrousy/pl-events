@@ -99,9 +99,9 @@ class PL_Help {
 		if ( ! $on_help && ! self::tasks_for_screen() ) {
 			return;
 		}
-		wp_enqueue_style( 'pl-help', PL_EVENTS_URL . 'assets/css/pl-help.css', array(), PL_EVENTS_VERSION );
+		wp_enqueue_style( 'pl-help', PL_EVENTS_URL . 'assets/css/pl-help.css', array(), PL_EVENTS_VERSION . '.' . filemtime( PL_EVENTS_DIR . 'assets/css/pl-help.css' ) );
 		wp_add_inline_style( 'pl-help', self::font_css() );
-		wp_enqueue_script( 'pl-help', PL_EVENTS_URL . 'assets/js/pl-help.js', array(), PL_EVENTS_VERSION, true );
+		wp_enqueue_script( 'pl-help', PL_EVENTS_URL . 'assets/js/pl-help.js', array(), PL_EVENTS_VERSION . '.' . filemtime( PL_EVENTS_DIR . 'assets/js/pl-help.js' ), true );
 	}
 
 	private static function font_css() {

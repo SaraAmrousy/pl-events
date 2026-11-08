@@ -99,18 +99,18 @@
 /* print: only the cheat sheet, one A4 page (pl-help.js copies it into #plh-print-root under <body>) */
 #plh-print-root{display:none}
 @media print{
-  @page{size:A4;margin:11mm 12mm}
+  @page{size:A4;margin:9mm 11mm}
   body.plh-printing{background:#fff!important;margin:0!important;padding:0!important;min-width:0!important}
   body.plh-printing > *:not(#plh-print-root){display:none!important}
   body.plh-printing #plh-print-root{display:block}
-  #plh-print-root .plh-cheat{border:0;padding:0;font-size:13px;line-height:1.55}
+  #plh-print-root .plh-cheat{border:0;padding:0;font-size:13px;line-height:1.5}
   #plh-print-root .plh-print{display:none}
-  #plh-print-root .plh-cheat h3{font-size:24px}
-  #plh-print-root .plh-cheat-list{gap:10px 20px}
-  #plh-print-root .plh-cheat-list>li{padding-top:8px;break-inside:avoid}
+  #plh-print-root .plh-cheat h3{font-size:22px;margin:0 0 6px}
+  #plh-print-root .plh-cheat-list{gap:6px 18px}
+  #plh-print-root .plh-cheat-list>li{padding-top:6px;break-inside:avoid}
   #plh-print-root .plh-cheat-list h4{font-size:16px;margin:0 0 4px}
-  #plh-print-root .plh-cheat-list ol{font-size:12.5px;line-height:1.6}
-  #plh-print-root .plh-cheat-foot{margin-top:14px;font-size:13px}
+  #plh-print-root .plh-cheat-list ol{font-size:12.5px;line-height:1.5}
+  #plh-print-root .plh-cheat-foot{margin-top:10px;font-size:12.5px;break-inside:avoid}
   #plh-print-root *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
 }
 /* icons in CSS (no emoji: WordPress would swap them for images from an outside CDN) */

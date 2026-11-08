@@ -1,11 +1,11 @@
 # PL Help — deck export (Step 6.2b)
 
-Built 2026-11-08 13:13 UTC from `tools/guide/guide.json` by `bash tools/guide/run.sh`. Don't edit these files by hand: change guide.json (or the site) and run it again.
+Built 2026-11-08 13:54 UTC from `tools/guide/guide.json` by `bash tools/guide/run.sh`. Don't edit these files by hand: change guide.json (or the site) and run it again.
 
 - **guide.json**: 11 chapters, 55 tasks (title, why, steps, tip, warning, callouts, links) + the media list.
-- **shots/** (77 PNG): 1440×900 (mobile 390×844 @2x), numbered callouts in #2C4894; `*-diagram.png` = our own drawings @2x.
+- **shots/** (76 PNG): 1440×900 (mobile 390×844 @2x), numbered callouts in #2C4894; `*-diagram.png` = our own drawings @2x.
 - **pairs/** (11 PNG): wp-admin field ↔ the same thing on the site, same numbers.
-- **video/** (42 MP4, 1280×800 H.264, + poster .jpg + captions .vtt): served to staff only by PL Help.
+- **video/** (41 MP4, 1280×800 H.264, + poster .jpg + captions .vtt): served to staff only by PL Help.
 - **gif/** (4): short loops for slides.
 
 | Task | Chapter | Screens | Video |
@@ -19,7 +19,7 @@ Built 2026-11-08 13:13 UTC from `tools/guide/guide.json` by `bash tools/guide/ru
 | tour-overview — صفحة Overview والأرقام | c2 |  + pair-overview | 29 s |
 | tour-help — الشرح ده جوه الموقع (PL Help) | c2 | tour-help-1, tour-help-2 | 45 s |
 | event-add — إضافة إيفنت جديد | c3 | event-add-1, event-add-2, event-add-mobile | 62 s |
-| event-edit — تعديل إيفنت | c3 | event-edit-1 | 64 s |
+| event-edit — تعديل إيفنت | c3 | event-edit-1 | 42 s |
 | event-registration — فتح وقفل التسجيل | c3 |  + pair-registration | 48 s |
 | event-hide — إخفاء إيفنت (من غير ما تمسحوه) | c3 | event-hide-1 | 46 s |
 | event-pin — تثبيت إيفنت في الهوم | c3 |  + pair-pin | 42 s |
@@ -38,7 +38,7 @@ Built 2026-11-08 13:13 UTC from `tools/guide/guide.json` by `bash tools/guide/ru
 | societies — الجمعيات العلمية (Societies) | c5 | societies-1 | 47 s |
 | sponsors — الرعاة (Sponsors) | c5 | sponsors-1 | 35 s |
 | memberships — العضويات والجوايز | c5 | memberships-1 | 30 s |
-| job-add — إضافة وظيفة جديدة | c5 | job-add-1 | 63 s |
+| job-add — إضافة وظيفة جديدة | c5 | job-add-1 | 50 s |
 | job-close — إقفال وظيفة | c5 | job-close-1 | 56 s |
 | services — الخدمات (Services) | c5 | services-1 | 41 s |
 | company-hero — عنوان الهوم وأرقام الشركة | c5 |  + pair-hero | 41 s |
@@ -51,13 +51,13 @@ Built 2026-11-08 13:13 UTC from `tools/guide/guide.json` by `bash tools/guide/ru
 | forms-where — رسايل الفورمز بتروح فين | c7 | forms-where-diagram | — |
 | forms-submissions — قراية الرسايل (Submissions) | c7 | forms-submissions-1 | 33 s |
 | forms-cv — فتح الـ CV | c7 | forms-cv-1 | 29 s |
-| forms-export — تصدير الرسايل (Export CSV) | c7 | forms-export-1 | 27 s |
+| forms-export — تصدير الرسايل (Export CSV) | c7 | forms-export-1 | 32 s |
 | forms-new — عمل فورم جديد وحطه في صفحة | c7 | forms-new-1 | 31 s |
 | forms-email — تغيير الإيميل اللي بتوصله الرسايل | c7 | forms-email-1 | 49 s |
 | nl-sources — المشتركين بييجوا منين | c8 |  + pair-newsletter | 48 s |
 | nl-list — قايمة Newsletter sign-ups | c8 | nl-list-1 | 34 s |
 | nl-remove — شيل حد من النشرة | c8 | nl-remove-1 | 28 s |
-| nl-export — Export CSV للمشتركين | c8 | nl-export-1 | 28 s |
+| nl-export — Export CSV للمشتركين | c8 | nl-export-1 | 33 s |
 | nl-mailchimp — حملة في Mailchimp بالـ tags | c8 | nl-mailchimp-diagram | — |
 | nl-zoho — حملة في Zoho Campaigns بالـ tags | c8 | nl-zoho-diagram | — |
 | nl-results — قراية النتايج | c8 | nl-results-diagram | — |
