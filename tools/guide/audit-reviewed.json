@@ -1,0 +1,6 @@
+{
+ "_note": "OCR hits checked by eye (frame / picture opened): not a wrong number on screen. File → exact OCR text → why.",
+ "shots/pair-office-hours-site.png": {"number +071 55 152 9": "Contact page, Dubai office: the seed number +971 55 158 2689 at small size, two digits misread"},
+ "video/tour-help.mp4": {"number 05 91419 389": "chapter numbers 04/05/08 of the Help cards read across the columns", "number 05 9149 389": "same", "number 08 9149 389": "same", "number 205 91419 389": "same"},
+ "video/hero-images.mp4": {"number 92.44.99 5)9.0": "the hero background photo read as digits"}
+}

@@ -17,24 +17,28 @@ UP="$WPD/wp-content/uploads"; mkdir -p "$UP"
 curl -sf -o /dev/null http://localhost:8080/ || { echo "Sandbox not running on :8080 (php -S localhost:8080 deploy/sandbox/router.php inside $WPD)"; exit 1; }
 
 say() { printf '\033[1;34m▸ %s\033[0m\n' "$*"; }
-# Content fingerprint: every row of posts, post meta, terms, users, user meta (minus login sessions) and the
-# PL/plugin options (minus timers and caches).
-fingerprint() { WP eval 'global $wpdb; $h = hash_init( "sha256" );
-foreach ( array( "posts" => "ID", "postmeta" => "meta_id", "terms" => "term_id", "term_taxonomy" => "term_taxonomy_id", "term_relationships" => "object_id,term_taxonomy_id", "termmeta" => "meta_id", "users" => "ID" ) as $t => $o ) { foreach ( $wpdb->get_results( "SELECT * FROM {$wpdb->prefix}$t ORDER BY $o", ARRAY_N ) as $r ) { hash_update( $h, $t . json_encode( $r ) ); } }
-foreach ( $wpdb->get_results( "SELECT user_id, meta_key, meta_value FROM {$wpdb->usermeta} WHERE meta_key NOT IN (\"session_tokens\") ORDER BY umeta_id", ARRAY_N ) as $r ) { hash_update( $h, json_encode( $r ) ); }
-foreach ( $wpdb->get_results( "SELECT option_name, option_value FROM {$wpdb->options} WHERE option_name NOT LIKE \"%transient%\" AND option_name NOT IN (\"cron\") ORDER BY option_name", ARRAY_N ) as $r ) { hash_update( $h, json_encode( $r ) ); }
-echo substr( hash_final( $h ), 0, 16 );'; }
+# Data fingerprint by group (tools/guide/fingerprint.php): PL/Company options, PL content + meta, Forminator,
+# newsletter, all postmeta, terms + termmeta, users + usermeta, other options. A difference names the group.
+fingerprint() { WP eval-file "$REPO/tools/guide/fingerprint.php"; }
+seedcheck() { WP eval-file "$REPO/tools/guide/seed-check.php"; }
+
+say "seed check: the sandbox must hold the seed data (no test leftovers)"
+SC=$(seedcheck); echo "$SC"
+if [ "${SC%%$'\n'*}" != "SEED OK" ] && [[ " $* " != *" --dirty-ok "* ]]; then echo "❌ fix the sandbox first (or reseed), then run again"; exit 1; fi
+set -- $(printf '%s\n' "$@" | grep -v -- '--dirty-ok')
 
 say "save the data as it is now"
-cp "$DB" "$OUT/tmp/pristine.sqlite"
+python3 "$REPO/tools/guide/dbsnap.py" save "$DB" "$OUT/tmp/pristine.sqlite"   # WAL-safe
 find "$UP" -type f -not -path "*/uploads/pl-help/*" | sort > "$OUT/tmp/pristine-uploads.txt"
 BEFORE=$(fingerprint)
 cleanup() {
   say "put the data back exactly as it was"
-  cp "$OUT/tmp/pristine.sqlite" "$DB"
+  python3 "$REPO/tools/guide/dbsnap.py" restore "$OUT/tmp/pristine.sqlite" "$DB"
   find "$UP" -type f -not -path "*/uploads/pl-help/*" | sort | comm -13 "$OUT/tmp/pristine-uploads.txt" - | while read -r f; do rm -f "$f"; done   # PL Help media (build.js) stays
   AFTER=$(fingerprint)
-  if [ "$BEFORE" = "$AFTER" ]; then echo "✅ data restored (fingerprint $AFTER, same as before)"; else echo "❌ data differs after the run ($BEFORE → $AFTER)"; exit 1; fi
+  if [ "$BEFORE" = "$AFTER" ]; then echo "✅ data restored: every group identical"; printf '%s\n' "$AFTER" | sed 's/^/   /'
+  else echo "❌ data differs after the run, in:"; diff <(printf '%s\n' "$BEFORE") <(printf '%s\n' "$AFTER") | grep '^>' | sed 's/^> /   /'; exit 1; fi
+  SC2=$(seedcheck); [ "${SC2%%$'\n'*}" = "SEED OK" ] && echo "✅ seed check after the run: OK" || { echo "❌ seed check after the run:"; echo "$SC2"; exit 1; }
 }
 trap cleanup EXIT
 
@@ -49,4 +53,8 @@ say "record (data restored after every task)"
 rc=0; node "$REPO/tools/guide/record.js" "$@" || rc=$?
 say "build exports"
 node "$REPO/tools/guide/build.js" || rc=1
+if command -v tesseract >/dev/null && [[ " $* " != *" --no-audit "* ]]; then
+  say "audit: every email / phone number shown must come from the seed (OCR)"
+  python3 "$REPO/tools/guide/audit.py" "$OUT" || rc=1
+fi
 exit $rc

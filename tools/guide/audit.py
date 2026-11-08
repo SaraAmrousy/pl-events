@@ -26,7 +26,7 @@ TEST_TASKS = ('forms-', 'nl-', 'lost-password', 'login', 'lockout', 'change-pass
 DEMO_NUMBERS = {'1000000000': ('event-wa-inquiry', 'forms-', 'pair-wa-inquiry'), '1020000000': ('forms-',), '71000000': ('event-phone',)}
 
 EMAIL = re.compile(r'[A-Za-z0-9._%+-]+@[A-Za-z0-9-]+(?:\.[A-Za-z0-9-]+)*\.[A-Za-z]{2,}')
-PHONE = re.compile(r'(?:\+|00)?\d[\d\s\-().]{7,}\d')
+PHONE = re.compile(r'(?:\+|00)?\d[\d \t\-().]{7,}\d')  # one line only: OCR joins columns, never lines
 
 def ocr(path):
     # 2× upscale first: Tesseract misreads 13–14 px admin text at 1×.
@@ -37,9 +37,24 @@ def ocr(path):
         r = subprocess.run(['tesseract', t.name, '-', '--psm', '11', '-l', 'eng'], capture_output=True, text=True)
     return r.stdout
 
-def near_seed(d):  # one wrong digit = an OCR read error of a seed number
-    tail = d[-9:]
-    return any(len(s) == len(tail) and sum(a != b for a, b in zip(s, tail)) <= 1 for s in SEED_PHONES)
+SEED_FULL = set()
+for x in seed.get('offices', []) + seed.get('events', []):
+    for p in x.get('phones', []) or []:
+        SEED_FULL.add(digits(p['number'] if isinstance(p, dict) else p))
+
+def near_seed(d):
+    """A seed number read by OCR: whole or partly typed (a run of ≥ 6 digits inside a seed number,
+    e.g. "102555900" while 1025559003 is being typed), with at most one misread digit."""
+    d = d.lstrip('0') if not d.startswith('00') else d[2:]
+    if len(d) < 6:
+        return False
+    for full in SEED_FULL:
+        for cand in (full, full[-10:], full[-9:]):
+            for i in range(0, max(1, len(cand) - len(d) + 1)):
+                part = cand[i:i + len(d)]
+                if len(part) == len(d) and sum(a != b for a, b in zip(part, d)) <= 1:
+                    return True
+    return False
 
 def task_of(name):
     return os.path.splitext(os.path.basename(name))[0]
@@ -56,7 +71,7 @@ def check(text, where):
     for p in set(PHONE.findall(text)):
         d = digits(p)
         if len(d) < 8 or len(d) > 15: continue
-        if d[-9:] in SEED_PHONES or near_seed(d): continue
+        if d[-9:] in SEED_PHONES or near_seed(d): continue  # exact, partly typed, or one misread digit
         demo = next((k for k in DEMO_NUMBERS if d.endswith(k)), None)
         if demo and where.startswith(DEMO_NUMBERS[demo]): continue
         if re.fullmatch(r'20\d{6}', d) or re.fullmatch(r'\d{4}\d{2}\d{2}', d): continue  # dates like 20270131 in fields
@@ -85,7 +100,17 @@ with tempfile.TemporaryDirectory() as tmp:
             os.unlink(fr)
         if found: report.append((os.path.relpath(f, OUT), sorted(found)))
 
+# hits checked by eye and recorded with the reason (tools/guide/audit-reviewed.json) are listed, not failed
+rev = json.load(open(os.path.join(ROOT, 'tools', 'guide', 'audit-reviewed.json')))
+reviewed, left = [], []
+for f, b in report:
+    ok = [x for x in b if x in rev.get(f, {})]
+    if ok: reviewed.append((f, ok))
+    rest = [x for x in b if x not in rev.get(f, {})]
+    if rest: left.append((f, rest))
+report = left
 print(f'audit: {nfiles} pictures/caption files + {nframes} video frames read (OCR)')
+for f, b in reviewed: print('👁 reviewed', f, '·', '; '.join(x + ' = ' + rev[f][x] for x in b))
 for f, b in report: print('❌', f, '·', ', '.join(b))
 print('✅ nothing unexpected' if not report else f'{len(report)} file(s) to re-record')
 sys.exit(1 if report else 0)

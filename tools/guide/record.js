@@ -40,9 +40,10 @@ const log = (...a) => console.log(...a);
 const BAK = path.join(OUT, 'tmp', 'base.sqlite');
 const listFiles = d => { const out = []; (function walk(p) { for (const f of fs.readdirSync(p, { withFileTypes: true })) { const q = path.join(p, f.name); f.isDirectory() ? walk(q) : out.push(q); } })(d); return out; };
 let baseUploads;
-function snapshot() { fs.copyFileSync(DB, BAK); baseUploads = new Set(listFiles(UPLOADS)); }
+const DBSNAP = path.join(DIR, 'dbsnap.py'); // WAL-safe (SQLite backup API): a plain file copy misses the -wal writes
+function snapshot() { cp.execFileSync('python3', [DBSNAP, 'save', DB, BAK]); baseUploads = new Set(listFiles(UPLOADS)); }
 function restore() {
-  fs.copyFileSync(BAK, DB);
+  cp.execFileSync('python3', [DBSNAP, 'restore', BAK, DB]);
   for (const f of listFiles(UPLOADS)) if (!baseUploads.has(f)) fs.unlinkSync(f);
 }
 

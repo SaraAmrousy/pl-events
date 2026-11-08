@@ -35,5 +35,6 @@ PHP
 fi
 WP plugin activate secure-custom-fields elementor header-footer-elementor forminator seo-by-rank-math wp-mail-smtp litespeed-cache --quiet
 WP config set DISALLOW_FILE_EDIT true --raw --quiet
+WP config set DISABLE_WP_CRON true --raw --quiet   # as on staging; also: no background write after a guide restore
 WP theme activate hello-elementor --quiet
 echo "sandbox ready: $WPD/site  (wp: php $BIN/wp --allow-root --path=$WPD/site)"
