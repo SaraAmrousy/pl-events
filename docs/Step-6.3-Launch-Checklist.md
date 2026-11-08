@@ -1,6 +1,6 @@
 # Step 6.3 — Launch checklist (Thread 9, 6 Nov 2026)
 
-**Status: ✍️ WRITTEN ONLY — nothing has been done on plevents.org.** Every step that touches PL's live server (**🔒**) runs only after Sara approves *that* step in the chat. Each step lists what it changes, how to check it, and how to undo it.
+**Status: ✍️ WRITTEN ONLY — nothing has been done on plevents.org.** Reveal ✅ 8 Nov 2026. Thread 10 starts with **§0b round 8**. Every step that touches PL's live server (**🔒**) runs only after Sara approves *that* step in the chat. Each step lists what it changes, how to check it, and how to undo it.
 
 Skill: `pl-events-data-wp`. Sources:
 - 2.2 D9 (cron, status check, cache purge)
@@ -10,6 +10,19 @@ Skill: `pl-events-data-wp`. Sources:
 - 4.5 (forms/SMTP)
 
 ---
+
+## 0b. Round 8 — before launch (first thing in Thread 10)
+Small fixes found while closing 6.1b round 7 / 6.2c. Done on the sandbox → tested → deployed to **staging** (not plevents.org), then the launch starts.
+| # | Fix | Where | Done when |
+|---|---|---|---|
+| 8.1 | **Email subjects without brackets**: "Password Reset", not "[PL Events] Password Reset" (all WordPress emails; ours already have none) | `PL_Mail` (`wp_mail` filter / core subject filters) | The 8 emails in `docs/emails-6.1b-r7.md` re-captured: no `[` at the start of any subject |
+| 8.2 | **Emails 3 + 4** (password changed / email changed) say "contact … at **Website support email**" (Company › Website support; empty = head office), **not** `admin_email`. On the live site, `admin_email` (Settings › General) = **PL Team's** address, never a person's | `PL_Mail` (`password_change_email` / `email_change_email` filters); launch §3 sets `admin_email` | Both emails show the support email; live `admin_email` checked = PL Team |
+| 8.3 | **Email 7** (Contact notification): "Updates" shows **Yes / No**, never empty | Forminator notification / our field value | Two test messages (box ticked / not ticked) → "Yes" / "No" |
+| 8.4 | **bidi** (mixed Arabic/English direction) in the Help drawings: English words, numbers and `px` inside Arabic lines come out in the wrong order | `tools/guide/diagrams/*.html` (`<bdi>` / `dir="ltr"` spans) | Drawings re-rendered and checked by eye at 100% |
+| 8.5 | **Contradictions in guide.json**: (a) the "?" button is **bottom right** everywhere (some texts say otherwise); (b) Hero sizes/texts come **only from the spec** (`{{spec:hero.*}}`), no typed numbers | `tools/guide/guide.json` → plugin `help/guide.json` | A text search finds no other "?" position and no hand-typed hero size |
+| 8.6 | **Sandbox name while recording**: screenshots/videos show "PL sandbox" (title bar, emails) → set the site name to **PL Events** during the run, restore after | `tools/guide/run.sh` / `record.js` | OCR audit: "sandbox" appears in no shot / frame / caption |
+
+After 8.1–8.6: re-record only the tasks touched (`run.sh --only=…`), OCR audit clean, deploy-help + deploy + purge, admin-check + click sweep 100%, docs (6.1b round 8), commit + push on main.
 
 ## 0. Decisions Sara must take before we start
 | # | Decision | Options | Recommendation |
