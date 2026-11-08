@@ -1,7 +1,7 @@
 {
  "version": 1,
  "updated": "2026-11-08",
- "built": "202611072330",
+ "built": "202611080017",
  "title": "PL Help",
  "lang": "ar-EG",
  "chapters": [
@@ -190,7 +190,7 @@
     }
    ],
    "video": true,
-   "video_seconds": 33
+   "video_seconds": 32
   },
   {
    "id": "lockout",
@@ -258,7 +258,7 @@
     }
    ],
    "video": true,
-   "video_seconds": 31
+   "video_seconds": 28
   },
   {
    "id": "tour-menu",
@@ -304,7 +304,7 @@
     }
    ],
    "video": true,
-   "video_seconds": 32
+   "video_seconds": 31
   },
   {
    "id": "tour-overview",
@@ -334,7 +334,7 @@
     ]
    },
    "video": true,
-   "video_seconds": 29
+   "video_seconds": 30
   },
   {
    "id": "tour-help",
@@ -484,7 +484,7 @@
     }
    ],
    "video": true,
-   "video_seconds": 46
+   "video_seconds": 62
   },
   {
    "id": "event-edit",
@@ -532,7 +532,7 @@
     }
    ],
    "video": true,
-   "video_seconds": 47
+   "video_seconds": 45
   },
   {
    "id": "event-registration",
@@ -564,7 +564,7 @@
     ]
    },
    "video": true,
-   "video_seconds": 42
+   "video_seconds": 41
   },
   {
    "id": "event-hide",
@@ -601,7 +601,7 @@
     }
    ],
    "video": true,
-   "video_seconds": 36
+   "video_seconds": 34
   },
   {
    "id": "event-pin",
@@ -632,7 +632,7 @@
     ]
    },
    "video": true,
-   "video_seconds": 36
+   "video_seconds": 34
   },
   {
    "id": "event-images",
@@ -641,7 +641,7 @@
    "why": "الصورة الكبيرة بتطلع حادة على الموبايل والكمبيوتر. الصغيرة بتطلع مغبّشة.",
    "steps": [
     "في الإيفنت انزلوا لـ **Poster / photo** واضغطوا **Add Image**.",
-    "اختاروا صورة من الـ Media أو ارفعوا جديدة، واضغطوا **Select**.",
+    "اختاروا صورة من **Media Library** أو ارفعوها من **Upload files**، واضغطوا **Select**.",
     "لو ظهرت ملاحظة صفرا، الصورة أصغر من المطلوب (على الأقل **1280 × 800**).",
     "**Logo**: يفضّل SVG أو PNG شفاف.",
     "اضغطوا **Update**."
@@ -675,7 +675,9 @@
       }
      ]
     }
-   ]
+   ],
+   "video": true,
+   "video_seconds": 41
   },
   {
    "id": "event-taxonomy",
@@ -791,7 +793,7 @@
     ]
    },
    "video": true,
-   "video_seconds": 43
+   "video_seconds": 41
   },
   {
    "id": "event-phone",
@@ -833,7 +835,7 @@
     }
    ],
    "video": true,
-   "video_seconds": 44
+   "video_seconds": 41
   },
   {
    "id": "office-email",
@@ -871,7 +873,7 @@
     }
    ],
    "video": true,
-   "video_seconds": 36
+   "video_seconds": 32
   },
   {
    "id": "office-address",
@@ -909,7 +911,7 @@
     }
    ],
    "video": true,
-   "video_seconds": 33
+   "video_seconds": 31
   },
   {
    "id": "office-hours",
@@ -939,7 +941,7 @@
     ]
    },
    "video": true,
-   "video_seconds": 39
+   "video_seconds": 37
   },
   {
    "id": "office-head",
@@ -1061,7 +1063,7 @@
     }
    ],
    "video": true,
-   "video_seconds": 28
+   "video_seconds": 29
   },
   {
    "id": "memberships",
@@ -1104,7 +1106,7 @@
     }
    ],
    "video": true,
-   "video_seconds": 32
+   "video_seconds": 30
   },
   {
    "id": "job-add",
@@ -1154,7 +1156,9 @@
       }
      ]
     }
-   ]
+   ],
+   "video": true,
+   "video_seconds": 56
   },
   {
    "id": "job-close",
@@ -1193,7 +1197,7 @@
     }
    ],
    "video": true,
-   "video_seconds": 42
+   "video_seconds": 40
   },
   {
    "id": "services",
@@ -1236,7 +1240,7 @@
     }
    ],
    "video": true,
-   "video_seconds": 35
+   "video_seconds": 32
   },
   {
    "id": "company-hero",
@@ -1266,7 +1270,7 @@
     ]
    },
    "video": true,
-   "video_seconds": 28
+   "video_seconds": 33
   },
   {
    "id": "company-files",
@@ -1308,7 +1312,7 @@
     }
    ],
    "video": true,
-   "video_seconds": 30
+   "video_seconds": 34
   },
   {
    "id": "pages-where",
@@ -1411,7 +1415,7 @@
     }
    ],
    "video": true,
-   "video_seconds": 22
+   "video_seconds": 32
   },
   {
    "id": "danger-zone",
@@ -1541,7 +1545,7 @@
     }
    ],
    "video": true,
-   "video_seconds": 28
+   "video_seconds": 31
   },
   {
    "id": "forms-cv",
@@ -1574,7 +1578,7 @@
     }
    ],
    "video": true,
-   "video_seconds": 22
+   "video_seconds": 29
   },
   {
    "id": "forms-export",
@@ -1604,7 +1608,9 @@
       }
      ]
     }
-   ]
+   ],
+   "video": true,
+   "video_seconds": 27
   },
   {
    "id": "forms-new",
@@ -1644,7 +1650,7 @@
     }
    ],
    "video": true,
-   "video_seconds": 27
+   "video_seconds": 31
   },
   {
    "id": "forms-email",
@@ -1677,7 +1683,7 @@
     }
    ],
    "video": true,
-   "video_seconds": 32
+   "video_seconds": 29
   },
   {
    "id": "nl-sources",
@@ -1707,7 +1713,7 @@
     ]
    },
    "video": true,
-   "video_seconds": 28
+   "video_seconds": 40
   },
   {
    "id": "nl-list",
@@ -1748,7 +1754,7 @@
     }
    ],
    "video": true,
-   "video_seconds": 23
+   "video_seconds": 39
   },
   {
    "id": "nl-remove",
@@ -1782,7 +1788,7 @@
     }
    ],
    "video": true,
-   "video_seconds": 24
+   "video_seconds": 28
   },
   {
    "id": "nl-export",
@@ -1815,7 +1821,7 @@
     }
    ],
    "video": true,
-   "video_seconds": 14
+   "video_seconds": 26
   },
   {
    "id": "nl-mailchimp",
@@ -2224,7 +2230,7 @@
       "sel": ".plh-chapters"
      }
     ],
-    "bytes": 180769
+    "bytes": 181095
    },
    "event-add-2": {
     "file": "shots/event-add-2.png",
@@ -2424,7 +2430,7 @@
       "sel": "[data-name=pl_head_office]"
      }
     ],
-    "bytes": 147236
+    "bytes": 147207
    },
    "societies-1": {
     "file": "shots/societies-1.png",
@@ -2531,7 +2537,7 @@
       "sel": "[data-name=pl_description]"
      }
     ],
-    "bytes": 129339
+    "bytes": 129344
    },
    "job-close-1": {
     "file": "shots/job-close-1.png",
@@ -2549,7 +2555,7 @@
       "sel": "[data-name=pl_show_on_site]"
      }
     ],
-    "bytes": 132349
+    "bytes": 132348
    },
    "services-1": {
     "file": "shots/services-1.png",
@@ -2703,7 +2709,7 @@
       "sel": "text=other fields"
      }
     ],
-    "bytes": 103695
+    "bytes": 103806
    },
    "forms-cv-1": {
     "file": "shots/forms-cv-1.png",
@@ -2716,7 +2722,7 @@
       "sel": "a:has-text('.pdf')"
      }
     ],
-    "bytes": 124031
+    "bytes": 123995
    },
    "forms-export-1": {
     "file": "shots/forms-export-1.png",
@@ -2725,11 +2731,11 @@
     "callouts": [
      {
       "n": 1,
-      "ok": false,
-      "sel": ":is(button,a):has-text('Export') >> visible=true"
+      "ok": true,
+      "sel": "a.wpmudev-open-modal:has-text('Export')"
      }
     ],
-    "bytes": 98294
+    "bytes": 100685
    },
    "forms-new-1": {
     "file": "shots/forms-new-1.png",
@@ -2747,7 +2753,7 @@
       "sel": ".sui-accordion-item:first-of-type, .forminator-module, [class*=module-item]"
      }
     ],
-    "bytes": 119019
+    "bytes": 119270
    },
    "forms-email-1": {
     "file": "shots/forms-email-1.png",
@@ -2783,7 +2789,7 @@
       "sel": "th#pl_conf"
      }
     ],
-    "bytes": 170980
+    "bytes": 172041
    },
    "nl-remove-1": {
     "file": "shots/nl-remove-1.png",
@@ -2796,7 +2802,7 @@
       "sel": "#the-list tr:first-child .pl_un a"
      }
     ],
-    "bytes": 168295
+    "bytes": 169442
    },
    "nl-export-1": {
     "file": "shots/nl-export-1.png",
@@ -2809,7 +2815,7 @@
       "sel": ":is(a,button,input):has-text('Export CSV'), input[value*='Export CSV']"
      }
     ],
-    "bytes": 167892
+    "bytes": 168964
    },
    "nl-mailchimp-diagram": {
     "file": "shots/nl-mailchimp-diagram.png",
@@ -2842,7 +2848,7 @@
       "sel": "#plh-panel"
      }
     ],
-    "bytes": 278851
+    "bytes": 278892
    },
    "event-phone-1": {
     "file": "shots/event-phone-1.png",
@@ -2955,7 +2961,7 @@
        "sel": "[data-name=pl_pin_home]"
       }
      ],
-     "bytes": 160155
+     "bytes": 160152
     },
     "site": {
      "file": "shots/pair-pin-site.png",
@@ -2972,7 +2978,7 @@
     },
     "image": {
      "file": "pairs/pair-pin.png",
-     "bytes": 453681
+     "bytes": 453687
     }
    },
    "pair-office-phone": {
@@ -2992,7 +2998,7 @@
        "sel": "[data-name=pl_phones] .acf-row:not(.acf-clone):first-of-type [data-name=whatsapp]"
       }
      ],
-     "bytes": 140811
+     "bytes": 140816
     },
     "site": {
      "file": "shots/pair-office-phone-site.png",
@@ -3103,7 +3109,7 @@
        "sel": "#the-list tr:first-child"
       }
      ],
-     "bytes": 166994
+     "bytes": 167997
     },
     "site": {
      "file": "shots/pair-newsletter-site.png",
@@ -3120,7 +3126,7 @@
     },
     "image": {
      "file": "pairs/pair-newsletter.png",
-     "bytes": 188988
+     "bytes": 189248
     }
    }
   },
@@ -3129,260 +3135,270 @@
     "file": "video/event-add.mp4",
     "poster": "video/event-add.jpg",
     "vtt": "video/event-add.vtt",
-    "seconds": 46,
-    "bytes": 595570
+    "seconds": 62,
+    "bytes": 668684
    },
    "login": {
     "file": "video/login.mp4",
     "poster": "video/login.jpg",
     "vtt": "video/login.vtt",
     "seconds": 31,
-    "bytes": 147661
+    "bytes": 147126
    },
    "lost-password": {
     "file": "video/lost-password.mp4",
     "poster": "video/lost-password.jpg",
     "vtt": "video/lost-password.vtt",
-    "seconds": 33,
-    "bytes": 167775
+    "seconds": 32,
+    "bytes": 170758
    },
    "change-password": {
     "file": "video/change-password.mp4",
     "poster": "video/change-password.jpg",
     "vtt": "video/change-password.vtt",
-    "seconds": 31,
-    "bytes": 540399
+    "seconds": 28,
+    "bytes": 463471
    },
    "tour-menu": {
     "file": "video/tour-menu.mp4",
     "poster": "video/tour-menu.jpg",
     "vtt": "video/tour-menu.vtt",
-    "seconds": 32,
-    "bytes": 340470
+    "seconds": 31,
+    "bytes": 317874
    },
    "tour-overview": {
     "file": "video/tour-overview.mp4",
     "poster": "video/tour-overview.jpg",
     "vtt": "video/tour-overview.vtt",
-    "seconds": 29,
-    "bytes": 491996
+    "seconds": 30,
+    "bytes": 479035
    },
    "tour-help": {
     "file": "video/tour-help.mp4",
     "poster": "video/tour-help.jpg",
     "vtt": "video/tour-help.vtt",
     "seconds": 40,
-    "bytes": 612827
+    "bytes": 532312
    },
    "event-edit": {
     "file": "video/event-edit.mp4",
     "poster": "video/event-edit.jpg",
     "vtt": "video/event-edit.vtt",
-    "seconds": 47,
-    "bytes": 644532
+    "seconds": 45,
+    "bytes": 596591
    },
    "event-registration": {
     "file": "video/event-registration.mp4",
     "poster": "video/event-registration.jpg",
     "vtt": "video/event-registration.vtt",
-    "seconds": 42,
-    "bytes": 563257
+    "seconds": 41,
+    "bytes": 594558
    },
    "event-hide": {
     "file": "video/event-hide.mp4",
     "poster": "video/event-hide.jpg",
     "vtt": "video/event-hide.vtt",
-    "seconds": 36,
-    "bytes": 772515
+    "seconds": 34,
+    "bytes": 713688
    },
    "event-pin": {
     "file": "video/event-pin.mp4",
     "poster": "video/event-pin.jpg",
     "vtt": "video/event-pin.vtt",
-    "seconds": 36,
-    "bytes": 543452
+    "seconds": 34,
+    "bytes": 532966
    },
    "event-taxonomy": {
     "file": "video/event-taxonomy.mp4",
     "poster": "video/event-taxonomy.jpg",
     "vtt": "video/event-taxonomy.vtt",
     "seconds": 36,
-    "bytes": 459467
+    "bytes": 393065
    },
    "event-congress-count": {
     "file": "video/event-congress-count.mp4",
     "poster": "video/event-congress-count.jpg",
     "vtt": "video/event-congress-count.vtt",
     "seconds": 31,
-    "bytes": 439805
+    "bytes": 378758
    },
    "office-phone": {
     "file": "video/office-phone.mp4",
     "poster": "video/office-phone.jpg",
     "vtt": "video/office-phone.vtt",
-    "seconds": 43,
-    "bytes": 554019
+    "seconds": 41,
+    "bytes": 462383
    },
    "event-phone": {
     "file": "video/event-phone.mp4",
     "poster": "video/event-phone.jpg",
     "vtt": "video/event-phone.vtt",
-    "seconds": 44,
-    "bytes": 644899
+    "seconds": 41,
+    "bytes": 599179
    },
    "office-email": {
     "file": "video/office-email.mp4",
     "poster": "video/office-email.jpg",
     "vtt": "video/office-email.vtt",
-    "seconds": 36,
-    "bytes": 464902
+    "seconds": 32,
+    "bytes": 389064
    },
    "office-address": {
     "file": "video/office-address.mp4",
     "poster": "video/office-address.jpg",
     "vtt": "video/office-address.vtt",
-    "seconds": 33,
-    "bytes": 471654
+    "seconds": 31,
+    "bytes": 466938
    },
    "office-hours": {
     "file": "video/office-hours.mp4",
     "poster": "video/office-hours.jpg",
     "vtt": "video/office-hours.vtt",
-    "seconds": 39,
-    "bytes": 507800
+    "seconds": 37,
+    "bytes": 432702
    },
    "societies": {
     "file": "video/societies.mp4",
     "poster": "video/societies.jpg",
     "vtt": "video/societies.vtt",
     "seconds": 36,
-    "bytes": 454527
+    "bytes": 396880
    },
    "sponsors": {
     "file": "video/sponsors.mp4",
     "poster": "video/sponsors.jpg",
     "vtt": "video/sponsors.vtt",
-    "seconds": 28,
-    "bytes": 348783
+    "seconds": 29,
+    "bytes": 317297
    },
    "memberships": {
     "file": "video/memberships.mp4",
     "poster": "video/memberships.jpg",
     "vtt": "video/memberships.vtt",
-    "seconds": 32,
-    "bytes": 343676
+    "seconds": 30,
+    "bytes": 308255
    },
    "job-close": {
     "file": "video/job-close.mp4",
     "poster": "video/job-close.jpg",
     "vtt": "video/job-close.vtt",
-    "seconds": 42,
-    "bytes": 498104
+    "seconds": 40,
+    "bytes": 457181
    },
    "services": {
     "file": "video/services.mp4",
     "poster": "video/services.jpg",
     "vtt": "video/services.vtt",
-    "seconds": 35,
-    "bytes": 546891
+    "seconds": 32,
+    "bytes": 504772
    },
    "company-hero": {
     "file": "video/company-hero.mp4",
     "poster": "video/company-hero.jpg",
     "vtt": "video/company-hero.vtt",
-    "seconds": 28,
-    "bytes": 407461
+    "seconds": 33,
+    "bytes": 394637
    },
    "company-files": {
     "file": "video/company-files.mp4",
     "poster": "video/company-files.jpg",
     "vtt": "video/company-files.vtt",
-    "seconds": 30,
-    "bytes": 464380
+    "seconds": 34,
+    "bytes": 519178
    },
    "pages-edit-text": {
     "file": "video/pages-edit-text.mp4",
     "poster": "video/pages-edit-text.jpg",
     "vtt": "video/pages-edit-text.vtt",
     "seconds": 34,
-    "bytes": 383792
+    "bytes": 398494
    },
    "menus": {
     "file": "video/menus.mp4",
     "poster": "video/menus.jpg",
     "vtt": "video/menus.vtt",
-    "seconds": 22,
-    "bytes": 277645
+    "seconds": 32,
+    "bytes": 365060
    },
    "forms-submissions": {
     "file": "video/forms-submissions.mp4",
     "poster": "video/forms-submissions.jpg",
     "vtt": "video/forms-submissions.vtt",
-    "seconds": 28,
-    "bytes": 350713
+    "seconds": 31,
+    "bytes": 306540
    },
    "forms-cv": {
     "file": "video/forms-cv.mp4",
     "poster": "video/forms-cv.jpg",
     "vtt": "video/forms-cv.vtt",
-    "seconds": 22,
-    "bytes": 244209
+    "seconds": 29,
+    "bytes": 296038
    },
    "forms-new": {
     "file": "video/forms-new.mp4",
     "poster": "video/forms-new.jpg",
     "vtt": "video/forms-new.vtt",
-    "seconds": 27,
-    "bytes": 281055
+    "seconds": 31,
+    "bytes": 271457
    },
    "forms-email": {
     "file": "video/forms-email.mp4",
     "poster": "video/forms-email.jpg",
     "vtt": "video/forms-email.vtt",
-    "seconds": 32,
-    "bytes": 633337
+    "seconds": 29,
+    "bytes": 510412
    },
    "nl-sources": {
     "file": "video/nl-sources.mp4",
     "poster": "video/nl-sources.jpg",
     "vtt": "video/nl-sources.vtt",
-    "seconds": 28,
-    "bytes": 573578
+    "seconds": 40,
+    "bytes": 585897
    },
    "nl-list": {
     "file": "video/nl-list.mp4",
     "poster": "video/nl-list.jpg",
     "vtt": "video/nl-list.vtt",
-    "seconds": 23,
-    "bytes": 319683
+    "seconds": 39,
+    "bytes": 401162
    },
    "nl-remove": {
     "file": "video/nl-remove.mp4",
     "poster": "video/nl-remove.jpg",
     "vtt": "video/nl-remove.vtt",
-    "seconds": 24,
-    "bytes": 295411
+    "seconds": 28,
+    "bytes": 325071
    },
    "nl-export": {
     "file": "video/nl-export.mp4",
     "poster": "video/nl-export.jpg",
     "vtt": "video/nl-export.vtt",
-    "seconds": 14,
-    "bytes": 259123
+    "seconds": 26,
+    "bytes": 249536
+   },
+   "job-add": {
+    "file": "video/job-add.mp4",
+    "poster": "video/job-add.jpg",
+    "vtt": "video/job-add.vtt",
+    "seconds": 56,
+    "bytes": 577659
+   },
+   "forms-export": {
+    "file": "video/forms-export.mp4",
+    "poster": "video/forms-export.jpg",
+    "vtt": "video/forms-export.vtt",
+    "seconds": 27,
+    "bytes": 216371
+   },
+   "event-images": {
+    "file": "video/event-images.mp4",
+    "poster": "video/event-images.jpg",
+    "vtt": "video/event-images.vtt",
+    "seconds": 41,
+    "bytes": 533630
    }
   },
-  "generated": "2026-11-07T23:30:13.674Z",
-  "problems": [
-   "event-add: {\"wait\":1200,\"cap\":\"خلاص! الإيفنت ظهر في الكالندر والهوم والأرقام لوحده.\"} → page.evaluate: Execution context was destroyed, most likely because of a navigation",
-   "event-images: {\"click\":\".media-modal .attachments .attachment:first-child\",\"cap\":\"[3] اختاروا الصورة…\"} → locator.boundingBox: Timeout 30000ms exceeded.",
-   "job-add: {\"go\":\"/careers/\",\"cap\":\"الوظيفة ظهرت في صفحة Careers.\"} → page.evaluate: Execution context was destroyed, most likely because of a navigation",
-   "menus.mp4: 22 s (target 30–60)",
-   "forms-cv.mp4: 22 s (target 30–60)",
-   "shots/forms-export-1.png: callout 1 (:is(button,a):has-text('Export') >> visible=true) off-screen",
-   "forms-export: {\"click\":\":is(button,a):has-text('Export') >> visible=true\",\"cap\":\"[1] اضغطوا **Export**.\"} → locator.click: Timeout 30000ms exceeded.",
-   "nl-list.mp4: 23 s (target 30–60)",
-   "nl-remove.mp4: 24 s (target 30–60)",
-   "nl-export.mp4: 14 s (target 30–60)"
-  ]
+  "generated": "2026-11-08T00:15:51.463Z",
+  "problems": []
  }
 }

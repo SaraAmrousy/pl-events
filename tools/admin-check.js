@@ -79,7 +79,8 @@ const row = (what, expected, got, ok) => { rows.push({ what, expected, got, ok }
 
 
   /* ---- Step 6.2b: PL Help, "?" panel, media gate, guardrails (nothing is saved) ---- */
-  await page.goto(BASE + '/wp-admin/admin.php?page=pl-help', { waitUntil: 'load' });
+  await page.route(/gravatar\.com|fonts\.bunny\.net|s\.w\.org/, (r) => r.abort()); // outside hosts the sandbox can't reach
+  await page.goto(BASE + '/wp-admin/admin.php?page=pl-help', { waitUntil: 'domcontentloaded', timeout: 60000 });
   const nCh = await page.locator('.plh-chapters .plh-card').count(), nTask = await page.locator('.plh-chapter .plh-task').count();
   row('PL Website › Help opens (RTL)', '11 chapters, ≥ 45 tasks, dir=rtl', `${nCh} chapters, ${nTask} tasks, dir=${await page.locator('.wrap.plh').getAttribute('dir')}`, nCh === 11 && nTask >= 45 && (await page.locator('.wrap.plh').getAttribute('dir')) === 'rtl');
   await page.fill('#plh-q', 'WhatsApp');
@@ -100,7 +101,8 @@ const row = (what, expected, got, ok) => { rows.push({ what, expected, got, ok }
     const r = await anon.goto(u).catch(() => null);
     row('Signed out: help media hidden', '403/404 (never 200)', `${r ? r.status() : 'error'} ${u.replace(BASE, '').slice(0, 70)}`, !!r && r.status() !== 200);
   }
-  await page.goto(BASE + '/wp-admin/post-new.php?post_type=event', { waitUntil: 'load' });
+  await page.goto(BASE + '/wp-admin/post-new.php?post_type=event', { waitUntil: 'domcontentloaded', timeout: 60000 });
+  await page.waitForSelector('#plh-fab', { timeout: 30000 }).catch(() => {});
   await page.click('#plh-fab');
   const panelOpen = await page.locator('#plh-panel').isVisible(), first = (await page.locator('#plh-panel summary').first().innerText()).trim();
   await page.keyboard.press('Escape');
@@ -116,7 +118,7 @@ const row = (what, expected, got, ok) => { rows.push({ what, expected, got, ok }
   row('File editor off (DISALLOW_FILE_EDIT)', 'no Theme/Plugin File Editor in the menu', `${fe} menu links`, fe === 0);
 
   const home = await page.evaluate(async (b) => { const r = await fetch(b + '/wp-json/wp/v2/pages?slug=home&_fields=id'); return (await r.json())[0]?.id; }, BASE);
-  await page.goto(BASE + `/wp-admin/post.php?post=${home}&action=elementor`, { waitUntil: 'domcontentloaded' });
+  await page.goto(BASE + `/wp-admin/post.php?post=${home}&action=elementor`, { waitUntil: 'domcontentloaded', timeout: 90000 });
   const ed = await page.waitForSelector('#elementor-preview-iframe', { timeout: 90000 }).then(() => true).catch(() => false);
   let loaded = false;
   for (let i = 0; ed && i < 90 && !loaded; i++) { // the preview iframe navigates to ?elementor-preview=ID after the editor boots

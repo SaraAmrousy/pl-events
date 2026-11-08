@@ -1,6 +1,6 @@
 # Click sweep — https://saraamrousy.net/pl
 
-2026-11-07T18:54:53.590Z · 372 checks · ✅ 372 · ❌ 0
+2026-11-08T00:49:31.327Z · 396 checks · ✅ 396 · ❌ 0
 
 | Element | Page | Size | Expected | What happened | |
 |---|---|---|---|---|---|
@@ -62,8 +62,12 @@
 | Sign-in address | /plevents | 375 Full | sign-in form (200) | 200 /plevents/ | ✅ |
 | Sign-in › Lost your password? | /plevents/ | 375 Full | opens the reset form at /plevents/ | /plevents/?action=lostpassword | ✅ |
 | Signed out | /wp-admin/ | 375 Full | 404 | 404 | ✅ |
+| Signed out | /wp-admin/admin.php?page=pl-help | 375 Full | 404 | 404 | ✅ |
 | Signed out | /wp-login.php | 375 Full | 404 | 404 | ✅ |
 | 404 › Go to the homepage | /wp-login.php | 375 Full | opens / | / | ✅ |
+| Signed out: PL Help media hidden | /wp-admin/admin-post.php | 375 Full | not 200 | 400 | ✅ |
+| Signed out: PL Help media hidden | …/pl-help/shots/event-add-1.png | 375 Full | not 200 | 403 | ✅ |
+| Signed out: PL Help media hidden | …/pl-help/video/event-add.mp4 | 375 Full | not 200 | 403 | ✅ |
 | Newsletter › tampered confirm link | /?pl_nl_act=confirm | 375 Full | calm page, sign up again | This link isn’t complete | ✅ |
 | Newsletter › tampered unsubscribe link › write to us | /?pl_nl_act=unsubscribe | 375 Full | calm page → Contact | /contact/?topic=other | ✅ |
 | Nav › Events (menu) | / | 375 Reduced | opens /events/ | /events/ | ✅ |
@@ -124,8 +128,12 @@
 | Sign-in address | /plevents | 375 Reduced | sign-in form (200) | 200 /plevents/ | ✅ |
 | Sign-in › Lost your password? | /plevents/ | 375 Reduced | opens the reset form at /plevents/ | /plevents/?action=lostpassword | ✅ |
 | Signed out | /wp-admin/ | 375 Reduced | 404 | 404 | ✅ |
+| Signed out | /wp-admin/admin.php?page=pl-help | 375 Reduced | 404 | 404 | ✅ |
 | Signed out | /wp-login.php | 375 Reduced | 404 | 404 | ✅ |
 | 404 › Go to the homepage | /wp-login.php | 375 Reduced | opens / | / | ✅ |
+| Signed out: PL Help media hidden | /wp-admin/admin-post.php | 375 Reduced | not 200 | 400 | ✅ |
+| Signed out: PL Help media hidden | …/pl-help/shots/event-add-1.png | 375 Reduced | not 200 | 403 | ✅ |
+| Signed out: PL Help media hidden | …/pl-help/video/event-add.mp4 | 375 Reduced | not 200 | 403 | ✅ |
 | Newsletter › tampered confirm link | /?pl_nl_act=confirm | 375 Reduced | calm page, sign up again | This link isn’t complete | ✅ |
 | Newsletter › tampered unsubscribe link › write to us | /?pl_nl_act=unsubscribe | 375 Reduced | calm page → Contact | /contact/?topic=other | ✅ |
 | Nav › Events (menu) | / | 768 Full | opens /events/ | /events/ | ✅ |
@@ -186,8 +194,12 @@
 | Sign-in address | /plevents | 768 Full | sign-in form (200) | 200 /plevents/ | ✅ |
 | Sign-in › Lost your password? | /plevents/ | 768 Full | opens the reset form at /plevents/ | /plevents/?action=lostpassword | ✅ |
 | Signed out | /wp-admin/ | 768 Full | 404 | 404 | ✅ |
+| Signed out | /wp-admin/admin.php?page=pl-help | 768 Full | 404 | 404 | ✅ |
 | Signed out | /wp-login.php | 768 Full | 404 | 404 | ✅ |
 | 404 › Go to the homepage | /wp-login.php | 768 Full | opens / | / | ✅ |
+| Signed out: PL Help media hidden | /wp-admin/admin-post.php | 768 Full | not 200 | 400 | ✅ |
+| Signed out: PL Help media hidden | …/pl-help/shots/event-add-1.png | 768 Full | not 200 | 403 | ✅ |
+| Signed out: PL Help media hidden | …/pl-help/video/event-add.mp4 | 768 Full | not 200 | 403 | ✅ |
 | Newsletter › tampered confirm link | /?pl_nl_act=confirm | 768 Full | calm page, sign up again | This link isn’t complete | ✅ |
 | Newsletter › tampered unsubscribe link › write to us | /?pl_nl_act=unsubscribe | 768 Full | calm page → Contact | /contact/?topic=other | ✅ |
 | Nav › Events (menu) | / | 768 Reduced | opens /events/ | /events/ | ✅ |
@@ -248,8 +260,12 @@
 | Sign-in address | /plevents | 768 Reduced | sign-in form (200) | 200 /plevents/ | ✅ |
 | Sign-in › Lost your password? | /plevents/ | 768 Reduced | opens the reset form at /plevents/ | /plevents/?action=lostpassword | ✅ |
 | Signed out | /wp-admin/ | 768 Reduced | 404 | 404 | ✅ |
+| Signed out | /wp-admin/admin.php?page=pl-help | 768 Reduced | 404 | 404 | ✅ |
 | Signed out | /wp-login.php | 768 Reduced | 404 | 404 | ✅ |
 | 404 › Go to the homepage | /wp-login.php | 768 Reduced | opens / | / | ✅ |
+| Signed out: PL Help media hidden | /wp-admin/admin-post.php | 768 Reduced | not 200 | 400 | ✅ |
+| Signed out: PL Help media hidden | …/pl-help/shots/event-add-1.png | 768 Reduced | not 200 | 403 | ✅ |
+| Signed out: PL Help media hidden | …/pl-help/video/event-add.mp4 | 768 Reduced | not 200 | 403 | ✅ |
 | Newsletter › tampered confirm link | /?pl_nl_act=confirm | 768 Reduced | calm page, sign up again | This link isn’t complete | ✅ |
 | Newsletter › tampered unsubscribe link › write to us | /?pl_nl_act=unsubscribe | 768 Reduced | calm page → Contact | /contact/?topic=other | ✅ |
 | Nav › Events | / | 1280 Full | opens /events/ | /events/ | ✅ |
@@ -310,8 +326,12 @@
 | Sign-in address | /plevents | 1280 Full | sign-in form (200) | 200 /plevents/ | ✅ |
 | Sign-in › Lost your password? | /plevents/ | 1280 Full | opens the reset form at /plevents/ | /plevents/?action=lostpassword | ✅ |
 | Signed out | /wp-admin/ | 1280 Full | 404 | 404 | ✅ |
+| Signed out | /wp-admin/admin.php?page=pl-help | 1280 Full | 404 | 404 | ✅ |
 | Signed out | /wp-login.php | 1280 Full | 404 | 404 | ✅ |
 | 404 › Go to the homepage | /wp-login.php | 1280 Full | opens / | / | ✅ |
+| Signed out: PL Help media hidden | /wp-admin/admin-post.php | 1280 Full | not 200 | 400 | ✅ |
+| Signed out: PL Help media hidden | …/pl-help/shots/event-add-1.png | 1280 Full | not 200 | 403 | ✅ |
+| Signed out: PL Help media hidden | …/pl-help/video/event-add.mp4 | 1280 Full | not 200 | 403 | ✅ |
 | Newsletter › tampered confirm link | /?pl_nl_act=confirm | 1280 Full | calm page, sign up again | This link isn’t complete | ✅ |
 | Newsletter › tampered unsubscribe link › write to us | /?pl_nl_act=unsubscribe | 1280 Full | calm page → Contact | /contact/?topic=other | ✅ |
 | Nav › Events | / | 1280 Reduced | opens /events/ | /events/ | ✅ |
@@ -372,7 +392,11 @@
 | Sign-in address | /plevents | 1280 Reduced | sign-in form (200) | 200 /plevents/ | ✅ |
 | Sign-in › Lost your password? | /plevents/ | 1280 Reduced | opens the reset form at /plevents/ | /plevents/?action=lostpassword | ✅ |
 | Signed out | /wp-admin/ | 1280 Reduced | 404 | 404 | ✅ |
+| Signed out | /wp-admin/admin.php?page=pl-help | 1280 Reduced | 404 | 404 | ✅ |
 | Signed out | /wp-login.php | 1280 Reduced | 404 | 404 | ✅ |
 | 404 › Go to the homepage | /wp-login.php | 1280 Reduced | opens / | / | ✅ |
+| Signed out: PL Help media hidden | /wp-admin/admin-post.php | 1280 Reduced | not 200 | 400 | ✅ |
+| Signed out: PL Help media hidden | …/pl-help/shots/event-add-1.png | 1280 Reduced | not 200 | 403 | ✅ |
+| Signed out: PL Help media hidden | …/pl-help/video/event-add.mp4 | 1280 Reduced | not 200 | 403 | ✅ |
 | Newsletter › tampered confirm link | /?pl_nl_act=confirm | 1280 Reduced | calm page, sign up again | This link isn’t complete | ✅ |
 | Newsletter › tampered unsubscribe link › write to us | /?pl_nl_act=unsubscribe | 1280 Reduced | calm page → Contact | /contact/?topic=other | ✅ |

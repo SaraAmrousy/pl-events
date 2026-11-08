@@ -246,7 +246,8 @@ async function video(browser, task) {
   const caps = [];
   await page.goto(url(v.start || '/wp-admin/index.php')); await settle(page);
   await page.mouse.move(640, 420);
-  // Title card
+  // Title card — the video starts here (the page load before it is cut off)
+  const cardAt = (Date.now() - run.t0) / 1000;
   await page.evaluate(([k, t, w]) => window.__pl.card(k, t, w), [guide.chapters.find(c => c.id === task.chapter).kicker || 'PL Help', task.title, task.why]);
   caps.push({ t: (Date.now() - run.t0) / 1000, text: task.title + ' — ' + task.why });
   await sleep(Math.max(3600, readMs(task.why) - 400));
@@ -258,23 +259,25 @@ async function video(browser, task) {
     caps.push({ t: (Date.now() - run.t0) / 1000, text: v.done || 'تمام كده.' });
     await sleep(2200);
   }
-  const dur = (Date.now() - run.t0) / 1000;
+  const dur = (Date.now() - run.t0) / 1000; // (minus the cut, below)
   const raw = await page.video().path();
   await ctx.close();
   const out = path.join(OUT, 'video', task.id + '.mp4');
-  const enc = crf => cp.execFileSync('ffmpeg', ['-y', '-loglevel', 'error', '-i', raw, '-ss', '0.4', '-vf', 'fps=20,format=yuv420p', '-c:v', 'libx264', '-preset', 'veryfast', '-crf', String(crf), '-tune', 'stillimage', '-movflags', '+faststart', '-an', out]);
+  const enc = crf => cp.execFileSync('ffmpeg', ['-y', '-loglevel', 'error', '-ss', String(Math.max(0.4, cardAt - 0.15)), '-i', raw, '-vf', 'fps=20,format=yuv420p', '-c:v', 'libx264', '-preset', 'veryfast', '-crf', String(crf), '-tune', 'stillimage', '-movflags', '+faststart', '-an', out]);
   enc(30);
   if (fs.statSync(out).size > 2.9e6) enc(35);
-  cp.execFileSync('ffmpeg', ['-y', '-loglevel', 'error', '-ss', String(Math.min(dur * 0.45, 20)), '-i', out, '-frames:v', '1', '-q:v', '4', path.join(OUT, 'video', task.id + '.jpg')]);
+  cp.execFileSync('ffmpeg', ['-y', '-loglevel', 'error', '-ss', String(Math.min(len * 0.45, 20)), '-i', out, '-frames:v', '1', '-q:v', '4', path.join(OUT, 'video', task.id + '.jpg')]);
   fs.unlinkSync(raw);
   // WebVTT (same captions, for the <track>)
   const lines = ['WEBVTT', ''];
-  caps.forEach((c, i) => { const s = Math.max(0, c.t - 0.4), e = Math.max(s + 1, (caps[i + 1] ? caps[i + 1].t : dur) - 0.4); lines.push(String(i + 1), `${vtt(s)} --> ${vtt(e)}`, c.text.replace(/\*\*(.+?)\*\*/g, '$1').replace(/^\[\d+\]\s*/, ''), ''); });
+  const cut = Math.max(0.4, cardAt - 0.15);
+  caps.forEach((c, i) => { const s = Math.max(0, c.t - cut), e = Math.max(s + 1, (caps[i + 1] ? caps[i + 1].t : dur) - cut); lines.push(String(i + 1), `${vtt(s)} --> ${vtt(e)}`, c.text.replace(/\*\*(.+?)\*\*/g, '$1').replace(/^\[\d+\]\s*/, ''), ''); });
   fs.writeFileSync(path.join(OUT, 'video', task.id + '.vtt'), lines.join('\n'));
   const bytes = fs.statSync(out).size;
-  if (dur < 25 || dur > 75) problems.push(`${task.id}.mp4: ${dur.toFixed(0)} s (target 30–60)`);
+  const len = dur - Math.max(0.4, cardAt - 0.15);
+  if (len < 28 || len > 62) problems.push(`${task.id}.mp4: ${len.toFixed(0)} s (target 30–60)`);
   if (bytes > 3.2e6) problems.push(`${task.id}.mp4: ${(bytes / 1e6).toFixed(1)} MB (target < 3)`);
-  return { file: 'video/' + task.id + '.mp4', poster: 'video/' + task.id + '.jpg', vtt: 'video/' + task.id + '.vtt', seconds: Math.round(dur), bytes };
+  return { file: 'video/' + task.id + '.mp4', poster: 'video/' + task.id + '.jpg', vtt: 'video/' + task.id + '.vtt', seconds: Math.round(len), bytes };
 }
 
 /* ---------------------------------------------------------------------- main */

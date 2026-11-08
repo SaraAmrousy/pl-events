@@ -9,7 +9,11 @@
 | 3. The full guide | **PL Website › Help**: 11 chapters, 50 tasks, videos, screenshots, cheat sheet (A4) | `pl-events-core` (`PL_Help::page`) |
 | Deck | PNGs, pairing shots, GIFs, guide.json | `docs/guide/` |
 
-__STATUS__
+**Status: ✅ done, on staging, tested (8 Nov 2026).**
+- Guardrails: sandbox **16/16** (`tools/guard-test.js --write`, data restored) · staging **11/11** (block cases only, nothing saved; DEOSS/MOCAT last modified 5 Nov, unchanged).
+- Guide: **51 tasks** in 11 chapters (50 + the cheat sheet) · **59 screenshots** (incl. 1 mobile, 6 drawings) · **7 pairing shots** · **38 videos** (26–62 s, 0.14–0.7 MB each, 16 MB total, H.264 1280×800) · 4 GIFs · cheat sheet PDF **1 × A4**.
+- Recorder: whole run ≈ 45 min, **data restored after every task**, proof at the end: DB content fingerprint before = after (`c95e3721…`, `749710ab…` on later runs).
+- Staging: admin-check **31/31** (17 old + 14 new: Help, search, 52/52 pictures, video 206 Range, no autoplay, print button, media hidden signed out ×2, "?" on 5 screens, Esc/focus, file editor off) · click sweep **396/396** · debug log: 0 lines from our code.
 
 ## 1. Guardrails (pl-events-core)
 | Rule | Type | Message (English, wp-admin) |
@@ -76,12 +80,19 @@ __STATUS__
 
 ### Where the videos live — decision
 **`wp-content/uploads/pl-help/`, served through a capability-checked gate** (`admin-post.php?action=pl_help_media`, Range requests for seeking, `X-Robots-Tag: noindex`, `Cache-Control: private`), with **`.htaccess` "Require all denied"** on the folder.
-- Not plugin assets: public URLs, and every plugin deploy would carry ~__MB__ MB.
+- Not plugin assets: public URLs, and every plugin deploy would carry ~16 MB of video (30 MB with pictures).
 - Not Media: the employee would see (and could delete) them, attachment pages are public, Rank Math could list them.
 - Deployed separately with `deploy/deploy-help.sh` (only when the videos change).
 
 ## 5. Staging
-__STAGING__
+| Item | Result |
+|---|---|
+| Plugin + theme | deployed with the safe swap; LiteSpeed + Elementor CSS + PL cache purged |
+| Office titles | the 2 offices had no title → now "Alexandria" and "Dubai" (no visible change on the site; links keep their stable id) |
+| Form routing | refreshed: contact → events@ (Alexandria) / dina@ (Dubai), careers → events@; staging still sends every email to Sara |
+| Help media | `deploy/deploy-help.sh` → `uploads/pl-help/` (59 + 7 + 38). **Found:** LiteSpeed ignores `Require all denied` in that sub-folder (direct URL answered 200). **Fixed** with a rewrite rule in `/pl/.htaccess` (`# BEGIN PL help media`, same method as the CV block) → direct URL **403**, gate signed out **400**; the script refuses to finish if the folder isn't blocked. Backup of the old `/pl/.htaccess` kept in the session scratchpad; the block is 6 lines at the top. |
+| `DISALLOW_FILE_EDIT` | already true on staging (4.0); checked by admin-check |
+| Temporary QA user | `pl-qa-62b` created for the tests, **deleted**; users = claude-deploy, PL@Admin, sara |
 
 ## 6. Files
 - **Plugin:** `includes/class-pl-guardrails.php` (new), `includes/class-pl-help.php` (new), `assets/js/pl-guard.js` (new), `assets/js/pl-help.js` (new), `assets/css/pl-help.css` (new), `assets/fonts/` (new: Plex Arabic 500/700, Montserrat, OFL), `help/guide.json` (built), `modules/events/module.php` (messages + https), `modules/company/fields.php` (CVs go to), `includes/class-pl-importer.php` (office title), `includes/class-pl-plugin.php`.
@@ -91,4 +102,8 @@ __STAGING__
 - **Docs:** this file, `docs/guide/`, `Editor-Guide.md` (points to PL Help, guardrails, recipients), `Step-6.3-Launch-Checklist.md` (DISALLOW_FILE_EDIT, Help media, L4), `Roadmap-Checklist.md`.
 
 ## 7. Open questions for Sara
-__OPEN__
+1. **Page wording lives inside Shortcode widgets as HTML** (e.g. `<h1 class="h1">Work behind the <span class="em">lens.</span></h1>`). The guide teaches a safe way (change only the words, Revisions to undo), but it's the most fragile thing the employee can touch. **Recommendation:** for the 5–6 sentences PL is likely to change (page intros), move them to fields (Company page or a small "Page texts" screen) in a later step. Your call.
+2. **Mailchimp / Zoho links:** confirmed by search, not opened (both sites are blocked from here). Please click each once in PL Help › النشرة والحملات.
+3. **Who to call (chapter 9):** written as "سارة"; the channel (WhatsApp/email) is **TBC**: tell me what to write.
+4. **Videos are of the sandbox** (same plugins and data as staging, test data marked "training"/example.com). If PL's live site changes (menus, plugins), re-record with one command before the handover.
+5. Videos run **26–62 s** (8 between 26 and 29 s, `event-add` 62 s): the target was 30–60. I didn't pad them.

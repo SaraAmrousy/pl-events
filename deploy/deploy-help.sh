@@ -26,6 +26,18 @@ cp_ls "$UPL" | grep -qx "$old" && cp_delete "$UPL/$old"
 cp_delete "$UPL/pl-help.zip"
 n=$(cp_ls "$UPL/pl-help/video" | grep -c '\.mp4$' || true)
 say "PL Help media on staging: $(cp_ls "$UPL/pl-help/shots" | grep -c png) shots, $(cp_ls "$UPL/pl-help/pairs" | grep -c png) pairs, $n videos"
+# LiteSpeed ignores "Require all denied" in the sub-folder; a rewrite rule in /pl/.htaccess works (same as the CV block, 4.5).
+cur=$(cp_read "$STAGING_DIR" .htaccess)
+if ! printf '%s' "$cur" | grep -q '# BEGIN PL help media'; then
+  block='# BEGIN PL help media
+<IfModule mod_rewrite.c>
+RewriteEngine On
+RewriteRule ^wp-content/uploads/pl-help/ - [F,NC,L]
+</IfModule>
+# END PL help media'
+  cp_write "$STAGING_DIR" .htaccess "$(printf '%s\n\n%s\n' "$block" "$cur")"
+  say "help media block added to /pl/.htaccess"
+fi
 code=$(curl -s -o /dev/null -w '%{http_code}' "$STAGING_URL/wp-content/uploads/pl-help/shots/$(ls "$SRC/shots" | head -1)")
 [ "$code" = 403 ] || [ "$code" = 404 ] || die "direct access answered $code (expected 403): the folder is NOT protected"
 say "direct access → $code (blocked, as it should be)"
