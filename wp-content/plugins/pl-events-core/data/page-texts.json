@@ -1,0 +1,434 @@
+{
+ "_note": "Built by tools/build-elementor.py — edit there. Defaults = the original page text.",
+ "pages": [
+  "home",
+  "events",
+  "services",
+  "about",
+  "careers",
+  "contact",
+  "privacy"
+ ],
+ "texts": [
+  {
+   "key": "home_map_btn",
+   "page": "home",
+   "label": "Map link under the numbers",
+   "where": "Home › under “13 congresses. 7 cities…”",
+   "kind": "button",
+   "text": "Explore the record on the map →",
+   "hl": "",
+   "max": 30
+  },
+  {
+   "key": "home_svc_h2",
+   "page": "home",
+   "label": "Services heading",
+   "where": "Home › “Behind the lens.” section (services)",
+   "kind": "h2",
+   "text": "Behind the",
+   "hl": "lens.",
+   "max": 48
+  },
+  {
+   "key": "home_svc_text",
+   "page": "home",
+   "label": "Services intro",
+   "where": "Home › under “Behind the lens.”",
+   "kind": "text",
+   "text": "One team runs the science, the sponsors, the stage and the travel.",
+   "hl": "",
+   "max": 110
+  },
+  {
+   "key": "home_svc_btn",
+   "page": "home",
+   "label": "Services button",
+   "where": "Home › services section, button",
+   "kind": "button",
+   "text": "All services",
+   "hl": "",
+   "max": 30
+  },
+  {
+   "key": "home_soc_label",
+   "page": "home",
+   "label": "Societies — small label",
+   "where": "Home › dark band, left",
+   "kind": "label",
+   "text": "For scientific societies",
+   "hl": "",
+   "max": 32
+  },
+  {
+   "key": "home_soc_h2",
+   "page": "home",
+   "label": "Societies — heading",
+   "where": "Home › dark band, left",
+   "kind": "h2",
+   "text": "Planning a",
+   "hl": "congress?",
+   "max": 48
+  },
+  {
+   "key": "home_soc_text",
+   "page": "home",
+   "label": "Societies — text",
+   "where": "Home › dark band, left",
+   "kind": "text",
+   "text": "Our Alexandria and Dubai teams plan the science, the sponsors, the stage and the travel — one team from programme to gala dinner.",
+   "hl": "",
+   "max": 160
+  },
+  {
+   "key": "home_soc_btn",
+   "page": "home",
+   "label": "Societies — button",
+   "where": "Home › dark band, left",
+   "kind": "button",
+   "text": "Request a proposal",
+   "hl": "",
+   "max": 30
+  },
+  {
+   "key": "home_spo_label",
+   "page": "home",
+   "label": "Sponsors — small label",
+   "where": "Home › dark band, right",
+   "kind": "label",
+   "text": "For sponsors & exhibitors",
+   "hl": "",
+   "max": 32
+  },
+  {
+   "key": "home_spo_h2",
+   "page": "home",
+   "label": "Sponsors — heading",
+   "where": "Home › dark band, right",
+   "kind": "h2",
+   "text": "Put your brand",
+   "hl": "in focus.",
+   "max": 48
+  },
+  {
+   "key": "home_spo_btn",
+   "page": "home",
+   "label": "Sponsors — button",
+   "where": "Home › dark band, right",
+   "kind": "button",
+   "text": "Sponsor a congress",
+   "hl": "",
+   "max": 30
+  },
+  {
+   "key": "home_spo_link",
+   "page": "home",
+   "label": "Sponsors — link",
+   "where": "Home › dark band, right",
+   "kind": "button",
+   "text": "See sponsorship",
+   "hl": "",
+   "max": 30
+  },
+  {
+   "key": "events_cta_h2",
+   "page": "events",
+   "label": "Closing band — heading",
+   "where": "Events › dark band at the bottom",
+   "kind": "h2",
+   "text": "Running a congress? See how we can",
+   "hl": "help.",
+   "max": 60
+  },
+  {
+   "key": "events_cta_btn",
+   "page": "events",
+   "label": "Closing band — button",
+   "where": "Events › dark band at the bottom",
+   "kind": "button",
+   "text": "Request a proposal",
+   "hl": "",
+   "max": 30
+  },
+  {
+   "key": "about_label",
+   "page": "about",
+   "label": "Small label above the title",
+   "where": "About › top",
+   "kind": "label",
+   "text": "About PL Events",
+   "hl": "",
+   "max": 32
+  },
+  {
+   "key": "about_intro",
+   "page": "about",
+   "label": "Intro (left)",
+   "where": "About › under the title, left",
+   "kind": "lead",
+   "text": "PL Events plans and runs medical congresses for scientific societies, from a head office in Alexandria and a regional office in Dubai. Most of our work is ophthalmology; vascular, lymphology and nephrology are growing.",
+   "hl": "",
+   "max": 230
+  },
+  {
+   "key": "about_intro2",
+   "page": "about",
+   "label": "Intro (right) — {since} = first event month",
+   "where": "About › under the title, right",
+   "kind": "text",
+   "text": "One team handles the science, the sponsors, the stage and the travel — and every congress since {since} is on this site, with its date, city and registration.",
+   "hl": "",
+   "max": 190
+  },
+  {
+   "key": "about_caption",
+   "page": "about",
+   "label": "Photo caption",
+   "where": "About › under the wide photo",
+   "kind": "caption",
+   "text": "From PL’s portfolio",
+   "hl": "",
+   "max": 60
+  },
+  {
+   "key": "about_soc_h2",
+   "page": "about",
+   "label": "Societies heading",
+   "where": "About › above the society logos",
+   "kind": "h2",
+   "text": "Societies that trust",
+   "hl": "us.",
+   "max": 48
+  },
+  {
+   "key": "about_cta_h2",
+   "page": "about",
+   "label": "Closing — heading",
+   "where": "About › last section",
+   "kind": "h2",
+   "text": "Two cities.",
+   "hl": "One team.",
+   "max": 30
+  },
+  {
+   "key": "about_cta_text",
+   "page": "about",
+   "label": "Closing — text",
+   "where": "About › last section",
+   "kind": "text",
+   "text": "Tell us about your congress — the Alexandria or Dubai team answers.",
+   "hl": "",
+   "max": 110
+  },
+  {
+   "key": "about_cta_btn",
+   "page": "about",
+   "label": "Closing — button",
+   "where": "About › last section",
+   "kind": "button",
+   "text": "Request a proposal",
+   "hl": "",
+   "max": 30
+  },
+  {
+   "key": "about_portfolio_btn",
+   "page": "about",
+   "label": "Closing — portfolio button (the size is added by itself)",
+   "where": "About › last section",
+   "kind": "button",
+   "text": "Download our portfolio",
+   "hl": "",
+   "max": 30
+  },
+  {
+   "key": "svc_label",
+   "page": "services",
+   "label": "Small label above the title",
+   "where": "Services › top",
+   "kind": "label",
+   "text": "Services",
+   "hl": "",
+   "max": 32
+  },
+  {
+   "key": "svc_h1",
+   "page": "services",
+   "label": "Page title (H1)",
+   "where": "Services › top",
+   "kind": "h1",
+   "text": "Behind the",
+   "hl": "lens.",
+   "max": 34
+  },
+  {
+   "key": "svc_lead",
+   "page": "services",
+   "label": "Intro",
+   "where": "Services › under the title",
+   "kind": "lead",
+   "text": "One team runs the science, the sponsors, the stage and the travel — for congresses, symposia, wetlabs and webinars.",
+   "hl": "",
+   "max": 190
+  },
+  {
+   "key": "svc_spo_label",
+   "page": "services",
+   "label": "Sponsorship — small label",
+   "where": "Services › dark sponsorship band",
+   "kind": "label",
+   "text": "Sponsorship",
+   "hl": "",
+   "max": 32
+  },
+  {
+   "key": "svc_spo_h2",
+   "page": "services",
+   "label": "Sponsorship — heading",
+   "where": "Services › dark sponsorship band",
+   "kind": "h2",
+   "text": "Put your brand",
+   "hl": "in focus.",
+   "max": 48
+  },
+  {
+   "key": "svc_spo_text",
+   "page": "services",
+   "label": "Sponsorship — text before the logos (after the live numbers)",
+   "where": "Services › dark sponsorship band",
+   "kind": "text",
+   "text": "Companies that have sponsored PL congresses:",
+   "hl": "",
+   "max": 80
+  },
+  {
+   "key": "svc_spo_btn",
+   "page": "services",
+   "label": "Sponsorship — button",
+   "where": "Services › dark sponsorship band",
+   "kind": "button",
+   "text": "Sponsor a congress",
+   "hl": "",
+   "max": 30
+  },
+  {
+   "key": "svc_cta_h2",
+   "page": "services",
+   "label": "Closing — heading",
+   "where": "Services › last section",
+   "kind": "h2",
+   "text": "Planning a congress? Talk to our",
+   "hl": "team.",
+   "max": 60
+  },
+  {
+   "key": "svc_cta_btn",
+   "page": "services",
+   "label": "Closing — button",
+   "where": "Services › last section",
+   "kind": "button",
+   "text": "Request a proposal",
+   "hl": "",
+   "max": 30
+  },
+  {
+   "key": "car_label",
+   "page": "careers",
+   "label": "Small label above the title",
+   "where": "Careers › top",
+   "kind": "label",
+   "text": "Careers",
+   "hl": "",
+   "max": 32
+  },
+  {
+   "key": "car_h1",
+   "page": "careers",
+   "label": "Page title (H1)",
+   "where": "Careers › top",
+   "kind": "h1",
+   "text": "Work behind the",
+   "hl": "lens.",
+   "max": 34
+  },
+  {
+   "key": "car_lead",
+   "page": "careers",
+   "label": "Intro",
+   "where": "Careers › under the title",
+   "kind": "lead",
+   "text": "We hire for congress operations, production, registration and sponsorship in Alexandria and Dubai.",
+   "hl": "",
+   "max": 190
+  },
+  {
+   "key": "car_cv_h2",
+   "page": "careers",
+   "label": "CV form heading",
+   "where": "Careers › above the form",
+   "kind": "h2",
+   "text": "Send your CV",
+   "hl": "",
+   "max": 48
+  },
+  {
+   "key": "con_label",
+   "page": "contact",
+   "label": "Small label above the title",
+   "where": "Contact › top",
+   "kind": "label",
+   "text": "Contact",
+   "hl": "",
+   "max": 32
+  },
+  {
+   "key": "con_h1",
+   "page": "contact",
+   "label": "Page title (H1)",
+   "where": "Contact › top",
+   "kind": "h1",
+   "text": "Talk to our",
+   "hl": "team.",
+   "max": 34
+  },
+  {
+   "key": "con_lead",
+   "page": "contact",
+   "label": "Intro",
+   "where": "Contact › under the title",
+   "kind": "lead",
+   "text": "Alexandria and Dubai. Tell us about your congress, your sponsorship or your registration — the right office answers.",
+   "hl": "",
+   "max": 190
+  },
+  {
+   "key": "pri_label",
+   "page": "privacy",
+   "label": "Small label above the title",
+   "where": "Privacy › top",
+   "kind": "label",
+   "text": "Privacy",
+   "hl": "",
+   "max": 32
+  },
+  {
+   "key": "pri_h1",
+   "page": "privacy",
+   "label": "Page title (H1)",
+   "where": "Privacy › top",
+   "kind": "h1",
+   "text": "Privacy policy",
+   "hl": "",
+   "max": 34
+  },
+  {
+   "key": "pri_lead",
+   "page": "privacy",
+   "label": "Intro",
+   "where": "Privacy › under the title",
+   "kind": "lead",
+   "text": "Our full privacy policy is being prepared. It will cover the contact and careers forms, how long we keep CVs, and cookies.",
+   "hl": "",
+   "max": 190
+  }
+ ]
+}

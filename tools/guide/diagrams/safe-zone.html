@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="ar" dir="rtl"><head><meta charset="utf-8"><script src="_base.js"></script>
+<style>
+.wrap{display:flex;gap:48px;align-items:flex-start}
+.frame{position:relative;flex:0 0 auto;border-radius:10px;overflow:hidden;background:repeating-linear-gradient(135deg,#E6E2D8 0 14px,#EFECE5 14px 28px);border:2px solid #0A0D18}
+.z{position:absolute;box-sizing:border-box}
+.z.desk{border:3px dashed #2C4894;background:rgba(44,72,148,.06)}
+.z.mob{border:3px solid #142040;background:rgba(20,32,64,.10)}
+.z.safe{border:3px solid #1B7A4A;background:rgba(27,122,74,.18)}
+.z.text{border:2px dotted #8A5A00;background:rgba(138,90,0,.08)}
+.z.cover{background:rgba(198,40,40,.18);border:2px solid #C62828}
+.z span{position:absolute;top:6px;right:8px;font:700 13px/1.2 M;color:#0A0D18;background:#fff;border-radius:6px;padding:3px 6px;direction:ltr}
+.legend{flex:1;display:flex;flex-direction:column;gap:14px;font:500 19px/1.55 A,M}
+.legend .row{display:flex;gap:12px;align-items:flex-start}
+.legend i{flex:0 0 34px;height:22px;border-radius:5px;margin-top:4px}
+.facts{margin-top:18px;background:#fff;border:1.5px solid #DAD6CC;border-radius:10px;padding:16px 18px;font:500 18px/1.7 A,M}
+.facts b{font-family:M}
+</style></head>
+<body>
+<div class="k" id="k"></div>
+<h1 id="h"></h1>
+<p class="sub" id="sub"></p>
+<div class="wrap"><div class="frame" id="f"></div><div class="legend" id="lg"></div></div>
+<script>
+(function () {
+  var S = window.__SPEC || {}, key = window.__SPEC_KEY || 'hero', s = S[key] || {};
+  var ratio = (s.upload ? s.upload[0] / s.upload[1] : 16 / 9), W = ratio >= 1 ? 760 : 420, H = Math.round(W / ratio);
+  document.getElementById('k').textContent = 'Image size · ' + (s.label || key);
+  document.getElementById('h').innerHTML = (s.ar || '') + ' <em>— المنطقة الآمنة</em>';
+  document.getElementById('sub').textContent = s.note ? '' : '';
+  var f = document.getElementById('f'); f.style.width = W + 'px'; f.style.height = H + 'px';
+  var Z = s.zones || {}, names = { desk: 'الكمبيوتر بيبيّن ده', mob: 'الموبايل بيبيّن ده بس', safe: 'المنطقة الآمنة: الوشوش والأهم هنا', text: 'هنا العنوان والزراير فوق الصورة', cover: 'متغطي على الكارت' };
+  function box(cls, z, label) { if (!z) return; var d = document.createElement('div'); d.className = 'z ' + cls;
+    d.style.left = (z[0] * 100) + '%'; d.style.top = (z[1] * 100) + '%'; d.style.width = ((z[2] - z[0]) * 100) + '%'; d.style.height = ((z[3] - z[1]) * 100) + '%';
+    if (label) { var sp = document.createElement('span'); sp.textContent = label; d.appendChild(sp); } f.appendChild(d); }
+  if (Z.desktop && (Z.desktop[0] || Z.desktop[1] || Z.desktop[2] < 1 || Z.desktop[3] < 1)) box('desk', Z.desktop, 'desktop');
+  if (Z.mobile && (Z.mobile[0] || Z.mobile[1] || Z.mobile[2] < 1 || Z.mobile[3] < 1)) box('mob', Z.mobile, 'mobile');
+  if (Z.text) box('text', Z.text, 'headline');
+  if (key === 'event_poster') { box('cover', [0.45, 0, 1, 0.15], 'badge'); box('cover', [0, 0.72, 0.5, 1], 'date'); }
+  box('safe', Z.safe, 'safe');
+  var lg = document.getElementById('lg'), rows = [];
+  rows.push(['#2C4894', 'desk', 'إطار الصورة كلها: ' + (s.upload ? s.upload[0] + ' × ' + s.upload[1] + ' px' : '')]);
+  if (Z.desktop && (Z.desktop[0] || Z.desktop[2] < 1)) rows.push(['#2C4894', 'desk', names.desk + ' (أضيق كمبيوتر)']);
+  if (Z.mobile && (Z.mobile[0] || Z.mobile[1] || Z.mobile[2] < 1 || Z.mobile[3] < 1)) rows.push(['#142040', 'mob', names.mob]);
+  if (Z.text) rows.push(['#8A5A00', 'text', names.text]);
+  if (key === 'event_poster') rows.push(['#C62828', 'cover', names.cover + ' (الحالة فوق، التاريخ تحت شمال)']);
+  rows.push(['#1B7A4A', 'safe', names.safe]);
+  rows.forEach(function (r) { var d = document.createElement('div'); d.className = 'row'; d.innerHTML = '<i class="z ' + r[1] + '" style="position:static;border-color:' + r[0] + '"></i><span></span>'; d.lastChild.textContent = r[2]; lg.appendChild(d); });
+  var facts = document.createElement('div'); facts.className = 'facts';
+  facts.innerHTML = 'المقاس: <b></b><br>أقل مقاس: <b></b><br>النسبة: <b></b> · الفورمات: <b></b><br>أقصى حجم للملف: <b></b>' + (s.duration ? '<br>المدة: <b></b>' : '');
+  var bs = facts.querySelectorAll('b'), mb = s.max_kb >= 1024 ? (Math.round(s.max_kb / 102.4) / 10) + ' MB' : s.max_kb + ' KB';
+  [s.upload ? s.upload.join(' × ') + ' px' : '', s.min ? s.min.join(' × ') + ' px' : '', s.ratio || '', s.formats || '', mb, s.duration || ''].forEach(function (t, i) { if (bs[i]) bs[i].textContent = t; });
+  lg.appendChild(facts);
+})();
+</script>
+</body></html>

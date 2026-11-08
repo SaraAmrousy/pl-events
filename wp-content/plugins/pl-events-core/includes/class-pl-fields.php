@@ -105,11 +105,8 @@ class PL_Fields {
 			'pl_admin_only' => ! empty( $f['admin_only'] ),
 			'pl_frame'     => $f['frame'] ?? '',
 		);
-		if ( ! empty( $f['frame'] ) && isset( PL_Images::FRAMES[ $f['frame'] ] ) ) {
-			$fr = PL_Images::FRAMES[ $f['frame'] ];
-			$out['instructions'] .= ( $out['instructions'] ? ' ' : '' ) . ( 'contain' === $fr['fit']
-				? sprintf( 'Shown whole inside a tile (never cropped). Best: SVG, or PNG at least %d × %d px.', $fr['min'][0], $fr['min'][1] )
-				: sprintf( 'Cropped from the centre to fit the %s. Best: at least %d × %d px.', $fr['label'], $fr['min'][0], $fr['min'][1] ) );
+		if ( ! empty( $f['frame'] ) && isset( PL_Images::FRAMES[ $f['frame'] ] ) ) { // sizes from PL_Image_Spec (one source)
+			$out['instructions'] .= ( $out['instructions'] ? ' ' : '' ) . self::frame_help( $f['frame'], $f['spec'] ?? '' );
 		}
 		if ( isset( $f['default'] ) ) {
 			$out['default_value'] = $f['default'];
@@ -176,6 +173,24 @@ class PL_Fields {
 			default: // text, url, email.
 				return $out + array( 'type' => in_array( $f['type'], array( 'url', 'email' ), true ) ? $f['type'] : 'text' );
 		}
+	}
+
+	/** "Best: 1600 × 1000 px · at least 1280 × 800 px · JPG or WebP." — from PL_Image_Spec. */
+	public static function frame_help( $frame, $spec_key = '' ) {
+		$map = array( 'poster' => 'event_photo', 'poster10' => 'event_photo', 'photo' => 'gallery', 'wide' => 'wide', 'hero' => 'hero', 'logo' => 'logo' );
+		$s   = PL_Image_Spec::get( $spec_key ? $spec_key : ( $map[ $frame ] ?? '' ) );
+		if ( ! $s ) {
+			return '';
+		}
+		$line = static fn( $x ) => sprintf( 'Best: %d × %d px, at least %d × %d px · %s.', $x['upload'][0], $x['upload'][1], $x['min'][0], $x['min'][1], $x['formats'] );
+		if ( 'poster' === $frame ) {
+			$p = PL_Image_Spec::get( 'event_poster' );
+			return sprintf( 'Photo: cropped from the centre. %s Poster (a design with text): shown whole; the original file, at least %d × %d px. See "Image type" below.', $line( $s ), $p['min'][0], $p['min'][1] );
+		}
+		if ( 'logo' === $frame ) {
+			return sprintf( 'Shown whole inside a tile (never cropped). %s, at least %d × %d px.', $s['formats'], $s['min'][0], $s['min'][1] );
+		}
+		return ( 'cover' === $s['fit'] ? 'Cropped from the centre (' . $s['ratio'] . '). ' : '' ) . $line( $s );
 	}
 
 	public static function hide_admin_only( $field ) {

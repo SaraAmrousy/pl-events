@@ -165,7 +165,10 @@ class PL_Shortcodes {
 
 	/** [pl_company field="hero_headline|tagline|portfolio_url|portfolio_size|portfolio_link|years|founding_year|name" tag=""] */
 	public static function company( $atts ) {
-		$a = shortcode_atts( array( 'field' => 'tagline', 'tag' => '', 'class' => '', 'label' => 'Portfolio' ), $atts, 'pl_company' );
+		$a = shortcode_atts( array( 'field' => 'tagline', 'tag' => '', 'class' => '', 'label' => 'Portfolio', 'label_key' => '' ), $atts, 'pl_company' );
+		if ( $a['label_key'] && class_exists( 'PL_Page_Texts' ) ) {
+			$a['label'] = PL_Page_Texts::plain( sanitize_key( $a['label_key'] ) ); // PL Website › Page texts
+		}
 		$c = PL_Data::company();
 		switch ( $a['field'] ) {
 			case 'hero_headline':

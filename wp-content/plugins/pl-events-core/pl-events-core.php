@@ -6,7 +6,7 @@
  * Requires at least: 6.5
  * Requires PHP:      8.0
  * Requires Plugins:  secure-custom-fields
- * Author:            Sara Amrousy
+ * Author:            PL Events Team
  * Text Domain:       pl-events-core
  *
  * Structure (Step 2.2 §8 "Built to grow"):

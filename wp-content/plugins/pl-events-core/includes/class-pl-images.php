@@ -16,17 +16,17 @@ defined( 'ABSPATH' ) || exit;
 class PL_Images {
 
 	/**
-	 * Frame => ratio (w:h), server sizes (widths), minimum recommended upload (w x h), fit.
+	 * Frame => ratio (w:h), server sizes (widths), fit. Minimum uploads: PL_Image_Spec (one source, round 7).
 	 * Sizes are hard-cropped from the centre; WordPress never upscales, so a small upload simply
 	 * falls back to its original file (and gets the yellow note).
 	 */
 	const FRAMES = array(
-		'poster' => array( 'ratio' => array( 16, 9 ), 'widths' => array( 640, 1280 ), 'min' => array( 1280, 800 ), 'fit' => 'cover', 'label' => 'event cards (16:9) and the event page (16:10)' ),
-		'poster10' => array( 'ratio' => array( 16, 10 ), 'widths' => array( 640, 1024 ), 'min' => array( 1280, 800 ), 'fit' => 'cover', 'label' => 'event page (16:10)' ),
-		'photo'  => array( 'ratio' => array( 4, 3 ), 'widths' => array( 480, 960 ), 'min' => array( 960, 720 ), 'fit' => 'cover', 'label' => '4:3 photo frame' ),
-		'wide'   => array( 'ratio' => array( 21, 9 ), 'widths' => array( 1024, 2048 ), 'min' => array( 2048, 878 ), 'fit' => 'cover', 'label' => 'wide 21:9 photo frame' ),
-		'hero'   => array( 'ratio' => null, 'widths' => array(), 'min' => array( 1920, 1080 ), 'fit' => 'cover', 'label' => 'full-screen hero' ),
-		'logo'   => array( 'ratio' => null, 'widths' => array( 480 ), 'min' => array( 400, 160 ), 'fit' => 'contain', 'label' => 'logo tile' ),
+		'poster' => array( 'ratio' => array( 16, 9 ), 'widths' => array( 640, 1280 ), 'fit' => 'cover', 'label' => 'event cards (16:9) and the event page (16:10)' ),
+		'poster10' => array( 'ratio' => array( 16, 10 ), 'widths' => array( 640, 1024 ), 'fit' => 'cover', 'label' => 'event page (16:10)' ),
+		'photo'  => array( 'ratio' => array( 4, 3 ), 'widths' => array( 480, 960 ), 'fit' => 'cover', 'label' => '4:3 photo frame' ),
+		'wide'   => array( 'ratio' => array( 21, 9 ), 'widths' => array( 1024, 2048 ), 'fit' => 'cover', 'label' => 'wide 21:9 photo frame' ),
+		'hero'   => array( 'ratio' => null, 'widths' => array(), 'fit' => 'cover', 'label' => 'full-screen hero' ),
+		'logo'   => array( 'ratio' => null, 'widths' => array( 480 ), 'fit' => 'contain', 'label' => 'logo tile' ),
 	);
 
 	public static function init() {
@@ -382,10 +382,18 @@ class PL_Images {
 		return empty( $m['width'] ) ? null : array( (int) $m['width'], (int) $m['height'] );
 	}
 
+	/** Minimum upload [w, h] for a frame, from PL_Image_Spec. A poster-shaped event image uses the Poster minimum. */
+	public static function min( $frame, $id = 0 ) {
+		if ( in_array( $frame, array( 'poster', 'poster10' ), true ) && $id && 'poster' === self::poster_type( $id, 'auto' ) ) {
+			return PL_Image_Spec::get( 'event_poster' )['min'];
+		}
+		return PL_Image_Spec::frame_min( $frame ) ?? array( 0, 0 );
+	}
+
 	public static function too_small( $id, $frame ) {
 		$d = self::dims( $id );
-		$f = self::FRAMES[ $frame ] ?? null;
-		return $d && $f && ( $d[0] < $f['min'][0] || $d[1] < $f['min'][1] ) ? $d : null;
+		$m = isset( self::FRAMES[ $frame ] ) ? self::min( $frame, $id ) : null;
+		return $d && $m && ( $d[0] < $m[0] || $d[1] < $m[1] ) ? $d : null;
 	}
 
 	public static function field_note( $field ) {
@@ -401,27 +409,31 @@ class PL_Images {
 				$small[] = $d[0] . ' × ' . $d[1];
 			}
 		}
+		$min  = self::min( $frame );
+		$pmin = in_array( $frame, array( 'poster', 'poster10' ), true ) ? PL_Image_Spec::get( 'event_poster' )['min'] : $min;
 		printf(
-			'<p class="pl-imgnote" data-frame="%s" data-minw="%d" data-minh="%d" data-label="%s" style="%s"%s>%s</p>',
+			'<p class="pl-imgnote" data-frame="%s" data-minw="%d" data-minh="%d" data-pminw="%d" data-pminh="%d" data-label="%s" style="%s"%s>%s</p>',
 			esc_attr( $frame ),
-			(int) $f['min'][0],
-			(int) $f['min'][1],
+			(int) $min[0],
+			(int) $min[1],
+			(int) $pmin[0],
+			(int) $pmin[1],
 			esc_attr( $f['label'] ),
 			'margin:8px 0 0;padding:8px 10px;border-left:4px solid #DBA617;background:#FCF9E8;color:#3C3410;font-size:13px',
 			$small ? '' : ' hidden',
-			$small ? esc_html( self::note_text( $small, $f ) ) : ''
+			$small ? esc_html( self::note_text( $small, $f, self::min( $frame, (int) current( array_filter( (array) $field['value'] ) ) ) ) ) : ''
 		);
 	}
 
-	private static function note_text( array $small, array $f ) {
+	private static function note_text( array $small, array $f, array $min ) {
 		$n = count( $small );
 		return sprintf(
 			'%s smaller than the %s needs (%s px). Suggested: at least %d × %d px. It will still be published — it may look soft.',
 			1 === $n ? 'This image is' : $n . ' images are',
 			$f['label'],
 			implode( ', ', array_slice( $small, 0, 4 ) ) . ( $n > 4 ? ', …' : '' ),
-			$f['min'][0],
-			$f['min'][1]
+			$min[0],
+			$min[1]
 		);
 	}
 
@@ -441,10 +453,12 @@ class PL_Images {
 			var a = wp.media.attachment(id);
 			a.fetch().always(function () {
 				var w = a.get('width'), h = a.get('height');
-				if (w && h && a.get('subtype') !== 'svg+xml' && (w < minw || h < minh)) { small.push(w + ' × ' + h); }
+				var mw = minw, mh = minh; // a poster-shaped event image has the Poster minimum (PL_Image_Spec)
+				if (note.dataset.pminw && w && h && Math.abs((w / h) / (16 / 9) - 1) > 0.15) { mw = +note.dataset.pminw; mh = +note.dataset.pminh; }
+				if (w && h && a.get('subtype') !== 'svg+xml' && (w < mw || h < mh)) { small.push(w + ' × ' + h); note.dataset.need = mw + ' × ' + mh; }
 				if (--left) { return; }
 				note.hidden = !small.length;
-				note.textContent = small.length ? (small.length === 1 ? 'This image is' : small.length + ' images are') + ' smaller than the ' + note.dataset.label + ' needs (' + small.slice(0, 4).join(', ') + ' px). Suggested: at least ' + minw + ' × ' + minh + ' px. It will still be published — it may look soft.' : '';
+				note.textContent = small.length ? (small.length === 1 ? 'This image is' : small.length + ' images are') + ' smaller than the ' + note.dataset.label + ' needs (' + small.slice(0, 4).join(', ') + ' px). Suggested: at least ' + (note.dataset.need || (minw + ' × ' + minh)) + ' px. It will still be published — it may look soft.' : '';
 			});
 		});
 	}

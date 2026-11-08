@@ -34,6 +34,8 @@ class PL_Plugin {
 		PL_Images::init();
 		PL_Guardrails::init();
 		PL_Help::init();
+		PL_Page_Texts::init();
+		PL_Mail::init();
 		PL_Newsletter::init();
 		PL_Login::init();
 		PL_Importer::init();

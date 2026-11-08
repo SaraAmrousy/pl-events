@@ -178,7 +178,7 @@ class PL_Help {
 
 	/** "**Publish**" → <strong><bdi>Publish</bdi></strong>; `x` → <code>; escapes the rest. */
 	public static function md( $text ) {
-		$t = esc_html( (string) $text );
+		$t = esc_html( PL_Image_Spec::fill( (string) $text ) );
 		$t = preg_replace( '/\*\*(.+?)\*\*/u', '<strong><bdi>$1</bdi></strong>', $t );
 		$t = preg_replace( '/`(.+?)`/u', '<code dir="ltr">$1</code>', $t );
 		$t = preg_replace( '/^\[(\d+)\]\s*/u', '', $t );
@@ -220,7 +220,7 @@ class PL_Help {
 		$vid = 'video/' . $t['id'] . '.mp4';
 		if ( ! empty( $t['video'] ) && self::has( $vid ) ) {
 			$poster = 'video/' . $t['id'] . '.jpg';
-			$h     .= '<div class="plh-video"><video controls preload="none" playsinline' . ( self::has( $poster ) ? ' poster="' . esc_url( self::media_url( $poster ) ) . '"' : '' ) . ' aria-label="' . esc_attr( 'فيديو: ' . $t['title'] ) . '"><source src="' . esc_url( self::media_url( $vid ) ) . '" type="video/mp4">';
+			$h     .= '<div class="plh-video"><video controls preload="none" playsinline' . ( self::has( $poster ) ? ' data-poster="' . esc_url( self::media_url( $poster ) ) . '"' : '' ) . ' aria-label="' . esc_attr( 'فيديو: ' . $t['title'] ) . '"><source src="' . esc_url( self::media_url( $vid ) ) . '" type="video/mp4">';
 			if ( self::has( 'video/' . $t['id'] . '.vtt' ) ) {
 				$h .= '<track kind="captions" srclang="ar" label="عربي" src="' . esc_url( self::media_url( 'video/' . $t['id'] . '.vtt' ) ) . '">';
 			}
@@ -231,6 +231,12 @@ class PL_Help {
 			$h .= '<li>' . self::md( $s ) . '</li>';
 		}
 		$h .= '</ol>';
+		if ( ! empty( $t['spec_table'] ) ) {
+			$h .= self::spec_table();
+		}
+		if ( ! empty( $t['support'] ) ) {
+			$h .= self::support_buttons( $context );
+		}
 		if ( ! empty( $t['table'] ) ) {
 			$h .= '<table class="plh-table"><thead><tr><th scope="col">شايفين كده؟</th><th scope="col">اعملوا كده</th></tr></thead><tbody>';
 			foreach ( $t['table'] as $r ) {
@@ -270,6 +276,52 @@ class PL_Help {
 			$h .= '<p><a class="plh-more" href="' . esc_url( admin_url( 'admin.php?page=' . self::SLUG . '&task=' . rawurlencode( $t['id'] ) . '#plh-' . $t['id'] ) ) . '">افتحوا الشرح كله في صفحة Help ←</a></p>';
 		}
 		return $h . '</div>';
+	}
+
+	/** "مقاسات كل الصور" — built from PL_Image_Spec, so it always matches the field notes and the yellow warning. */
+	public static function spec_table() {
+		$h = '<table class="plh-table plh-spec"><thead><tr><th scope="col">الصورة</th><th scope="col">ارفعوها بمقاس</th><th scope="col">أقل مقاس</th><th scope="col">النسبة</th><th scope="col">الفورمات</th><th scope="col">أقصى حجم</th></tr></thead><tbody>';
+		foreach ( PL_Image_Spec::all() as $k => $s ) {
+			$h .= '<tr><td><strong>' . esc_html( $s['ar'] ) . '</strong><br><small><bdi>' . esc_html( $s['where'] ) . '</bdi></small></td><td><bdi>' . (int) $s['upload'][0] . ' × ' . (int) $s['upload'][1] . '</bdi></td><td><bdi>' . (int) $s['min'][0] . ' × ' . (int) $s['min'][1] . '</bdi></td><td><bdi>' . esc_html( $s['ratio'] ) . '</bdi></td><td><bdi>' . esc_html( $s['formats'] ) . '</bdi></td><td><bdi>' . esc_html( PL_Image_Spec::fill( '{{spec:' . $k . '.max_kb}}' ) ) . '</bdi>' . ( ! empty( $s['duration'] ) ? '<br><small><bdi>' . esc_html( $s['duration'] ) . '</bdi></small>' : '' ) . '</td></tr>';
+		}
+		return $h . '</tbody></table>';
+	}
+
+	/** Website support (PL Website › Company), else the head office's first email / WhatsApp. */
+	public static function support() {
+		$email = sanitize_email( (string) get_option( 'options_pl_support_email', '' ) );
+		$wa    = class_exists( 'PL_Fields' ) && PL_Fields::def( 'company', 'support_whatsapp' ) ? PL_Fields::get( 'options', PL_Fields::def( 'company', 'support_whatsapp' ) ) : '';
+		$head  = class_exists( 'PL_Data' ) ? PL_Data::head_office() : null;
+		if ( ! $email && $head ) {
+			$email = (string) ( $head['emails'][0] ?? '' );
+		}
+		if ( ! $wa && $head ) {
+			foreach ( (array) $head['phones'] as $p ) {
+				if ( ! empty( $p['whatsapp'] ) ) {
+					$wa = $p['number'];
+					break;
+				}
+			}
+		}
+		return array( 'email' => is_email( $email ) ? $email : '', 'wa' => preg_replace( '/\D/', '', (string) $wa ) );
+	}
+
+	private static function support_buttons( $context ) {
+		$s      = self::support();
+		$screen = function_exists( 'get_current_screen' ) && get_current_screen() ? get_current_screen() : null;
+		$where  = 'page' === $context ? 'PL Help' : ( $screen ? ( get_admin_page_title() ? get_admin_page_title() : $screen->id ) : 'wp-admin' );
+		$msg    = 'Hello PL Team, I need help with the website: ' . wp_strip_all_tags( (string) $where );
+		$h      = '<div class="plh-support">';
+		if ( strlen( $s['wa'] ) >= 8 ) {
+			$h .= '<a class="plh-btn plh-wa" href="' . esc_url( 'https://wa.me/' . $s['wa'] . '?text=' . rawurlencode( $msg ) ) . '" target="_blank" rel="noopener" data-msg="' . esc_attr( $msg ) . '">ابعتوا واتساب لـ <bdi>PL Team</bdi></a>';
+		}
+		if ( $s['email'] ) {
+			$h .= '<a class="plh-btn plh-mail" href="' . esc_url( 'mailto:' . $s['email'] . '?subject=' . rawurlencode( 'Website help: ' . wp_strip_all_tags( (string) $where ) ) . '&body=' . rawurlencode( $msg . "\n\n" ) ) . '">ابعتوا إيميل لـ <bdi>PL Team</bdi></a>';
+		}
+		if ( '<div class="plh-support">' === $h ) {
+			$h .= '<p class="plh-note">لسه مفيش وسيلة تواصل متسجلة: <bdi>PL Website › Company › Website support</bdi>.</p>';
+		}
+		return $h . '<p class="plh-note">الأرقام والإيميل دول من <bdi>PL Website › Company › Website support</bdi> (ولو فاضيين: المكتب الرئيسي).</p></div>';
 	}
 
 	public static function page() {
@@ -330,7 +382,9 @@ class PL_Help {
 			}
 			echo '</ol></li>';
 		}
-		echo '</ol><p class="plh-cheat-foot">ممنوع: ماتلمسوش Plugins / Themes / Settings. أي حاجة غريبة: screenshot + لينك الصفحة ← سارة.</p></div>';
+		$sp = self::support();
+		echo '</ol><p class="plh-cheat-sizes">' . esc_html( PL_Image_Spec::fill( 'مقاسات الصور: الهوم {{spec:hero.upload}} · صورة إيفنت (Photo) {{spec:event_photo.upload}} · بوستر: الملف الأصلي، أقل حاجة {{spec:event_poster.min}} · لوجو SVG أو PNG شفاف.' ) ) . '</p>'; // phpcs:ignore WordPress.Security.EscapeOutput
+		echo '<p class="plh-cheat-foot">ممنوع: ماتعدّلوش جوه Elementor، ولا Plugins / Themes / Settings. أي حاجة غريبة: screenshot + لينك الصفحة ← <bdi>PL Team</bdi>' . ( $sp['wa'] ? ' (واتساب <bdi dir="ltr">+' . esc_html( $sp['wa'] ) . '</bdi>)' : '' ) . ( $sp['email'] ? ' · <bdi>' . esc_html( $sp['email'] ) . '</bdi>' : '' ) . '.</p></div>';
 	}
 
 	/** "?" button + side panel on screens that have a task. */
@@ -344,12 +398,13 @@ class PL_Help {
 		}
 		echo '<button type="button" id="plh-fab" class="plh-fab" aria-expanded="false" aria-controls="plh-panel" title="Help for this screen (?)"><span aria-hidden="true">?</span><span class="screen-reader-text">Help for this screen</span></button>';
 		echo '<div id="plh-panel" class="plh plh-panel" role="dialog" aria-modal="false" aria-labelledby="plh-panel-h" dir="rtl" lang="ar" hidden tabindex="-1">';
-		echo '<div class="plh-panel-head"><h2 id="plh-panel-h">الشرح لهذه الشاشة</h2><button type="button" class="plh-close" aria-label="Close help (Esc)">×</button></div><div class="plh-panel-body">';
+		echo '<div class="plh-panel-head"><h2 id="plh-panel-h">الشرح لهذه الشاشة</h2><button type="button" class="plh-close" aria-label="Close help (Esc)">×</button></div><div class="plh-panel-body"></div></div>';
+		echo '<template id="plh-panel-tpl">'; // built only when "?" is pressed: nothing loads on the screen before that
 		foreach ( $tasks as $i => $t ) {
 			echo '<details class="plh-task' . ( ! empty( $t['danger'] ) ? ' is-danger' : '' ) . '"' . ( 0 === $i ? ' open' : '' ) . '><summary><span class="plh-st">' . self::md( $t['title'] ) . '</span></summary>'; // phpcs:ignore WordPress.Security.EscapeOutput
 			echo self::render_task( $t, 'panel' ); // phpcs:ignore WordPress.Security.EscapeOutput
 			echo '</details>';
 		}
-		echo '<p class="plh-note"><a href="' . esc_url( admin_url( 'admin.php?page=' . self::SLUG ) ) . '">كل الشرح: PL Website › Help</a></p></div></div>';
+		echo '<p class="plh-note"><a href="' . esc_url( admin_url( 'admin.php?page=' . self::SLUG ) ) . '">كل الشرح: PL Website › Help</a></p></template>';
 	}
 }

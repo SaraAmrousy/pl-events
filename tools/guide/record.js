@@ -59,6 +59,17 @@ function resolve(p) {
     return k === 'edit' ? `/wp-admin/post.php?post=${id}&action=edit` : k === 'view' ? php(`echo wp_make_link_relative( get_permalink( ${id} ) );`) : id;
   });
 }
+// Image sizes from the plugin (PL_Image_Spec — one source): fills {{spec:key.field}} in captions and feeds the drawings.
+let SPEC = null;
+function spec() { if (!SPEC) SPEC = JSON.parse(php('echo wp_json_encode( PL_Image_Spec::all(), JSON_UNESCAPED_UNICODE );')); return SPEC; }
+function fillSpec(t) {
+  return String(t).replace(/\{\{spec:([a-z_]+)\.([a-z_]+)\}\}/g, (m, k, f) => {
+    const v = (spec()[k] || {})[f]; if (v === undefined) return m;
+    if (f === 'upload' || f === 'min') return v[0] + ' × ' + v[1] + ' px';
+    if (f === 'max_kb') return v >= 1024 ? (Math.round(v / 102.4) / 10) + ' MB' : v + ' KB';
+    return Array.isArray(v) ? v.join(' · ') : String(v);
+  });
+}
 const sleep = ms => new Promise(r => setTimeout(r, ms));
 const readMs = t => Math.max(2300, 900 + String(t).replace(/\*\*/g, '').length * 62);
 const url = p => /^https?:/.test(p) ? p : BASE + resolve(p);
@@ -101,6 +112,7 @@ async function run(page, actions, video, caps) {
   for (const a of actions || []) {
     const capNow = async (t) => {
       if (!video || !t) return;
+      t = fillSpec(t);
       for (let i = 0; i < 4; i++) { // after Publish WordPress redirects twice: wait for the page that stays
         try { await page.waitForLoadState('domcontentloaded'); await page.evaluate(x => window.__pl && window.__pl.cap(x), t); break; }
         catch (e) { if (!/context was destroyed|navigation/i.test(e.message) || i === 3) throw e; await sleep(800); }
@@ -204,6 +216,7 @@ async function shot(browser, task, s, file) {
 async function diagram(browser, d) {
   // Our own drawings (tools/guide/diagrams/<name>.html), rendered at 1440 wide, @2x for the deck.
   const ctx = await browser.newContext({ viewport: { width: d.width || 1440, height: d.height || 900 }, deviceScaleFactor: 2 });
+  if (d.spec) await ctx.addInitScript(`window.__SPEC=${JSON.stringify(spec())};window.__SPEC_KEY=${JSON.stringify(d.spec)};`);
   const page = await ctx.newPage();
   await page.goto('file://' + path.join(DIR, 'diagrams', d.diagram + '.html'));
   await page.addStyleTag({ content: FONT_CSS });
@@ -248,7 +261,7 @@ async function video(browser, task) {
   await page.mouse.move(640, 420);
   // Title card — the video starts here (the page load before it is cut off)
   const cardAt = (Date.now() - run.t0) / 1000;
-  await page.evaluate(([k, t, w]) => window.__pl.card(k, t, w), [guide.chapters.find(c => c.id === task.chapter).kicker || 'PL Help', task.title, task.why]);
+  await page.evaluate(([k, t, w]) => window.__pl.card(k, t, w), [guide.chapters.find(c => c.id === task.chapter).kicker || 'PL Help', fillSpec(task.title), fillSpec(task.why)]);
   caps.push({ t: (Date.now() - run.t0) / 1000, text: task.title + ' — ' + task.why });
   await sleep(Math.max(3600, readMs(task.why) - 400));
   await page.evaluate(() => window.__pl.uncard()); await sleep(500);

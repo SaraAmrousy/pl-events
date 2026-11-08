@@ -46,7 +46,7 @@
      "widgetType": "shortcode",
      "isInner": false,
      "settings": {
-      "shortcode": "[pl_section class=\"\" style=\"padding:72px 0 40px\" wrap_style=\"display:flex;flex-direction:column;gap:20px\"]\n<span class=\"lab mut\">Contact</span><h1 class=\"h1\">Talk to our <span class=\"em\">team.</span></h1><p class=\"lead\">Alexandria and Dubai. Tell us about your congress, your sponsorship or your registration — the right office answers.</p>\n[/pl_section]"
+      "shortcode": "[pl_section class=\"\" style=\"padding:72px 0 40px\" wrap_style=\"display:flex;flex-direction:column;gap:20px\"]\n<span class=\"lab mut\">[pl_t k=\"con_label\"]</span><h1 class=\"h1\">[pl_t k=\"con_h1\"]</h1><p class=\"lead\">[pl_t k=\"con_lead\"]</p>\n[/pl_section]"
      },
      "elements": []
     }

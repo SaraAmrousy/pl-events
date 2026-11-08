@@ -119,3 +119,13 @@
 .plh-warn .plh-ico{background:var(--soon)}.plh-warn .plh-ico::before{content:"!"}
 .plh-task.is-danger .plh-warn .plh-ico{background:var(--red)}
 .plh-ph-box .plh-ico{border-radius:4px;background:#B8B3A7;flex:0 0 20px}.plh-ph-box .plh-ico::before{content:"+"}
+/* PL Team support buttons + image sizes (round 7) */
+.plh-support{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin:14px 0}
+.plh-support .plh-note{flex-basis:100%}
+.plh-btn{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:0 18px;border-radius:99px;font-weight:700;text-decoration:none;color:#fff}
+.plh-btn:focus-visible{outline:3px solid var(--blue);outline-offset:2px}
+.plh-wa{background:#25D366;color:#0A0D18}.plh-wa:hover{background:#1EBE5A;color:#0A0D18}
+.plh-mail{background:var(--blue)}.plh-mail:hover{background:var(--navy);color:#fff}
+.plh-spec td small{color:var(--mut)}
+.plh-cheat-sizes{margin:12px 0 0;font-size:13.5px}
+@media print{#plh-print-root .plh-cheat-sizes{font-size:12px;margin-top:10px}}

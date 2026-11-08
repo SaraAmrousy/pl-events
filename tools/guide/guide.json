@@ -1162,17 +1162,17 @@
   {
    "id": "event-images",
    "chapter": "c3",
-   "title": "صور الإيفنت ومقاساتها",
-   "why": "الصورة الكبيرة بتطلع حادة على الموبايل والكمبيوتر. الصغيرة بتطلع مغبّشة.",
+   "title": "صور الإيفنت: الكارت والصفحة",
+   "why": "الصورة بتظهر في الكارت والصفحة والقوايم. المقاس الصح بيخليها حادة ومن غير ما حاجة مهمة تتقص.",
    "steps": [
-    "في الإيفنت انزلوا لـ **Poster / photo** واضغطوا **Add Image**.",
-    "اختاروا صورة من **Media Library** أو ارفعوها من **Upload files**، واضغطوا **Select**.",
-    "لو ظهرت ملاحظة صفرا، الصورة أصغر من المطلوب (على الأقل **1280 × 800**). وشوفوا **Image type** (المهمة الجاية).",
-    "**Logo**: يفضّل SVG أو PNG شفاف.",
-    "اضغطوا **Update**."
+    "**Photo** (صورة حقيقية): ارفعوها {{spec:event_photo.upload}} (أقل حاجة {{spec:event_photo.min}})، والمهم في النص: الكارت بيقص شوية من فوق وتحت.",
+    "**Poster** (تصميم فيه كلام): ارفعوا الملف الأصلي (أقل حاجة {{spec:event_poster.min}}). بيظهر كامل، بس على الكارت حالة الإيفنت فوق والتاريخ تحت على الشمال: خلّوا اسم المؤتمر في النص.",
+    "في الإيفنت: **Poster / photo** ← **Add Image** ← اختاروا ← **Select**، وبعدين **Image type** (المهمة الجاية).",
+    "**Logo**: {{spec:logo.formats}}، أقل حاجة {{spec:logo.min}}.",
+    "ملاحظة صفرا؟ الصورة أصغر من المطلوب. انشروا عادي وغيّروها لما توصلكم أكبر."
    ],
-   "tip": "خلّوا أهم حاجة في البوستر في النص: الأطراف ممكن تتقص.",
-   "warning": "الملاحظة الصفرا مابتمنعش النشر. انشروا عادي، وغيّروا الصورة لما توصلكم أكبر.",
+   "tip": "صور الـ Gallery {{spec:gallery.upload}} (4:3)، وكل الأرقام في جدول \"مقاسات كل الصور\" في آخر الفصل.",
+   "warning": "ماترفعوش screenshot من موبايل لبوستر: اطلبوا الملف الأصلي من المصمم.",
    "screens": [
     "event",
     "upload"
@@ -1207,6 +1207,20 @@
        "text": "Logo"
       }
      ]
+    },
+    {
+     "id": "event-photo-safe",
+     "diagram": "safe-zone",
+     "spec": "event_photo",
+     "width": 1440,
+     "height": 900
+    },
+    {
+     "id": "event-poster-safe",
+     "diagram": "safe-zone",
+     "spec": "event_poster",
+     "width": 1440,
+     "height": 900
     }
    ],
    "video": {
@@ -1492,6 +1506,40 @@
    },
    "role": "admin",
    "danger": false
+  },
+  {
+   "id": "image-sizes",
+   "chapter": "c3",
+   "title": "مقاسات كل الصور",
+   "role": "admin",
+   "danger": false,
+   "why": "جدول واحد ترجعوله قبل ما ترفعوا أي صورة. نفس الأرقام اللي تحت كل خانة صورة وفي الملاحظة الصفرا.",
+   "steps": [
+    "دوّروا على نوع الصورة في الجدول.",
+    "ارفعوها بالمقاس اللي في عمود **ارفعوها بمقاس** (أو أكبر بنفس الشكل).",
+    "لو الملف أكبر من **أقصى حجم**، صغّروه الأول (مثلاً بـ \"Compress image\")."
+   ],
+   "tip": "الموقع بيعمل نسخ صغيرة للموبايل لوحده: ارفعوا الصورة الكبيرة مرة واحدة.",
+   "spec_table": true,
+   "screens": [
+    "upload"
+   ],
+   "screenshots": [
+    {
+     "id": "gallery-safe",
+     "diagram": "safe-zone",
+     "spec": "gallery",
+     "width": 1440,
+     "height": 900
+    },
+    {
+     "id": "wide-safe",
+     "diagram": "safe-zone",
+     "spec": "wide",
+     "width": 1440,
+     "height": 900
+    }
+   ]
   },
   {
    "id": "office-phone",
@@ -2649,6 +2697,110 @@
    "screenshots": []
   },
   {
+   "id": "hero-images",
+   "chapter": "c5",
+   "title": "صورة وفيديو الهوم (Hero)",
+   "role": "admin",
+   "danger": false,
+   "why": "أول حاجة الزائر بيشوفها. الموبايل بيبيّن نص الصورة بس، فالمهم لازم يبقى في النص.",
+   "steps": [
+    "الصورة: {{spec:hero.upload}} ({{spec:hero.ratio}})، {{spec:hero.formats}}، أقل من {{spec:hero.max_kb}}. من غير كلام عليها.",
+    "الوشوش والحاجة المهمة في **العمود اللي في النص** (حوالي 26% من العرض): ده اللي الموبايل بيبيّنه.",
+    "الفيديو: {{spec:hero_video.upload}}، {{spec:hero_video.duration}}، من غير صوت، {{spec:hero_video.formats}}، أقل من {{spec:hero_video.max_kb}}. ومعاه **Showreel poster** بنفس المقاس.",
+    "ارفعوهم من **PL Website › Company**: **Showreel poster**، **Showreel stills**، **Hero showreel (MP4)** ← **Save company settings**.",
+    "اتأكدوا: افتحوا الهوم على الموبايل والكمبيوتر."
+   ],
+   "tip": "الفيديو بيشتغل على الكمبيوتر بس. الموبايل بيعرض الـ poster.",
+   "warning": "العنوان والزراير بيقعوا فوق نص الصورة: ماتحطوش كلام في الصورة نفسها.",
+   "screens": [
+    "pl-website_page_pl-company"
+   ],
+   "screenshots": [
+    {
+     "id": "hero-safe",
+     "diagram": "safe-zone",
+     "spec": "hero",
+     "width": 1440,
+     "height": 900
+    },
+    {
+     "id": "hero-video-safe",
+     "diagram": "safe-zone",
+     "spec": "hero_video",
+     "width": 1440,
+     "height": 900
+    },
+    {
+     "id": "hero-mobile",
+     "size": "mobile",
+     "page": "/",
+     "anon": true,
+     "callouts": [
+      {
+       "n": 1,
+       "sel": ".hero h1",
+       "text": "العنوان فوق الصورة"
+      }
+     ]
+    }
+   ],
+   "pair": {
+    "id": "pair-hero-image",
+    "title": "Showreel poster ← الهوم",
+    "text": "الصورة اللي في Company هي خلفية الهوم.",
+    "legend": [
+     "**Showreel poster** / **stills**",
+     "خلفية الهوم"
+    ],
+    "admin": {
+     "page": "/wp-admin/admin.php?page=pl-company",
+     "scroll": "[data-name=pl_showreel_poster]",
+     "callouts": [
+      {
+       "n": 1,
+       "sel": "[data-name=pl_showreel_poster]",
+       "text": "Showreel poster"
+      }
+     ]
+    },
+    "site": {
+     "page": "/",
+     "callouts": [
+      {
+       "n": 1,
+       "sel": ".hero",
+       "text": "الخلفية"
+      }
+     ]
+    }
+   },
+   "video": {
+    "start": "/wp-admin/admin.php?page=pl-company",
+    "actions": [
+     {
+      "scroll": "[data-name=pl_showreel_poster]",
+      "cap": "[1] في **Company** روحوا لـ **Showreel poster**."
+     },
+     {
+      "ring": "[data-name=pl_showreel_poster]",
+      "cap": "[2] صورة {{spec:hero.upload}}، والمهم في العمود اللي في النص."
+     },
+     {
+      "ring": "[data-name=pl_showreel_video]",
+      "cap": "[3] الفيديو: من غير صوت، {{spec:hero_video.duration}}، أقل من {{spec:hero_video.max_kb}}."
+     },
+     {
+      "go": "/",
+      "cap": "[4] بعد الحفظ: افتحوا الهوم واتأكدوا."
+     },
+     {
+      "ring": ".hero h1",
+      "cap": "العنوان بيقع فوق الصورة: من غير كلام في الصورة نفسها."
+     }
+    ]
+   }
+  },
+  {
    "id": "company-files",
    "chapter": "c5",
    "title": "الـ Portfolio PDF وفيديو الهوم",
@@ -2656,7 +2808,7 @@
    "steps": [
     "اضغطوا **PL Website › Company**.",
     "**Portfolio PDF**: **Add File** وارفعوا الـ PDF (أقل من 5 MB).",
-    "**Hero showreel (MP4)**: فيديو صامت أقل من 2.5 MB، ومعاه **Showreel poster**.",
+    "صورة وفيديو الهوم: شوفوا المهمة اللي قبل دي (**صورة وفيديو الهوم**).",
     "اضغطوا **Save company settings**."
    ],
    "tip": "الـ PDF الكبير بيتقل على الموبايل. اضغطوه قبل الرفع (مثلاً بـ \"Compress PDF\").",
@@ -2729,8 +2881,8 @@
    "steps": [
     "إيفنتات، مكاتب، وظايف، خدمات، رعاة، جمعيات، أرقام الشركة ← **PL Website**.",
     "عنوان الهوم، الـ PDF، الفيديو، اللينكات الاجتماعية ← **PL Website › Company**.",
-    "جمل ثابتة في صفحة (زي عنوان صفحة Careers) ← **Pages** + Elementor (بحذر، المهمة الجاية).",
-    "شكل الصفحات وترتيب الأقسام ← سيبوه زي ما هو (اسألوا الإدارة)."
+    "أي جملة ثابتة في صفحة (عنوان، مقدمة، زرار) ← **PL Website › Page texts**.",
+    "شكل الصفحات وترتيب الأقسام (Elementor) ← ماتلمسوهوش: كلموا PL Team."
    ],
    "tip": "لو مش متأكدين حاجة بتتعدّل منين، دوّروا عليها الأول في **PL Website**.",
    "screens": [
@@ -2749,60 +2901,141 @@
    "video": null
   },
   {
-   "id": "pages-edit-text",
+   "id": "page-texts",
    "chapter": "c6",
-   "title": "تعديل جملة في صفحة (بأمان)",
-   "why": "لجملة ثابتة مش جاية من الداتا، زي سطر تحت عنوان صفحة Careers.",
-   "steps": [
-    "**Pages** ← على الصفحة اضغطوا **Edit with Elementor**.",
-    "اضغطوا على الجزء اللي فيه الجملة: هيفتح على الشمال مربع **Shortcode**.",
-    "غيّروا **الكلام بس** اللي بين `>` و `<`.",
-    "اضغطوا **Publish** فوق، وافتحوا الصفحة واتأكدوا."
-   ],
-   "warning": "ماتلمسوش أي حاجة جوه `[ ]` أو `< >` أو `\"…\"`. دي كود الشكل. لو حاجة باظت: **History › Revisions** في Elementor ورجّعوا النسخة اللي قبلها.",
+   "title": "تعديل كلام الصفحات (Page texts)",
+   "role": "admin",
    "danger": false,
+   "why": "كل جملة ثابتة في الصفحات (العناوين، المقدمات، الزراير) ليها خانة. من غير Elementor ومن غير HTML.",
+   "steps": [
+    "اضغطوا **PL Website › Page texts** واختاروا الصفحة من فوق.",
+    "غيّروا الكلام في الخانة. الكلمة المميزة (المايلة الزرقا) ليها خانة لوحدها: **Highlighted word**.",
+    "بصّوا على العدّاد: لو الجملة أطول من التصميم هيظهر تحذير أصفر وكام سطر هتبقى على الموبايل.",
+    "اضغطوا **Save page texts** وافتحوا الصفحة (**View page**).",
+    "غلطتوا؟ **Reset to original** تحت الخانة بترجّع الكلام الأصلي."
+   ],
+   "tip": "عنوان الصفحة في جوجل والوصف (SEO) مش هنا: دول في **Rank Math** (اسألوا PL Team).",
+   "warning": "أي HTML أو كود بيتشال لوحده. ماتعدّلوش الكلام من جوه Elementor: من هنا بس.",
    "screens": [
+    "pl-website_page_pl-page-texts",
     "edit-page"
    ],
    "screenshots": [
     {
-     "id": "pages-edit-text-1",
-     "page": "/wp-admin/edit.php?post_type=page",
+     "id": "page-texts-1",
+     "page": "/wp-admin/admin.php?page=pl-page-texts",
+     "scroll": "#pl-pt-careers",
+     "block": "start",
      "callouts": [
       {
        "n": 1,
-       "sel": "#the-list tr:has-text('Careers') .row-title",
-       "text": "الصفحة"
+       "sel": "#pl-pt-car_h1",
+       "text": "الكلام"
+      },
+      {
+       "n": 2,
+       "sel": "tr:has(#pl-pt-car_h1) .pl-pt-hl",
+       "text": "Highlighted word"
+      },
+      {
+       "n": 3,
+       "sel": "tr:has(#pl-pt-car_h1) .pl-pt-count",
+       "text": "العدّاد"
+      },
+      {
+       "n": 4,
+       "sel": "tr:has(#pl-pt-car_h1) .pl-pt-reset",
+       "text": "Reset to original"
       }
      ]
     }
    ],
+   "pair": {
+    "id": "pair-page-texts",
+    "title": "Page texts ← عنوان صفحة Careers",
+    "text": "الخانتين دول هما العنوان الكبير في صفحة Careers.",
+    "legend": [
+     "الكلام",
+     "**Highlighted word**"
+    ],
+    "admin": {
+     "page": "/wp-admin/admin.php?page=pl-page-texts",
+     "scroll": "#pl-pt-careers",
+     "block": "start",
+     "callouts": [
+      {
+       "n": 1,
+       "sel": "#pl-pt-car_h1",
+       "text": "الكلام"
+      },
+      {
+       "n": 2,
+       "sel": "tr:has(#pl-pt-car_h1) .pl-pt-hl",
+       "text": "Highlighted word"
+      }
+     ]
+    },
+    "site": {
+     "page": "/careers/",
+     "anon": true,
+     "callouts": [
+      {
+       "n": 1,
+       "sel": "main h1",
+       "text": "العنوان"
+      },
+      {
+       "n": 2,
+       "sel": "main h1 .em",
+       "text": "الكلمة المميزة"
+      }
+     ]
+    }
+   },
    "video": {
-    "start": "/wp-admin/edit.php?post_type=page",
+    "start": "/wp-admin/admin.php?page=pl-page-texts",
     "actions": [
      {
-      "hover": "#the-list tr:has-text('Careers') .row-title",
-      "cap": "[1] في **Pages** قفوا على الصفحة…"
+      "cap": "[1] **PL Website › Page texts**: كل جمل الصفحات، صفحة صفحة."
      },
      {
-      "ring": "#the-list tr:has-text('Careers') .row-actions",
-      "cap": "…هيظهر **Edit with Elementor**."
+      "click": ".pl-pt-nav a[href='#pl-pt-careers']",
+      "cap": "اختاروا الصفحة، مثلاً **Careers**."
      },
      {
-      "cap": "[2] جوه Elementor اضغطوا على الجزء اللي فيه الجملة. هيفتح مربع **Shortcode**."
+      "fill": "#pl-pt-car_h1",
+      "text": "Build congresses behind the",
+      "cap": "[2] غيّروا الكلام…"
      },
      {
-      "cap": "[3] غيّروا الكلام بس اللي بين > و <. أي حاجة جوه [ ] أو < > ماتتلمسش."
+      "ring": "tr:has(#pl-pt-car_h1) .pl-pt-hl",
+      "cap": "…والكلمة المميزة في **Highlighted word**."
      },
      {
-      "cap": "[4] اضغطوا **Publish** وافتحوا الصفحة واتأكدوا."
+      "ring": "tr:has(#pl-pt-car_h1) .pl-pt-count",
+      "cap": "[3] العدّاد بيقولكم الجملة هتبقى كام سطر على الموبايل."
      },
      {
-      "cap": "لو حاجة باظت: History ← Revisions، ورجّعوا النسخة اللي قبلها."
+      "click": "#submit",
+      "cap": "[4] **Save page texts**.",
+      "nav": true
+     },
+     {
+      "go": "/careers/",
+      "cap": "العنوان اتغيّر على الموقع على طول."
+     },
+     {
+      "go": "/wp-admin/admin.php?page=pl-page-texts",
+      "cap": "[5] عايزين ترجعوا الأصلي؟ **Reset to original** تحت الخانة."
+     },
+     {
+      "scroll": "#pl-pt-careers"
+     },
+     {
+      "ring": "tr:has(#pl-pt-car_h1) .pl-pt-reset"
      }
     ]
-   },
-   "role": "admin"
+   }
   },
   {
    "id": "menus",
@@ -2879,13 +3112,13 @@
    "danger": true,
    "why": "الحاجات دي ممكن توقّع الموقع كله أو تبوّظ شكله. سيبوها للإدارة.",
    "steps": [
+    "**Elementor**: ماتعدّلوش جوه الصفحات. الكلام بيتعدّل من **PL Website › Page texts**.",
     "**Plugins**: ماتقفلوش (Deactivate) ولا تمسحوا ولا تضيفوا plugin.",
-    "**Appearance › Themes**: ماتغيّروش الثيم.",
-    "**Elementor › Templates** وأي **Header/Footer**: ماتعدّلوش التصميم.",
+    "**Appearance › Themes** و **Header/Footer**: ماتغيّروش التصميم.",
     "**Settings** (General، Reading، Permalinks): ماتغيّروش حاجة.",
     "**Users**: ماتدّوش حد Administrator من غير اتفاق."
    ],
-   "warning": "لو ضغطتوا حاجة من دول بالغلط: ماتحاولوش تصلّحوها. صوّروا الشاشة وابعتوها فوراً.",
+   "warning": "محتاجين حاجة من دول؟ كلموا PL Team الأول. ولو ضغطتوا حاجة بالغلط: ماتحاولوش تصلّحوها، صوّروا الشاشة وابعتوها.",
    "screens": [
     "plugins",
     "themes",
@@ -3148,7 +3381,7 @@
     "**Forminator › Forms** ← **Add new** ← **Blank** واكتبوا الاسم.",
     "ضيفوا الخانات، وفي **Email notifications** حطوا الإيميل اللي يوصله، واضغطوا **Publish**.",
     "من قايمة **Forms** اضغطوا **Copy Shortcode**.",
-    "في Elementor ضيفوا ويدجت **Shortcode** في الصفحة والصقوه، وبعدين **Publish**."
+    "عشان يتحط في صفحة: ابعتوا الـ shortcode لـ PL Team (حطّه في الصفحة بيتعمل من Elementor)."
    ],
    "tip": "جرّبوه بنفسكم قبل ما تعلنوه، واتأكدوا إن الإيميل وصل.",
    "warning": "ماتعدّلوش فورمات **PL — Contact** و **PL — Careers (CV)**: ليهم تصميم وتوجيه إيميلات خاص.",
@@ -3188,7 +3421,7 @@
       "cap": "[3] من قايمة الفورمات: **Copy Shortcode**."
      },
      {
-      "cap": "[4] في Elementor: ويدجت **Shortcode** ← الصقوه ← **Publish**."
+      "cap": "[4] حطّه في صفحة: ابعتوا الـ shortcode لـ PL Team."
      },
      {
       "cap": "وجرّبوه بنفسكم قبل ما تعلنوه."
@@ -3698,6 +3931,14 @@
     [
      "مدينة جديدة مش على الخريطة صح",
      "اكتبوا اسم المدينة بالإنجليزي صح (زي Alexandria). لو مش في القايمة، الدبوس بيقف في نص البلد، وده عادي."
+    ],
+    [
+     "عايزين تغيّروا جملة أو عنوان في صفحة",
+     "**PL Website › Page texts**. مش من Elementor."
+    ],
+    [
+     "محتاجين مساعدة",
+     "فصل \"تكلموا مين\": زراير واتساب وإيميل لـ PL Team."
     ]
    ],
    "screens": [],
@@ -3715,7 +3956,7 @@
    "steps": [
     "ماتخترعوش داتا: اللي مش معروف سيبوه فاضي.",
     "ماتمسحوش إيفنتات قديمة: اخفوها (**Show on site**).",
-    "ماتلمسوش **Plugins** و **Themes** و **Settings** والتصميم في Elementor.",
+    "ماتعدّلوش جوه **Elementor**، ولا **Plugins** و **Themes** و **Settings**.",
     "ماتغيّروش الإيميلات من جوه Forminator.",
     "ماتشاركوش الباسورد، ولا تدّوا حد صلاحية Administrator."
    ],
@@ -3731,16 +3972,17 @@
    "title": "تكلموا مين",
    "why": "عشان المشكلة تتحل بسرعة.",
    "steps": [
-    "مشكلة في المحتوى (تاريخ، لينك، صورة): صلّحوها بنفسكم من الشرح ده.",
-    "حاجة في الشكل أو صفحة باظت أو رسالة غريبة: كلّموا سارة (المصممة والمطورة) وابعتوا screenshot + لينك الصفحة.",
-    "مشكلة في الدخول لكل الناس أو الموقع واقع: كلّموا الاستضافة + سارة فوراً."
+    "مشكلة في المحتوى (تاريخ، لينك، صورة، جملة): صلّحوها بنفسكم من الشرح ده.",
+    "حاجة في الشكل، أو صفحة باظت، أو رسالة غريبة: ابعتوا لـ PL Team بالزراير اللي تحت، ومعاها screenshot ولينك الصفحة.",
+    "الموقع واقع أو الدخول مش شغال لحد: ابعتوا لـ PL Team فوراً."
    ],
-   "tip": "وسيلة التواصل مع سارة وقت الإطلاق: TBC (هتتحدد في التسليم).",
+   "tip": "الزراير بتفتح رسالة جاهزة فيها اسم الشاشة اللي انتوا فيها.",
    "screens": [],
    "role": "admin",
    "danger": false,
    "screenshots": [],
-   "video": null
+   "video": null,
+   "support": true
   },
   {
    "id": "cheatsheet",

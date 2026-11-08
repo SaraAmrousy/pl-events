@@ -23,6 +23,11 @@
     if (hash && hash.tagName === 'DETAILS') { hash.open = true; hash.scrollIntoView({ block: 'start' }); }
   }
 
+  /* video posters load only when their task is opened (a closed task loads nothing) */
+  function posters(root) { (root || document).querySelectorAll('video[data-poster]').forEach(function (v) { if (v.closest('details:not([open])')) return; v.poster = v.dataset.poster; v.removeAttribute('data-poster'); }); }
+  document.addEventListener('toggle', function (e) { if (e.target.open) posters(e.target); }, true);
+  posters();
+
   /* pause other videos when one plays */
   document.addEventListener('play', function (e) {
     document.querySelectorAll('.plh video').forEach(function (v) { if (v !== e.target) v.pause(); });
@@ -50,6 +55,8 @@
   var fab = document.getElementById('plh-fab'), panel = document.getElementById('plh-panel');
   if (!fab || !panel) return;
   function open() {
+    var tpl = document.getElementById('plh-panel-tpl'), body = panel.querySelector('.plh-panel-body');
+    if (tpl && !body.childElementCount) { body.appendChild(tpl.content.cloneNode(true)); posters(body); }
     panel.hidden = false; fab.setAttribute('aria-expanded', 'true');
     if (!reduce) { panel.classList.add('is-entering'); requestAnimationFrame(function () { requestAnimationFrame(function () { panel.classList.remove('is-entering'); }); }); }
     panel.focus();

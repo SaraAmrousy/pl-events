@@ -64,8 +64,8 @@ class PL_NL_Links {
 			. '<p style="margin:28px 0"><a href="' . esc_url( $url ) . '" style="display:inline-block;background:#2C4894;color:#ffffff;text-decoration:none;font-weight:700;padding:14px 24px;border-radius:999px">Confirm my subscription</a></p>'
 			. '<p style="font-size:14px;color:#555">' . esc_html( $after ) . '</p>'
 			. '<p style="font-size:14px;color:#555">Button not working? Copy this link into your browser:<br><a href="' . esc_url( $url ) . '" style="color:#2C4894;word-break:break-all">' . esc_html( $url ) . '</a></p>'
-			. '<p style="font-size:14px;color:#555">— PL Events · <a href="' . esc_url( home_url( '/' ) ) . '" style="color:#2C4894">' . esc_html( wp_parse_url( home_url(), PHP_URL_HOST ) ) . '</a></p></div>';
-		$text  = $hi . "\n\n" . $intro . "\n\nConfirm my subscription:\n" . $url . "\n\n" . $after . "\n\n— PL Events · " . home_url( '/' );
+			. '<p style="font-size:14px;color:#555">' . esc_html( PL_Mail::SIGN ) . ' · <a href="' . esc_url( home_url( '/' ) ) . '" style="color:#2C4894">' . esc_html( wp_parse_url( home_url(), PHP_URL_HOST ) ) . '</a></p></div>';
+		$text  = $hi . "\n\n" . $intro . "\n\nConfirm my subscription:\n" . $url . "\n\n" . $after . "\n\n" . PL_Mail::SIGN . ' · ' . home_url( '/' );
 		$alt   = static function ( $m ) use ( $text ) {
 			$m->AltBody = $text; // phpcs:ignore WordPress.NamingConventions.ValidVariableName -- PHPMailer property.
 		};

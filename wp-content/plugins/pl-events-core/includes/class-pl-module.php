@@ -69,7 +69,7 @@ abstract class PL_Module {
 		$own = require PL_EVENTS_DIR . 'modules/' . $this->slug . '/fields.php';
 		$common = array(
 			array( 'name' => 'show_on_site', 'label' => 'Show on site', 'type' => 'switch', 'default' => 1, 'width' => 50, 'help' => 'Off = hidden everywhere on the site, kept here.' ),
-			array( 'name' => 'sample', 'label' => 'Sample', 'type' => 'switch', 'default' => 0, 'width' => 50, 'admin_only' => true, 'help' => 'Sara only: marks dummy content. The site cannot launch while anything is Sample.' ),
+			array( 'name' => 'sample', 'label' => 'Sample', 'type' => 'switch', 'default' => 0, 'width' => 50, 'admin_only' => true, 'help' => 'Administrators: marks dummy content. The site cannot launch while anything is Sample.' ),
 		);
 		return apply_filters( 'pl_fields_' . $this->slug, array_merge( $own, $common ) );
 	}

@@ -4,19 +4,19 @@
 
 For the PL staff member who keeps the website up to date. You don't need any technical skills: everything happens in **wp-admin** under **PL Website**, using forms. The site updates itself: counts, maps, "Next congress", past/upcoming status and the cache.
 
-*Step 6.2 — written 6 Nov 2026. Sign-in address: **`https://plevents.org/plevents/`** (staging: `https://saraamrousy.net/pl/plevents/`). Bookmark it: `/wp-admin` and `/wp-login.php` show "Page not found" until you're signed in, by design. Once signed in, wp-admin works as usual. After 5 wrong passwords, sign-in from your connection pauses for 15 minutes; use "Lost your password?" on the same page if needed. Your account has the **PL Editor** role.*
+*Step 6.2 — written 6 Nov 2026. Sign-in address: **`https://plevents.org/plevents/`** (staging: `https://saraamrousy.net/pl/plevents/`). Bookmark it: `/wp-admin` and `/wp-login.php` show "Page not found" until you're signed in, by design. Once signed in, wp-admin works as usual. After 5 wrong passwords, sign-in from your connection pauses for 15 minutes; use "Lost your password?" on the same page if needed. Your account is an **Administrator** (you see the whole of wp-admin, so read the danger zone in PL Help first).*
 
 ---
 
 ## 1. What you see
-After logging in you see only what you need:
-- **PL Website** — everything on the site: events, offices, societies, sponsors, memberships, careers, services, company details.
+After logging in you see the whole of wp-admin (you're an Administrator). What you need is here:
+- **PL Website** — everything on the site: events, offices, societies, sponsors, memberships, careers, services, company details, **Page texts**, and **Help**.
 - **Media** — photos, posters, logos, PDFs.
 - **Profile** — your name and password.
 
 **PL Website › Overview** shows the live numbers (events · congresses · countries · cities · since …, plus Live / Upcoming / Past), so you can check a change at a glance.
 
-> You can't break the design: pages, menus and layout aren't in your menu. If something on a page needs a new *section* (not new data), ask Sara.
+> **Read the danger zone in PL Help before any change to the pages or the Plugins.** Page sentences are edited in **PL Website › Page texts**, never inside Elementor. A new *section* on a page (not new data) is a job for PL Team.
 
 ---
 
@@ -59,7 +59,7 @@ Then click **Publish** (blue button, top right). The event appears at once in:
 - To take it off the site, switch **Show on site** off (better than deleting: it stays in the archive).
 
 ### Which events count as "congresses"
-Only types with **"Counts as a congress"** switched on are counted in the "{n} congresses" line. Today that's *Congress* and *Conference* (decision 6 Nov 2026). Event types are managed by the administrator (Sara).
+Only types with **"Counts as a congress"** switched on are counted in the "{n} congresses" line. Today that's *Congress* and *Conference* (decision 6 Nov 2026). Event types are managed in **PL Website › ↳ Event types** (a decision that changes a public number: agree it with PL Team first).
 
 ---
 
@@ -93,23 +93,34 @@ Order: every list has an **Order** number. Lower numbers come first.
 ---
 
 ## 5. Images — sizes that look sharp
-Every image sits in a fixed frame, so any size *fits*. Small images look soft, though. Under each image field the site says what it needs, and shows a **yellow note** if your image is smaller. The note never blocks publishing.
+The numbers below come from one place in the plugin (`PL_Image_Spec`): the same numbers are under every image field, in the yellow "image is small" note, and in **PL Help › مقاسات كل الصور** (with safe-zone drawings). Measured on the real pages, 8 Nov 2026.
 
-| Image | Frame | Upload at least |
-|---|---|---|
-| Event poster / photo | 16:9 on cards, 16:10 on the event page. **Photo**: cropped from the centre. **Poster**: shown whole on a blurred background (Image type) | **1280 × 800 px** (posters: at least 1000 px tall) |
-| Event photos (gallery) | 4:3 | 960 × 720 px |
-| Service photo | 4:3 | 960 × 720 px |
-| Wide photo (About) | 21:9 (4:3 on phones) | 2048 × 878 px |
-| Showreel stills / poster | Full-screen hero | 1920 × 1080 px |
-| Logos (event, society, sponsor, membership) | Shown whole, never cropped | **SVG**, or PNG ≥ 400 × 160 px with a transparent background |
+| Image | Upload | At least | Shape | Format | Max file |
+|---|---|---|---|---|---|
+| **Home hero photo / stills** (Company › Showreel poster / stills) | 2400 × 1350 | 1920 × 1080 | 16:9, cropped from the centre | JPG or WebP | 1 MB |
+| **Home hero video** (Company › Hero showreel) | 1920 × 1080 | 1280 × 720 | 16:9, 10–20 s loop, **no sound** | MP4 (H.264) | 2.5 MB |
+| **Event image — Photo** (Image type = Photo) | 1600 × 1000 | 1280 × 800 | 16:10; the card shows 16:9 (5% off top and bottom) | JPG or WebP | 2 MB |
+| **Event image — Poster** (Image type = Poster/Auto) | the original design, e.g. 1080 × 1350 | 800 × 1000 | any; shown whole on a blurred copy | JPG, WebP or PNG | 2 MB |
+| Logos (event, society, sponsor, membership) | 800 × 320 | 400 × 160 | shown whole in a tile | SVG, or PNG with a transparent background | 512 KB |
+| Event photos (gallery) / Service photo | 1600 × 1200 | 960 × 720 | 4:3, cropped from the centre | JPG or WebP | 2 MB |
+| Wide photo (About) | 2560 × 1097 | 2048 × 878 | 21:9 (phones: the middle 57%) | JPG or WebP | 2 MB |
 
-- Keep the important part of a poster **in the middle**: the edges may be cropped.
-- **Alt text:** in Media, fill **Alternative text** with what the photo shows ("Delegates at the ESOIRS 2026 opening session"). Leave it empty for logos and posters; the site names them already.
+- **Hero safe zone:** phones show only the **middle column (≈ 29% of the width)** of a 16:9 photo; the headline sits over the middle of the height. Faces and the key detail go in that middle column; no text in the photo.
+- **Poster on the card:** the status badge covers the top ~16% and the date the bottom-left ~30%: put the congress name in the middle band. On the event page the whole poster shows.
+- **Photo vs Poster:** a real photo → **Photo** (fills the frame). A designed image with text → **Poster** (nothing is cut). **Auto** decides from the shape (far from 16:9 = Poster).
+- **Alt text:** in Media, fill **Alternative text** with what the photo shows. Leave it empty for logos and posters; the site names them already.
 - SVGs with scripts or outside links are refused at upload. Export a plain SVG, or use a PNG.
-- File size: under ~2 MB per image. The site makes the small copies by itself.
+- Resized copies are made by the site (PNG copies as WebP): upload the big file once.
 
----
+## 5b. Page texts (since 6.1b round 7)
+**PL Website › Page texts** holds every fixed sentence on the pages (titles, intros, section headings, buttons), page by page, each with where it appears on the site.
+- The **Highlighted word** (italic, blue, e.g. *lens.*) has its own field: you never type HTML. HTML and [codes] are removed on save.
+- A counter shows the length and roughly how many lines it makes on a phone; past the design's limit you get a yellow note.
+- Empty field = the original text. **Reset to original** under each field.
+- Saving refreshes the pages at once. SEO titles/descriptions stay in **Rank Math**.
+
+## 5c. Website support (since 6.1b round 7)
+**PL Website › Company › Website support — email / WhatsApp**: who the staff contact when they need help. Empty = the head office's first email and WhatsApp number. PL Help (chapter "تكلموا مين") turns them into **WhatsApp PL Team** / **Email PL Team** buttons with a ready message. Every email the site sends is signed "— PL Events Team", from "PL Events Team".
 
 ## 6. Rules that keep the site trustworthy
 1. **Never invent data.** Unknown means leave it empty (or "TBC" where a field asks for text).
@@ -131,10 +142,11 @@ The forms stop the mistakes that would make the site wrong, and explain the fix 
 ## 7. If something looks wrong
 | You see | Do this |
 |---|---|
-| A change doesn't show | Wait a minute and reload. The site refreshes its cache by itself on every save. Still wrong → tell Sara. |
+| A change doesn't show | Wait a minute and reload. The site refreshes its cache by itself on every save. Still wrong → PL Team. |
 | An event shows the wrong status | Check its **dates** (start/end) and **Country** (the status uses the country's local time). |
 | "Register now" is missing | Registration must be **Open** *and* the **Registration link** must be filled in. |
 | No WhatsApp button on a card | Fill **WhatsApp for inquiries** in the event. Empty = no button, by design. |
 | A poster's text is cut | Set **Image type** to **Poster** (or Auto). |
 | A yellow image note | Upload a bigger image if you have one (see §5). It's fine to publish meanwhile. |
-| Anything else | Screenshot + the page address → Sara. |
+| A sentence on a page is wrong | **PL Website › Page texts** (not Elementor). |
+| Anything else | Screenshot + the page address → PL Team (PL Help › تكلموا مين). |

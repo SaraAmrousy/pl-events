@@ -46,7 +46,7 @@
      "widgetType": "shortcode",
      "isInner": false,
      "settings": {
-      "shortcode": "[pl_section class=\"\" style=\"padding:72px 0 40px\" wrap_style=\"display:flex;flex-direction:column;gap:20px\"]\n<span class=\"lab mut\">Careers</span><h1 class=\"h1\">Work behind the <span class=\"em\">lens.</span></h1><p class=\"lead\">We hire for congress operations, production, registration and sponsorship in Alexandria and Dubai.</p>\n[/pl_section]"
+      "shortcode": "[pl_section class=\"\" style=\"padding:72px 0 40px\" wrap_style=\"display:flex;flex-direction:column;gap:20px\"]\n<span class=\"lab mut\">[pl_t k=\"car_label\"]</span><h1 class=\"h1\">[pl_t k=\"car_h1\"]</h1><p class=\"lead\">[pl_t k=\"car_lead\"]</p>\n[/pl_section]"
      },
      "elements": []
     }
@@ -136,7 +136,7 @@
      "widgetType": "shortcode",
      "isInner": false,
      "settings": {
-      "shortcode": "[pl_section class=\"sand sec\" id=\"cv\" wrap_style=\"max-width:860px;display:flex;flex-direction:column;gap:20px\"]\n<h2 class=\"h2 m-title\" style=\"font-size:40px\">Send your CV</h2>[pl_form name=\"careers\"]\n[/pl_section]"
+      "shortcode": "[pl_section class=\"sand sec\" id=\"cv\" wrap_style=\"max-width:860px;display:flex;flex-direction:column;gap:20px\"]\n<h2 class=\"h2 m-title\" style=\"font-size:40px\">[pl_t k=\"car_cv_h2\"]</h2>[pl_form name=\"careers\"]\n[/pl_section]"
      },
      "elements": []
     }

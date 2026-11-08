@@ -36,6 +36,11 @@ WP_CLI::add_command(
 			WP_CLI::log( wp_json_encode( array_diff_key( $s, array_flip( array( 'specialty_list' ) ) ), JSON_UNESCAPED_UNICODE ) );
 		}
 
+		/** Image sizes (PL_Image_Spec) as JSON — read by tools/guide for the safe-zone drawings. */
+		public function image_spec() {
+			WP_CLI::log( wp_json_encode( PL_Image_Spec::all(), JSON_UNESCAPED_UNICODE ) );
+		}
+
 		/** Run the hourly status check now. */
 		public function status_check() {
 			WP_CLI::log( PL_Cache::hourly_check() ? 'Status changed — caches cleared.' : 'No change.' );
