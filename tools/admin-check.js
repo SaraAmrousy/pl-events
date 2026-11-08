@@ -110,12 +110,44 @@ const row = (what, expected, got, ok) => { rows.push({ what, expected, got, ok }
   row('"?" on Add event opens its task in a side panel', 'panel + "إضافة إيفنت جديد"; Esc closes, focus back on ?', `${panelOpen} ${first} · closed ${closed} · focus ${focusBack}`, panelOpen && /إضافة إيفنت/.test(first) && closed && focusBack === 'plh-fab');
   for (const [u, want] of [['/wp-admin/edit.php?post_type=pl_office', 'مكتب'], ['/wp-admin/edit.php?post_type=pl_nl_signup', 'النشرة'], ['/wp-admin/admin.php?page=forminator-entries', 'الرسايل'], ['/wp-admin/admin.php?page=pl-company', 'الهوم']]) {
     await page.goto(BASE + u, { waitUntil: 'domcontentloaded' });
+    await page.waitForSelector('#plh-fab', { timeout: 30000 }).catch(() => {});
+    await page.click('#plh-fab').catch(() => {}); await page.waitForTimeout(300); // the panel is built when "?" is pressed
     const t = (await page.locator('#plh-panel summary').allInnerTexts()).join(' / ');
     row('"?" on ' + u.replace('/wp-admin/', ''), 'button + matching task', t.slice(0, 60), (await page.locator('#plh-fab').count()) === 1 && t.includes(want));
   }
   s = await status('/wp-admin/theme-editor.php');
   const fe = await page.locator('#adminmenu a[href="theme-editor.php"], #adminmenu a[href="plugin-editor.php"]').count();
   row('File editor off (DISALLOW_FILE_EDIT)', 'no Theme/Plugin File Editor in the menu', `${fe} menu links`, fe === 0);
+
+
+  /* ---- round 7: Page texts, no personal names in Help, PL Team buttons ---- */
+  await page.goto(BASE + '/wp-admin/admin.php?page=pl-page-texts', { waitUntil: 'domcontentloaded', timeout: 60000 });
+  const nFields = await page.locator('.pl-pt-text').count();
+  row('PL Website › Page texts opens', '≥ 40 fields, 7 pages', `${nFields} fields · ${await page.locator('.pl-pt-nav a').count()} pages`, nFields >= 40 && (await page.locator('.pl-pt-nav a').count()) === 7);
+  const orig = await page.inputValue('#pl-pt-car_h1');
+  await page.fill('#pl-pt-car_h1', '<b>QA</b> check heading');
+  await Promise.all([page.waitForNavigation(), page.click('#submit')]);
+  const note = (await page.locator('.notice-warning').allInnerTexts()).join(' ');
+  const anon2 = await (await browser.newContext()).newPage();
+  await anon2.goto(BASE + '/careers/?qa=' + Date.now(), { waitUntil: 'domcontentloaded' });
+  const h1a = (await anon2.locator('main h1').innerText()).trim();
+  row('Page texts: save → shows on the site, HTML removed', '"QA check heading lens." + note', `${h1a} · ${note.slice(0, 50)}`, /^QA check heading lens\.$/.test(h1a) && /HTML/.test(note));
+  await Promise.all([page.waitForNavigation(), page.click('tr:has(#pl-pt-car_h1) .pl-pt-reset')]);
+  await anon2.goto(BASE + '/careers/?qa=' + Date.now(), { waitUntil: 'domcontentloaded' });
+  const h1b = (await anon2.locator('main h1').innerText()).trim();
+  row('Page texts: Reset to original', `"${orig} lens."`, `${h1b} · field "${await page.inputValue('#pl-pt-car_h1')}"`, h1b === orig + ' lens.' && (await page.inputValue('#pl-pt-car_h1')) === orig);
+  await page.goto(BASE + '/wp-admin/admin.php?page=pl-help', { waitUntil: 'domcontentloaded', timeout: 60000 });
+  const helpTxt = await page.evaluate(() => document.querySelector('#wpbody-content').innerText + ' ' + [...document.querySelectorAll('#wpbody-content [title],[aria-label],[alt]')].map((e) => e.getAttribute('title') || e.getAttribute('aria-label') || e.getAttribute('alt')).join(' '));
+  row('No personal name in PL Help', 'no "Sara" / "سارة"', /sara|سارة|ساره/i.test(helpTxt) ? 'found' : 'none', !/sara|سارة|ساره/i.test(helpTxt));
+  const wa = await page.locator('#plh-who .plh-wa').getAttribute('href').catch(() => ''), ml = await page.locator('#plh-who .plh-mail').getAttribute('href').catch(() => '');
+  const waMsg = wa ? new URL(wa).searchParams.get('text') : '';
+  row('PL Team buttons (تكلموا مين)', 'wa.me + "Hello PL Team, I need help with the website: …" · mailto + subject', `${(wa || 'no wa').slice(0, 26)}… "${(waMsg || '').slice(0, 48)}" · ${(ml || 'no mail').split('?')[0]}`, /^https:\/\/wa\.me\/\d{8,}\?text=/.test(wa || '') && /^Hello PL Team, I need help with the website: /.test(waMsg || '') && /^mailto:[^?]+@[^?]+\?subject=/.test(ml || ''));
+  const cheat = await page.locator('#plh-cheatsheet').innerText();
+  row('Cheat sheet: sizes line + PL Team, no name', 'sizes + PL Team', cheat.slice(-90).replace(/\s+/g, ' '), /2400 × 1350/.test(cheat) && /PL Team/.test(cheat) && !/سارة|Sara/i.test(cheat));
+  const sizes = await page.locator('#plh-image-sizes .plh-spec tbody tr').count();
+  row('Help: "مقاسات كل الصور" table from the spec', '8 rows', String(sizes), sizes === 8);
+  await page.goto(BASE + '/wp-admin/admin.php?page=pl-company', { waitUntil: 'domcontentloaded', timeout: 60000 });
+  row('Company › Website support fields', 'email + WhatsApp', `${await page.locator('[data-name="pl_support_email"]').count()} + ${await page.locator('[data-name="pl_support_whatsapp"]').count()}`, (await page.locator('[data-name="pl_support_email"]').count()) === 1 && (await page.locator('[data-name="pl_support_whatsapp"]').count()) === 1);
 
   const home = await page.evaluate(async (b) => { const r = await fetch(b + '/wp-json/wp/v2/pages?slug=home&_fields=id'); return (await r.json())[0]?.id; }, BASE);
   await page.goto(BASE + `/wp-admin/post.php?post=${home}&action=elementor`, { waitUntil: 'domcontentloaded', timeout: 90000 });

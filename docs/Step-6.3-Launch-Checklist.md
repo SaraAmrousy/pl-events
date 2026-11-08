@@ -56,12 +56,15 @@ Skill: `pl-events-data-wp`. Sources:
   - Rank Math as on staging (modules: sitemap, rich-snippet, seo-analysis; wizard skipped; Event rich snippet off; Organization = PL Events + logo);
   - Privacy page set.
 - [ ] 🔒 **No code editing in wp-admin** (6.2b): `define( 'DISALLOW_FILE_EDIT', true );` in the live `wp-config.php` (staging has it). Check: no **Theme File Editor** / **Plugin File Editor** in the menu, `/wp-admin/theme-editor.php` refuses. `tools/admin-check.js` tests it.
+- [ ] **Website support** (round 7): PL Website › Company › Website support — email / WhatsApp = PL's team contact for the staff (empty = the head office's). Check PL Help › تكلموا مين shows both buttons.
+- [ ] **Page texts** (round 7): nothing to do; content moves with the pages. After `plt_provision()` check PL Website › Page texts opens with 42 fields and the pages look as on staging (they print `[pl_t]`).
 - [ ] 🔒 **PL Help media** (6.2b): `deploy/deploy-help.sh` against the live host (it uploads `docs/guide/{shots,pairs,video}` to `wp-content/uploads/pl-help/` with its `.htaccess`). Check: PL Website › Help shows pictures + videos when signed in; `…/wp-content/uploads/pl-help/shots/event-add-1.png` answers **403** signed out; `admin-post.php?action=pl_help_media…` is not 200 signed out. Not in Media, not in the sitemap. If the live site looks different from staging later, re-record (`bash tools/guide/run.sh`) and run it again.
 
 ## 4. Mail
 - [ ] 🔒 A mailbox on PL's domain for the site (e.g. `website@plevents.org`), with SPF/DKIM on the domain. WP Mail SMTP by constants (password in a file outside the web root, like `~/pl-deploy/.env`), **never in wp-admin or the chat**.
 - [ ] **Remove the staging catch-all** (every email → Sara). It lives in the staging mu-plugin, which is not installed on live. Check: `plt_mail_override` is empty.
 - [ ] **Newsletter (4.6, L6):** remove Sara's test keys; connect PL's Mailchimp audience + a Zoho list with the **signup form off**; Test connection; Destination **Both**; **connect both webhooks on live** (new secret on the live site) → both **Connected**. The confirmation email goes out through the site's mailbox (above), so SPF/DKIM/DMARC must be set first. Also authenticate plevents.org in both providers. The staging mu-plugin (`PL_NL_TEST_ONLY`) is not on live. **Test:** sign up → one email → confirm → in both lists with tags → unsubscribe in one → gone from the other; delete the test contact. Steps: `docs/Step-4.6-Newsletter.md` §7.
+- [ ] Emails speak as the team (round 7, in code): From name **PL Events Team**, signed "— PL Events Team". Send one password reset to yourself and check From, sign-off and that the link is on `/plevents/`.
 - [ ] Forms: Contact routing by office (first email of each office); Careers → **Company › CVs go to** (L4); CV direct-URL block (`deploy/htaccess-cv.sh`). **Test:** one real message per form, received at the right address with the CV attached.
 
 ## 5. Switch on (launch)

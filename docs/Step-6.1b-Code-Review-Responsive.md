@@ -295,3 +295,47 @@ Every fix was tested; nothing approved was redesigned. Where a fix changed somet
 - Theme: `assets/css/src/wp.css` → `pl.css`.
 - Tools: `tools/card-rows.js` (new), `tools/click-sweep.js`, `tools/guard-test.js`, `tools/guide/guide.json` (+2 tasks).
 - Staging data: the 6 posters' resized copies regenerated (new WebP + 480/800 sizes; originals untouched).
+
+---
+
+# Round 7 — Image sizes, Page texts, PL Team (8 Nov 2026)
+## 1. Image sizes: one source, measured
+- **`PL_Image_Spec`** (`includes/class-pl-image-spec.php`) is the only place for image numbers. It feeds: the instructions under every image field (`PL_Fields::frame_help`), the yellow "image is small" note (`PL_Images::min`, a poster-shaped event image uses the Poster minimum), the video field's text, PL Help (`{{spec:…}}` placeholders, the "مقاسات كل الصور" table, the cheat-sheet line), and the guide's safe-zone drawings (`wp pl image_spec`). The old `min` values were removed from `PL_Images::FRAMES`.
+- **Measured on staging:**
+  - Hero frame: 375×732 · 390×733 · 768×1024 · 1280×913 · 1440×914 · 1920×1080, cover from the centre. For a 16:9 image the part visible at every size is the **middle 28.8% of the width** (x 35.6–64.4%), full height. Headline over y 16–63% (phones) / 27–73% (desktop).
+  - Card poster (contain): the status badge covers the top 13–16% (30–70% of the poster's width), the date the bottom-left 25–30% of the height.
+
+| Key | Upload | At least | Ratio | Format | Max |
+|---|---|---|---|---|---|
+| hero | 2400 × 1350 | 1920 × 1080 | 16:9 | JPG/WebP | 1 MB |
+| hero_video | 1920 × 1080 | 1280 × 720 | 16:9, 10–20 s, no sound | MP4 H.264 | 2.5 MB |
+| event_photo | 1600 × 1000 | 1280 × 800 | 16:10 (card 16:9) | JPG/WebP | 2 MB |
+| event_poster | original (e.g. 1080 × 1350) | 800 × 1000 | as designed | JPG/WebP/PNG | 2 MB |
+| logo | 800 × 320 | 400 × 160 | any | SVG / transparent PNG | 512 KB |
+| gallery, service | 1600 × 1200 | 960 × 720 | 4:3 | JPG/WebP | 2 MB |
+| wide (About) | 2560 × 1097 | 2048 × 878 | 21:9 (phones: middle 57%) | JPG/WebP | 2 MB |
+
+- PL Help: new task **صورة وفيديو الهوم (Hero)** (steps, 2 safe-zone drawings, phone shot, pairing Company › Showreel poster ↔ the hero, video), **صور الإيفنت: الكارت والصفحة** rewritten (Photo vs Poster, 2 drawings), **مقاسات كل الصور** at the end of the Events chapter (table from the spec + Gallery and Wide drawings), a sizes line on the cheat sheet. Drawings: `tools/guide/diagrams/safe-zone.html` (frame · desktop · mobile · headline/covered areas · safe zone, Design System colours), filled from the spec.
+
+## 2. Page texts
+- **Inventory (42 fixed sentences in Shortcode widgets):** Home 12 (map link, services heading/intro/button, societies label/heading/text/button, sponsors label/heading/button/link) · Events 2 (closing heading/button) · Services 9 (label, H1, intro, sponsorship label/heading/text/button, closing heading/button) · About 9 (label, intro ×2, photo caption, societies heading, closing heading/text/button, portfolio button) · Careers 4 (label, H1, intro, CV heading) · Contact 3 (label, H1, intro) · Privacy 3 (label, H1, intro).
+  - **Not moved (data-driven, change by themselves):** About H1 "From Alexandria to N countries." (city + count from the events), the numbers lines (`[pl_stats]`), the hero headline (already in Company), everything printed by the plugin's own sections (cards, offices, services, careers, forms, footer).
+- **One source:** `tools/build-elementor.py` (table `T(...)`) builds both the pages (`[pl_t k="…"]` where the words were) and the plugin registry `data/page-texts.json` (defaults = the exact original text, labels, where on the site, soft limits). The Elementor pages now hold shortcodes and layout markup only; no words.
+- **Screen PL Website › Page texts:** grouped by page (with "View page ↗"), each field: label + where it is + the text + **Highlighted word** (separate field, so no HTML is ever typed) + live counter "N / max characters · ≈ L lines on phones" (yellow past the limit) + **Reset to original** (a submit button: works without JS) + the original shown under it. Save: tags and [codes] removed (with a note), empty = original, stored only when different from the original; PL cache + LiteSpeed + Elementor element cache purged.
+- **Pixel-identical:** staging before/after the switch, 7 pages × 375 + 1280, full page: **14/14 identical** (two "before" captures were compared first: 14/14 stable). Sandbox: 14/14 too. Before the rewrite, all 7 staging pages were checked equal to the previous build (no hand edits were lost).
+- PL Help: **تعديل كلام الصفحات (Page texts)** replaces "edit text in Elementor" (video + pairing field ↔ Careers H1); the danger zone now starts with "ماتعدّلوش جوه Elementor"; "where is it edited" updated; Rank Math keeps SEO titles/descriptions (said in the task).
+
+## 3. PL Team — no personal names
+- **Company › Website support — email / WhatsApp** (one-number phone field, same guardrail). Empty = the head office's first email / WhatsApp number (existing data, nothing new).
+- PL Help "تكلموا مين": live buttons **ابعتوا واتساب لـ PL Team** (`wa.me/<digits>?text=Hello PL Team, I need help with the website: {screen}`) and **ابعتوا إيميل لـ PL Team** (`mailto:` + subject "Website help: {screen}"); an empty field hides its button. The cheat sheet ends with PL Team + the same contacts.
+- Names removed from everything the employee or visitors see: guide.json / Help / captions / title cards (0 left), cheat sheet, danger zone ("كلموا PL Team الأول"), the "Sample" field help, **the plugin and theme "Author"** (shown in Plugins/Themes) → "PL Events Team". Code comments and docs/ unchanged.
+- **Emails:** `PL_Mail` — From name **PL Events Team** (set last on PHPMailer, so no plugin/default can override), sign-off **— PL Events Team** (replaces WordPress' "Regards, All at …", added to unsigned texts; the newsletter email uses the same constant), password-reset and new-account texts rewritten short, links on the `/plevents/` sign-in address. Forminator has no auto-replies (only the notifications to PL), which now also come from PL Events Team. The staging safety net is unchanged. Texts: see "Email texts" below.
+
+## 4. Also found and fixed
+| # | Sev. | Problem | Fix | Evidence |
+|---|---|---|---|---|
+| R25 | **Major** | Every screen with a "?" loaded the video posters of all its tasks through PHP while the panel was hidden (`<video poster>` loads at once): the event screen made 204 requests, 12 s to first paint in the sandbox | Panel content in a `<template>`, built when "?" is pressed; posters load when their task is opened (`data-poster`) | Event screen 12.0 → 2.4 s, Overview 5.8 → 1.9 s (sandbox) |
+| R26 | Minor | Guide build dropped new task keys (`support`, `spec_table`) | build.js keeps them | admin-check |
+
+## Tests
+- Staging **admin-check 39/39** (new: Page texts opens / saves + shows signed out + strips HTML / Reset; no "Sara" in Help; PL Team buttons; cheat sheet sizes line; sizes table 8 rows; Website support fields).

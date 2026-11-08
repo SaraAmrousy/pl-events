@@ -107,3 +107,14 @@
 3. **Who to call (chapter 9):** written as "سارة"; the channel (WhatsApp/email) is **TBC**: tell me what to write.
 4. **Videos are of the sandbox** (same plugins and data as staging, test data marked "training"/example.com). If PL's live site changes (menus, plugins), re-record with one command before the handover.
 5. Videos run **26–62 s** (8 between 26 and 29 s, `event-add` 62 s): the target was 30–60. I didn't pad them.
+
+---
+
+## Update — 8 Nov 2026 (6.1b rounds 6 + 7)
+**Guide: 55 tasks** (54 + the cheat sheet), re-recorded in one run after both rounds.
+- **New tasks:** نوع الصورة (Poster/Photo) · إضافة رقم واتساب للاستفسار عن إيفنت · صورة وفيديو الهوم (Hero) · مقاسات كل الصور (table from `PL_Image_Spec`, end of the Events chapter) · تعديل كلام الصفحات (Page texts), replacing "edit text in Elementor".
+- **Rewritten:** صور الإيفنت: الكارت والصفحة (Photo vs Poster, measured sizes, safe-zone drawings) · Phones on the event page vs WhatsApp for inquiries · the danger zone ("ماتعدّلوش جوه Elementor", "كلموا PL Team الأول") · "where is it edited" · forms-new (placing a form = PL Team) · the trouble table (+4 rows) · **تكلموا مين** = live PL Team buttons from Company › Website support.
+- **Numbers in the guide come from the plugin:** `{{spec:key.field}}` in guide.json is filled by PL Help (`PL_Image_Spec::fill`) and by the recorder (captions, title cards); safe-zone drawings read `wp pl image_spec`.
+- **No personal names** anywhere in guide.json, Help, captions, title cards, cheat sheet (admin-check checks the Help page).
+- **Help "?" panel is built only when "?" is pressed**, and video posters load only when a task is opened (was: every screen loaded all its posters; event screen 12 → 2.4 s in the sandbox).
+- Cheat sheet: + a sizes line, ends with PL Team contacts.

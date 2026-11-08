@@ -1,32 +1,33 @@
 # PL Help — deck export (Step 6.2b)
 
-Built 2026-11-08 07:33 UTC from `tools/guide/guide.json` by `bash tools/guide/run.sh`. Don't edit these files by hand: change guide.json (or the site) and run it again.
+Built 2026-11-08 12:15 UTC from `tools/guide/guide.json` by `bash tools/guide/run.sh`. Don't edit these files by hand: change guide.json (or the site) and run it again.
 
-- **guide.json**: 11 chapters, 53 tasks (title, why, steps, tip, warning, callouts, links) + the media list.
+- **guide.json**: 11 chapters, 55 tasks (title, why, steps, tip, warning, callouts, links) + the media list.
 - **shots/** (65 PNG): 1440×900 (mobile 390×844 @2x), numbered callouts in #2C4894; `*-diagram.png` = our own drawings @2x.
 - **pairs/** (9 PNG): wp-admin field ↔ the same thing on the site, same numbers.
-- **video/** (38 MP4, 1280×800 H.264, + poster .jpg + captions .vtt): served to staff only by PL Help.
+- **video/** (39 MP4, 1280×800 H.264, + poster .jpg + captions .vtt): served to staff only by PL Help.
 - **gif/** (4): short loops for slides.
 
 | Task | Chapter | Screens | Video |
 |---|---|---|---|
 | welcome — الموقع بيشتغل إزاي | c0 | welcome-diagram | — |
 | login — الدخول للوحة التحكم | c1 | login-1 | 31 s |
-| lost-password — نسيت الباسورد | c1 | lost-password-1 | 32 s |
+| lost-password — نسيت الباسورد | c1 | lost-password-1 | 34 s |
 | lockout — الدخول وقف بعد 5 محاولات | c1 | lockout-1 | — |
-| change-password — تغيير الباسورد | c1 | change-password-1 | 28 s |
-| tour-menu — قايمة PL Website | c2 | tour-menu-1 | 31 s |
-| tour-overview — صفحة Overview والأرقام | c2 |  + pair-overview | 30 s |
-| tour-help — الشرح ده جوه الموقع (PL Help) | c2 | tour-help-1, tour-help-2 | 40 s |
-| event-add — إضافة إيفنت جديد | c3 | event-add-1, event-add-2, event-add-mobile | 62 s |
-| event-edit — تعديل إيفنت | c3 | event-edit-1 | 45 s |
-| event-registration — فتح وقفل التسجيل | c3 |  + pair-registration | 41 s |
-| event-hide — إخفاء إيفنت (من غير ما تمسحوه) | c3 | event-hide-1 | 34 s |
-| event-pin — تثبيت إيفنت في الهوم | c3 |  + pair-pin | 34 s |
-| event-images — صور الإيفنت ومقاساتها | c3 | event-images-1 | 41 s |
-| event-image-type — نوع الصورة: Poster ولا Photo | c3 | event-image-type-1 + pair-image-type | — |
+| change-password — تغيير الباسورد | c1 | change-password-1 | 35 s |
+| tour-menu — قايمة PL Website | c2 | tour-menu-1 | 30 s |
+| tour-overview — صفحة Overview والأرقام | c2 |  + pair-overview | 29 s |
+| tour-help — الشرح ده جوه الموقع (PL Help) | c2 | tour-help-1, tour-help-2 | 95 s |
+| event-add — إضافة إيفنت جديد | c3 | event-add-1, event-add-2, event-add-mobile | 61 s |
+| event-edit — تعديل إيفنت | c3 | event-edit-1 | 84 s |
+| event-registration — فتح وقفل التسجيل | c3 |  + pair-registration | 56 s |
+| event-hide — إخفاء إيفنت (من غير ما تمسحوه) | c3 | event-hide-1 | 55 s |
+| event-pin — تثبيت إيفنت في الهوم | c3 |  + pair-pin | 50 s |
+| event-images — صور الإيفنت: الكارت والصفحة | c3 | event-images-1 | 41 s |
+| event-image-type — نوع الصورة: Poster ولا Photo | c3 | event-image-type-1 + pair-image-type | 57 s |
 | event-taxonomy — إضافة Specialty أو Series جديدة | c3 | event-taxonomy-1 | 36 s |
 | event-congress-count — "يتحسب congress" إزاي | c3 | event-congress-count-1 | 31 s |
+| image-sizes — مقاسات كل الصور | c3 |  | — |
 | office-phone — تعديل رقم تليفون أو واتساب لمكتب | c4 |  + pair-office-phone | 41 s |
 | event-phone — أرقام تليفون إضافية في صفحة الإيفنت | c4 | event-phone-1 | 41 s |
 | event-wa-inquiry — إضافة رقم واتساب للاستفسار عن إيفنت | c4 | event-wa-inquiry-1 + pair-wa-inquiry | — |
@@ -41,9 +42,10 @@ Built 2026-11-08 07:33 UTC from `tools/guide/guide.json` by `bash tools/guide/ru
 | job-close — إقفال وظيفة | c5 | job-close-1 | 40 s |
 | services — الخدمات (Services) | c5 | services-1 | 32 s |
 | company-hero — عنوان الهوم وأرقام الشركة | c5 |  + pair-hero | 33 s |
+| hero-images — صورة وفيديو الهوم (Hero) | c5 |  | — |
 | company-files — الـ Portfolio PDF وفيديو الهوم | c5 | company-files-1 | 34 s |
 | pages-where — إيه بيتعدّل منين | c6 | pages-where-diagram | — |
-| pages-edit-text — تعديل جملة في صفحة (بأمان) | c6 | pages-edit-text-1 | 34 s |
+| page-texts — تعديل كلام الصفحات (Page texts) | c6 |  | — |
 | menus — القوايم (Menus) | c6 | menus-1 | 32 s |
 | danger-zone — المنطقة الممنوعة | c6 | danger-plugins, danger-themes, danger-settings | — |
 | forms-where — رسايل الفورمز بتروح فين | c7 | forms-where-diagram | — |

@@ -1,6 +1,6 @@
 # Click sweep — https://saraamrousy.net/pl
 
-2026-11-08T07:56:27.866Z · 402 checks · ✅ 402 · ❌ 0
+2026-11-08T12:30:31.748Z · 420 checks · ✅ 420 · ❌ 0
 
 | Element | Page | Size | Expected | What happened | |
 |---|---|---|---|---|---|
@@ -16,7 +16,8 @@
 | Calendar › Apple (.ics) | / | 375 Full | 200 text/calendar, named .ics | 200 text/calendar deoss-2027.ics · download deoss-2027.ics | ✅ |
 | Calendar › Outlook | / | 375 Full | new tab outlook.live.com | outlook.live.com | ✅ |
 | Calendar menu Esc | / | 375 Full | closes | closed | ✅ |
-| WhatsApp for inquiries (all cards) | / | 375 Full | with a number: wa.me/<digits>?text=<message> · without: no button | 0 with, 15 without | ✅ |
+| WhatsApp for inquiries (all cards) | / | 375 Full | with a number: wa.me/<digits>?text=<message> · without: no button | 2 with, 13 without | ✅ |
+| WhatsApp › click | / | 375 Full | new tab, same link | https://wa.me/201025559003?text=Hello%2C%20I%27d%20like%20to… | ✅ |
 | Card title | / | 375 Full | opens the event page | /events/deoss-atmo-2027/ | ✅ |
 | Tab › Past | /events/ | 375 Full | only past | past | ✅ |
 | Sticky bar › Filters | /events/ | 375 Full | bottom sheet opens | opened | ✅ |
@@ -30,7 +31,8 @@
 | Calendar › Apple (.ics) | /events/ (list) | 375 Full | 200 text/calendar, named .ics | 200 text/calendar deoss-2027.ics · download deoss-2027.ics | ✅ |
 | Calendar › Outlook | /events/ (list) | 375 Full | new tab outlook.live.com | outlook.live.com | ✅ |
 | Calendar menu Esc | /events/ (list) | 375 Full | closes | closed | ✅ |
-| WhatsApp for inquiries (all cards) | /events/ (list) | 375 Full | with a number: wa.me/<digits>?text=<message> · without: no button | 0 with, 15 without | ✅ |
+| WhatsApp for inquiries (all cards) | /events/ (list) | 375 Full | with a number: wa.me/<digits>?text=<message> · without: no button | 2 with, 13 without | ✅ |
+| WhatsApp › click | /events/ (list) | 375 Full | new tab, same link | https://wa.me/201025559003?text=Hello%2C%20I%27d%20like%20to… | ✅ |
 | Card title | /events/ (list) | 375 Full | opens the event page | /events/deoss-atmo-2027/ | ✅ |
 | Register now | /events/ (grid) | 375 Full | new tab → registration | https://deoss-society.org/registration/ | ✅ |
 | Website | /events/ (grid) | 375 Full | new tab → society site | https://deoss-society.org/ | ✅ |
@@ -39,13 +41,14 @@
 | Calendar › Apple (.ics) | /events/ (grid) | 375 Full | 200 text/calendar, named .ics | 200 text/calendar deoss-2027.ics · download deoss-2027.ics | ✅ |
 | Calendar › Outlook | /events/ (grid) | 375 Full | new tab outlook.live.com | outlook.live.com | ✅ |
 | Calendar menu Esc | /events/ (grid) | 375 Full | closes | closed | ✅ |
-| WhatsApp for inquiries (all cards) | /events/ (grid) | 375 Full | with a number: wa.me/<digits>?text=<message> · without: no button | 0 with, 15 without | ✅ |
+| WhatsApp for inquiries (all cards) | /events/ (grid) | 375 Full | with a number: wa.me/<digits>?text=<message> · without: no button | 2 with, 13 without | ✅ |
+| WhatsApp › click | /events/ (grid) | 375 Full | new tab, same link | https://wa.me/201025559003?text=Hello%2C%20I%27d%20like%20to… | ✅ |
 | Card title | /events/ (grid) | 375 Full | opens the event page | /events/deoss-atmo-2027/ | ✅ |
 | Register now | event page | 375 Full | new tab | https://deoss-society.org/registration/ | ✅ |
 | Congress website | event page | 375 Full | new tab | https://deoss-society.org/ | ✅ |
 | Add to calendar | event page | 375 Full | menu opens | opened | ✅ |
 | Calendar › Google | event page | 375 Full | calendar.google.com | calendar.google.com | ✅ |
-| Ask on WhatsApp (no number) | event page | 375 Full | no button in the page | 0 | ✅ |
+| Ask on WhatsApp | event page | 375 Full | new tab, exact wa.me link | https://wa.me/201025559003?text=Hello, I'd like to ask about 4th DEOSS | ✅ |
 | Share (copy link) | event page | 375 Full | "Link copied" + the page address | Link copied · /events/deoss-atmo-2027/ | ✅ |
 | Newsletter (invalid email) | event page | 375 Full | blame-free message, nothing sent | That email address doesn’t look complete. Please c | ✅ |
 | ← All events | event page | 375 Full | /events/ | /events/ | ✅ |
@@ -83,7 +86,8 @@
 | Calendar › Apple (.ics) | / | 375 Reduced | 200 text/calendar, named .ics | 200 text/calendar deoss-2027.ics · download deoss-2027.ics | ✅ |
 | Calendar › Outlook | / | 375 Reduced | new tab outlook.live.com | outlook.live.com | ✅ |
 | Calendar menu Esc | / | 375 Reduced | closes | closed | ✅ |
-| WhatsApp for inquiries (all cards) | / | 375 Reduced | with a number: wa.me/<digits>?text=<message> · without: no button | 0 with, 15 without | ✅ |
+| WhatsApp for inquiries (all cards) | / | 375 Reduced | with a number: wa.me/<digits>?text=<message> · without: no button | 2 with, 13 without | ✅ |
+| WhatsApp › click | / | 375 Reduced | new tab, same link | https://wa.me/201025559003?text=Hello%2C%20I%27d%20like%20to… | ✅ |
 | Card title | / | 375 Reduced | opens the event page | /events/deoss-atmo-2027/ | ✅ |
 | Tab › Past | /events/ | 375 Reduced | only past | past | ✅ |
 | Sticky bar › Filters | /events/ | 375 Reduced | bottom sheet opens | opened | ✅ |
@@ -97,7 +101,8 @@
 | Calendar › Apple (.ics) | /events/ (list) | 375 Reduced | 200 text/calendar, named .ics | 200 text/calendar deoss-2027.ics · download deoss-2027.ics | ✅ |
 | Calendar › Outlook | /events/ (list) | 375 Reduced | new tab outlook.live.com | outlook.live.com | ✅ |
 | Calendar menu Esc | /events/ (list) | 375 Reduced | closes | closed | ✅ |
-| WhatsApp for inquiries (all cards) | /events/ (list) | 375 Reduced | with a number: wa.me/<digits>?text=<message> · without: no button | 0 with, 15 without | ✅ |
+| WhatsApp for inquiries (all cards) | /events/ (list) | 375 Reduced | with a number: wa.me/<digits>?text=<message> · without: no button | 2 with, 13 without | ✅ |
+| WhatsApp › click | /events/ (list) | 375 Reduced | new tab, same link | https://wa.me/201025559003?text=Hello%2C%20I%27d%20like%20to… | ✅ |
 | Card title | /events/ (list) | 375 Reduced | opens the event page | /events/deoss-atmo-2027/ | ✅ |
 | Register now | /events/ (grid) | 375 Reduced | new tab → registration | https://deoss-society.org/registration/ | ✅ |
 | Website | /events/ (grid) | 375 Reduced | new tab → society site | https://deoss-society.org/ | ✅ |
@@ -106,13 +111,14 @@
 | Calendar › Apple (.ics) | /events/ (grid) | 375 Reduced | 200 text/calendar, named .ics | 200 text/calendar deoss-2027.ics · download deoss-2027.ics | ✅ |
 | Calendar › Outlook | /events/ (grid) | 375 Reduced | new tab outlook.live.com | outlook.live.com | ✅ |
 | Calendar menu Esc | /events/ (grid) | 375 Reduced | closes | closed | ✅ |
-| WhatsApp for inquiries (all cards) | /events/ (grid) | 375 Reduced | with a number: wa.me/<digits>?text=<message> · without: no button | 0 with, 15 without | ✅ |
+| WhatsApp for inquiries (all cards) | /events/ (grid) | 375 Reduced | with a number: wa.me/<digits>?text=<message> · without: no button | 2 with, 13 without | ✅ |
+| WhatsApp › click | /events/ (grid) | 375 Reduced | new tab, same link | https://wa.me/201025559003?text=Hello%2C%20I%27d%20like%20to… | ✅ |
 | Card title | /events/ (grid) | 375 Reduced | opens the event page | /events/deoss-atmo-2027/ | ✅ |
 | Register now | event page | 375 Reduced | new tab | https://deoss-society.org/registration/ | ✅ |
 | Congress website | event page | 375 Reduced | new tab | https://deoss-society.org/ | ✅ |
 | Add to calendar | event page | 375 Reduced | menu opens | opened | ✅ |
 | Calendar › Google | event page | 375 Reduced | calendar.google.com | calendar.google.com | ✅ |
-| Ask on WhatsApp (no number) | event page | 375 Reduced | no button in the page | 0 | ✅ |
+| Ask on WhatsApp | event page | 375 Reduced | new tab, exact wa.me link | https://wa.me/201025559003?text=Hello, I'd like to ask about 4th DEOSS | ✅ |
 | Share (copy link) | event page | 375 Reduced | "Link copied" + the page address | Link copied · /events/deoss-atmo-2027/ | ✅ |
 | Newsletter (invalid email) | event page | 375 Reduced | blame-free message, nothing sent | That email address doesn’t look complete. Please c | ✅ |
 | ← All events | event page | 375 Reduced | /events/ | /events/ | ✅ |
@@ -150,7 +156,8 @@
 | Calendar › Apple (.ics) | / | 768 Full | 200 text/calendar, named .ics | 200 text/calendar deoss-2027.ics · download deoss-2027.ics | ✅ |
 | Calendar › Outlook | / | 768 Full | new tab outlook.live.com | outlook.live.com | ✅ |
 | Calendar menu Esc | / | 768 Full | closes | closed | ✅ |
-| WhatsApp for inquiries (all cards) | / | 768 Full | with a number: wa.me/<digits>?text=<message> · without: no button | 0 with, 15 without | ✅ |
+| WhatsApp for inquiries (all cards) | / | 768 Full | with a number: wa.me/<digits>?text=<message> · without: no button | 2 with, 13 without | ✅ |
+| WhatsApp › click | / | 768 Full | new tab, same link | https://wa.me/201025559003?text=Hello%2C%20I%27d%20like%20to… | ✅ |
 | Card title | / | 768 Full | opens the event page | /events/deoss-atmo-2027/ | ✅ |
 | Tab › Past | /events/ | 768 Full | only past | past | ✅ |
 | Sticky bar › Filters | /events/ | 768 Full | bottom sheet opens | opened | ✅ |
@@ -164,7 +171,8 @@
 | Calendar › Apple (.ics) | /events/ (list) | 768 Full | 200 text/calendar, named .ics | 200 text/calendar deoss-2027.ics · download deoss-2027.ics | ✅ |
 | Calendar › Outlook | /events/ (list) | 768 Full | new tab outlook.live.com | outlook.live.com | ✅ |
 | Calendar menu Esc | /events/ (list) | 768 Full | closes | closed | ✅ |
-| WhatsApp for inquiries (all cards) | /events/ (list) | 768 Full | with a number: wa.me/<digits>?text=<message> · without: no button | 0 with, 15 without | ✅ |
+| WhatsApp for inquiries (all cards) | /events/ (list) | 768 Full | with a number: wa.me/<digits>?text=<message> · without: no button | 2 with, 13 without | ✅ |
+| WhatsApp › click | /events/ (list) | 768 Full | new tab, same link | https://wa.me/201025559003?text=Hello%2C%20I%27d%20like%20to… | ✅ |
 | Card title | /events/ (list) | 768 Full | opens the event page | /events/deoss-atmo-2027/ | ✅ |
 | Register now | /events/ (grid) | 768 Full | new tab → registration | https://deoss-society.org/registration/ | ✅ |
 | Website | /events/ (grid) | 768 Full | new tab → society site | https://deoss-society.org/ | ✅ |
@@ -173,13 +181,14 @@
 | Calendar › Apple (.ics) | /events/ (grid) | 768 Full | 200 text/calendar, named .ics | 200 text/calendar deoss-2027.ics · download deoss-2027.ics | ✅ |
 | Calendar › Outlook | /events/ (grid) | 768 Full | new tab outlook.live.com | outlook.live.com | ✅ |
 | Calendar menu Esc | /events/ (grid) | 768 Full | closes | closed | ✅ |
-| WhatsApp for inquiries (all cards) | /events/ (grid) | 768 Full | with a number: wa.me/<digits>?text=<message> · without: no button | 0 with, 15 without | ✅ |
+| WhatsApp for inquiries (all cards) | /events/ (grid) | 768 Full | with a number: wa.me/<digits>?text=<message> · without: no button | 2 with, 13 without | ✅ |
+| WhatsApp › click | /events/ (grid) | 768 Full | new tab, same link | https://wa.me/201025559003?text=Hello%2C%20I%27d%20like%20to… | ✅ |
 | Card title | /events/ (grid) | 768 Full | opens the event page | /events/deoss-atmo-2027/ | ✅ |
 | Register now | event page | 768 Full | new tab | https://deoss-society.org/registration/ | ✅ |
 | Congress website | event page | 768 Full | new tab | https://deoss-society.org/ | ✅ |
 | Add to calendar | event page | 768 Full | menu opens | opened | ✅ |
 | Calendar › Google | event page | 768 Full | calendar.google.com | calendar.google.com | ✅ |
-| Ask on WhatsApp (no number) | event page | 768 Full | no button in the page | 0 | ✅ |
+| Ask on WhatsApp | event page | 768 Full | new tab, exact wa.me link | https://wa.me/201025559003?text=Hello, I'd like to ask about 4th DEOSS | ✅ |
 | Share (copy link) | event page | 768 Full | "Link copied" + the page address | Link copied · /events/deoss-atmo-2027/ | ✅ |
 | Newsletter (invalid email) | event page | 768 Full | blame-free message, nothing sent | That email address doesn’t look complete. Please c | ✅ |
 | ← All events | event page | 768 Full | /events/ | /events/ | ✅ |
@@ -217,7 +226,8 @@
 | Calendar › Apple (.ics) | / | 768 Reduced | 200 text/calendar, named .ics | 200 text/calendar deoss-2027.ics · download deoss-2027.ics | ✅ |
 | Calendar › Outlook | / | 768 Reduced | new tab outlook.live.com | outlook.live.com | ✅ |
 | Calendar menu Esc | / | 768 Reduced | closes | closed | ✅ |
-| WhatsApp for inquiries (all cards) | / | 768 Reduced | with a number: wa.me/<digits>?text=<message> · without: no button | 0 with, 15 without | ✅ |
+| WhatsApp for inquiries (all cards) | / | 768 Reduced | with a number: wa.me/<digits>?text=<message> · without: no button | 2 with, 13 without | ✅ |
+| WhatsApp › click | / | 768 Reduced | new tab, same link | https://wa.me/201025559003?text=Hello%2C%20I%27d%20like%20to… | ✅ |
 | Card title | / | 768 Reduced | opens the event page | /events/deoss-atmo-2027/ | ✅ |
 | Tab › Past | /events/ | 768 Reduced | only past | past | ✅ |
 | Sticky bar › Filters | /events/ | 768 Reduced | bottom sheet opens | opened | ✅ |
@@ -231,7 +241,8 @@
 | Calendar › Apple (.ics) | /events/ (list) | 768 Reduced | 200 text/calendar, named .ics | 200 text/calendar deoss-2027.ics · download deoss-2027.ics | ✅ |
 | Calendar › Outlook | /events/ (list) | 768 Reduced | new tab outlook.live.com | outlook.live.com | ✅ |
 | Calendar menu Esc | /events/ (list) | 768 Reduced | closes | closed | ✅ |
-| WhatsApp for inquiries (all cards) | /events/ (list) | 768 Reduced | with a number: wa.me/<digits>?text=<message> · without: no button | 0 with, 15 without | ✅ |
+| WhatsApp for inquiries (all cards) | /events/ (list) | 768 Reduced | with a number: wa.me/<digits>?text=<message> · without: no button | 2 with, 13 without | ✅ |
+| WhatsApp › click | /events/ (list) | 768 Reduced | new tab, same link | https://wa.me/201025559003?text=Hello%2C%20I%27d%20like%20to… | ✅ |
 | Card title | /events/ (list) | 768 Reduced | opens the event page | /events/deoss-atmo-2027/ | ✅ |
 | Register now | /events/ (grid) | 768 Reduced | new tab → registration | https://deoss-society.org/registration/ | ✅ |
 | Website | /events/ (grid) | 768 Reduced | new tab → society site | https://deoss-society.org/ | ✅ |
@@ -240,13 +251,14 @@
 | Calendar › Apple (.ics) | /events/ (grid) | 768 Reduced | 200 text/calendar, named .ics | 200 text/calendar deoss-2027.ics · download deoss-2027.ics | ✅ |
 | Calendar › Outlook | /events/ (grid) | 768 Reduced | new tab outlook.live.com | outlook.live.com | ✅ |
 | Calendar menu Esc | /events/ (grid) | 768 Reduced | closes | closed | ✅ |
-| WhatsApp for inquiries (all cards) | /events/ (grid) | 768 Reduced | with a number: wa.me/<digits>?text=<message> · without: no button | 0 with, 15 without | ✅ |
+| WhatsApp for inquiries (all cards) | /events/ (grid) | 768 Reduced | with a number: wa.me/<digits>?text=<message> · without: no button | 2 with, 13 without | ✅ |
+| WhatsApp › click | /events/ (grid) | 768 Reduced | new tab, same link | https://wa.me/201025559003?text=Hello%2C%20I%27d%20like%20to… | ✅ |
 | Card title | /events/ (grid) | 768 Reduced | opens the event page | /events/deoss-atmo-2027/ | ✅ |
 | Register now | event page | 768 Reduced | new tab | https://deoss-society.org/registration/ | ✅ |
 | Congress website | event page | 768 Reduced | new tab | https://deoss-society.org/ | ✅ |
 | Add to calendar | event page | 768 Reduced | menu opens | opened | ✅ |
 | Calendar › Google | event page | 768 Reduced | calendar.google.com | calendar.google.com | ✅ |
-| Ask on WhatsApp (no number) | event page | 768 Reduced | no button in the page | 0 | ✅ |
+| Ask on WhatsApp | event page | 768 Reduced | new tab, exact wa.me link | https://wa.me/201025559003?text=Hello, I'd like to ask about 4th DEOSS | ✅ |
 | Share (copy link) | event page | 768 Reduced | "Link copied" + the page address | Link copied · /events/deoss-atmo-2027/ | ✅ |
 | Newsletter (invalid email) | event page | 768 Reduced | blame-free message, nothing sent | That email address doesn’t look complete. Please c | ✅ |
 | ← All events | event page | 768 Reduced | /events/ | /events/ | ✅ |
@@ -284,7 +296,8 @@
 | Calendar › Apple (.ics) | / | 1280 Full | 200 text/calendar, named .ics | 200 text/calendar deoss-2027.ics · download deoss-2027.ics | ✅ |
 | Calendar › Outlook | / | 1280 Full | new tab outlook.live.com | outlook.live.com | ✅ |
 | Calendar menu Esc | / | 1280 Full | closes | closed | ✅ |
-| WhatsApp for inquiries (all cards) | / | 1280 Full | with a number: wa.me/<digits>?text=<message> · without: no button | 0 with, 15 without | ✅ |
+| WhatsApp for inquiries (all cards) | / | 1280 Full | with a number: wa.me/<digits>?text=<message> · without: no button | 2 with, 13 without | ✅ |
+| WhatsApp › click | / | 1280 Full | new tab, same link | https://wa.me/201025559003?text=Hello%2C%20I%27d%20like%20to… | ✅ |
 | Card title | / | 1280 Full | opens the event page | /events/deoss-atmo-2027/ | ✅ |
 | Tab › Past | /events/ | 1280 Full | only past | past | ✅ |
 | Filter › Country (dropdown) | /events/ | 1280 Full | count + URL update | 2 events ?country=AE | ✅ |
@@ -298,7 +311,8 @@
 | Calendar › Apple (.ics) | /events/ (list) | 1280 Full | 200 text/calendar, named .ics | 200 text/calendar deoss-2027.ics · download deoss-2027.ics | ✅ |
 | Calendar › Outlook | /events/ (list) | 1280 Full | new tab outlook.live.com | outlook.live.com | ✅ |
 | Calendar menu Esc | /events/ (list) | 1280 Full | closes | closed | ✅ |
-| WhatsApp for inquiries (all cards) | /events/ (list) | 1280 Full | with a number: wa.me/<digits>?text=<message> · without: no button | 0 with, 15 without | ✅ |
+| WhatsApp for inquiries (all cards) | /events/ (list) | 1280 Full | with a number: wa.me/<digits>?text=<message> · without: no button | 2 with, 13 without | ✅ |
+| WhatsApp › click | /events/ (list) | 1280 Full | new tab, same link | https://wa.me/201025559003?text=Hello%2C%20I%27d%20like%20to… | ✅ |
 | Card title | /events/ (list) | 1280 Full | opens the event page | /events/deoss-atmo-2027/ | ✅ |
 | Register now | /events/ (grid) | 1280 Full | new tab → registration | https://deoss-society.org/registration/ | ✅ |
 | Website | /events/ (grid) | 1280 Full | new tab → society site | https://deoss-society.org/ | ✅ |
@@ -307,13 +321,14 @@
 | Calendar › Apple (.ics) | /events/ (grid) | 1280 Full | 200 text/calendar, named .ics | 200 text/calendar deoss-2027.ics · download deoss-2027.ics | ✅ |
 | Calendar › Outlook | /events/ (grid) | 1280 Full | new tab outlook.live.com | outlook.live.com | ✅ |
 | Calendar menu Esc | /events/ (grid) | 1280 Full | closes | closed | ✅ |
-| WhatsApp for inquiries (all cards) | /events/ (grid) | 1280 Full | with a number: wa.me/<digits>?text=<message> · without: no button | 0 with, 15 without | ✅ |
+| WhatsApp for inquiries (all cards) | /events/ (grid) | 1280 Full | with a number: wa.me/<digits>?text=<message> · without: no button | 2 with, 13 without | ✅ |
+| WhatsApp › click | /events/ (grid) | 1280 Full | new tab, same link | https://wa.me/201025559003?text=Hello%2C%20I%27d%20like%20to… | ✅ |
 | Card title | /events/ (grid) | 1280 Full | opens the event page | /events/deoss-atmo-2027/ | ✅ |
 | Register now | event page | 1280 Full | new tab | https://deoss-society.org/registration/ | ✅ |
 | Congress website | event page | 1280 Full | new tab | https://deoss-society.org/ | ✅ |
 | Add to calendar | event page | 1280 Full | menu opens | opened | ✅ |
 | Calendar › Google | event page | 1280 Full | calendar.google.com | calendar.google.com | ✅ |
-| Ask on WhatsApp (no number) | event page | 1280 Full | no button in the page | 0 | ✅ |
+| Ask on WhatsApp | event page | 1280 Full | new tab, exact wa.me link | https://wa.me/201025559003?text=Hello, I'd like to ask about 4th DEOSS | ✅ |
 | Share (copy link) | event page | 1280 Full | "Link copied" + the page address | Link copied · /events/deoss-atmo-2027/ | ✅ |
 | Newsletter (invalid email) | event page | 1280 Full | blame-free message, nothing sent | That email address doesn’t look complete. Please c | ✅ |
 | ← All events | event page | 1280 Full | /events/ | /events/ | ✅ |
@@ -351,7 +366,8 @@
 | Calendar › Apple (.ics) | / | 1280 Reduced | 200 text/calendar, named .ics | 200 text/calendar deoss-2027.ics · download deoss-2027.ics | ✅ |
 | Calendar › Outlook | / | 1280 Reduced | new tab outlook.live.com | outlook.live.com | ✅ |
 | Calendar menu Esc | / | 1280 Reduced | closes | closed | ✅ |
-| WhatsApp for inquiries (all cards) | / | 1280 Reduced | with a number: wa.me/<digits>?text=<message> · without: no button | 0 with, 15 without | ✅ |
+| WhatsApp for inquiries (all cards) | / | 1280 Reduced | with a number: wa.me/<digits>?text=<message> · without: no button | 2 with, 13 without | ✅ |
+| WhatsApp › click | / | 1280 Reduced | new tab, same link | https://wa.me/201025559003?text=Hello%2C%20I%27d%20like%20to… | ✅ |
 | Card title | / | 1280 Reduced | opens the event page | /events/deoss-atmo-2027/ | ✅ |
 | Tab › Past | /events/ | 1280 Reduced | only past | past | ✅ |
 | Filter › Country (dropdown) | /events/ | 1280 Reduced | count + URL update | 2 events ?country=AE | ✅ |
@@ -365,7 +381,8 @@
 | Calendar › Apple (.ics) | /events/ (list) | 1280 Reduced | 200 text/calendar, named .ics | 200 text/calendar deoss-2027.ics · download deoss-2027.ics | ✅ |
 | Calendar › Outlook | /events/ (list) | 1280 Reduced | new tab outlook.live.com | outlook.live.com | ✅ |
 | Calendar menu Esc | /events/ (list) | 1280 Reduced | closes | closed | ✅ |
-| WhatsApp for inquiries (all cards) | /events/ (list) | 1280 Reduced | with a number: wa.me/<digits>?text=<message> · without: no button | 0 with, 15 without | ✅ |
+| WhatsApp for inquiries (all cards) | /events/ (list) | 1280 Reduced | with a number: wa.me/<digits>?text=<message> · without: no button | 2 with, 13 without | ✅ |
+| WhatsApp › click | /events/ (list) | 1280 Reduced | new tab, same link | https://wa.me/201025559003?text=Hello%2C%20I%27d%20like%20to… | ✅ |
 | Card title | /events/ (list) | 1280 Reduced | opens the event page | /events/deoss-atmo-2027/ | ✅ |
 | Register now | /events/ (grid) | 1280 Reduced | new tab → registration | https://deoss-society.org/registration/ | ✅ |
 | Website | /events/ (grid) | 1280 Reduced | new tab → society site | https://deoss-society.org/ | ✅ |
@@ -374,13 +391,14 @@
 | Calendar › Apple (.ics) | /events/ (grid) | 1280 Reduced | 200 text/calendar, named .ics | 200 text/calendar deoss-2027.ics · download deoss-2027.ics | ✅ |
 | Calendar › Outlook | /events/ (grid) | 1280 Reduced | new tab outlook.live.com | outlook.live.com | ✅ |
 | Calendar menu Esc | /events/ (grid) | 1280 Reduced | closes | closed | ✅ |
-| WhatsApp for inquiries (all cards) | /events/ (grid) | 1280 Reduced | with a number: wa.me/<digits>?text=<message> · without: no button | 0 with, 15 without | ✅ |
+| WhatsApp for inquiries (all cards) | /events/ (grid) | 1280 Reduced | with a number: wa.me/<digits>?text=<message> · without: no button | 2 with, 13 without | ✅ |
+| WhatsApp › click | /events/ (grid) | 1280 Reduced | new tab, same link | https://wa.me/201025559003?text=Hello%2C%20I%27d%20like%20to… | ✅ |
 | Card title | /events/ (grid) | 1280 Reduced | opens the event page | /events/deoss-atmo-2027/ | ✅ |
 | Register now | event page | 1280 Reduced | new tab | https://deoss-society.org/registration/ | ✅ |
 | Congress website | event page | 1280 Reduced | new tab | https://deoss-society.org/ | ✅ |
 | Add to calendar | event page | 1280 Reduced | menu opens | opened | ✅ |
 | Calendar › Google | event page | 1280 Reduced | calendar.google.com | calendar.google.com | ✅ |
-| Ask on WhatsApp (no number) | event page | 1280 Reduced | no button in the page | 0 | ✅ |
+| Ask on WhatsApp | event page | 1280 Reduced | new tab, exact wa.me link | https://wa.me/201025559003?text=Hello, I'd like to ask about 4th DEOSS | ✅ |
 | Share (copy link) | event page | 1280 Reduced | "Link copied" + the page address | Link copied · /events/deoss-atmo-2027/ | ✅ |
 | Newsletter (invalid email) | event page | 1280 Reduced | blame-free message, nothing sent | That email address doesn’t look complete. Please c | ✅ |
 | ← All events | event page | 1280 Reduced | /events/ | /events/ | ✅ |

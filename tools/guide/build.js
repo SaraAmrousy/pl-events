@@ -23,7 +23,7 @@ const clean = {
   chapters: g.chapters,
   tasks: g.tasks.map(t => {
     const o = { id: t.id, chapter: t.chapter, title: t.title, why: t.why, steps: t.steps, role: t.role, danger: !!t.danger, screens: t.screens || [] };
-    for (const k of ['tip', 'warning', 'table', 'links', 'placeholders', 'cheat', 'cheatsheet']) if (t[k] !== undefined) o[k] = t[k];
+    for (const k of ['tip', 'warning', 'table', 'links', 'placeholders', 'cheat', 'cheatsheet', 'support', 'spec_table']) if (t[k] !== undefined) o[k] = t[k];
     o.screenshots = (t.screenshots || []).filter(s => exists('shots/' + s.id + '.png')).map(s => ({ id: s.id, file: 'shots/' + s.id + '.png', diagram: !!s.diagram, alt: s.alt || t.title, callouts: (s.callouts || []).map(c => ({ n: c.n, text: c.text })) }));
     if (t.pair && exists('pairs/' + t.pair.id + '.png')) o.pair = { id: t.pair.id, title: t.pair.title, text: t.pair.text, legend: t.pair.legend };
     if (t.video && exists('video/' + t.id + '.mp4')) { o.video = true; o.video_seconds = (m.videos[t.id] || {}).seconds || null; }
