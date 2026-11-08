@@ -8,3 +8,4 @@ tools/nl-mock/*.json
 tools/nl-mock/mc_compliance
 tools/nl-mock/zoho_doi
 tools/guide/out/
+__pycache__/
