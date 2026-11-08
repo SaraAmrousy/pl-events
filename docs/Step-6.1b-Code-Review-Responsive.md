@@ -253,3 +253,45 @@ Every fix was tested; nothing approved was redesigned. Where a fix changed somet
 - `class-pl-nl-hooks.php` (masked samples)
 - `tools/admin-check.js`
 - docs
+
+---
+
+# Round 6 — Event cards: blur-fill posters + WhatsApp for inquiries (8 Nov 2026)
+| # | Request | Done | Evidence |
+|---|---|---|---|
+| 1 | **Blur-fill** for posters | New `PL_Images::poster()`. **Poster** → two images in the same fixed frame: the whole image `contain` in the middle, and behind it the **smallest uncropped copy** (`medium`, ~10 KB WebP) `cover` + `filter: blur(24px) brightness(.6)` (CSS only, no new file). **Photo** → unchanged (`cover`). Same rule on Home cards, Events grid + list, editions thumbnails and the event page. `sizes` is scaled to the width the poster really takes in the frame (a portrait in 16:9 ≈ 40–45%), so phones get a smaller file. Pure HTML + CSS: identical with reduced motion and without JS; both images are absolute in the aspect-ratio box. | Before/after on staging: `docs/img/6.1b-round6-375.jpg`, `docs/img/6.1b-round6-1280.jpg` (MEOM, ASAIC, MOCAT, DEOSS, card + event page). Text on every poster is now whole (before: the 16:9 crop cut the top and bottom). |
+| 1b | New field **Image type** (Auto / Poster / Photo) | Auto = more than 15% away from 16:9 → Poster. A note under the field says what Auto picks for this image (server + live when the image changes). | All 6 staging posters (0.70–0.80) → Poster |
+| 2 | **WhatsApp for inquiries** (replaces the share button on cards) | Field "WhatsApp for inquiries" (one number: Country code + Number), same guardrail as Phones (code moved, spaces removed, short/long warning, live preview). Button `https://wa.me/<digits>?text=<encoded>`, message from **Company › WhatsApp inquiry message** (`{event}` `{dates}` `{city}`; default "Hello, I'd like to ask about {event} ({dates}, {city})."). No number → **no button in the HTML** (card, list, event page); the action row keeps its height. aria-label "Ask about {event} on WhatsApp", new tab, #25D366 + official glyph. | Seed/staging: **no numbers** (none are real; nothing invented). Tested with a fake number on the sandbox only. |
+| 2b | Event page | "Ask on WhatsApp" (when there's a number) + a separate **Share** button: Web Share API on touch devices, **copy link** on desktop ("Link copied", announced). Hidden without JS (no dead button). | Sweep: "Link copied · /events/deoss-atmo-2027/" at 375/768/1280 |
+
+## Found and fixed on the way
+| # | Sev. | Problem | Fix | Evidence |
+|---|---|---|---|---|
+| R21 | **Major** | **MOCAT's poster was treated as a transparent logo** (squeezed into the middle with padding since 4.4): the PNG has an alpha *channel* but **0%** transparent pixels | Transparency is now read from the pixels (48×48 sample), not the file header; cached as `_pl_alpha2`. A really transparent file / SVG gets type `logo` (old look on the brand colour) | MOCAT → Poster; the site icon (really transparent) → still transparent |
+| R22 | **Major** | First blur-fill deploy **doubled the page weight** (Home 880 → 2061 KB): the uncropped copies of the MOCAT **PNG** were 1 MB, and WordPress has no uncropped size between 300 px and ~1024 px high | **Resized copies of PNGs are made as WebP** (keeps transparency; the original file stays); two uncropped sizes limited by height: `pl-bf-480`, `pl-bf-800`; WordPress's `sizes="auto, …"` removed for blur-fill images (it would use the frame's full width). The 6 staging posters' copies regenerated (originals untouched) | See Lighthouse below: lighter than before |
+| R23 | Minor | Event-page buttons' accessible name didn't start with the visible text (WCAG 2.5.3, axe `label-content-name-mismatch`) | "Ask on WhatsApp about {event}", "Share: copy the link to this event" (the card's icon-only button keeps "Ask about {event} on WhatsApp") | axe 0 |
+| R24 | Minor | A cleared WhatsApp number saved an empty Country code → the select showed the list's first country (+355 Albania) | An empty number keeps +20 | guard-test "starts at +20" ✅ |
+
+## Tests (8 Nov 2026)
+**Lighthouse mobile on staging** (2 runs each, lab via the sandbox proxy):
+
+| Page | | Perf | A11y | LCP | CLS | Total | Images |
+|---|---|---|---|---|---|---|---|
+| Home | before | 89–92 | 100 | 2.7 s | 0 | 880 KB | 619 KB |
+| Home | **after** | 91–94 | 100 | 2.4–2.8 s | 0 | **709 KB** | 448 KB |
+| Events | before | 86–90 | 100 | 3.1–3.6 s | 0.002 | 866 KB | — |
+| Events | **after** | 94–95 | 100 | **2.0 s** | 0.002 | **499 KB** | 247 KB |
+
+- **Equal height** (`tools/card-rows.js`, new): Home + Events All/Upcoming/Past × 1280/1024/768/375: **38/38 rows Δheight 0, Δactions 0** (sandbox with one fake number, and staging).
+- **axe-core** (WCAG 2.0/2.1/2.2 A + AA, as in 6.1): **0 violations** on Home, Events grid + list, 3 event pages × 375/1280 (staging) + the sandbox event page that has the button. *Note:* axe's "best-practice" set also flags `landmark-*` (two banner/contentinfo landmarks from the UAE header/footer templates). It's older than this round and not WCAG; listed as an open item.
+- **Click sweep** (`tools/click-sweep.js`, updated): every visible card checked against the site's data feed: with a number → exact `wa.me/<digits>?text=<message>` (decoded and compared) + aria-label; without → no button in the HTML. Event page: Ask on WhatsApp / none, Share copies the link.
+  - Sandbox (one fake number): all WhatsApp/Share rows ✅ ("1 with, 14 without"; the link opens in a new tab unchanged).
+  - **Staging: 402/402 ✅** ("0 with, 15 without").
+- **Guardrails** (`tools/guard-test.js`): sandbox **19/19** (+3: starts at +20, code moved, saved + button link).
+- debug.log: 0 lines from our code.
+
+## Files (round 6)
+- Plugin: `includes/class-pl-images.php` (poster(), poster_type(), scale_sizes(), real transparency, PNG→WebP copies, height sizes), `includes/class-pl-fields.php` (type `phone`), `includes/class-pl-data.php` (poster_type, ask_wa_url), `includes/class-pl-template.php` (thumb, actions), `includes/class-pl-guardrails.php` (one-number phones, Image type note), `modules/events/fields.php`, `modules/events/module.php`, `modules/company/fields.php`, `templates/card-event.php`, `templates/event-page.php`, `assets/js/pl-events.js` (Share), `assets/js/pl-guard.js`.
+- Theme: `assets/css/src/wp.css` → `pl.css`.
+- Tools: `tools/card-rows.js` (new), `tools/click-sweep.js`, `tools/guard-test.js`, `tools/guide/guide.json` (+2 tasks).
+- Staging data: the 6 posters' resized copies regenerated (new WebP + 480/800 sizes; originals untouched).

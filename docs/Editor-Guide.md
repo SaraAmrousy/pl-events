@@ -35,11 +35,13 @@ After logging in you see only what you need:
 | **Congress website** | The society's page for this congress. | |
 | **Registration link** + **Registration** | The link, and its state: *Not open yet* / *Open* / *Closed*. **"Register now" appears only when the state is Open *and* there is a link.** When registration closes, switch to *Closed*. | ✅ (state) |
 | **Pin to Home** | Only to force an event into the first spot on Home. Normally leave it off: Home already shows Live → Upcoming → Past. | |
+| **WhatsApp for inquiries** | One number (Country code + Number). Doctors tap the green WhatsApp button on the card and message it with a ready text ("Hello, I'd like to ask about {event} ({dates}, {city}).", editable in PL Website › Company › **WhatsApp inquiry message**). **Empty = no button at all.** | |
 | More links · Phones · Email | Optional extras on the event page (programme, abstracts, local contact). | |
 | **Delegates** | A real number only, if PL has it. | |
 | **Short description** | One or two plain sentences. | |
 | **Logo** | The congress logo: transparent PNG or SVG (see §5). | |
 | **Poster / photo** | The poster or a photo (see §5). Without one, the site draws a clean typographic poster by itself. | |
+| **Image type** | **Auto** (default): an image far from 16:9 is a *Poster*. **Poster** = shown whole on a blurred copy of itself (no text is ever cut). **Photo** = fills the frame (edges may be cropped). The note under the field says what Auto picks. | |
 | **Photos** | Gallery for past events (optional). | |
 | **Show on site** | On by default. Off hides the event everywhere but keeps it. | |
 
@@ -95,7 +97,7 @@ Every image sits in a fixed frame, so any size *fits*. Small images look soft, t
 
 | Image | Frame | Upload at least |
 |---|---|---|
-| Event poster / photo | 16:9 on cards, 16:10 on the event page (cropped from the centre) | **1280 × 800 px** |
+| Event poster / photo | 16:9 on cards, 16:10 on the event page. **Photo**: cropped from the centre. **Poster**: shown whole on a blurred background (Image type) | **1280 × 800 px** (posters: at least 1000 px tall) |
 | Event photos (gallery) | 4:3 | 960 × 720 px |
 | Service photo | 4:3 | 960 × 720 px |
 | Wide photo (About) | 21:9 (4:3 on phones) | 2048 × 878 px |
@@ -122,6 +124,7 @@ Every image sits in a fixed frame, so any size *fits*. Small images look soft, t
 The forms stop the mistakes that would make the site wrong, and explain the fix in one line:
 - **Blocked:** Registration *Open* without a link · End date before Start date · a link that isn't a web address · switching off the only **Head office** · binning the head office while other offices exist.
 - **Yellow warning (still saves):** the event has ended but Registration is still *Open* · a phone number that looks too short/long for its country code · a small image · an `http://` link.
+- The same phone guardrail applies to **WhatsApp for inquiries**.
 - **Fixed for you:** `www.site.org` → `https://www.site.org` · spaces, dashes and a leading 0 in phone numbers · a code typed into the number (`+971 55…`) moves to **Country code** · making an office the head office switches the old one off · an office with no name takes its city.
 - wp-admin can't edit code files (`DISALLOW_FILE_EDIT`).
 
@@ -131,5 +134,7 @@ The forms stop the mistakes that would make the site wrong, and explain the fix 
 | A change doesn't show | Wait a minute and reload. The site refreshes its cache by itself on every save. Still wrong → tell Sara. |
 | An event shows the wrong status | Check its **dates** (start/end) and **Country** (the status uses the country's local time). |
 | "Register now" is missing | Registration must be **Open** *and* the **Registration link** must be filled in. |
+| No WhatsApp button on a card | Fill **WhatsApp for inquiries** in the event. Empty = no button, by design. |
+| A poster's text is cut | Set **Image type** to **Poster** (or Auto). |
 | A yellow image note | Upload a bigger image if you have one (see §5). It's fine to publish meanwhile. |
 | Anything else | Screenshot + the page address → Sara. |

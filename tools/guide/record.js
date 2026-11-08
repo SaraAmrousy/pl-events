@@ -120,7 +120,7 @@ async function run(page, actions, video, caps) {
     try {
       if (a.cap && !a.click && !a.fill && !a.select && !a.check && !a.go && !a.select2 && !a.date) await capNow(a.cap);
       if (a.php) php(resolve(a.php));
-      if (a.go) { if (a.cap) await capNow(a.cap); await page.goto(url(a.go)); await settle(page); if (video) await sleep(500); }
+      if (a.go) { if (a.cap) await capNow(a.cap); await page.goto(url(a.go), { waitUntil: 'domcontentloaded', timeout: 120000 }); await settle(page); if (video) await sleep(500); }
       if (a.scroll) { await page.evaluate(([s, sm]) => { const e = document.querySelector(s); e && e.scrollIntoView({ block: 'center', behavior: sm ? 'smooth' : 'instant' }); }, [a.scroll, video]).catch(() => {}); await sleep(video ? 1000 : 150); }
       if (a.scrollTop) { await page.evaluate(() => scrollTo(0, 0)); }
       if (a.ring) { if (video) { const b = await center(page, a.ring); await page.evaluate(bx => window.__pl.ringBox(bx, true), [b.x, b.y, b.width, b.height]); } }
@@ -179,7 +179,7 @@ async function shot(browser, task, s, file) {
   const ctx = await newCtx(browser, { ...size, anon: s.anon, reducedMotion: 'reduce' });
   const page = await ctx.newPage();
   try {
-    await page.goto(url(s.page)); await settle(page);
+    await page.goto(url(s.page), { waitUntil: 'domcontentloaded', timeout: 120000 }); await settle(page);
     await run(page, s.do, false, []);
     if (s.scroll) { await page.evaluate(([sel, blk]) => { const e = document.querySelector(sel); e && e.scrollIntoView({ block: blk, behavior: 'instant' }); }, [s.scroll, s.block || 'center']).catch(() => {}); await sleep(300); }
     await page.evaluate(() => window.__pl && window.__pl.blur());
@@ -244,7 +244,7 @@ async function video(browser, task) {
   const page = await ctx.newPage();
   run.t0 = Date.now();
   const caps = [];
-  await page.goto(url(v.start || '/wp-admin/index.php')); await settle(page);
+  await page.goto(url(v.start || '/wp-admin/index.php'), { waitUntil: 'domcontentloaded', timeout: 120000 }); await settle(page);
   await page.mouse.move(640, 420);
   // Title card — the video starts here (the page load before it is cut off)
   const cardAt = (Date.now() - run.t0) / 1000;
@@ -263,6 +263,7 @@ async function video(browser, task) {
   const raw = await page.video().path();
   await ctx.close();
   const out = path.join(OUT, 'video', task.id + '.mp4');
+  const cut = Math.max(0.4, cardAt - 0.15), len = dur - cut; // the video starts at the title card
   const enc = crf => cp.execFileSync('ffmpeg', ['-y', '-loglevel', 'error', '-ss', String(Math.max(0.4, cardAt - 0.15)), '-i', raw, '-vf', 'fps=20,format=yuv420p', '-c:v', 'libx264', '-preset', 'veryfast', '-crf', String(crf), '-tune', 'stillimage', '-movflags', '+faststart', '-an', out]);
   enc(30);
   if (fs.statSync(out).size > 2.9e6) enc(35);
@@ -270,11 +271,9 @@ async function video(browser, task) {
   fs.unlinkSync(raw);
   // WebVTT (same captions, for the <track>)
   const lines = ['WEBVTT', ''];
-  const cut = Math.max(0.4, cardAt - 0.15);
   caps.forEach((c, i) => { const s = Math.max(0, c.t - cut), e = Math.max(s + 1, (caps[i + 1] ? caps[i + 1].t : dur) - cut); lines.push(String(i + 1), `${vtt(s)} --> ${vtt(e)}`, c.text.replace(/\*\*(.+?)\*\*/g, '$1').replace(/^\[\d+\]\s*/, ''), ''); });
   fs.writeFileSync(path.join(OUT, 'video', task.id + '.vtt'), lines.join('\n'));
   const bytes = fs.statSync(out).size;
-  const len = dur - Math.max(0.4, cardAt - 0.15);
   if (len < 28 || len > 62) problems.push(`${task.id}.mp4: ${len.toFixed(0)} s (target 30–60)`);
   if (bytes > 3.2e6) problems.push(`${task.id}.mp4: ${(bytes / 1e6).toFixed(1)} MB (target < 3)`);
   return { file: 'video/' + task.id + '.mp4', poster: 'video/' + task.id + '.jpg', vtt: 'video/' + task.id + '.vtt', seconds: Math.round(len), bytes };
