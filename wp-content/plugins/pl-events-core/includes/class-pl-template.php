@@ -58,9 +58,9 @@ class PL_Template {
 	 * series' typographic poster in miniature. Decorative (the row's link carries the name).
 	 */
 	public static function thumb( array $e ) {
-		$cls = 'poster mini' . ( 'past' === $e['status'] ? ' past' : '' );
+		$cls = 'poster mini' . ( 'past' === $e['status'] ? ' past' : '' ) . ( 'poster' === ( $e['poster_type'] ?? '' ) ? ' is-bf' : '' );
 		if ( $e['poster'] ) {
-			return '<span class="' . $cls . ' r-th" aria-hidden="true">' . PL_Images::img( $e['poster'], 'poster', array( 'class' => 'pimg', 'sizes' => '(max-width: 767px) 72px, 120px' ) ) . '</span>';
+			return '<span class="' . $cls . ' r-th" aria-hidden="true">' . PL_Images::poster( $e['poster'], 'poster', $e['poster_type'] ?? 'photo', array( 'class' => 'pimg', 'sizes' => '(max-width: 767px) 72px, 120px' ) ) . '</span>';
 		}
 		return '<span class="' . $cls . ' r-th" aria-hidden="true"><span class="pw' . ( strlen( $e['poster_word'] ) > 9 ? ' long' : '' ) . '">' . esc_html( $e['poster_word'] ) . '</span></span>';
 	}
@@ -76,7 +76,8 @@ class PL_Template {
 	 * Event actions, one renderer for card / row / page (Thread 8 card clean-up):
 	 *  - "Register now" (primary) + "Website" (outline) side by side; past events: Website only.
 	 *  - "Add to calendar" disclosure (Google · Apple .ics · Outlook) — upcoming/live only.
-	 *  - WhatsApp share in its brand colour.
+	 *  - WhatsApp for inquiries (brand colour #25D366) — only when the event has a number (6.1b round 6).
+ *  - Event page: "Share" (Web Share API / copy link) instead of "Share on WhatsApp".
 	 * The `pl_event_actions` filter still receives/returns the keyed array (register, website, calendar, whatsapp).
 	 *
 	 * @param string $ctx card|row|page
@@ -100,14 +101,22 @@ class PL_Template {
 				. '<a href="' . esc_url( $e['outlook_url'] ) . '" target="_blank" rel="noopener">Outlook</a>'
 				. '</div></details>';
 		}
-		$a['whatsapp'] = $page
-			? '<a class="btn bso wa-text" href="' . esc_url( $e['wa_url'] ) . '" target="_blank" rel="noopener"><span class="wa-dot">' . self::wa_icon( 16 ) . '</span>Share on WhatsApp</a>'
-			: '<a class="wa-btn" href="' . esc_url( $e['wa_url'] ) . '" target="_blank" rel="noopener" aria-label="Share on WhatsApp">' . self::wa_icon( 20 ) . '</a>';
+		// WhatsApp for inquiries (6.1b round 6): only when the event has a number — otherwise nothing is printed.
+		if ( ! empty( $e['ask_wa_url'] ) ) {
+			$a['whatsapp'] = $page
+				? '<a class="btn bso wa-text pl-ask" href="' . esc_url( $e['ask_wa_url'] ) . '" target="_blank" rel="noopener" aria-label="' . esc_attr( $e['ask_wa_aria'] ) . '"><span class="wa-dot">' . self::wa_icon( 16 ) . '</span>Ask on WhatsApp</a>'
+				: '<a class="wa-btn pl-ask" href="' . esc_url( $e['ask_wa_url'] ) . '" target="_blank" rel="noopener" aria-label="' . esc_attr( $e['ask_wa_aria'] ) . '" title="Ask on WhatsApp">' . self::wa_icon( 20 ) . '</a>';
+		}
+		if ( $page ) { // share the event page itself: Web Share on phones, copy the link on desktop (needs JS → hidden without it)
+			$a['share'] = '<button type="button" class="btn bso pl-share" data-url="' . esc_url( $e['url'] ) . '" data-title="' . esc_attr( $e['name'] ) . '" hidden>'
+				. '<svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v13M7 8l5-5 5 5M5 14v5a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-5"/></svg>'
+				. '<span class="pl-share-l">Share</span></button><span class="pl-share-msg sr" role="status" aria-live="polite"></span>';
+		}
 		$a     = apply_filters( 'pl_event_actions', $a, $e, $ctx );
 		$main  = ( $a['register'] ?? '' ) . ( $a['website'] ?? '' );
-		$extra = implode( '', array_diff_key( $a, array_flip( array( 'register', 'website', 'calendar', 'whatsapp' ) ) ) ); // added through the filter
+		$extra = implode( '', array_diff_key( $a, array_flip( array( 'register', 'website', 'calendar', 'whatsapp', 'share' ) ) ) ); // added through the filter
 		if ( $page ) {
-			return $main . ( $a['calendar'] ?? '' ) . ( $a['whatsapp'] ?? '' ) . $extra; // one wrapping row on the event page
+			return $main . ( $a['calendar'] ?? '' ) . ( $a['whatsapp'] ?? '' ) . ( $a['share'] ?? '' ) . $extra; // one wrapping row on the event page
 		}
 		if ( 'row' === $ctx ) {
 			return '<span class="ra-main">' . $main . '</span>' . ( $a['calendar'] ?? '' ) . ( $a['whatsapp'] ?? '' ) . $extra;

@@ -112,20 +112,49 @@ class PL_Images {
 	/** True when a PNG/WebP/GIF has transparency (read from the file header once, at upload). */
 	public static function file_has_alpha( $path ) {
 		$h = (string) @file_get_contents( $path, false, null, 0, 65536 ); // phpcs:ignore WordPress.PHP.NoSilencedErrors,WordPress.WP.AlternativeFunctions
+		$can = false;
 		if ( "\x89PNG" === substr( $h, 0, 4 ) ) {
 			$type = ord( $h[25] ?? "\0" ); // IHDR colour type: 4 = grey+alpha, 6 = RGBA; palette/grey/RGB may carry a tRNS chunk
-			return 4 === $type || 6 === $type || false !== strpos( $h, 'tRNS' );
+			$can  = 4 === $type || 6 === $type || false !== strpos( $h, 'tRNS' );
+		} elseif ( 'RIFF' === substr( $h, 0, 4 ) && 'WEBP' === substr( $h, 8, 4 ) ) {
+			$can = false !== strpos( $h, 'ALPH' ) || ( 'VP8X' === substr( $h, 12, 4 ) && ( ord( $h[20] ?? "\0" ) & 16 ) );
+		} else {
+			return 'GIF' === substr( $h, 0, 3 ) && false !== strpos( $h, "\x21\xF9\x04" ) && ( ord( $h[ strpos( $h, "\x21\xF9\x04" ) + 3 ] ?? "\0" ) & 1 );
 		}
-		if ( 'RIFF' === substr( $h, 0, 4 ) && 'WEBP' === substr( $h, 8, 4 ) ) {
-			return false !== strpos( $h, 'ALPH' ) || ( 'VP8X' === substr( $h, 12, 4 ) && ( ord( $h[20] ?? "\0" ) & 16 ) );
+		// An alpha CHANNEL isn't transparency: many posters are saved as RGBA with every pixel opaque
+		// (MOCAT, 6.1b round 6). Look at the pixels: transparent only if some are really see-through.
+		return $can ? self::pixels_transparent( $path, $h ) : false;
+	}
+
+	/** Sample a 48×48 grid (edges included); true when any sample is at least ~10% transparent. */
+	private static function pixels_transparent( $path, $head ) {
+		if ( ! function_exists( 'imagecreatefromstring' ) ) {
+			return true; // can't look: keep the safe old answer
 		}
-		return 'GIF' === substr( $h, 0, 3 ) && false !== strpos( $h, "\x21\xF9\x04" ) && ( ord( $h[ strpos( $h, "\x21\xF9\x04" ) + 3 ] ?? "\0" ) & 1 );
+		$im = @imagecreatefromstring( (string) file_get_contents( $path ) ); // phpcs:ignore WordPress.PHP.NoSilencedErrors,WordPress.WP.AlternativeFunctions
+		if ( ! $im ) {
+			return true;
+		}
+		$w = imagesx( $im );
+		$h = imagesy( $im );
+		$n = 48;
+		for ( $y = 0; $y < $n; $y++ ) {
+			for ( $x = 0; $x < $n; $x++ ) {
+				$c = imagecolorat( $im, (int) round( $x * ( $w - 1 ) / ( $n - 1 ) ), (int) round( $y * ( $h - 1 ) / ( $n - 1 ) ) );
+				if ( ( ( $c >> 24 ) & 0x7F ) > 12 ) { // GD alpha: 0 = opaque … 127 = transparent
+					imagedestroy( $im );
+					return true;
+				}
+			}
+		}
+		imagedestroy( $im );
+		return false;
 	}
 
 	public static function note_alpha( $meta, $id ) {
 		$file = get_attached_file( $id );
 		if ( $file && preg_match( '/\.(png|webp|gif)$/i', $file ) ) {
-			update_post_meta( $id, '_pl_alpha', self::file_has_alpha( wp_get_original_image_path( $id ) ? wp_get_original_image_path( $id ) : $file ) ? 1 : 0 );
+			update_post_meta( $id, '_pl_alpha2', self::file_has_alpha( wp_get_original_image_path( $id ) ? wp_get_original_image_path( $id ) : $file ) ? 1 : 0 );
 		}
 		return $meta;
 	}
@@ -143,11 +172,11 @@ class PL_Images {
 		if ( ! $id ) {
 			return false;
 		}
-		$v = get_post_meta( $id, '_pl_alpha', true );
+		$v = get_post_meta( $id, '_pl_alpha2', true ); // v2 (round 6): real transparency, not just an alpha channel
 		if ( '' === $v ) { // uploaded before this check existed: read once and remember
 			$file = get_attached_file( $id );
 			$v    = $file && preg_match( '/\.(png|webp|gif)$/i', $file ) && self::file_has_alpha( $file ) ? 1 : 0;
-			update_post_meta( $id, '_pl_alpha', $v );
+			update_post_meta( $id, '_pl_alpha2', $v );
 		}
 		return (bool) $v;
 	}
@@ -156,6 +185,9 @@ class PL_Images {
 	public static function one_loading_attr( $img ) {
 		if ( substr_count( $img, ' loading=' ) > 1 ) {
 			$img = preg_replace( '/^<img loading="[a-z]+"/i', '<img', $img, 1 );
+		}
+		if ( false !== strpos( $img, 'pl-bf' ) ) { // blur-fill: our sizes already match the visible poster; "auto" would use the frame's full width
+			$img = str_replace( 'sizes="auto, ', 'sizes="', $img );
 		}
 		return $img;
 	}
@@ -233,6 +265,90 @@ class PL_Images {
 			$w ? ' width="' . (int) $w . '" height="' . (int) $h . '"' : '',
 			$o['eager'] ? 'fetchpriority="high"' : 'loading="lazy"',
 			$o['attrs'] ? ' ' . $o['attrs'] : ''
+		);
+	}
+
+	/* ------------------------------------------------- posters: blur-fill (6.1b round 6) */
+
+	/**
+	 * "poster" (a designed image with text, or a shape far from the frame) or "photo".
+	 * $setting = the event's "Image type" (auto | poster | photo). Auto: more than 15% away from 16:9 → poster.
+	 */
+	public static function poster_type( $src, $setting = 'auto' ) {
+		$id = self::id( $src );
+		if ( self::is_svg( $src, $id ) || self::has_alpha( $id ) ) {
+			return 'logo'; // a transparent file / SVG used as the poster: shown whole on the brand colour (4.4)
+		}
+		if ( in_array( $setting, array( 'poster', 'photo' ), true ) ) {
+			return $setting;
+		}
+		$d = self::dims( $id );
+		if ( ! $d || ! $d[1] ) {
+			return 'photo';
+		}
+		return abs( ( $d[0] / $d[1] ) / ( 16 / 9 ) - 1 ) > 0.15 ? 'poster' : 'photo';
+	}
+
+	/** Shrink every length of a sizes attribute by $f ("360px" → "calc((360px) * .45)"). */
+	public static function scale_sizes( $sizes, $f ) {
+		if ( $f >= 0.99 ) {
+			return $sizes;
+		}
+		$out = array();
+		foreach ( array_map( 'trim', explode( ',', (string) $sizes ) ) as $part ) {
+			$cond = '';
+			if ( preg_match( '/^(\([^)]*\))\s+(.+)$/', $part, $m ) ) {
+				$cond = $m[1] . ' ';
+				$part = $m[2];
+			}
+			$len   = preg_replace( '/^calc\((.*)\)$/', '$1', $part );
+			$out[] = $cond . 'calc((' . $len . ') * ' . rtrim( rtrim( number_format( $f, 3, '.', '' ), '0' ), '.' ) . ')';
+		}
+		return implode( ', ', $out );
+	}
+
+	/**
+	 * The image of an event card / row / page. Photo → img() (cover, frame crop). Poster → blur-fill:
+	 *  - background: the SMALLEST uncropped copy (WordPress "medium", ~15 KB), cover + CSS blur/darken;
+	 *  - front: the whole image (uncropped sizes only, so no text is ever cut), contain;
+	 *  - sizes scaled to the width the poster really takes inside the frame (a portrait in 16:9 ≈ 45%),
+	 *    so the browser picks a smaller file than before (LCP not worse). No JS: pure HTML + CSS.
+	 * SVG / transparent files keep their own "contain" rule (img()).
+	 */
+	public static function poster( $src, $frame, $type, array $o = array() ) {
+		if ( ! $src ) {
+			return '';
+		}
+		$id = self::id( $src );
+		if ( 'poster' !== $type || ! $id || self::is_svg( $src, $id ) || self::has_alpha( $id ) ) {
+			return self::img( $src, $frame, $o );
+		}
+		$o    = $o + array( 'alt' => '', 'class' => '', 'sizes' => '100vw', 'eager' => false );
+		$big  = wp_get_attachment_image_src( $id, 'large' );
+		$bg   = wp_get_attachment_image_src( $id, 'medium' );
+		if ( ! $big ) {
+			return self::img( $src, $frame, $o );
+		}
+		$bg   = $bg ? $bg : $big;
+		$set  = (string) wp_get_attachment_image_srcset( $id, 'large' ); // same shape only = uncropped copies
+		$fr   = self::FRAMES[ $frame ]['ratio'] ?? array( 16, 9 );
+		$f    = min( 1, ( $big[1] / max( 1, $big[2] ) ) / ( $fr[0] / $fr[1] ) );
+		$load = $o['eager'] ? 'fetchpriority="high"' : 'loading="lazy"';
+		return sprintf(
+			'<img src="%s" alt="" aria-hidden="true" class="pl-bf-bg" width="%d" height="%d" %s decoding="async">',
+			esc_url( $bg[0] ),
+			(int) $bg[1],
+			(int) $bg[2],
+			$o['eager'] ? 'fetchpriority="low"' : 'loading="lazy"'
+		) . sprintf(
+			'<img src="%s"%s alt="%s" class="%s" width="%d" height="%d" %s decoding="async">',
+			esc_url( $big[0] ),
+			$set ? ' srcset="' . esc_attr( $set ) . '" sizes="' . esc_attr( self::scale_sizes( $o['sizes'], $f ) ) . '"' : '',
+			esc_attr( $o['alt'] ),
+			esc_attr( trim( 'pl-img pl-bf ' . $o['class'] ) ),
+			(int) $big[1],
+			(int) $big[2],
+			$load
 		);
 	}
 

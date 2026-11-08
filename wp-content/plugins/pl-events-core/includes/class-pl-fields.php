@@ -12,7 +12,7 @@
  * Field definition keys:
  *   name      stable key (never rename — deprecate instead). Meta key = "pl_{name}".
  *   label     label shown to the editor
- *   type      text|textarea|url|email|number|date|select|switch|image|gallery|file|country|countries|phones|repeater|taxonomy|message
+ *   type      text|textarea|url|email|number|date|select|switch|image|gallery|file|country|countries|phone|phones|repeater|taxonomy|message
  *   json      key in the data-layer output / pl-data.json (default = name; false = not exported)
  *   required, help, default, choices, sub (repeater), taxonomy + multiple + add (taxonomy),
  *   soft_max  soft length counter (Step 2.2 D12 — never blocks)
@@ -138,6 +138,13 @@ class PL_Fields {
 				return $out + array( 'type' => 'select', 'choices' => PL_Geo::country_choices(), 'ui' => 1, 'allow_null' => 1, 'return_format' => 'value', 'placeholder' => 'Choose a country' );
 			case 'countries':
 				return $out + array( 'type' => 'select', 'choices' => PL_Geo::country_choices(), 'ui' => 1, 'multiple' => 1, 'allow_null' => 1, 'return_format' => 'value' );
+			case 'phone': // one number: Country code + Number (stored as {name}_code / {name}_number)
+				$subs = array();
+				foreach ( array_slice( PL_Phones::subfields(), 1, 2 ) as $s ) {
+					$s['required'] = false;
+					$subs[]        = self::to_scf( $group, $s, $key );
+				}
+				return $out + array( 'type' => 'group', 'layout' => 'table', 'sub_fields' => $subs );
 			case 'phones':
 				$f['sub'] = PL_Phones::subfields();
 				// fall through.
@@ -194,6 +201,10 @@ class PL_Fields {
 			$terms = wp_get_post_terms( (int) $object, $f['taxonomy'], array( 'orderby' => 'term_order' ) );
 			$names = is_wp_error( $terms ) ? array() : wp_list_pluck( $terms, 'name' );
 			return ! empty( $f['multiple'] ) ? array_values( $names ) : ( $names[0] ?? '' );
+		}
+		if ( 'phone' === $f['type'] ) { // → "+20 102 555 9003" (display) or ''
+			$p = PL_Phones::from_row( array( 'code' => (string) self::raw( $object, $name . '_code' ), 'number' => (string) self::raw( $object, $name . '_number' ), 'whatsapp' => true ) );
+			return $p ? $p['number'] : '';
 		}
 		$raw = self::raw( $object, $name );
 		if ( in_array( $f['type'], array( 'repeater', 'phones' ), true ) ) {
@@ -260,6 +271,13 @@ class PL_Fields {
 			$ids = array_filter( $ids );
 			wp_set_object_terms( (int) $object, $ids, $f['taxonomy'] );
 			self::put( $object, $name, ! empty( $f['multiple'] ) ? array_map( 'strval', $ids ) : (string) ( $ids[0] ?? '' ), $key );
+			return;
+		}
+		if ( 'phone' === $f['type'] ) {
+			$row = $value ? PL_Phones::to_row( array( 'number' => (string) $value ) ) : array( 'code' => '+20', 'number' => '' );
+			self::put( $object, $name, '', $key );
+			self::put( $object, $name . '_code', $row['number'] ? $row['code'] : '', $key . '_code' );
+			self::put( $object, $name . '_number', $row['number'], $key . '_number' );
 			return;
 		}
 		if ( in_array( $f['type'], array( 'repeater', 'phones' ), true ) ) {

@@ -10,8 +10,8 @@ defined( 'ABSPATH' ) || exit;
 $hidden = ! empty( $hidden );
 ?>
 <article class="card pl-card"<?php echo PL_Template::status_attrs( $e ) . PL_Template::filter_attrs( $e ); // phpcs:ignore WordPress.Security.EscapeOutput -- escaped inside. ?><?php echo $hidden ? ' hidden' : ''; ?>>
-	<div class="<?php echo 'past' === $e['status'] ? 'poster past' : 'poster'; ?>" aria-hidden="true">
-		<?php echo $e['poster'] ? PL_Images::img( $e['poster'], 'poster', array( 'class' => 'pimg', 'sizes' => '(max-width: 767px) calc(100vw - 40px), (max-width: 1023px) 45vw, 360px', 'eager' => ! empty( $eager ) ) ) : ''; // phpcs:ignore WordPress.Security.EscapeOutput -- escaped inside. ?>
+	<div class="<?php echo esc_attr( ( 'past' === $e['status'] ? 'poster past' : 'poster' ) . ( 'poster' === $e['poster_type'] ? ' is-bf' : '' ) ); ?>" aria-hidden="true">
+		<?php echo $e['poster'] ? PL_Images::poster( $e['poster'], 'poster', $e['poster_type'], array( 'class' => 'pimg', 'sizes' => '(max-width: 767px) calc(100vw - 40px), (max-width: 1023px) 45vw, 360px', 'eager' => ! empty( $eager ) ) ) : ''; // phpcs:ignore WordPress.Security.EscapeOutput -- escaped inside; Poster = blur-fill (6.1b r6) ?>
 		<?php if ( $e['logo'] ) : ?><span class="plogo"><?php echo PL_Images::img( $e['logo'], 'logo', array( 'sizes' => '96px' ) ); // phpcs:ignore WordPress.Security.EscapeOutput ?></span><?php endif; ?>
 		<?php if ( ! $e['poster'] ) : // typographic poster only when there is no real one (Thread 8) ?>
 		<span class="pw<?php echo strlen( $e['poster_word'] ) > 9 ? ' long' : ''; ?>"><?php echo esc_html( $e['poster_word'] ); ?></span>

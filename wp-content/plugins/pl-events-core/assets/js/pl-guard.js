@@ -77,7 +77,8 @@
     var len = (G.lengths[code] || [6, 12]), n = digits.length;
     var msg = moved ? 'Moved <strong>' + moved + '</strong> to “Country code”. ' : '';
     var shown = '+' + code + ' ' + group(digits);
-    hint($f, 'ok', msg + 'On the site: <strong dir="ltr">' + shown + '</strong>' + ($wa.is(':checked') ? ' · WhatsApp: <span dir="ltr">wa.me/' + code + digits + '</span>' : ''));
+    var waOn = $wa.length ? $wa.is(':checked') : true; // the one-number WhatsApp field is always WhatsApp
+    hint($f, 'ok', msg + 'On the site: <strong dir="ltr">' + shown + '</strong>' + (waOn ? ' · WhatsApp: <span dir="ltr">wa.me/' + code + digits + '</span>' : ''));
     if (n < len[0]) hint($f, 'warn', 'Looks short for +' + code + ' (' + n + ' digits after the code). Check the number, or choose the right country code.');
     else if (n > len[1]) hint($f, 'warn', 'Looks long for +' + code + ' (' + n + ' digits after the code). Is it from another country? Choose its code in “Country code”.');
     else hint($f, 'warn', '');
@@ -97,18 +98,35 @@
     hint($reg, 'warn', open && end && today && end < today ? 'This event has already ended. Registration should be <strong>Closed</strong>.' : '');
   }
 
+  /* Image type: what Auto picks for the chosen poster (same rule as the server: > 15% away from 16:9) */
+  function autoType(w, h) {
+    var $n = $('.pl-auto-type'); if (!$n.length) return;
+    if (!w || !h) { $n.text('Auto decides once there is an image.'); return; }
+    var poster = Math.abs((w / h) / (16 / 9) - 1) > 0.15;
+    $n.html('Auto picks <strong>' + (poster ? 'Poster' : 'Photo') + '</strong> for this image (' + w + ' × ' + h + ').');
+  }
+  function bindAutoType() {
+    $(document).on('change', '[data-name="pl_poster"] input[type="hidden"]', function () {
+      var id = parseInt(this.value, 10);
+      if (!id || !window.wp || !wp.media) { autoType(0, 0); return; }
+      var a = wp.media.attachment(id); a.fetch().always(function () { autoType(a.get('width'), a.get('height')); });
+    });
+  }
+
   function bind() {
     css();
+    bindAutoType();
     $(document).on('change blur', '.acf-field-url input[type="url"], .acf-field-url input[type="text"]', function () { checkUrl(this); });
-    $(document).on('change blur', '[data-name="number"] input', function () { checkPhone($(this).closest('.acf-row')); });
-    $(document).on('change', '[data-name="code"] select, [data-name="whatsapp"] input', function () { checkPhone($(this).closest('.acf-row')); });
+    var box = function (el) { var $r = $(el).closest('.acf-row'); return $r.length ? $r : $(el).closest('.acf-field-group'); }; // phones row, or one-number field (WhatsApp for inquiries)
+    $(document).on('change blur', '[data-name="number"] input', function () { checkPhone(box(this)); });
+    $(document).on('change', '[data-name="code"] select, [data-name="whatsapp"] input', function () { checkPhone(box(this)); });
     $(document).on('change input', '[data-name="pl_registration"] select, [data-name="pl_registration_url"] input, [data-name="pl_start"] input, [data-name="pl_end"] input', checkEvent);
     // Before the browser's own URL check runs on submit: fix "www…" links first.
     document.addEventListener('submit', function () { $('.acf-field-url input').each(function () { this.value = normUrl(this.value); }); }, true);
     document.addEventListener('click', function (e) {
       if (e.target && (e.target.id === 'publish' || e.target.id === 'save-post')) { $('.acf-field-url input').each(function () { this.value = normUrl(this.value); }); }
     }, true);
-    $('.acf-row:not(.acf-clone)').each(function () { if ($(this).find('[data-name="number"]').length) checkPhone(this); });
+    $('.acf-row:not(.acf-clone), .acf-field-group').each(function () { if ($(this).children('.acf-input').length || $(this).is('.acf-row')) { if ($(this).find('[data-name="number"]').length) checkPhone(this); } });
     $('[data-name="pl_end"] .hasDatepicker, [data-name="pl_start"] .hasDatepicker').on('change', function () { setTimeout(checkEvent, 0); });
     checkEvent();
   }

@@ -103,9 +103,32 @@ class PL_Data {
 			'ics_name'       => sanitize_file_name( strtolower( $series ? sanitize_title( $e['series_short'] ) . '-' . $p['y'] : $e['id'] ) ) . '.ics',
 			'register_aria'  => 'Register now for ' . ( $series ? $e['series_short'] . ' ' . $p['y'] : $e['name'] ),
 			'short_label'    => $series ? $e['series_short'] . ' ' . $p['y'] : $e['name'],
+			'poster_type'    => $e['poster'] ? PL_Images::poster_type( $e['poster'], $e['image_type'] ?? 'auto' ) : '',
+			'ask_wa_url'     => self::ask_wa_url( $e, PL_Dates::range( $e['start'], $e['end'] ) ),
+			'ask_wa_aria'    => 'Ask about ' . $e['name'] . ' on WhatsApp',
 			'wa_url'         => 'https://wa.me/?text=' . rawurlencode( $e['name'] . ' · ' . PL_Dates::range( $e['start'], $e['end'] ) . ' · ' . $place . ' — ' . $e['url'] ),
 		);
 		return apply_filters( 'pl_event_data', array_merge( $e, $c ) );
+	}
+
+	/**
+	 * "WhatsApp for inquiries" (6.1b round 6): https://wa.me/<digits>?text=<message>, or '' when the event has
+	 * no number (then no button is printed at all). The message comes from PL Website › Company
+	 * ("WhatsApp inquiry message", placeholders {event} {dates} {city}).
+	 */
+	public static function ask_wa_url( array $e, $range ) {
+		$digits = preg_replace( '/\D/', '', (string) ( $e['wa_inquiry'] ?? '' ) );
+		if ( strlen( $digits ) < 8 ) {
+			return '';
+		}
+		$tpl = trim( (string) get_option( 'options_pl_wa_inquiry_message', '' ) );
+		$tpl = '' !== $tpl ? $tpl : "Hello, I'd like to ask about {event} ({dates}, {city}).";
+		$city = $e['online'] ? 'online' : (string) $e['city'];
+		if ( '' === $city ) {
+			$tpl = str_replace( array( ', {city}', ' ({city})', '{city}' ), '', $tpl );
+		}
+		$msg = strtr( $tpl, array( '{event}' => $e['name'], '{dates}' => $range, '{city}' => $city ) );
+		return 'https://wa.me/' . $digits . '?text=' . rawurlencode( $msg );
 	}
 
 	/** Outlook.com / Microsoft 365 "add event" deeplink (all-day; end date is exclusive). */

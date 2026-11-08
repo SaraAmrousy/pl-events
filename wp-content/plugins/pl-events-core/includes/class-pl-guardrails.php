@@ -53,6 +53,18 @@ class PL_Guardrails {
 		add_action( 'admin_notices', array( __CLASS__, 'notices' ) );
 		add_action( 'wp_trash_post', array( __CLASS__, 'guard_trash' ) );
 		add_action( 'admin_enqueue_scripts', array( __CLASS__, 'assets' ) );
+		add_filter( 'acf/prepare_field/key=' . PL_Fields::field_key( 'event', 'image_type' ), array( __CLASS__, 'image_type_note' ) );
+	}
+
+	/** Under "Image type": what Auto picks for the current poster (updated live by pl-guard.js). */
+	public static function image_type_note( $field ) {
+		$id   = isset( $_GET['post'] ) ? absint( $_GET['post'] ) : 0; // phpcs:ignore WordPress.Security.NonceVerification -- read-only
+		$img  = $id ? (int) get_post_meta( $id, 'pl_poster', true ) : 0;
+		$img  = $img ? $img : ( $id ? (int) get_post_thumbnail_id( $id ) : 0 );
+		$d    = $img ? PL_Images::dims( $img ) : null;
+		$note = $d ? sprintf( 'Auto picks <strong>%s</strong> for this image (%d × %d).', 'poster' === PL_Images::poster_type( $img, 'auto' ) ? 'Poster' : 'Photo', $d[0], $d[1] ) : 'Auto decides once there is an image.';
+		$field['instructions'] .= ' <span class="pl-auto-type" data-w="' . ( $d ? (int) $d[0] : 0 ) . '" data-h="' . ( $d ? (int) $d[1] : 0 ) . '">' . $note . '</span>';
+		return $field;
 	}
 
 	/* ------------------------------------------------------------------ links */
@@ -176,6 +188,25 @@ class PL_Guardrails {
 	/** Fix every phone of an event/office in place. Returns the notes for the editor. */
 	public static function fix_phones( $post_id ) {
 		$notes = array();
+		foreach ( PL_Fields::fields( get_post_type( $post_id ) ) as $f ) { // single numbers (e.g. WhatsApp for inquiries)
+			if ( 'phone' !== $f['type'] ) {
+				continue;
+			}
+			$k   = PL_Fields::meta_key( $f['name'] );
+			$num = (string) get_post_meta( $post_id, $k . '_number', true );
+			if ( '' === trim( $num ) ) {
+				continue;
+			}
+			$code = (string) get_post_meta( $post_id, $k . '_code', true );
+			list( $c2, $digits, $moved ) = self::clean_phone( '' !== $code ? $code : '+20', $num );
+			update_post_meta( $post_id, $k . '_number', $digits );
+			if ( $c2 !== $code && isset( PL_Geo::dial_choices()[ $c2 ] ) ) {
+				update_post_meta( $post_id, $k . '_code', $c2 );
+			}
+			if ( $moved ) {
+				$notes[] = sprintf( '%s: the number started with %s, so "Country code" is now %s.', esc_html( $f['label'] ), $c2, $c2 );
+			}
+		}
 		foreach ( self::phone_rows( $post_id ) as $i => $r ) {
 			if ( '' === trim( $r['number'] ) ) {
 				continue;
@@ -196,6 +227,17 @@ class PL_Guardrails {
 
 	public static function phone_warnings( $post_id ) {
 		$out = array();
+		foreach ( PL_Fields::fields( get_post_type( $post_id ) ) as $f ) {
+			if ( 'phone' === $f['type'] ) {
+				$k     = PL_Fields::meta_key( $f['name'] );
+				$d     = preg_replace( '/\D/', '', (string) get_post_meta( $post_id, $k . '_number', true ) );
+				$c     = (string) get_post_meta( $post_id, $k . '_code', true );
+				$issue = '' !== $d ? self::phone_issue( $c, $d ) : null;
+				if ( $issue ) {
+					$out[] = sprintf( '%s (%s %s) %s', esc_html( $f['label'] ), esc_html( $c ), esc_html( PL_Phones::group( $d ) ), $issue );
+				}
+			}
+		}
 		foreach ( self::phone_rows( $post_id ) as $i => $r ) {
 			$issue = self::phone_issue( $r['code'], preg_replace( '/\D/', '', $r['number'] ) );
 			if ( $issue ) {

@@ -360,3 +360,30 @@
   }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot); else boot();
 })();
+
+/* Event page "Share" (6.1b round 6): Web Share on phones/tablets, copy the link on desktop.
+   Printed hidden; shown only here, so without JS there is no button that does nothing. */
+(function () {
+  'use strict';
+  var btns = document.querySelectorAll('.pl-share');
+  if (!btns.length) return;
+  var touch = window.matchMedia && matchMedia('(pointer: coarse)').matches;
+  btns.forEach(function (b) {
+    var url = b.getAttribute('data-url'), title = b.getAttribute('data-title') || document.title;
+    var msg = b.nextElementSibling && b.nextElementSibling.classList.contains('pl-share-msg') ? b.nextElementSibling : null;
+    var lab = b.querySelector('.pl-share-l');
+    var canShare = touch && navigator.share;
+    var canCopy = navigator.clipboard && window.isSecureContext;
+    if (!canShare && !canCopy) return; // nothing useful to offer: keep it hidden
+    b.hidden = false;
+    b.setAttribute('aria-label', canShare ? 'Share this event' : 'Copy the link to this event');
+    b.addEventListener('click', function () {
+      if (canShare) { navigator.share({ title: title, url: url }).catch(function () {}); return; }
+      navigator.clipboard.writeText(url).then(function () {
+        b.classList.add('is-done'); if (lab) lab.textContent = 'Link copied';
+        if (msg) msg.textContent = 'Link copied';
+        setTimeout(function () { b.classList.remove('is-done'); if (lab) lab.textContent = 'Share'; if (msg) msg.textContent = ''; }, 2400);
+      }).catch(function () { if (msg) msg.textContent = 'Copy failed: copy the address from the address bar.'; });
+    });
+  });
+})();

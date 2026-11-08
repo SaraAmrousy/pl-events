@@ -390,3 +390,24 @@ html[data-motion] .pl .rail-nav { visibility: visible; } /* JS present */
 .pl .pl-nl-done{max-width:760px}
 .pl .pl-nl-done h1{margin:0 0 16px}
 .pl .pl-nl-done .mut{margin-top:16px}
+
+/* ===== Event images: blur-fill for posters (6.1b round 6)
+   Poster (designed image with text, or a shape far from 16:9): the whole image, contain, in the middle;
+   behind it the SMALLEST copy of the same image, cover + blur + darken (CSS filter, no new file).
+   Photo: unchanged (cover). Same rule in cards, list rows, editions thumbnails and the event page.
+   Pure CSS: identical with reduced motion and without JS. Both images are absolute in the frame's
+   fixed aspect-ratio box, so nothing shifts (CLS 0). */
+.pl .poster.is-bf { background: #0A0D18; isolation: isolate; }
+.pl .poster > img.pl-bf-bg {
+  position: absolute; inset: -12%; width: 124%; height: 124%; max-width: none; max-height: none;
+  object-fit: cover; object-position: center; z-index: 0; border-radius: 0;
+  filter: blur(24px) brightness(.6) saturate(1.15); }
+.pl .poster > img.pimg.pl-bf { object-fit: contain; object-position: center; padding: 0; z-index: 1; }
+.pl .poster.mini > img.pl-bf-bg { filter: blur(10px) brightness(.6) saturate(1.15); }
+.pl .poster.is-bf .pw, .pl .poster.is-bf .pe { display: none; }
+
+/* WhatsApp for inquiries + Share (6.1b round 6) */
+.pl .pl-share { gap: 10px; }
+.pl .pl-share[hidden] { display: none !important; }
+.pl .pl-share.is-done .pl-share-l::after { content: " ✓"; }
+.pl .sr { position: absolute !important; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
