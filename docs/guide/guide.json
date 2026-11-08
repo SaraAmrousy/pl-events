@@ -1,7 +1,7 @@
 {
  "version": 1,
  "updated": "2026-11-08",
- "built": "202611080017",
+ "built": "202611080733",
  "title": "PL Help",
  "lang": "ar-EG",
  "chapters": [
@@ -642,7 +642,7 @@
    "steps": [
     "في الإيفنت انزلوا لـ **Poster / photo** واضغطوا **Add Image**.",
     "اختاروا صورة من **Media Library** أو ارفعوها من **Upload files**، واضغطوا **Select**.",
-    "لو ظهرت ملاحظة صفرا، الصورة أصغر من المطلوب (على الأقل **1280 × 800**).",
+    "لو ظهرت ملاحظة صفرا، الصورة أصغر من المطلوب (على الأقل **1280 × 800**). وشوفوا **Image type** (المهمة الجاية).",
     "**Logo**: يفضّل SVG أو PNG شفاف.",
     "اضغطوا **Update**."
    ],
@@ -678,6 +678,52 @@
    ],
    "video": true,
    "video_seconds": 41
+  },
+  {
+   "id": "event-image-type",
+   "chapter": "c3",
+   "title": "نوع الصورة: Poster ولا Photo",
+   "why": "البوستر اللي فيه كلام بيظهر كامل على خلفية مموّهة من غير ما يتقص، والصورة العادية بتملا الإطار.",
+   "steps": [
+    "افتحوا الإيفنت وروحوا لخانة **Image type**.",
+    "سيبوها **Auto**: الموقع بيقرر من شكل الصورة، ومكتوب تحت الخانة اختار إيه.",
+    "لو الاختيار مش مظبوط: **Poster** للتصميم اللي فيه كلام، **Photo** للصورة الحقيقية.",
+    "اضغطوا **Update** وبصّوا على الكارت."
+   ],
+   "role": "admin",
+   "danger": false,
+   "screens": [
+    "event"
+   ],
+   "tip": "الصورة العريضة 16:9 تقريباً = Photo. الطويلة أو المربعة = Poster.",
+   "warning": "لو اخترتوا **Photo** لبوستر فيه كلام، الأطراف ممكن تتقص ويضيع جزء من الكلام.",
+   "screenshots": [
+    {
+     "id": "event-image-type-1",
+     "file": "shots/event-image-type-1.png",
+     "diagram": false,
+     "alt": "نوع الصورة: Poster ولا Photo",
+     "callouts": [
+      {
+       "n": 1,
+       "text": "Image type"
+      },
+      {
+       "n": 2,
+       "text": "Auto اختار إيه"
+      }
+     ]
+    }
+   ],
+   "pair": {
+    "id": "pair-image-type",
+    "title": "Image type = Poster ← البوستر كامل على خلفية مموّهة",
+    "text": "نفس الصورة: كاملة في النص، ووراها نسخة مموّهة منها.",
+    "legend": [
+     "**Image type**",
+     "الكارت على الموقع"
+    ]
+   }
   },
   {
    "id": "event-taxonomy",
@@ -798,8 +844,8 @@
   {
    "id": "event-phone",
    "chapter": "c4",
-   "title": "رقم تليفون أو واتساب لإيفنت",
-   "why": "للإيفنتات اللي ليها رقم محلي (مثلاً منظم في دبي أو تونس).",
+   "title": "أرقام تليفون إضافية في صفحة الإيفنت",
+   "why": "للأرقام اللي بتظهر في صفحة الإيفنت بس (منظم محلي مثلاً). زرار واتساب على الكارت ليه خانة لوحده.",
    "steps": [
     "افتحوا الإيفنت.",
     "في **Phones** اضغطوا **Add a phone**.",
@@ -811,13 +857,13 @@
    "screens": [
     "event"
    ],
-   "tip": "اكتبوا في **Label** مين صاحب الرقم، مثلاً: Local organiser.",
+   "tip": "عايزين زرار واتساب على الكارت؟ دي خانة تانية: **WhatsApp for inquiries** (المهمة اللي بعد دي).",
    "screenshots": [
     {
      "id": "event-phone-1",
      "file": "shots/event-phone-1.png",
      "diagram": false,
-     "alt": "رقم تليفون أو واتساب لإيفنت",
+     "alt": "أرقام تليفون إضافية في صفحة الإيفنت",
      "callouts": [
       {
        "n": 1,
@@ -836,6 +882,53 @@
    ],
    "video": true,
    "video_seconds": 41
+  },
+  {
+   "id": "event-wa-inquiry",
+   "chapter": "c4",
+   "title": "إضافة رقم واتساب للاستفسار عن إيفنت",
+   "why": "الدكاترة يضغطوا زرار واتساب على الكارت، وتتفتح رسالة جاهزة فيها اسم الإيفنت وتاريخه ومدينته.",
+   "steps": [
+    "افتحوا الإيفنت من **PL Website › Events**.",
+    "روحوا لخانة **WhatsApp for inquiries**.",
+    "اختاروا **Country code** واكتبوا الرقم في **Number** (المسافات والصفر مش مشكلة).",
+    "اضغطوا **Update**: زرار واتساب يظهر على الكارت وفي صفحة الإيفنت."
+   ],
+   "role": "admin",
+   "danger": false,
+   "screens": [
+    "event"
+   ],
+   "tip": "الرسالة اللي بتتفتح بتتعدّل من **PL Website › Company › WhatsApp inquiry message**، وفيها {event} و {dates} و {city}.",
+   "warning": "سيبوا الخانة فاضية لو مفيش رقم بيرد: الزرار مابيظهرش خالص. ماتحطوش رقم حد مابيردش على واتساب.",
+   "cheat": null,
+   "screenshots": [
+    {
+     "id": "event-wa-inquiry-1",
+     "file": "shots/event-wa-inquiry-1.png",
+     "diagram": false,
+     "alt": "إضافة رقم واتساب للاستفسار عن إيفنت",
+     "callouts": [
+      {
+       "n": 1,
+       "text": "Country code"
+      },
+      {
+       "n": 2,
+       "text": "Number + المعاينة تحتها"
+      }
+     ]
+    }
+   ],
+   "pair": {
+    "id": "pair-wa-inquiry",
+    "title": "WhatsApp for inquiries ← زرار واتساب على الكارت",
+    "text": "لو فيه رقم، الزرار الأخضر بيظهر. من غير رقم، مابيتعملش خالص.",
+    "legend": [
+     "الرقم في **WhatsApp for inquiries**",
+     "زرار واتساب على الكارت"
+    ]
+   }
   },
   {
    "id": "office-email",
@@ -1984,6 +2077,14 @@
      "لازم **Registration = Open** **و** فيه **Registration link**."
     ],
     [
+     "زرار واتساب مش ظاهر على الكارت",
+     "الزرار بيظهر بس لو فيه رقم في **WhatsApp for inquiries** في الإيفنت."
+    ],
+    [
+     "البوستر متقصوص أو الكلام اللي فيه مش باين",
+     "في الإيفنت خلّوا **Image type** على **Poster** (أو Auto)."
+    ],
+    [
      "مكتوب \"Validation failed\" ومش راضي ينشر",
      "انزلوا للخانة اللي عليها خط أحمر: تحتها مكتوب تعملوا إيه بالظبط."
     ],
@@ -2872,6 +2973,42 @@
      }
     ],
     "bytes": 139343
+   },
+   "event-image-type-1": {
+    "file": "shots/event-image-type-1.png",
+    "w": 1440,
+    "h": 900,
+    "callouts": [
+     {
+      "n": 1,
+      "ok": true,
+      "sel": "[data-name=pl_image_type] select"
+     },
+     {
+      "n": 2,
+      "ok": true,
+      "sel": ".pl-auto-type"
+     }
+    ],
+    "bytes": 136381
+   },
+   "event-wa-inquiry-1": {
+    "file": "shots/event-wa-inquiry-1.png",
+    "w": 1440,
+    "h": 900,
+    "callouts": [
+     {
+      "n": 1,
+      "ok": true,
+      "sel": "[data-name=pl_wa_inquiry] [data-name=code]"
+     },
+     {
+      "n": 2,
+      "ok": true,
+      "sel": "[data-name=pl_wa_inquiry] [data-name=number]"
+     }
+    ],
+    "bytes": 254905
    }
   },
   "pairs": {
@@ -3127,6 +3264,70 @@
     "image": {
      "file": "pairs/pair-newsletter.png",
      "bytes": 189248
+    }
+   },
+   "pair-image-type": {
+    "admin": {
+     "file": "shots/pair-image-type-admin.png",
+     "w": 1440,
+     "h": 900,
+     "callouts": [
+      {
+       "n": 1,
+       "ok": true,
+       "sel": "[data-name=pl_image_type]"
+      }
+     ],
+     "bytes": 132774
+    },
+    "site": {
+     "file": "shots/pair-image-type-site.png",
+     "w": 1440,
+     "h": 900,
+     "callouts": [
+      {
+       "n": 1,
+       "ok": true,
+       "sel": "#results article.pl-card:has(a[href*='/events/meom-2026/']) .poster"
+      }
+     ],
+     "bytes": 384675
+    },
+    "image": {
+     "file": "pairs/pair-image-type.png",
+     "bytes": 254917
+    }
+   },
+   "pair-wa-inquiry": {
+    "admin": {
+     "file": "shots/pair-wa-inquiry-admin.png",
+     "w": 1440,
+     "h": 900,
+     "callouts": [
+      {
+       "n": 1,
+       "ok": true,
+       "sel": "[data-name=pl_wa_inquiry]"
+      }
+     ],
+     "bytes": 251048
+    },
+    "site": {
+     "file": "shots/pair-wa-inquiry-site.png",
+     "w": 1440,
+     "h": 900,
+     "callouts": [
+      {
+       "n": 1,
+       "ok": true,
+       "sel": "#results article.pl-card:has(a[href*='/events/deoss-atmo-2027/']) .pl-ask"
+      }
+     ],
+     "bytes": 386635
+    },
+    "image": {
+     "file": "pairs/pair-wa-inquiry.png",
+     "bytes": 295073
     }
    }
   },
@@ -3398,7 +3599,7 @@
     "bytes": 533630
    }
   },
-  "generated": "2026-11-08T00:15:51.463Z",
+  "generated": "2026-11-08T07:33:05.528Z",
   "problems": []
  }
 }

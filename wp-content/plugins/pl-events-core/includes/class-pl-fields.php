@@ -276,7 +276,7 @@ class PL_Fields {
 		if ( 'phone' === $f['type'] ) {
 			$row = $value ? PL_Phones::to_row( array( 'number' => (string) $value ) ) : array( 'code' => '+20', 'number' => '' );
 			self::put( $object, $name, '', $key );
-			self::put( $object, $name . '_code', $row['number'] ? $row['code'] : '', $key . '_code' );
+			self::put( $object, $name . '_code', $row['code'] ? $row['code'] : '+20', $key . '_code' ); // never empty: an empty code shows the list's first country
 			self::put( $object, $name . '_number', $row['number'], $key . '_number' );
 			return;
 		}

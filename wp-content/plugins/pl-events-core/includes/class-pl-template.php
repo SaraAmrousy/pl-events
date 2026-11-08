@@ -104,7 +104,7 @@ class PL_Template {
 		// WhatsApp for inquiries (6.1b round 6): only when the event has a number — otherwise nothing is printed.
 		if ( ! empty( $e['ask_wa_url'] ) ) {
 			$a['whatsapp'] = $page
-				? '<a class="btn bso wa-text pl-ask" href="' . esc_url( $e['ask_wa_url'] ) . '" target="_blank" rel="noopener" aria-label="' . esc_attr( $e['ask_wa_aria'] ) . '"><span class="wa-dot">' . self::wa_icon( 16 ) . '</span>Ask on WhatsApp</a>'
+				? '<a class="btn bso wa-text pl-ask" href="' . esc_url( $e['ask_wa_url'] ) . '" target="_blank" rel="noopener" aria-label="' . esc_attr( 'Ask on WhatsApp about ' . $e['name'] ) . '"><span class="wa-dot">' . self::wa_icon( 16 ) . '</span>Ask on WhatsApp</a>'
 				: '<a class="wa-btn pl-ask" href="' . esc_url( $e['ask_wa_url'] ) . '" target="_blank" rel="noopener" aria-label="' . esc_attr( $e['ask_wa_aria'] ) . '" title="Ask on WhatsApp">' . self::wa_icon( 20 ) . '</a>';
 		}
 		if ( $page ) { // share the event page itself: Web Share on phones, copy the link on desktop (needs JS → hidden without it)

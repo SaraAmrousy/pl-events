@@ -34,6 +34,7 @@ class PL_Images {
 		add_filter( 'image_size_names_choose', array( __CLASS__, 'size_names' ) );
 		add_filter( 'image_resize_dimensions', array( __CLASS__, 'keep_ratio' ), 10, 6 );
 		add_filter( 'wp_editor_set_quality', array( __CLASS__, 'quality' ) );
+		add_filter( 'image_editor_output_format', array( __CLASS__, 'png_to_webp' ) );
 		add_filter( 'upload_mimes', array( __CLASS__, 'mimes' ) );
 		add_filter( 'wp_check_filetype_and_ext', array( __CLASS__, 'svg_filetype' ), 10, 4 );
 		add_filter( 'wp_handle_upload_prefilter', array( __CLASS__, 'svg_check' ) );
@@ -48,11 +49,23 @@ class PL_Images {
 
 	/* ---------------------------------------------------------------- sizes */
 
+	/** Resized copies of a PNG are made as WebP (keeps transparency; a PNG poster's copies were 5–10× heavier). The original file stays. */
+	public static function png_to_webp( $map ) {
+		if ( function_exists( 'wp_image_editor_supports' ) && wp_image_editor_supports( array( 'mime_type' => 'image/webp' ) ) ) {
+			$map['image/png'] = 'image/webp';
+		}
+		return $map;
+	}
+
 	public static function size_name( $frame, $w ) {
 		return 'pl-' . $frame . '-' . $w;
 	}
 
 	public static function sizes() {
+		// Blur-fill posters (round 6): uncropped copies limited by HEIGHT, so a portrait poster in a card has
+		// a size between WordPress's 300 px "medium" and its ~1024 px "large" (phones pick ~384 px wide).
+		add_image_size( 'pl-bf-480', 0, 480, false );
+		add_image_size( 'pl-bf-800', 0, 800, false );
 		foreach ( self::FRAMES as $frame => $f ) {
 			foreach ( $f['widths'] as $w ) {
 				if ( $f['ratio'] ) {

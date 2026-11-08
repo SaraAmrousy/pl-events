@@ -52,6 +52,31 @@ async function main() {
 function rec(T, el, page, expect, got, ok) { rows.push([el, page, T.label, expect, got, !!ok]); }
 async function go(T, path) { await T.pg.goto(BASE + path, { waitUntil: 'networkidle' }); await T.pg.addStyleTag({ content: '#masthead,header{position:static!important}.ebar-m{position:static!important}' }).catch(() => {}); }
 async function vis(loc) { const n = await loc.count(); for (let i = 0; i < n; i++) { if (await loc.nth(i).isVisible()) return loc.nth(i); } return null; }
+// Round 6: what each event should show — read once from the site's own data feed.
+let FEED = null;
+async function feed(T) { if (!FEED) { const r = await T.pg.request.get(BASE + '/wp-json/pl/v1/data'); FEED = {}; for (const e of (await r.json()).events || []) FEED[e.id] = e; } return FEED; }
+const slugOf = (href) => ((href || '').match(/\/events\/([^/]+)\/?$/) || [])[1];
+// WhatsApp for inquiries: every visible card/row in scope — button only with a number, exact wa.me link + message.
+async function askCheck(T, page, scope) {
+  const F = await feed(T);
+  const items = await T.pg.$$eval(`${scope} .pl-card`, (cs) => cs.filter((c) => c.offsetParent && !c.hidden).map((c) => ({ href: (c.querySelector('.ct a, .r-nm a') || {}).getAttribute ? c.querySelector('.ct a, .r-nm a').getAttribute('href') : '', ask: (c.querySelector('.pl-ask') || {}).href || '', anyWa: c.querySelectorAll('.wa-btn, .wa-text, a[href*="wa.me"]').length, label: (c.querySelector('.pl-ask') || {}).getAttribute ? (c.querySelector('.pl-ask') || { getAttribute: () => '' }).getAttribute('aria-label') : '', h: Math.round(c.getBoundingClientRect().height) })));
+  let withNo = 0, without = 0, bad = [];
+  for (const it of items) {
+    const e = F[slugOf(it.href)]; if (!e) continue;
+    if (e.ask_wa_url) {
+      withNo++;
+      const want = `Hello, I'd like to ask about ${e.name} (${e.range}, ${e.online ? 'online' : e.city}).`;
+      const u = new URL(it.ask || 'about:blank');
+      const ok = u.host === 'wa.me' && u.pathname === '/' + e.wa_inquiry.replace(/\D/g, '') && u.searchParams.get('text') === want && it.label === `Ask about ${e.name} on WhatsApp`;
+      if (!ok) bad.push(e.id + ': ' + (it.ask || 'no button'));
+    } else { without++; if (it.anyWa) bad.push(e.id + ': button printed without a number'); }
+  }
+  rec(T, 'WhatsApp for inquiries (all cards)', page, 'with a number: wa.me/<digits>?text=<message> · without: no button', `${withNo} with, ${without} without${bad.length ? ' · ' + bad.join('; ') : ''}`, items.length > 0 && !bad.length);
+  // click one (opens a new tab with the exact link)
+  if (withNo) {
+    const btn = await vis(T.pg.locator(`${scope} .pl-card .pl-ask`)); if (btn) { const href = await btn.getAttribute('href'); const u = await newTab(T, btn); rec(T, 'WhatsApp › click', page, 'new tab, same link', u ? u.slice(0, 60) + '…' : 'no tab', u === href); }
+  }
+}
 async function newTab(T, loc) { const [p] = await Promise.all([T.ctx.waitForEvent('page', { timeout: 6000 }).catch(() => null), loc.click()]); if (!p) return null; const u = p.url(); await p.close(); return u; }
 async function navigates(T, loc) { const before = T.pg.url(); await Promise.all([T.pg.waitForNavigation({ timeout: 8000 }).catch(() => null), loc.click()]); return T.pg.url() !== before ? T.pg.url().replace(BASE, '') : null; }
 async function openMenu(T) { if (T.w >= 1024) return; const b = await vis(T.pg.locator('.menu-btn')); if (b) { await b.click(); await T.pg.waitForTimeout(350); } }
@@ -79,7 +104,7 @@ async function cardActions(T, page, scope) {
     u = await newTab(T, card2.locator('.cal-menu a').nth(2)); rec(T, 'Calendar › Outlook', page, 'new tab outlook.live.com', u ? new URL(u).host : 'no tab', u && /outlook\.live\.com/.test(u));
     await T.pg.keyboard.press('Escape'); await T.pg.waitForTimeout(100);
     rec(T, 'Calendar menu Esc', page, 'closes', (await sum2.evaluate((s) => s.parentElement.open)) ? 'still open' : 'closed', !(await sum2.evaluate((s) => s.parentElement.open)));
-    const wa = card2.locator('.wa-btn, .wa-text').first(); u = await newTab(T, wa); rec(T, 'WhatsApp', page, 'new tab wa.me', u ? new URL(u).host : 'no tab', u && /wa\.me/.test(u));
+    await askCheck(T, page, scope);
     const title = card2.locator('.ct a, .r-nm a').first(); u = await navigates(T, title); rec(T, 'Card title', page, 'opens the event page', u || 'stayed', u && /\/events\/[^/]+\/$/.test(u));
   }
 }
@@ -136,7 +161,17 @@ async function eventPage(T) {
   const sum = T.pg.locator(`${acts} details.calm > summary`); await sum.click(); await T.pg.waitForTimeout(150);
   rec(T, 'Add to calendar', 'event page', 'menu opens', (await sum.evaluate((s) => s.parentElement.open)) ? 'opened' : 'closed', await sum.evaluate((s) => s.parentElement.open));
   u = await newTab(T, T.pg.locator(`${acts} .cal-menu a`).nth(0)); rec(T, 'Calendar › Google', 'event page', 'calendar.google.com', u ? new URL(u).host : 'no tab', /calendar\.google/.test(u || ''));
-  u = await newTab(T, T.pg.locator(`${acts} .wa-text`)); rec(T, 'Share on WhatsApp', 'event page', 'wa.me', u ? new URL(u).host : 'no tab', /wa\.me/.test(u || ''));
+  const F = await feed(T), ev = F['deoss-atmo-2027'];
+  const ask = T.pg.locator(`${acts} .pl-ask`);
+  if (ev && ev.ask_wa_url) { const href = await ask.getAttribute('href'); u = await newTab(T, ask); rec(T, 'Ask on WhatsApp', 'event page', 'new tab, exact wa.me link', u ? decodeURIComponent(u).slice(0, 70) : 'no tab', u === href && href === ev.ask_wa_url); }
+  else rec(T, 'Ask on WhatsApp (no number)', 'event page', 'no button in the page', String(await T.pg.locator(`${acts} .pl-ask, ${acts} a[href*="wa.me"]`).count()), (await T.pg.locator(`${acts} .pl-ask, ${acts} a[href*="wa.me"]`).count()) === 0);
+  const share = T.pg.locator(`${acts} .pl-share`);
+  await T.ctx.grantPermissions(['clipboard-read', 'clipboard-write'], { origin: new URL(BASE).origin }).catch(() => {});
+  if (await share.isVisible()) {
+    await share.click(); await T.pg.waitForTimeout(300);
+    const lab = (await share.innerText()).trim(), clip = await T.pg.evaluate(() => navigator.clipboard.readText().catch(() => ''));
+    rec(T, 'Share (copy link)', 'event page', '"Link copied" + the page address', `${lab} · ${clip.replace(BASE, '')}`, /Link copied/.test(lab) && /\/events\/deoss-atmo-2027\/$/.test(clip));
+  } else rec(T, 'Share', 'event page', 'visible with JS', 'hidden', false);
   const nl = T.pg.locator('form.pl-nl-event'); await nl.scrollIntoViewIfNeeded(); await nl.locator('input[type=email]').fill('not-an-email'); await nl.locator('button[type=submit]').click(); await T.pg.waitForTimeout(300);
   const m = await nl.locator('.pl-nl-msg').innerText(); rec(T, 'Newsletter (invalid email)', 'event page', 'blame-free message, nothing sent', m.slice(0, 50), /doesn’t look complete/.test(m));
   const back = T.pg.locator('a', { hasText: '← All events' }).first(); u = await navigates(T, back); rec(T, '← All events', 'event page', '/events/', u || 'no', u === '/events/');

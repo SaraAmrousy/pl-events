@@ -1167,7 +1167,7 @@
    "steps": [
     "في الإيفنت انزلوا لـ **Poster / photo** واضغطوا **Add Image**.",
     "اختاروا صورة من **Media Library** أو ارفعوها من **Upload files**، واضغطوا **Select**.",
-    "لو ظهرت ملاحظة صفرا، الصورة أصغر من المطلوب (على الأقل **1280 × 800**).",
+    "لو ظهرت ملاحظة صفرا، الصورة أصغر من المطلوب (على الأقل **1280 × 800**). وشوفوا **Image type** (المهمة الجاية).",
     "**Logo**: يفضّل SVG أو PNG شفاف.",
     "اضغطوا **Update**."
    ],
@@ -1247,6 +1247,113 @@
    },
    "role": "admin",
    "danger": false
+  },
+  {
+   "id": "event-image-type",
+   "chapter": "c3",
+   "title": "نوع الصورة: Poster ولا Photo",
+   "role": "admin",
+   "danger": false,
+   "why": "البوستر اللي فيه كلام بيظهر كامل على خلفية مموّهة من غير ما يتقص، والصورة العادية بتملا الإطار.",
+   "steps": [
+    "افتحوا الإيفنت وروحوا لخانة **Image type**.",
+    "سيبوها **Auto**: الموقع بيقرر من شكل الصورة، ومكتوب تحت الخانة اختار إيه.",
+    "لو الاختيار مش مظبوط: **Poster** للتصميم اللي فيه كلام، **Photo** للصورة الحقيقية.",
+    "اضغطوا **Update** وبصّوا على الكارت."
+   ],
+   "tip": "الصورة العريضة 16:9 تقريباً = Photo. الطويلة أو المربعة = Poster.",
+   "warning": "لو اخترتوا **Photo** لبوستر فيه كلام، الأطراف ممكن تتقص ويضيع جزء من الكلام.",
+   "screens": [
+    "event"
+   ],
+   "screenshots": [
+    {
+     "id": "event-image-type-1",
+     "page": "@edit:event:meom-2026",
+     "scroll": "[data-name=pl_image_type]",
+     "callouts": [
+      {
+       "n": 1,
+       "sel": "[data-name=pl_image_type] select",
+       "text": "Image type"
+      },
+      {
+       "n": 2,
+       "sel": ".pl-auto-type",
+       "text": "Auto اختار إيه"
+      }
+     ]
+    }
+   ],
+   "pair": {
+    "id": "pair-image-type",
+    "title": "Image type = Poster ← البوستر كامل على خلفية مموّهة",
+    "text": "نفس الصورة: كاملة في النص، ووراها نسخة مموّهة منها.",
+    "legend": [
+     "**Image type**",
+     "الكارت على الموقع"
+    ],
+    "admin": {
+     "page": "@edit:event:meom-2026",
+     "scroll": "[data-name=pl_image_type]",
+     "callouts": [
+      {
+       "n": 1,
+       "sel": "[data-name=pl_image_type]",
+       "text": "Image type"
+      }
+     ]
+    },
+    "site": {
+     "page": "/events/",
+     "scroll": "#results article.pl-card:has(a[href*='/events/meom-2026/'])",
+     "callouts": [
+      {
+       "n": 1,
+       "sel": "#results article.pl-card:has(a[href*='/events/meom-2026/']) .poster",
+       "text": "البوستر"
+      }
+     ]
+    }
+   },
+   "video": {
+    "start": "@edit:event:meom-2026",
+    "actions": [
+     {
+      "scroll": "[data-name=pl_image_type]",
+      "cap": "[1] في الإيفنت، روحوا لـ **Image type**."
+     },
+     {
+      "ring": ".pl-auto-type",
+      "cap": "[2] على **Auto**، مكتوب تحت الخانة الموقع اختار إيه: هنا Poster."
+     },
+     {
+      "go": "/events/",
+      "cap": "على الموقع: البوستر كامل في النص، ووراه نفس الصورة مموّهة."
+     },
+     {
+      "scroll": "#results article.pl-card:has(a[href*='/events/meom-2026/'])"
+     },
+     {
+      "ring": "#results article.pl-card:has(a[href*='/events/meom-2026/']) .poster"
+     },
+     {
+      "go": "@edit:event:meom-2026",
+      "cap": "[3] لو الاختيار مش مظبوط، غيّروه بإيدكم…"
+     },
+     {
+      "scroll": "[data-name=pl_image_type]"
+     },
+     {
+      "select": "[data-name=pl_image_type] select",
+      "value": "photo",
+      "cap": "…**Photo** للصورة الحقيقية، **Poster** للتصميم اللي فيه كلام."
+     },
+     {
+      "cap": "[4] وبعدين **Update**. البوستر اللي فيه كلام سيبوه Poster عشان مايتقصش."
+     }
+    ]
+   }
   },
   {
    "id": "event-taxonomy",
@@ -1488,15 +1595,15 @@
   {
    "id": "event-phone",
    "chapter": "c4",
-   "title": "رقم تليفون أو واتساب لإيفنت",
-   "why": "للإيفنتات اللي ليها رقم محلي (مثلاً منظم في دبي أو تونس).",
+   "title": "أرقام تليفون إضافية في صفحة الإيفنت",
+   "why": "للأرقام اللي بتظهر في صفحة الإيفنت بس (منظم محلي مثلاً). زرار واتساب على الكارت ليه خانة لوحده.",
    "steps": [
     "افتحوا الإيفنت.",
     "في **Phones** اضغطوا **Add a phone**.",
     "اختاروا **Country code** واكتبوا الرقم، وشغّلوا **On WhatsApp** لو عليه واتساب.",
     "اضغطوا **Update**."
    ],
-   "tip": "اكتبوا في **Label** مين صاحب الرقم، مثلاً: Local organiser.",
+   "tip": "عايزين زرار واتساب على الكارت؟ دي خانة تانية: **WhatsApp for inquiries** (المهمة اللي بعد دي).",
    "screens": [
     "event"
    ],
@@ -1574,6 +1681,144 @@
    },
    "role": "admin",
    "danger": false
+  },
+  {
+   "id": "event-wa-inquiry",
+   "chapter": "c4",
+   "title": "إضافة رقم واتساب للاستفسار عن إيفنت",
+   "role": "admin",
+   "danger": false,
+   "why": "الدكاترة يضغطوا زرار واتساب على الكارت، وتتفتح رسالة جاهزة فيها اسم الإيفنت وتاريخه ومدينته.",
+   "steps": [
+    "افتحوا الإيفنت من **PL Website › Events**.",
+    "روحوا لخانة **WhatsApp for inquiries**.",
+    "اختاروا **Country code** واكتبوا الرقم في **Number** (المسافات والصفر مش مشكلة).",
+    "اضغطوا **Update**: زرار واتساب يظهر على الكارت وفي صفحة الإيفنت."
+   ],
+   "tip": "الرسالة اللي بتتفتح بتتعدّل من **PL Website › Company › WhatsApp inquiry message**، وفيها {event} و {dates} و {city}.",
+   "warning": "سيبوا الخانة فاضية لو مفيش رقم بيرد: الزرار مابيظهرش خالص. ماتحطوش رقم حد مابيردش على واتساب.",
+   "screens": [
+    "event"
+   ],
+   "cheat": null,
+   "screenshots": [
+    {
+     "id": "event-wa-inquiry-1",
+     "page": "@edit:event:deoss-atmo-2027",
+     "do": [
+      {
+       "scroll": "[data-name=pl_wa_inquiry]"
+      },
+      {
+       "fill": "[data-name=pl_wa_inquiry] [data-name=number] input",
+       "text": "0100 000 0000"
+      },
+      {
+       "press": "Tab"
+      },
+      {
+       "wait": 400
+      }
+     ],
+     "scroll": "[data-name=pl_wa_inquiry]",
+     "callouts": [
+      {
+       "n": 1,
+       "sel": "[data-name=pl_wa_inquiry] td[data-name=code]",
+       "text": "Country code"
+      },
+      {
+       "n": 2,
+       "sel": "[data-name=pl_wa_inquiry] td[data-name=number]",
+       "text": "Number + المعاينة تحتها"
+      }
+     ]
+    }
+   ],
+   "pair": {
+    "id": "pair-wa-inquiry",
+    "title": "WhatsApp for inquiries ← زرار واتساب على الكارت",
+    "text": "لو فيه رقم، الزرار الأخضر بيظهر. من غير رقم، مابيتعملش خالص.",
+    "legend": [
+     "الرقم في **WhatsApp for inquiries**",
+     "زرار واتساب على الكارت"
+    ],
+    "admin": {
+     "page": "@edit:event:deoss-atmo-2027",
+     "do": [
+      {
+       "php": "$id=@id:event:deoss-atmo-2027; PL_Fields::set( $id, 'event', PL_Fields::def( 'event', 'wa_inquiry' ), '+20 100 000 0000' ); PL_Cache::bump();"
+      },
+      {
+       "go": "@edit:event:deoss-atmo-2027"
+      }
+     ],
+     "scroll": "[data-name=pl_wa_inquiry]",
+     "callouts": [
+      {
+       "n": 1,
+       "sel": "[data-name=pl_wa_inquiry]",
+       "text": "الرقم"
+      }
+     ]
+    },
+    "site": {
+     "page": "/events/",
+     "do": [
+      {
+       "php": "$id=@id:event:deoss-atmo-2027; PL_Fields::set( $id, 'event', PL_Fields::def( 'event', 'wa_inquiry' ), '+20 100 000 0000' ); PL_Cache::bump();"
+      },
+      {
+       "go": "/events/"
+      }
+     ],
+     "scroll": "#results article.pl-card:has(a[href*='/events/deoss-atmo-2027/'])",
+     "callouts": [
+      {
+       "n": 1,
+       "sel": "#results article.pl-card:has(a[href*='/events/deoss-atmo-2027/']) .pl-ask",
+       "text": "واتساب"
+      }
+     ]
+    }
+   },
+   "video": {
+    "start": "@edit:event:deoss-atmo-2027",
+    "actions": [
+     {
+      "scroll": "[data-name=pl_wa_inquiry]",
+      "cap": "[1] في الإيفنت، روحوا لـ **WhatsApp for inquiries**."
+     },
+     {
+      "fill": "[data-name=pl_wa_inquiry] [data-name=number] input",
+      "text": "0100 000 0000",
+      "cap": "[2] اكتبوا الرقم. المسافات والصفر مش مشكلة."
+     },
+     {
+      "press": "Tab"
+     },
+     {
+      "ring": "[data-name=pl_wa_inquiry] .pl-hint.ok",
+      "cap": "تحت الخانة: الرقم هيظهر إزاي، ولينك واتساب."
+     },
+     {
+      "click": "#publish",
+      "cap": "[3] اضغطوا **Update**.",
+      "nav": true
+     },
+     {
+      "go": "/events/deoss-atmo-2027/",
+      "cap": "[4] في صفحة الإيفنت ظهر **Ask on WhatsApp**…"
+     },
+     {
+      "ring": ".ev-acts .pl-ask",
+      "cap": "…ونفس الزرار الأخضر على الكارت. الرسالة بتتفتح جاهزة باسم الإيفنت وتاريخه."
+     },
+     {
+      "cap": "من غير رقم؟ الزرار مابيظهرش خالص، والكروت بتفضل نفس الطول."
+     }
+    ]
+   }
   },
   {
    "id": "office-email",
@@ -3417,6 +3662,14 @@
     [
      "زرار Register now مش ظاهر",
      "لازم **Registration = Open** **و** فيه **Registration link**."
+    ],
+    [
+     "زرار واتساب مش ظاهر على الكارت",
+     "الزرار بيظهر بس لو فيه رقم في **WhatsApp for inquiries** في الإيفنت."
+    ],
+    [
+     "البوستر متقصوص أو الكلام اللي فيه مش باين",
+     "في الإيفنت خلّوا **Image type** على **Poster** (أو Auto)."
     ],
     [
      "مكتوب \"Validation failed\" ومش راضي ينشر",

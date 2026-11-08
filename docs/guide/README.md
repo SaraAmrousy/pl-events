@@ -1,10 +1,10 @@
 # PL Help — deck export (Step 6.2b)
 
-Built 2026-11-08 00:17 UTC from `tools/guide/guide.json` by `bash tools/guide/run.sh`. Don't edit these files by hand: change guide.json (or the site) and run it again.
+Built 2026-11-08 07:33 UTC from `tools/guide/guide.json` by `bash tools/guide/run.sh`. Don't edit these files by hand: change guide.json (or the site) and run it again.
 
-- **guide.json**: 11 chapters, 51 tasks (title, why, steps, tip, warning, callouts, links) + the media list.
-- **shots/** (59 PNG): 1440×900 (mobile 390×844 @2x), numbered callouts in #2C4894; `*-diagram.png` = our own drawings @2x.
-- **pairs/** (7 PNG): wp-admin field ↔ the same thing on the site, same numbers.
+- **guide.json**: 11 chapters, 53 tasks (title, why, steps, tip, warning, callouts, links) + the media list.
+- **shots/** (65 PNG): 1440×900 (mobile 390×844 @2x), numbered callouts in #2C4894; `*-diagram.png` = our own drawings @2x.
+- **pairs/** (9 PNG): wp-admin field ↔ the same thing on the site, same numbers.
 - **video/** (38 MP4, 1280×800 H.264, + poster .jpg + captions .vtt): served to staff only by PL Help.
 - **gif/** (4): short loops for slides.
 
@@ -24,10 +24,12 @@ Built 2026-11-08 00:17 UTC from `tools/guide/guide.json` by `bash tools/guide/ru
 | event-hide — إخفاء إيفنت (من غير ما تمسحوه) | c3 | event-hide-1 | 34 s |
 | event-pin — تثبيت إيفنت في الهوم | c3 |  + pair-pin | 34 s |
 | event-images — صور الإيفنت ومقاساتها | c3 | event-images-1 | 41 s |
+| event-image-type — نوع الصورة: Poster ولا Photo | c3 | event-image-type-1 + pair-image-type | — |
 | event-taxonomy — إضافة Specialty أو Series جديدة | c3 | event-taxonomy-1 | 36 s |
 | event-congress-count — "يتحسب congress" إزاي | c3 | event-congress-count-1 | 31 s |
 | office-phone — تعديل رقم تليفون أو واتساب لمكتب | c4 |  + pair-office-phone | 41 s |
-| event-phone — رقم تليفون أو واتساب لإيفنت | c4 | event-phone-1 | 41 s |
+| event-phone — أرقام تليفون إضافية في صفحة الإيفنت | c4 | event-phone-1 | 41 s |
+| event-wa-inquiry — إضافة رقم واتساب للاستفسار عن إيفنت | c4 | event-wa-inquiry-1 + pair-wa-inquiry | — |
 | office-email — تعديل إيميل مكتب | c4 | office-email-1 | 32 s |
 | office-address — تعديل عنوان مكتب ولينك الخريطة | c4 | office-address-1 | 31 s |
 | office-hours — مواعيد العمل | c4 |  + pair-office-hours | 37 s |

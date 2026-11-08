@@ -94,6 +94,14 @@ const row = (what, expected, got, ok) => { rows.push({ what, expected, got: Stri
   const w4 = await r.locator('.pl-hint.warn').innerText().catch(() => '');
   row('Phone too short → yellow hint (no block)', 'Looks short…', w4, /Looks short/.test(w4));
 
+  /* 4b. WhatsApp for inquiries (one number, round 6): same guardrail as Phones */
+  await page.goto(edit(up.post_id));
+  const wq = page.locator('[data-name="pl_wa_inquiry"]');
+  row('WhatsApp for inquiries starts at +20', '+20', await wq.locator('td[data-name="code"] select').inputValue(), (await wq.locator('td[data-name="code"] select').inputValue()) === '+20');
+  await wq.locator('td[data-name="number"] input').fill('+971 55-158 2689'); await wq.locator('td[data-name="number"] input').blur();
+  const wc = await wq.locator('td[data-name="code"] select').inputValue(), wn = await wq.locator('td[data-name="number"] input').inputValue(), wp = await wq.locator('.pl-hint.ok').innerText().catch(() => '');
+  row('WhatsApp for inquiries: "+971 55-158 2689"', 'code +971, 551582689, preview with wa.me', `${wc} ${wn} · ${wp}`, wc === '+971' && wn === '551582689' && /wa\.me\/971551582689/.test(wp));
+
   /* 5. Office: switching off the only head office → blocked */
   await page.goto(BASE + '/wp-admin/edit.php?post_type=pl_office');
   const offices = await page.$$eval('#the-list tr', trs => trs.map(t => ({ id: t.id.replace('post-', ''), name: (t.querySelector('.row-title') || {}).textContent })));
@@ -127,6 +135,15 @@ const row = (what, expected, got, ok) => { rows.push({ what, expected, got: Stri
     const last = page.locator('[data-name="pl_phones"] .acf-row:not(.acf-clone)').last();
     const c7 = await last.locator('[data-name="code"] select').inputValue(), n7 = await last.locator('[data-name="number"] input').inputValue();
     row('Correct event (Open + link) → saves', 'saved, link https://register.example.org/now, phone +966 123456789', `${await saved()} ${v7} ${c7} ${n7}`, (await saved()) && v7 === 'https://register.example.org/now' && c7 === '+966' && n7 === '123456789');
+
+    /* 7b. WhatsApp for inquiries saves cleaned, and the card gets the button */
+    await page.goto(edit(up.post_id));
+    await page.locator('[data-name="pl_wa_inquiry"] td[data-name="number"] input').fill('00971 55 158 2689');
+    await update();
+    const sc = await page.locator('[data-name="pl_wa_inquiry"] td[data-name="code"] select').inputValue(), sn = await page.locator('[data-name="pl_wa_inquiry"] td[data-name="number"] input').inputValue();
+    const feed = await (await page.request.get(BASE + '/wp-json/pl/v1/data')).json();
+    const fe = (feed.events || []).find((x) => x.name === up.name) || {};
+    row('WhatsApp for inquiries saves + button link', '+971 551582689 · wa.me/971551582689?text=…', `${await saved()} ${sc} ${sn} · ${(fe.ask_wa_url || '').slice(0, 44)}`, (await saved()) && sc === '+971' && sn === '551582689' && /^https:\/\/wa\.me\/971551582689\?text=Hello%2C%20I%27d%20like%20to%20ask%20about%20/.test(fe.ask_wa_url || ''));
 
     /* 8. Past event + Open → saves, but warns */
     if (past) {

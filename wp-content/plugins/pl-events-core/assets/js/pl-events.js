@@ -376,7 +376,7 @@
     var canCopy = navigator.clipboard && window.isSecureContext;
     if (!canShare && !canCopy) return; // nothing useful to offer: keep it hidden
     b.hidden = false;
-    b.setAttribute('aria-label', canShare ? 'Share this event' : 'Copy the link to this event');
+    b.setAttribute('aria-label', canShare ? 'Share this event' : 'Share: copy the link to this event'); // starts with the visible word (WCAG 2.5.3)
     b.addEventListener('click', function () {
       if (canShare) { navigator.share({ title: title, url: url }).catch(function () {}); return; }
       navigator.clipboard.writeText(url).then(function () {
