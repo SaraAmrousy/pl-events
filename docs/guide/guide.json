@@ -1,7 +1,7 @@
 {
  "version": 1,
  "updated": "2026-11-08",
- "built": "202611081215",
+ "built": "202611081313",
  "title": "PL Help",
  "lang": "ar-EG",
  "chapters": [
@@ -258,7 +258,7 @@
     }
    ],
    "video": true,
-   "video_seconds": 35
+   "video_seconds": 33
   },
   {
    "id": "tour-menu",
@@ -387,7 +387,7 @@
     }
    ],
    "video": true,
-   "video_seconds": 95
+   "video_seconds": 45
   },
   {
    "id": "event-add",
@@ -484,7 +484,7 @@
     }
    ],
    "video": true,
-   "video_seconds": 61
+   "video_seconds": 62
   },
   {
    "id": "event-edit",
@@ -532,7 +532,7 @@
     }
    ],
    "video": true,
-   "video_seconds": 84
+   "video_seconds": 64
   },
   {
    "id": "event-registration",
@@ -564,7 +564,7 @@
     ]
    },
    "video": true,
-   "video_seconds": 56
+   "video_seconds": 48
   },
   {
    "id": "event-hide",
@@ -601,7 +601,7 @@
     }
    ],
    "video": true,
-   "video_seconds": 55
+   "video_seconds": 46
   },
   {
    "id": "event-pin",
@@ -632,7 +632,7 @@
     ]
    },
    "video": true,
-   "video_seconds": 50
+   "video_seconds": 42
   },
   {
    "id": "event-images",
@@ -674,10 +674,24 @@
        "text": "Logo"
       }
      ]
+    },
+    {
+     "id": "event-photo-safe",
+     "file": "shots/event-photo-safe.png",
+     "diagram": true,
+     "alt": "صور الإيفنت: الكارت والصفحة",
+     "callouts": []
+    },
+    {
+     "id": "event-poster-safe",
+     "file": "shots/event-poster-safe.png",
+     "diagram": true,
+     "alt": "صور الإيفنت: الكارت والصفحة",
+     "callouts": []
     }
    ],
    "video": true,
-   "video_seconds": 41
+   "video_seconds": 43
   },
   {
    "id": "event-image-type",
@@ -725,7 +739,7 @@
     ]
    },
    "video": true,
-   "video_seconds": 57
+   "video_seconds": 49
   },
   {
    "id": "event-taxonomy",
@@ -769,7 +783,7 @@
     }
    ],
    "video": true,
-   "video_seconds": 36
+   "video_seconds": 42
   },
   {
    "id": "event-congress-count",
@@ -808,7 +822,7 @@
     }
    ],
    "video": true,
-   "video_seconds": 31
+   "video_seconds": 36
   },
   {
    "id": "image-sizes",
@@ -827,7 +841,22 @@
    ],
    "tip": "الموقع بيعمل نسخ صغيرة للموبايل لوحده: ارفعوا الصورة الكبيرة مرة واحدة.",
    "spec_table": true,
-   "screenshots": []
+   "screenshots": [
+    {
+     "id": "gallery-safe",
+     "file": "shots/gallery-safe.png",
+     "diagram": true,
+     "alt": "مقاسات كل الصور",
+     "callouts": []
+    },
+    {
+     "id": "wide-safe",
+     "file": "shots/wide-safe.png",
+     "diagram": true,
+     "alt": "مقاسات كل الصور",
+     "callouts": []
+    }
+   ]
   },
   {
    "id": "office-phone",
@@ -860,7 +889,7 @@
     ]
    },
    "video": true,
-   "video_seconds": 41
+   "video_seconds": 54
   },
   {
    "id": "event-phone",
@@ -902,7 +931,7 @@
     }
    ],
    "video": true,
-   "video_seconds": 41
+   "video_seconds": 51
   },
   {
    "id": "event-wa-inquiry",
@@ -949,7 +978,9 @@
      "الرقم في **WhatsApp for inquiries**",
      "زرار واتساب على الكارت"
     ]
-   }
+   },
+   "video": true,
+   "video_seconds": 55
   },
   {
    "id": "office-email",
@@ -987,7 +1018,7 @@
     }
    ],
    "video": true,
-   "video_seconds": 32
+   "video_seconds": 39
   },
   {
    "id": "office-address",
@@ -1025,7 +1056,7 @@
     }
    ],
    "video": true,
-   "video_seconds": 31
+   "video_seconds": 37
   },
   {
    "id": "office-hours",
@@ -1055,7 +1086,7 @@
     ]
    },
    "video": true,
-   "video_seconds": 37
+   "video_seconds": 47
   },
   {
    "id": "office-head",
@@ -1130,7 +1161,7 @@
     }
    ],
    "video": true,
-   "video_seconds": 36
+   "video_seconds": 47
   },
   {
    "id": "sponsors",
@@ -1177,7 +1208,7 @@
     }
    ],
    "video": true,
-   "video_seconds": 29
+   "video_seconds": 35
   },
   {
    "id": "memberships",
@@ -1272,7 +1303,7 @@
     }
    ],
    "video": true,
-   "video_seconds": 56
+   "video_seconds": 63
   },
   {
    "id": "job-close",
@@ -1311,7 +1342,7 @@
     }
    ],
    "video": true,
-   "video_seconds": 40
+   "video_seconds": 56
   },
   {
    "id": "services",
@@ -1354,7 +1385,7 @@
     }
    ],
    "video": true,
-   "video_seconds": 32
+   "video_seconds": 41
   },
   {
    "id": "company-hero",
@@ -1384,7 +1415,7 @@
     ]
    },
    "video": true,
-   "video_seconds": 33
+   "video_seconds": 41
   },
   {
    "id": "hero-images",
@@ -1405,7 +1436,45 @@
    ],
    "tip": "الفيديو بيشتغل على الكمبيوتر بس. الموبايل بيعرض الـ poster.",
    "warning": "العنوان والزراير بيقعوا فوق نص الصورة: ماتحطوش كلام في الصورة نفسها.",
-   "screenshots": []
+   "screenshots": [
+    {
+     "id": "hero-safe",
+     "file": "shots/hero-safe.png",
+     "diagram": true,
+     "alt": "صورة وفيديو الهوم (Hero)",
+     "callouts": []
+    },
+    {
+     "id": "hero-video-safe",
+     "file": "shots/hero-video-safe.png",
+     "diagram": true,
+     "alt": "صورة وفيديو الهوم (Hero)",
+     "callouts": []
+    },
+    {
+     "id": "hero-mobile",
+     "file": "shots/hero-mobile.png",
+     "diagram": false,
+     "alt": "صورة وفيديو الهوم (Hero)",
+     "callouts": [
+      {
+       "n": 1,
+       "text": "العنوان فوق الصورة"
+      }
+     ]
+    }
+   ],
+   "pair": {
+    "id": "pair-hero-image",
+    "title": "Showreel poster ← الهوم",
+    "text": "الصورة اللي في Company هي خلفية الهوم.",
+    "legend": [
+     "**Showreel poster** / **stills**",
+     "خلفية الهوم"
+    ]
+   },
+   "video": true,
+   "video_seconds": 31
   },
   {
    "id": "company-files",
@@ -1496,7 +1565,43 @@
    ],
    "tip": "عنوان الصفحة في جوجل والوصف (SEO) مش هنا: دول في **Rank Math** (اسألوا PL Team).",
    "warning": "أي HTML أو كود بيتشال لوحده. ماتعدّلوش الكلام من جوه Elementor: من هنا بس.",
-   "screenshots": []
+   "screenshots": [
+    {
+     "id": "page-texts-1",
+     "file": "shots/page-texts-1.png",
+     "diagram": false,
+     "alt": "تعديل كلام الصفحات (Page texts)",
+     "callouts": [
+      {
+       "n": 1,
+       "text": "الكلام"
+      },
+      {
+       "n": 2,
+       "text": "Highlighted word"
+      },
+      {
+       "n": 3,
+       "text": "العدّاد"
+      },
+      {
+       "n": 4,
+       "text": "Reset to original"
+      }
+     ]
+    }
+   ],
+   "pair": {
+    "id": "pair-page-texts",
+    "title": "Page texts ← عنوان صفحة Careers",
+    "text": "الخانتين دول هما العنوان الكبير في صفحة Careers.",
+    "legend": [
+     "الكلام",
+     "**Highlighted word**"
+    ]
+   },
+   "video": true,
+   "video_seconds": 57
   },
   {
    "id": "menus",
@@ -1668,7 +1773,7 @@
     }
    ],
    "video": true,
-   "video_seconds": 31
+   "video_seconds": 33
   },
   {
    "id": "forms-cv",
@@ -1806,7 +1911,7 @@
     }
    ],
    "video": true,
-   "video_seconds": 29
+   "video_seconds": 49
   },
   {
    "id": "nl-sources",
@@ -1836,7 +1941,7 @@
     ]
    },
    "video": true,
-   "video_seconds": 40
+   "video_seconds": 48
   },
   {
    "id": "nl-list",
@@ -1877,7 +1982,7 @@
     }
    ],
    "video": true,
-   "video_seconds": 39
+   "video_seconds": 34
   },
   {
    "id": "nl-remove",
@@ -1944,7 +2049,7 @@
     }
    ],
    "video": true,
-   "video_seconds": 26
+   "video_seconds": 28
   },
   {
    "id": "nl-mailchimp",
@@ -2242,7 +2347,7 @@
       "sel": "#publish"
      }
     ],
-    "bytes": 188088
+    "bytes": 188587
    },
    "welcome-diagram": {
     "file": "shots/welcome-diagram.png",
@@ -2352,7 +2457,7 @@
       "sel": "#adminmenu a[href='admin.php?page=pl-company']"
      }
     ],
-    "bytes": 138701
+    "bytes": 138496
    },
    "tour-help-1": {
     "file": "shots/tour-help-1.png",
@@ -2370,7 +2475,7 @@
       "sel": ".plh-chapters"
      }
     ],
-    "bytes": 181019
+    "bytes": 181044
    },
    "event-add-2": {
     "file": "shots/event-add-2.png",
@@ -2444,7 +2549,7 @@
       "sel": "th#pl_show"
      }
     ],
-    "bytes": 186174
+    "bytes": 186386
    },
    "event-hide-1": {
     "file": "shots/event-hide-1.png",
@@ -2457,7 +2562,7 @@
       "sel": "[data-name=pl_show_on_site]"
      }
     ],
-    "bytes": 112657
+    "bytes": 114575
    },
    "event-images-1": {
     "file": "shots/event-images-1.png",
@@ -2480,7 +2585,7 @@
       "sel": "[data-name=pl_logo]"
      }
     ],
-    "bytes": 162409
+    "bytes": 167627
    },
    "event-taxonomy-1": {
     "file": "shots/event-taxonomy-1.png",
@@ -2503,7 +2608,7 @@
       "sel": "#submit"
      }
     ],
-    "bytes": 152501
+    "bytes": 152697
    },
    "event-congress-count-1": {
     "file": "shots/event-congress-count-1.png",
@@ -2521,7 +2626,7 @@
       "sel": "[data-name=pl_congress]"
      }
     ],
-    "bytes": 128790
+    "bytes": 129011
    },
    "office-email-1": {
     "file": "shots/office-email-1.png",
@@ -2539,7 +2644,7 @@
       "sel": "[data-name=pl_emails] .acf-actions"
      }
     ],
-    "bytes": 124836
+    "bytes": 124942
    },
    "office-address-1": {
     "file": "shots/office-address-1.png",
@@ -2557,7 +2662,7 @@
       "sel": "[data-name=pl_maps_url]"
      }
     ],
-    "bytes": 129028
+    "bytes": 128533
    },
    "office-head-1": {
     "file": "shots/office-head-1.png",
@@ -2570,7 +2675,7 @@
       "sel": "[data-name=pl_head_office]"
      }
     ],
-    "bytes": 147207
+    "bytes": 147098
    },
    "societies-1": {
     "file": "shots/societies-1.png",
@@ -2593,7 +2698,7 @@
       "sel": "[data-name=pl_url]"
      }
     ],
-    "bytes": 127262
+    "bytes": 129955
    },
    "sponsors-1": {
     "file": "shots/sponsors-1.png",
@@ -2621,7 +2726,7 @@
       "sel": "#menu_order, #pageparentdiv"
      }
     ],
-    "bytes": 131328
+    "bytes": 134082
    },
    "memberships-1": {
     "file": "shots/memberships-1.png",
@@ -2644,7 +2749,7 @@
       "sel": "[data-name=pl_proof_url]"
      }
     ],
-    "bytes": 133429
+    "bytes": 136082
    },
    "job-add-1": {
     "file": "shots/job-add-1.png",
@@ -2677,7 +2782,7 @@
       "sel": "[data-name=pl_description]"
      }
     ],
-    "bytes": 129344
+    "bytes": 129864
    },
    "job-close-1": {
     "file": "shots/job-close-1.png",
@@ -2695,7 +2800,7 @@
       "sel": "[data-name=pl_show_on_site]"
      }
     ],
-    "bytes": 132348
+    "bytes": 132585
    },
    "services-1": {
     "file": "shots/services-1.png",
@@ -2718,7 +2823,7 @@
       "sel": "[data-name=pl_items]"
      }
     ],
-    "bytes": 273014
+    "bytes": 274694
    },
    "company-files-1": {
     "file": "shots/company-files-1.png",
@@ -2741,7 +2846,7 @@
       "sel": "[data-name=pl_showreel_poster]"
      }
     ],
-    "bytes": 336681
+    "bytes": 347937
    },
    "pages-where-diagram": {
     "file": "shots/pages-where-diagram.png",
@@ -2800,7 +2905,7 @@
       "sel": ".page-title-action"
      }
     ],
-    "bytes": 223586
+    "bytes": 223412
    },
    "danger-themes": {
     "file": "shots/danger-themes.png",
@@ -2849,7 +2954,7 @@
       "sel": "text=other fields"
      }
     ],
-    "bytes": 103806
+    "bytes": 103838
    },
    "forms-cv-1": {
     "file": "shots/forms-cv-1.png",
@@ -2862,7 +2967,7 @@
       "sel": "a:has-text('.pdf')"
      }
     ],
-    "bytes": 123995
+    "bytes": 123546
    },
    "forms-export-1": {
     "file": "shots/forms-export-1.png",
@@ -2875,7 +2980,7 @@
       "sel": "a.wpmudev-open-modal:has-text('Export')"
      }
     ],
-    "bytes": 100685
+    "bytes": 100715
    },
    "forms-new-1": {
     "file": "shots/forms-new-1.png",
@@ -2893,7 +2998,7 @@
       "sel": ".sui-accordion-item:first-of-type, .forminator-module, [class*=module-item]"
      }
     ],
-    "bytes": 119270
+    "bytes": 119172
    },
    "forms-email-1": {
     "file": "shots/forms-email-1.png",
@@ -2906,7 +3011,7 @@
       "sel": "[data-name=pl_careers_email]"
      }
     ],
-    "bytes": 121271
+    "bytes": 141527
    },
    "nl-list-1": {
     "file": "shots/nl-list-1.png",
@@ -2929,7 +3034,7 @@
       "sel": "th#pl_conf"
      }
     ],
-    "bytes": 172041
+    "bytes": 171938
    },
    "nl-remove-1": {
     "file": "shots/nl-remove-1.png",
@@ -2942,7 +3047,7 @@
       "sel": "#the-list tr:first-child .pl_un a"
      }
     ],
-    "bytes": 169442
+    "bytes": 169498
    },
    "nl-export-1": {
     "file": "shots/nl-export-1.png",
@@ -2955,7 +3060,7 @@
       "sel": ":is(a,button,input):has-text('Export CSV'), input[value*='Export CSV']"
      }
     ],
-    "bytes": 168964
+    "bytes": 168946
    },
    "nl-mailchimp-diagram": {
     "file": "shots/nl-mailchimp-diagram.png",
@@ -2988,7 +3093,7 @@
       "sel": "#plh-panel"
      }
     ],
-    "bytes": 280738
+    "bytes": 279880
    },
    "event-phone-1": {
     "file": "shots/event-phone-1.png",
@@ -3011,7 +3116,7 @@
       "sel": "[data-name=pl_phones] .acf-row:not(.acf-clone) >> nth=-1 >> [data-name=whatsapp]"
      }
     ],
-    "bytes": 139343
+    "bytes": 229595
    },
    "event-image-type-1": {
     "file": "shots/event-image-type-1.png",
@@ -3029,7 +3134,7 @@
       "sel": ".pl-auto-type"
      }
     ],
-    "bytes": 136381
+    "bytes": 145797
    },
    "event-wa-inquiry-1": {
     "file": "shots/event-wa-inquiry-1.png",
@@ -3039,15 +3144,86 @@
      {
       "n": 1,
       "ok": true,
-      "sel": "[data-name=pl_wa_inquiry] [data-name=code]"
+      "sel": "[data-name=pl_wa_inquiry] td[data-name=code]"
      },
      {
       "n": 2,
       "ok": true,
-      "sel": "[data-name=pl_wa_inquiry] [data-name=number]"
+      "sel": "[data-name=pl_wa_inquiry] td[data-name=number]"
      }
     ],
-    "bytes": 254905
+    "bytes": 253593
+   },
+   "event-photo-safe": {
+    "file": "shots/event-photo-safe.png",
+    "diagram": true,
+    "bytes": 168999
+   },
+   "event-poster-safe": {
+    "file": "shots/event-poster-safe.png",
+    "diagram": true,
+    "bytes": 189842
+   },
+   "gallery-safe": {
+    "file": "shots/gallery-safe.png",
+    "diagram": true,
+    "bytes": 167059
+   },
+   "wide-safe": {
+    "file": "shots/wide-safe.png",
+    "diagram": true,
+    "bytes": 169924
+   },
+   "hero-safe": {
+    "file": "shots/hero-safe.png",
+    "diagram": true,
+    "bytes": 207385
+   },
+   "hero-video-safe": {
+    "file": "shots/hero-video-safe.png",
+    "diagram": true,
+    "bytes": 221491
+   },
+   "hero-mobile": {
+    "file": "shots/hero-mobile.png",
+    "w": 780,
+    "h": 1688,
+    "callouts": [
+     {
+      "n": 1,
+      "ok": true,
+      "sel": ".hero h1"
+     }
+    ],
+    "bytes": 919260
+   },
+   "page-texts-1": {
+    "file": "shots/page-texts-1.png",
+    "w": 1440,
+    "h": 900,
+    "callouts": [
+     {
+      "n": 1,
+      "ok": true,
+      "sel": "#pl-pt-car_h1"
+     },
+     {
+      "n": 2,
+      "ok": true,
+      "sel": "tr:has(#pl-pt-car_h1) .pl-pt-hl"
+     },
+     {
+      "n": 3,
+      "ok": true,
+      "sel": "tr:has(#pl-pt-car_h1) .pl-pt-count"
+     },
+     {
+      "n": 4,
+      "ok": true,
+      "sel": "tr:has(#pl-pt-car_h1) .pl-pt-reset"
+     }
+    ],
+    "bytes": 170574
    }
   },
   "pairs": {
@@ -3063,7 +3239,7 @@
        "sel": "#wpbody-content p:has-text('congresses')"
       }
      ],
-     "bytes": 130125
+     "bytes": 129795
     },
     "site": {
      "file": "shots/pair-overview-site.png",
@@ -3080,7 +3256,7 @@
     },
     "image": {
      "file": "pairs/pair-overview.png",
-     "bytes": 160508
+     "bytes": 160350
     }
    },
    "pair-registration": {
@@ -3100,7 +3276,7 @@
        "sel": "[data-name=pl_registration]"
       }
      ],
-     "bytes": 271909
+     "bytes": 271062
     },
     "site": {
      "file": "shots/pair-registration-site.png",
@@ -3122,7 +3298,7 @@
     },
     "image": {
      "file": "pairs/pair-registration.png",
-     "bytes": 287673
+     "bytes": 287137
     }
    },
    "pair-pin": {
@@ -3137,7 +3313,7 @@
        "sel": "[data-name=pl_pin_home]"
       }
      ],
-     "bytes": 267317
+     "bytes": 266307
     },
     "site": {
      "file": "shots/pair-pin-site.png",
@@ -3154,7 +3330,7 @@
     },
     "image": {
      "file": "pairs/pair-pin.png",
-     "bytes": 480852
+     "bytes": 480595
     }
    },
    "pair-office-phone": {
@@ -3174,7 +3350,7 @@
        "sel": "[data-name=pl_phones] .acf-row:not(.acf-clone):first-of-type [data-name=whatsapp]"
       }
      ],
-     "bytes": 140816
+     "bytes": 141076
     },
     "site": {
      "file": "shots/pair-office-phone-site.png",
@@ -3192,11 +3368,11 @@
        "sel": ".pl-office a[href*='wa.me']"
       }
      ],
-     "bytes": 145285
+     "bytes": 144449
     },
     "image": {
      "file": "pairs/pair-office-phone.png",
-     "bytes": 188233
+     "bytes": 187840
     }
    },
    "pair-office-hours": {
@@ -3211,7 +3387,7 @@
        "sel": "[data-name=pl_hours] .acf-row:not(.acf-clone)"
       }
      ],
-     "bytes": 108445
+     "bytes": 108476
     },
     "site": {
      "file": "shots/pair-office-hours-site.png",
@@ -3224,11 +3400,11 @@
        "sel": ".pl-office :text('Sun–Thu')"
       }
      ],
-     "bytes": 141113
+     "bytes": 140306
     },
     "image": {
      "file": "pairs/pair-office-hours.png",
-     "bytes": 163922
+     "bytes": 163669
     }
    },
    "pair-hero": {
@@ -3248,7 +3424,7 @@
        "sel": "[data-name=pl_hero_em]"
       }
      ],
-     "bytes": 146323
+     "bytes": 147916
     },
     "site": {
      "file": "shots/pair-hero-site.png",
@@ -3270,7 +3446,7 @@
     },
     "image": {
      "file": "pairs/pair-hero.png",
-     "bytes": 435601
+     "bytes": 435866
     }
    },
    "pair-newsletter": {
@@ -3285,7 +3461,7 @@
        "sel": "#the-list tr:first-child"
       }
      ],
-     "bytes": 167997
+     "bytes": 167930
     },
     "site": {
      "file": "shots/pair-newsletter-site.png",
@@ -3298,11 +3474,11 @@
        "sel": "#pl-nl"
       }
      ],
-     "bytes": 153479
+     "bytes": 153023
     },
     "image": {
      "file": "pairs/pair-newsletter.png",
-     "bytes": 189248
+     "bytes": 189073
     }
    },
    "pair-image-type": {
@@ -3317,7 +3493,7 @@
        "sel": "[data-name=pl_image_type]"
       }
      ],
-     "bytes": 132774
+     "bytes": 142095
     },
     "site": {
      "file": "shots/pair-image-type-site.png",
@@ -3334,7 +3510,7 @@
     },
     "image": {
      "file": "pairs/pair-image-type.png",
-     "bytes": 254917
+     "bytes": 258771
     }
    },
    "pair-wa-inquiry": {
@@ -3368,6 +3544,80 @@
      "file": "pairs/pair-wa-inquiry.png",
      "bytes": 295073
     }
+   },
+   "pair-hero-image": {
+    "admin": {
+     "file": "shots/pair-hero-image-admin.png",
+     "w": 1440,
+     "h": 900,
+     "callouts": [
+      {
+       "n": 1,
+       "ok": true,
+       "sel": "[data-name=pl_showreel_poster]"
+      }
+     ],
+     "bytes": 354439
+    },
+    "site": {
+     "file": "shots/pair-hero-image-site.png",
+     "w": 1440,
+     "h": 900,
+     "callouts": [
+      {
+       "n": 1,
+       "ok": true,
+       "sel": ".hero"
+      }
+     ],
+     "bytes": 1271577
+    },
+    "image": {
+     "file": "pairs/pair-hero-image.png",
+     "bytes": 496935
+    }
+   },
+   "pair-page-texts": {
+    "admin": {
+     "file": "shots/pair-page-texts-admin.png",
+     "w": 1440,
+     "h": 900,
+     "callouts": [
+      {
+       "n": 1,
+       "ok": true,
+       "sel": "#pl-pt-car_h1"
+      },
+      {
+       "n": 2,
+       "ok": true,
+       "sel": "tr:has(#pl-pt-car_h1) .pl-pt-hl"
+      }
+     ],
+     "bytes": 163721
+    },
+    "site": {
+     "file": "shots/pair-page-texts-site.png",
+     "w": 1440,
+     "h": 900,
+     "callouts": [
+      {
+       "n": 1,
+       "ok": true,
+       "sel": "main h1"
+      },
+      {
+       "n": 2,
+       "ok": true,
+       "sel": "main h1 .em"
+      }
+     ],
+     "bytes": 87879
+    },
+    "image": {
+     "file": "pairs/pair-page-texts.png",
+     "bytes": 164694
+    }
    }
   },
   "videos": {
@@ -3375,176 +3625,176 @@
     "file": "video/event-add.mp4",
     "poster": "video/event-add.jpg",
     "vtt": "video/event-add.vtt",
-    "seconds": 61,
-    "bytes": 611836
+    "seconds": 62,
+    "bytes": 705826
    },
    "login": {
     "file": "video/login.mp4",
     "poster": "video/login.jpg",
     "vtt": "video/login.vtt",
     "seconds": 31,
-    "bytes": 146509
+    "bytes": 152729
    },
    "lost-password": {
     "file": "video/lost-password.mp4",
     "poster": "video/lost-password.jpg",
     "vtt": "video/lost-password.vtt",
     "seconds": 34,
-    "bytes": 153365
+    "bytes": 166057
    },
    "change-password": {
     "file": "video/change-password.mp4",
     "poster": "video/change-password.jpg",
     "vtt": "video/change-password.vtt",
-    "seconds": 35,
-    "bytes": 519156
+    "seconds": 33,
+    "bytes": 448458
    },
    "tour-menu": {
     "file": "video/tour-menu.mp4",
     "poster": "video/tour-menu.jpg",
     "vtt": "video/tour-menu.vtt",
     "seconds": 30,
-    "bytes": 316300
+    "bytes": 336038
    },
    "tour-overview": {
     "file": "video/tour-overview.mp4",
     "poster": "video/tour-overview.jpg",
     "vtt": "video/tour-overview.vtt",
     "seconds": 29,
-    "bytes": 512999
+    "bytes": 489705
    },
    "tour-help": {
     "file": "video/tour-help.mp4",
     "poster": "video/tour-help.jpg",
     "vtt": "video/tour-help.vtt",
-    "seconds": 95,
-    "bytes": 901644
+    "seconds": 45,
+    "bytes": 636823
    },
    "event-edit": {
     "file": "video/event-edit.mp4",
     "poster": "video/event-edit.jpg",
     "vtt": "video/event-edit.vtt",
-    "seconds": 84,
-    "bytes": 843752
+    "seconds": 64,
+    "bytes": 684047
    },
    "event-registration": {
     "file": "video/event-registration.mp4",
     "poster": "video/event-registration.jpg",
     "vtt": "video/event-registration.vtt",
-    "seconds": 56,
-    "bytes": 710190
+    "seconds": 48,
+    "bytes": 649986
    },
    "event-hide": {
     "file": "video/event-hide.mp4",
     "poster": "video/event-hide.jpg",
     "vtt": "video/event-hide.vtt",
-    "seconds": 55,
-    "bytes": 975902
+    "seconds": 46,
+    "bytes": 869112
    },
    "event-pin": {
     "file": "video/event-pin.mp4",
     "poster": "video/event-pin.jpg",
     "vtt": "video/event-pin.vtt",
-    "seconds": 50,
-    "bytes": 670152
+    "seconds": 42,
+    "bytes": 544331
    },
    "event-taxonomy": {
     "file": "video/event-taxonomy.mp4",
     "poster": "video/event-taxonomy.jpg",
     "vtt": "video/event-taxonomy.vtt",
-    "seconds": 36,
-    "bytes": 393065
+    "seconds": 42,
+    "bytes": 376505
    },
    "event-congress-count": {
     "file": "video/event-congress-count.mp4",
     "poster": "video/event-congress-count.jpg",
     "vtt": "video/event-congress-count.vtt",
-    "seconds": 31,
-    "bytes": 378758
+    "seconds": 36,
+    "bytes": 437752
    },
    "office-phone": {
     "file": "video/office-phone.mp4",
     "poster": "video/office-phone.jpg",
     "vtt": "video/office-phone.vtt",
-    "seconds": 41,
-    "bytes": 462383
+    "seconds": 54,
+    "bytes": 598819
    },
    "event-phone": {
     "file": "video/event-phone.mp4",
     "poster": "video/event-phone.jpg",
     "vtt": "video/event-phone.vtt",
-    "seconds": 41,
-    "bytes": 599179
+    "seconds": 51,
+    "bytes": 735605
    },
    "office-email": {
     "file": "video/office-email.mp4",
     "poster": "video/office-email.jpg",
     "vtt": "video/office-email.vtt",
-    "seconds": 32,
-    "bytes": 389064
+    "seconds": 39,
+    "bytes": 495119
    },
    "office-address": {
     "file": "video/office-address.mp4",
     "poster": "video/office-address.jpg",
     "vtt": "video/office-address.vtt",
-    "seconds": 31,
-    "bytes": 466938
+    "seconds": 37,
+    "bytes": 461935
    },
    "office-hours": {
     "file": "video/office-hours.mp4",
     "poster": "video/office-hours.jpg",
     "vtt": "video/office-hours.vtt",
-    "seconds": 37,
-    "bytes": 432702
+    "seconds": 47,
+    "bytes": 559546
    },
    "societies": {
     "file": "video/societies.mp4",
     "poster": "video/societies.jpg",
     "vtt": "video/societies.vtt",
-    "seconds": 36,
-    "bytes": 396880
+    "seconds": 47,
+    "bytes": 489191
    },
    "sponsors": {
     "file": "video/sponsors.mp4",
     "poster": "video/sponsors.jpg",
     "vtt": "video/sponsors.vtt",
-    "seconds": 29,
-    "bytes": 317297
+    "seconds": 35,
+    "bytes": 314530
    },
    "memberships": {
     "file": "video/memberships.mp4",
     "poster": "video/memberships.jpg",
     "vtt": "video/memberships.vtt",
     "seconds": 30,
-    "bytes": 308255
+    "bytes": 288029
    },
    "job-close": {
     "file": "video/job-close.mp4",
     "poster": "video/job-close.jpg",
     "vtt": "video/job-close.vtt",
-    "seconds": 40,
-    "bytes": 457181
+    "seconds": 56,
+    "bytes": 556414
    },
    "services": {
     "file": "video/services.mp4",
     "poster": "video/services.jpg",
     "vtt": "video/services.vtt",
-    "seconds": 32,
-    "bytes": 504772
+    "seconds": 41,
+    "bytes": 576505
    },
    "company-hero": {
     "file": "video/company-hero.mp4",
     "poster": "video/company-hero.jpg",
     "vtt": "video/company-hero.vtt",
-    "seconds": 33,
-    "bytes": 394637
+    "seconds": 41,
+    "bytes": 516178
    },
    "company-files": {
     "file": "video/company-files.mp4",
     "poster": "video/company-files.jpg",
     "vtt": "video/company-files.vtt",
     "seconds": 34,
-    "bytes": 519178
+    "bytes": 352204
    },
    "pages-edit-text": {
     "file": "video/pages-edit-text.mp4",
@@ -3558,49 +3808,49 @@
     "poster": "video/menus.jpg",
     "vtt": "video/menus.vtt",
     "seconds": 32,
-    "bytes": 365060
+    "bytes": 356861
    },
    "forms-submissions": {
     "file": "video/forms-submissions.mp4",
     "poster": "video/forms-submissions.jpg",
     "vtt": "video/forms-submissions.vtt",
-    "seconds": 31,
-    "bytes": 306540
+    "seconds": 33,
+    "bytes": 321930
    },
    "forms-cv": {
     "file": "video/forms-cv.mp4",
     "poster": "video/forms-cv.jpg",
     "vtt": "video/forms-cv.vtt",
     "seconds": 29,
-    "bytes": 296038
+    "bytes": 286501
    },
    "forms-new": {
     "file": "video/forms-new.mp4",
     "poster": "video/forms-new.jpg",
     "vtt": "video/forms-new.vtt",
     "seconds": 31,
-    "bytes": 271457
+    "bytes": 291689
    },
    "forms-email": {
     "file": "video/forms-email.mp4",
     "poster": "video/forms-email.jpg",
     "vtt": "video/forms-email.vtt",
-    "seconds": 29,
-    "bytes": 510412
+    "seconds": 49,
+    "bytes": 715757
    },
    "nl-sources": {
     "file": "video/nl-sources.mp4",
     "poster": "video/nl-sources.jpg",
     "vtt": "video/nl-sources.vtt",
-    "seconds": 40,
-    "bytes": 585897
+    "seconds": 48,
+    "bytes": 685582
    },
    "nl-list": {
     "file": "video/nl-list.mp4",
     "poster": "video/nl-list.jpg",
     "vtt": "video/nl-list.vtt",
-    "seconds": 39,
-    "bytes": 401162
+    "seconds": 34,
+    "bytes": 350881
    },
    "nl-remove": {
     "file": "video/nl-remove.mp4",
@@ -3613,76 +3863,66 @@
     "file": "video/nl-export.mp4",
     "poster": "video/nl-export.jpg",
     "vtt": "video/nl-export.vtt",
-    "seconds": 26,
-    "bytes": 249536
+    "seconds": 28,
+    "bytes": 347516
    },
    "job-add": {
     "file": "video/job-add.mp4",
     "poster": "video/job-add.jpg",
     "vtt": "video/job-add.vtt",
-    "seconds": 56,
-    "bytes": 577659
+    "seconds": 63,
+    "bytes": 554448
    },
    "forms-export": {
     "file": "video/forms-export.mp4",
     "poster": "video/forms-export.jpg",
     "vtt": "video/forms-export.vtt",
     "seconds": 27,
-    "bytes": 216371
+    "bytes": 218372
    },
    "event-images": {
     "file": "video/event-images.mp4",
     "poster": "video/event-images.jpg",
     "vtt": "video/event-images.vtt",
-    "seconds": 41,
-    "bytes": 617432
+    "seconds": 43,
+    "bytes": 549833
    },
    "event-image-type": {
     "file": "video/event-image-type.mp4",
     "poster": "video/event-image-type.jpg",
     "vtt": "video/event-image-type.vtt",
+    "seconds": 49,
+    "bytes": 946833
+   },
+   "event-wa-inquiry": {
+    "file": "video/event-wa-inquiry.mp4",
+    "poster": "video/event-wa-inquiry.jpg",
+    "vtt": "video/event-wa-inquiry.vtt",
+    "seconds": 55,
+    "bytes": 646479
+   },
+   "hero-images": {
+    "file": "video/hero-images.mp4",
+    "poster": "video/hero-images.jpg",
+    "vtt": "video/hero-images.vtt",
+    "seconds": 31,
+    "bytes": 461031
+   },
+   "page-texts": {
+    "file": "video/page-texts.mp4",
+    "poster": "video/page-texts.jpg",
+    "vtt": "video/page-texts.vtt",
     "seconds": 57,
-    "bytes": 881169
+    "bytes": 905569
    }
   },
-  "generated": "2026-11-08T08:19:43.559Z",
+  "generated": "2026-11-08T13:13:08.960Z",
   "problems": [
-   "tour-help.mp4: 95 s (target 30–60)",
-   "event-edit.mp4: 84 s (target 30–60)",
-   "event-taxonomy: {\"click\":\"#submit\",\"cap\":\"[3] اضغطوا **Add new Specialty**.\"} → mouse.move: Target page, context or browser has been closed",
-   "event-congress-count: browser.newContext: Target page, context or browser has been closed\nBrowser logs:\n\n[pid=9721][err] [1108/081921.663380:ERROR:net/socket/socket_posix.cc:121] CreatePlatformSocket() failed: Address family not supported by protocol (97)\n[pid=9721][err] [1108/081921.930878:ERROR:net/socket/socket_posix.cc:121] CreatePlatformSocket() failed: Address family not supported by protocol (97)\n[pid=9721][err] [1108/081921.931122:ERROR:net/socket/socket_posix.cc:121] CreatePlatformSocket() failed: Address family not supported by protocol (97)\n[pid=9721][err] [1108/081929.559871:ERROR:net/socket/socket_posix.cc:121] CreatePlatformSocket() failed: Address family not supported by protocol (97)\n[pid=9721][err] [1108/081929.769385:ERROR:net/socket/socket_posix.cc:121] CreatePlatformSocket() failed: Address family not supported by protocol (97)\n[pid=9721][err] [1108/081929.769595:ERROR:net/socket/socket_posix.cc:121] CreatePlatformSocket() failed: Address family not supported by protocol (97)\n[pid=9721][err] [1108/081929.769677:ERROR:net/socket/socket_posix.cc:121] CreatePlatformSocket() failed: Address family not supported by protocol (97)\n[pid=9721][err] [1108/081929.769742:ERROR:net/socket/socket_posix.cc:121] CreatePlatformSocket() failed: Address family not supported by protocol (97)\n[pid=9721][err] [1108/081929.769863:ERROR:net/socket/socket_posix.cc:121] CreatePlatformSocket() failed: Address family not supported by protocol (97)\n[pid=9721][err] [1108/081930.736813:ERROR:net/socket/socket_posix.cc:121] CreatePlatformSocket() failed: Address family not supported by protocol (97)\n[pid=9721][err] [1108/081930.819341:ERROR:net/socket/socket_posix.cc:121] CreatePlatformSocket() failed: Address family not supported by protocol (97)\n[pid=9721][err] [1108/081930.820574:ERROR:net/socket/socket_posix.cc:121] CreatePlatformSocket() failed: Address family not supported by protocol (97)\n[pid=9721][err] [1108/081930.821284:ERROR:net/socket/socket_posix.cc:121] CreatePlatformSocket() failed: Address family not supported by protocol (97)\n[pid=9721][err] [1108/081930.822058:ERROR:net/socket/socket_posix.cc:121] CreatePlatformSocket() failed: Address family not supported by protocol (97)\n[pid=9721][err] [1108/081930.822334:ERROR:net/socket/socket_posix.cc:121] CreatePlatformSocket() failed: Address family not supported by protocol (97)\n[pid=9721][err] [1108/081930.822976:ERROR:net/socket/socket_posix.cc:121] CreatePlatformSocket() failed: Address family not supported by protocol (97)\n[pid=9721][err] [1108/081930.826461:ERROR:net/socket/socket_posix.cc:121] CreatePlatformSocket() failed: Address family not supported by protocol (97)\n[pid=9721][err] [1108/081930.826805:ERROR:net/socket/socket_posix.cc:121] CreatePlatformSocket() failed: Address family not supported by protocol (97)\n[pid=9721][err] [1108/081930.827033:ERROR:net/socket/socket_posix.cc:121] CreatePlatformSocket() failed: Address family not supported by protocol (97)\n[pid=9721][err] [1108/081930.827831:ERROR:net/socket/socket_posix.cc:121] CreatePlatformSocket() failed: Address family not supported by protocol (97)\n[pid=9721][err] [1108/081930.828425:ERROR:net/socket/socket_posix.cc:121] CreatePlatformSocket() failed: Address family not supported by protocol (97)\n[pid=9721][err] [1108/081930.829368:ERROR:net/socket/socket_posix.cc:121] CreatePlatformSocket() failed: Address family not supported by protocol (97)\n[pid=9721][err] [1108/081930.832339:ERROR:net/socket/socket_posix.cc:121] CreatePlatformSocket() failed: Address family not supported by protocol (97)\n[pid=9721][err] [1108/081930.833200:ERROR:net/socket/socket_posix.cc:121] CreatePlatformSocket() failed: Address family not supported by protocol (97)\n[pid=9721][err] [1108/081930.834096:ERROR:net/socket/socket_posix.cc:121] CreatePlatformSocket() failed: Address family not supported by protocol (97)\n[pid=9721][err] [1108/081930.835346:ERROR:net/socket/socket_posix.cc:121] CreatePlatformSocket() failed: Address family not supported by protocol (97)\n[pid=9721][err] [1108/081930.835950:ERROR:net/socket/socket_posix.cc:121] CreatePlatformSocket() failed: Address family not supported by protocol (97)\n[pid=9721][err] [1108/081930.836418:ERROR:net/socket/socket_posix.cc:121] CreatePlatformSocket() failed: Address family not supported by protocol (97)\n[pid=9721][err] [1108/081930.838671:ERROR:net/socket/socket_posix.cc:121] CreatePlatformSocket() failed: Address family not supported by protocol (97)\n[pid=9721][err] [1108/081930.841047:ERROR:net/socket/socket_posix.cc:121] CreatePlatformSocket() failed: Address family not supported by protocol (97)\n[pid=9721][err] [1108/081930.841546:ERROR:net/socket/socket_posix.cc:121] CreatePlatformSocket() failed: Address family not supported by protocol (97)\n[pid=9721][err] [1108/081930.842021:ERROR:net/socket/socket_posix.cc:121] CreatePlatformSocket() failed: Address family not supported by protocol (97)\n[pid=9721][err] [1108/081930.842463:ERROR:net/socket/socket_posix.cc:121] CreatePlatformSocket() failed: Address family not supported by protocol (97)\n[pid=9721][err] [1108/081930.842838:ERROR:net/socket/socket_posix.cc:121] CreatePlatformSocket() failed: Address family not supported by protocol (97)\n[pid=9721][err] [1108/081930.846495:ERROR:net/socket/socket_posix.cc:121] CreatePlatformSocket() failed: Address family not supported by protocol (97)\n[pid=9721][err] [1108/081930.846834:ERROR:net/socket/socket_posix.cc:121] CreatePlatformSocket() failed: Address family not supported by protocol (97)\n[pid=9721][err] [1108/081930.847717:ERROR:net/socket/socket_posix.cc:121] CreatePlatformSocket() failed: Address family not supported by protocol (97)\n[pid=9721][err] [1108/081930.848125:ERROR:net/socket/socket_posix.cc:121] CreatePlatformSocket() failed: Address family not supported by protocol (97)\n[pid=9721][err] [1108/081930.849957:ERROR:net/socket/socket_posix.cc:121] CreatePlatformSocket() failed: Address family not supported by protocol (97)\n[pid=9721][err] [1108/081930.850229:ERROR:net/socket/socket_posix.cc:121] CreatePlatformSocket() failed: Address family not supported by protocol (97)\n[pid=9721][err] [1108/081930.852667:ERROR:net/socket/socket_posix.cc:121] CreatePlatformSocket() failed: Address family not supported by protocol (97)\n[pid=9721][err] [1108/081930.855485:ERROR:net/socket/socket_posix.cc:121] CreatePlatformSocket() failed: Address family not supported by protocol (97)\n[pid=9721][err] [1108/081930.855626:ERROR:net/socket/socket_posix.cc:121] CreatePlatformSocket() failed: Address family not supported by protocol (97)\n[pid=9721][err] [1108/081930.876046:INFO:CONSOLE:5] \"JQMIGRATE: Migrate is installed, version 3.4.1\", source: http://localhost:8080/wp-admin/load-scripts.php?c=1&load%5Bchunk_0%5D=jquery-core,jquery-migrate,utils,wp-dom-ready,wp-hooks&ver=7.1.4 (5)\n[pid=9721][err] [1108/081930.976907:ERROR:net/socket/socket_posix.cc:121] CreatePlatformSocket() failed: Address family not supported by protocol (97)\n[pid=9721][err] [1108/081932.002878:ERROR:net/socket/socket_posix.cc:121] CreatePlatformSocket() failed: Address family not supported by protocol (97)\n[pid=9721][err] [1108/081932.009485:ERROR:net/socket/socket_posix.cc:121] CreatePlatformSocket() failed: Address family not supported by protocol (97)\n[pid=9721][err] [1108/081932.010941:ERROR:net/socket/socket_posix.cc:121] CreatePlatformSocket() failed: Address family not supported by protocol (97)\n[pid=9721][err] [1108/081932.011164:ERROR:net/socket/socket_posix.cc:121] CreatePlatformSocket() failed: Address family not supported by protocol (97)\n[pid=9721][err] [1108/081932.053057:ERROR:net/socket/socket_posix.cc:121] CreatePlatformSocket() failed: Address family not supported by protocol (97)\n[pid=9721][err] [1108/081932.056870:ERROR:net/socket/socket_posix.cc:121] CreatePlatformSocket() failed: Address family not supported by protocol (97)\n[pid=9721][err] [1108/081932.057595:ERROR:net/socket/socket_posix.cc:121] CreatePlatformSocket() failed: Address family not supported by protocol (97)\n[pid=9721][err] [1108/081932.059236:ERROR:net/socket/socket_posix.cc:121] CreatePlatformSocket() failed: Address family not supported by protocol (97)\n[pid=9721][err] [1108/081932.062555:ERROR:net/socket/socket_posix.cc:121] CreatePlatformSocket() failed: Address family not supported by protocol (97)\n[pid=9721][err] [1108/081932.066319:ERROR:net/socket/socket_posix.cc:121] CreatePlatformSocket() failed: Address family not supported by protocol (97)\n[pid=9721][err] [1108/081932.066513:ERROR:net/socket/socket_posix.cc:121] CreatePlatformSocket() failed: Address family not supported by protocol (97)\n[pid=9721][err] [1108/081932.071699:ERROR:net/socket/socket_posix.cc:121] CreatePlatformSocket() failed: Address family not supported by protocol (97)\n[pid=9721][err] [1108/081932.074525:ERROR:net/socket/socket_posix.cc:121] CreatePlatformSocket() failed: Address family not supported by protocol (97)\n[pid=9721][err] [1108/081932.076501:ERROR:net/socket/socket_posix.cc:121] CreatePlatformSocket() failed: Address family not supported by protocol (97)\n[pid=9721][err] [1108/081932.076696:ERROR:net/socket/socket_posix.cc:121] CreatePlatformSocket() failed: Address family not supported by protocol (97)\n[pid=9721][err] [1108/081932.076844:ERROR:net/socket/socket_posix.cc:121] CreatePlatformSocket() failed: Address family not supported by protocol (97)\n[pid=9721][err] [1108/081932.076933:ERROR:net/socket/socket_posix.cc:121] CreatePlatformSocket() failed: Address family not supported by protocol (97)\n[pid=9721][err] [1108/081932.082894:ERROR:net/socket/socket_posix.cc:121] CreatePlatformSocket() failed: Address family not supported by protocol (97)\n[pid=9721][err] [1108/081932.083220:ERROR:net/socket/socket_posix.cc:121] CreatePlatformSocket() failed: Address family not supported by protocol (97)\n[pid=9721][err] [1108/081932.088781:ERROR:net/socket/socket_posix.cc:121] CreatePlatformSocket() failed: Address family not supported by protocol (97)\n[pid=9721][err] [1108/081932.093201:ERROR:net/socket/socket_posix.cc:121] CreatePlatformSocket() failed: Address family not supported by protocol (97)\n[pid=9721][err] [1108/081932.093655:ERROR:net/socket/socket_posix.cc:121] CreatePlatformSocket() failed: Address family not supported by protocol (97)\n[pid=9721][err] [1108/081932.093845:ERROR:net/socket/socket_posix.cc:121] CreatePlatformSocket() failed: Address family not supported by protocol (97)\n[pid=9721][err] [1108/081932.094490:ERROR:net/socket/socket_posix.cc:121] CreatePlatformSocket() failed: Address family not supported by protocol (97)\n[pid=9721][err] [1108/081932.100865:ERROR:net/socket/socket_posix.cc:121] CreatePlatformSocket() failed: Address family not supported by protocol (97)\n[pid=9721][err] [1108/081932.101016:ERROR:net/socket/socket_posix.cc:121] CreatePlatformSocket() failed: Address family not supported by protocol (97)\n[pid=9721][err] [1108/081932.112482:ERROR:net/socket/socket_posix.cc:121] CreatePlatformSocket() failed: Address family not supported by protocol (97)\n[pid=9721][err] [1108/081932.112707:ERROR:net/socket/socket_posix.cc:121] CreatePlatformSocket() failed: Address family not supported by protocol (97)\n[pid=9721][err] [1108/081932.113570:ERROR:net/socket/socket_posix.cc:121] CreatePlatformSocket() failed: Address family not supported by protocol (97)\n[pid=9721][err] [1108/081932.115191:ERROR:net/socket/socket_posix.cc:121] CreatePlatformSocket() failed: Address family not supported by protocol (97)\n[pid=9721][err] [1108/081932.117604:ERROR:net/socket/socket_posix.cc:121] CreatePlatformSocket() failed: Address family not supported by protocol (97)\n[pid=9721][err] [1108/081932.122580:ERROR:net/socket/socket_posix.cc:121] CreatePlatformSocket() failed: Address family not supported by protocol (97)\n[pid=9721][err] [1108/081932.130260:ERROR:net/socket/socket_posix.cc:121] CreatePlatformSocket() failed: Address family not supported by protocol (97)\n[pid=9721][err] [1108/081932.130702:ERROR:net/socket/socket_posix.cc:121] CreatePlatformSocket() failed: Address family not supported by protocol (97)\n[pid=9721][err] [1108/081932.131101:ERROR:net/socket/socket_posix.cc:121] CreatePlatformSocket() failed: Address family not supported by protocol (97)\n[pid=9721][err] [1108/081932.131262:ERROR:net/socket/socket_posix.cc:121] CreatePlatformSocket() failed: Address family not supported by protocol (97)\n[pid=9721][err] [1108/081932.131393:ERROR:net/socket/socket_posix.cc:121] CreatePlatformSocket() failed: Address family not supported by protocol (97)\n[pid=9721][err] [1108/081932.136982:ERROR:net/socket/socket_posix.cc:121] CreatePlatformSocket() failed: Address family not supported by protocol (97)\n[pid=9721][err] [1108/081932.147147:ERROR:net/socket/socket_posix.cc:121] CreatePlatformSocket() failed: Address family not supported by protocol (97)\n[pid=9721][err] [1108/081932.147432:ERROR:net/socket/socket_posix.cc:121] CreatePlatformSocket() failed: Address family not supported by protocol (97)\n[pid=9721][err] [1108/081932.147617:ERROR:net/socket/socket_posix.cc:121] CreatePlatformSocket() failed: Address family not supported by protocol (97)\n[pid=9721][err] [1108/081932.147798:ERROR:net/socket/socket_posix.cc:121] CreatePlatformSocket() failed: Address family not supported by protocol (97)\n[pid=9721][err] [1108/081932.147989:ERROR:net/socket/socket_posix.cc:121] CreatePlatformSocket() failed: Address family not supported by protocol (97)\n[pid=9721][err] [1108/081932.151113:ERROR:net/socket/socket_posix.cc:121] CreatePlatformSocket() failed: Address family not supported by protocol (97)\n[pid=9721][err] [1108/081932.156709:ERROR:net/socket/socket_posix.cc:121] CreatePlatformSocket() failed: Address family not supported by protocol (97)\n[pid=9721][err] [1108/081932.158107:ERROR:net/socket/socket_posix.cc:121] CreatePlatformSocket() failed: Address family not supported by protocol (97)\n[pid=9721][err] [1108/081932.167106:ERROR:net/socket/socket_posix.cc:121] CreatePlatformSocket() failed: Address family not supported by protocol (97)\n[pid=9721][err] [1108/081932.168094:ERROR:net/socket/socket_posix.cc:121] CreatePlatformSocket() failed: Address family not supported by protocol (97)\n[pid=9721][err] [1108/081932.173275:ERROR:net/socket/socket_posix.cc:121] CreatePlatformSocket() failed: Address family not supported by protocol (97)\n[pid=9721][err] [1108/081932.173439:ERROR:net/socket/socket_posix.cc:121] CreatePlatformSocket() failed: Address family not supported by protocol (97)\n[pid=9721][err] [1108/081932.176860:ERROR:net/socket/socket_posix.cc:121] CreatePlatformSocket() failed: Address family not supported by protocol (97)\n[pid=9721][err] [1108/081932.178483:ERROR:net/socket/socket_posix.cc:121] CreatePlatformSocket() failed: Address family not supported by protocol (97)\n[pid=9721][err] [1108/081932.178621:ERROR:net/socket/socket_posix.cc:121] CreatePlatformSocket() failed: Address family not supported by protocol (97)\n[pid=9721][err] [1108/081932.178698:ERROR:net/socket/socket_posix.cc:121] CreatePlatformSocket() failed: Address family not supported by protocol (97)\n[pid=9721][err] [1108/081932.185102:ERROR:net/socket/socket_posix.cc:121] CreatePlatformSocket() failed: Address family not supported by protocol (97)\n[pid=9721][err] [1108/081932.197106:ERROR:net/socket/socket_posix.cc:121] CreatePlatformSocket() failed: Address family not supported by protocol (97)\n[pid=9721][err] [1108/081932.197293:ERROR:net/socket/socket_posix.cc:121] CreatePlatformSocket() failed: Address family not supported by protocol (97)\n[pid=9721][err] [1108/081932.197427:ERROR:net/socket/socket_posix.cc:121] CreatePlatformSocket() failed: Address family not supported by protocol (97)\n[pid=9721][err] [1108/081932.197542:ERROR:net/socket/socket_posix.cc:121] CreatePlatformSocket() failed: Address family not supported by protocol (97)\n[pid=9721][err] [1108/081932.197657:ERROR:net/socket/socket_posix.cc:121] CreatePlatformSocket() failed: Address family not supported by protocol (97)\n[pid=9721][err] [1108/081932.199974:ERROR:net/socket/socket_posix.cc:121] CreatePlatformSocket() failed: Address family not supported by protocol (97)\n[pid=9721][err] [1108/081932.207979:ERROR:net/socket/socket_posix.cc:121] CreatePlatformSocket() failed: Address family not supported by protocol (97)\n[pid=9721][err] [1108/081932.210725:ERROR:net/socket/socket_posix.cc:121] CreatePlatformSocket() failed: Address family not supported by protocol (97)\n[pid=9721][err] [1108/081932.211092:ERROR:net/socket/socket_posix.cc:121] CreatePlatformSocket() failed: Address family not supported by protocol (97)\n[pid=9721][err] [1108/081932.214662:ERROR:net/socket/socket_posix.cc:121] CreatePlatformSocket() failed: Address family not supported by protocol (97)\n[pid=9721][err] [1108/081932.215001:ERROR:net/socket/socket_posix.cc:121] CreatePlatformSocket() failed: Address family not supported by protocol (97)\n[pid=9721][err] [1108/081932.215605:ERROR:net/socket/socket_posix.cc:121] CreatePlatformSocket() failed: Address family not supported by protocol (97)\n[pid=9721][err] [1108/081932.221205:ERROR:net/socket/socket_posix.cc:121] CreatePlatformSocket() failed: Address family not supported by protocol (97)\n[pid=9721][err] [1108/081932.229204:ERROR:net/socket/socket_posix.cc:121] CreatePlatformSocket() failed: Address family not supported by protocol (97)\n[pid=9721][err] [1108/081932.230073:ERROR:net/socket/socket_posix.cc:121] CreatePlatformSocket() failed: Address family not supported by protocol (97)\n[pid=9721][err] [1108/081932.231378:ERROR:net/socket/socket_posix.cc:121] CreatePlatformSocket() failed: Address family not supported by protocol (97)\n[pid=9721][err] [1108/081932.248130:ERROR:net/socket/socket_posix.cc:121] CreatePlatformSocket() failed: Address family not supported by protocol (97)\n[pid=9721][err] [1108/081932.248464:ERROR:net/socket/socket_posix.cc:121] CreatePlatformSocket() failed: Address family not supported by protocol (97)\n[pid=9721][err] [1108/081932.248677:ERROR:net/socket/socket_posix.cc:121] CreatePlatformSocket() failed: Address family not supported by protocol (97)\n[pid=9721][err] [1108/081932.253881:ERROR:net/socket/socket_posix.cc:121] CreatePlatformSocket() failed: Address family not supported by protocol (97)\n[pid=9721][err] [1108/081932.257431:ERROR:net/socket/socket_posix.cc:121] CreatePlatformSocket() failed: Address family not supported by protocol (97)\n[pid=9721][err] [1108/081932.260309:ERROR:net/socket/socket_posix.cc:121] CreatePlatformSocket() failed: Address family not supported by protocol (97)\n[pid=9721][err] [1108/081932.260998:ERROR:net/socket/socket_posix.cc:121] CreatePlatformSocket() failed: Address family not supported by protocol (97)\n[pid=9721][err] [1108/081932.261663:ERROR:net/socket/socket_posix.cc:121] CreatePlatformSocket() failed: Address family not supported by protocol (97)\n[pid=9721][err] [1108/081932.261847:ERROR:net/socket/socket_posix.cc:121] CreatePlatformSocket() failed: Address family not supported by protocol (97)\n[pid=9721][err] [1108/081932.264722:ERROR:net/socket/socket_posix.cc:121] CreatePlatformSocket() failed: Address family not supported by protocol (97)\n[pid=9721][err] [1108/081932.267007:ERROR:net/socket/socket_posix.cc:121] CreatePlatformSocket() failed: Address family not supported by protocol (97)\n[pid=9721][err] [1108/081932.270520:ERROR:net/socket/socket_posix.cc:121] CreatePlatformSocket() failed: Address family not supported by protocol (97)\n[pid=9721][err] [1108/081932.271224:ERROR:net/socket/socket_posix.cc:121] CreatePlatformSocket() failed: Address family not supported by protocol (97)\n[pid=9721][err] [1108/081932.272454:ERROR:net/socket/socket_posix.cc:121] CreatePlatformSocket() failed: Address family not supported by protocol (97)\n[pid=9721][err] [1108/081932.272932:ERROR:net/socket/socket_posix.cc:121] CreatePlatformSocket() failed: Address family not supported by protocol (97)\n[pid=9721][err] [1108/081932.274167:ERROR:net/socket/socket_posix.cc:121] CreatePlatformSocket() failed: Address family not supported by protocol (97)\n[pid=9721][err] [1108/081932.274480:ERROR:net/socket/socket_posix.cc:121] CreatePlatformSocket() failed: Address family not supported by protocol (97)\n[pid=9721][err] [1108/081932.281810:ERROR:net/socket/socket_posix.cc:121] CreatePlatformSocket() failed: Address family not supported by protocol (97)\n[pid=9721][err] [1108/081932.284997:ERROR:net/socket/socket_posix.cc:121] CreatePlatformSocket() failed: Address family not supported by protocol (97)\n[pid=9721][err] [1108/081932.285648:ERROR:net/socket/socket_posix.cc:121] CreatePlatformSocket() failed: Address family not supported by protocol (97)\n[pid=9721][err] [1108/081932.289726:ERROR:net/socket/socket_posix.cc:121] CreatePlatformSocket() failed: Address family not supported by protocol (97)\n[pid=9721][err] [1108/081932.289993:ERROR:net/socket/socket_posix.cc:121] CreatePlatformSocket() failed: Address family not supported by protocol (97)\n[pid=9721][err] [1108/081932.290574:ERROR:net/socket/socket_posix.cc:121] CreatePlatformSocket() failed: Address family not supported by protocol (97)\n[pid=9721][err] [1108/081932.299728:ERROR:net/socket/socket_posix.cc:121] CreatePlatformSocket() failed: Address family not supported by protocol (97)\n[pid=9721][err] [1108/081932.302188:ERROR:net/socket/socket_posix.cc:121] CreatePlatformSocket() failed: Address family not supported by protocol (97)\n[pid=9721][err] [1108/081932.304895:ERROR:net/socket/socket_posix.cc:121] CreatePlatformSocket() failed: Address family not supported by protocol (97)\n[pid=9721][err] [1108/081932.305390:ERROR:net/socket/socket_posix.cc:121] CreatePlatformSocket() failed: Address family not supported by protocol (97)\n[pid=9721][err] [1108/081932.419402:ERROR:net/socket/socket_posix.cc:121] CreatePlatformSocket() failed: Address family not supported by protocol (97)\n[pid=9721][err] [1108/081932.737679:ERROR:net/socket/socket_posix.cc:121] CreatePlatformSocket() failed: Address family not supported by protocol (97)\n[pid=9721][err] [1108/081932.747455:ERROR:net/socket/socket_posix.cc:121] CreatePlatformSocket() failed: Address family not supported by protocol (97)\n[pid=9721][err] [1108/081932.747699:ERROR:net/socket/socket_posix.cc:121] CreatePlatformSocket() failed: Address family not supported by protocol (97)\n[pid=9721][err] [1108/081932.759066:ERROR:net/socket/socket_posix.cc:121] CreatePlatformSocket() failed: Address family not supported by protocol (97)\n[pid=9721][err] [1108/081932.792028:ERROR:net/socket/socket_posix.cc:121] CreatePlatformSocket() failed: Address family not supported by protocol (97)\n[pid=9721] <gracefully close start>",
-   "office-phone: browser.newContext: Target page, context or browser has been closed",
-   "event-phone: browser.newContext: Target page, context or browser has been closed",
-   "event-wa-inquiry: browser.newContext: Target page, context or browser has been closed",
-   "office-email: browser.newContext: Target page, context or browser has been closed",
-   "office-address: browser.newContext: Target page, context or browser has been closed",
-   "office-hours: browser.newContext: Target page, context or browser has been closed",
-   "office-head: browser.newContext: Target page, context or browser has been closed",
-   "societies: browser.newContext: Target page, context or browser has been closed",
-   "sponsors: browser.newContext: Target page, context or browser has been closed",
-   "memberships: browser.newContext: Target page, context or browser has been closed",
-   "job-add: browser.newContext: Target page, context or browser has been closed",
-   "job-close: browser.newContext: Target page, context or browser has been closed",
-   "services: browser.newContext: Target page, context or browser has been closed",
-   "company-hero: browser.newContext: Target page, context or browser has been closed",
-   "company-files: browser.newContext: Target page, context or browser has been closed",
-   "pages-where: browser.newContext: Target page, context or browser has been closed",
-   "pages-edit-text: browser.newContext: Target page, context or browser has been closed",
-   "menus: browser.newContext: Target page, context or browser has been closed",
-   "danger-zone: browser.newContext: Target page, context or browser has been closed",
-   "forms-where: browser.newContext: Target page, context or browser has been closed",
-   "forms-submissions: browser.newContext: Target page, context or browser has been closed",
-   "forms-cv: browser.newContext: Target page, context or browser has been closed",
-   "forms-export: browser.newContext: Target page, context or browser has been closed",
-   "forms-new: browser.newContext: Target page, context or browser has been closed",
-   "forms-email: browser.newContext: Target page, context or browser has been closed",
-   "nl-sources: browser.newContext: Target page, context or browser has been closed",
-   "nl-list: browser.newContext: Target page, context or browser has been closed",
-   "nl-remove: browser.newContext: Target page, context or browser has been closed",
-   "nl-export: browser.newContext: Target page, context or browser has been closed",
-   "nl-mailchimp: browser.newContext: Target page, context or browser has been closed",
-   "nl-zoho: browser.newContext: Target page, context or browser has been closed",
-   "nl-results: browser.newContext: Target page, context or browser has been closed"
+   "event-edit.mp4: 64 s (target 30–60)",
+   "job-add.mp4: 63 s (target 30–60)",
+   "forms-export.mp4: 27 s (target 30–60)",
+   "nl-remove: page.goto: net::ERR_TOO_MANY_REDIRECTS at http://localhost:8080/plevents/\nCall log:\n\u001b[2m  - navigating to \"http://localhost:8080/plevents/\", waiting until \"load\"\u001b[22m\n",
+   "nl-export.mp4: 28 s (target 30–60)"
   ]
  }
 }
